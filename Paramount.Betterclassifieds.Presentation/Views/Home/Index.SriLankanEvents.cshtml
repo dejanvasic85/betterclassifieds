@@ -24,7 +24,7 @@
 @section Scripts
 {
     <script>
-        $(function() {
+        $(function () {
             $paramount.ui.home.init();
         });
     </script>
@@ -105,7 +105,7 @@
 
                             @for (var r = 0; r < latestAdsRowCount; r++)
                             {
-                                var adsToDisplay = Model.AdSummaryList.Skip(r*3).Take(3);
+                                var adsToDisplay = Model.AdSummaryList.Skip(r * 3).Take(3);
                                 var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
 
                                 <div class="@itemClass">
@@ -165,30 +165,42 @@
         </div>
     </div>
 
-    <div class="row top-buffer-40">
+</div>
+<section class="home-impact">
+    <div class="container">
+        <div class="row">
 
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <p>
-                    Design your <strong>free online ad</strong> now. Use your mobile, tablet or PC.
-                </p>
-                <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
-                <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
-                </p>
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-ticket fa-3x wow fadeInLeft"></i>
+                    </h1>
+                    <h3>Quick & Simple Ticketing</h3>
+                    <p class="lead">
+                        In just a few steps, you can have your event online
+                        with flexible ticketing options.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.Booking()">Get Started <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <p>
-                    Need help or suggestion to improve this website?
-                </p>
-                <img src="@Url.Content("~/Content/images/support.jpg")" class="img-stretch" alt="support" />
-                <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("ContactUs", "Home")" role="button">Contact Us &raquo;</a>
-                </p>
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-credit-card fa-3x wow fadeInRight"></i>
+                    </h1>
+                    <h3>Pricing</h3>
+                    <p class="lead">
+                        Our fees are very competitive. No charge for events with free tickets.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.EventPricing()">Our Pricing <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
-</div>
+</section>

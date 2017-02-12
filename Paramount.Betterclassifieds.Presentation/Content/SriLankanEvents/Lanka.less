@@ -1,4 +1,4 @@
-﻿@color_primary: #228b22;
+﻿@color_primary: #005641;
 @color_secondary: #fafafa;
 @font-color: #333333;
 
@@ -18,7 +18,8 @@ body {
 }
 
 .alert-warning {
-    background-color: #c27802;
+    color: #c27802;
+    background-color: @color_secondary;
 }
 
 .event-dashboard {
@@ -47,6 +48,8 @@ body {
 */
 
 .mast-head {
+    background-image: url('img/hero.jpg');
+
     a {
         color: #fff;
     }
@@ -62,6 +65,23 @@ body {
     .col-item {
         border: 1px solid #E1E1E1;
         background: #FFF;
+
+        .photo {
+
+            .ico-img {
+                color: @color_primary;
+            }
+        }
+
+    }
+}
+
+/*
+    Home impact
+*/
+.home-impact {
+    h1 {
+        color: #005641;
     }
 }
 /*

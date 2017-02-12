@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             public const string FieldNameInput = "[data-bind='value: fieldName']";
             public const string TicketNameInput = "txtTicketName";
             public const string PriceInput = "txtTicketPrice";
-            public const string QuantityInput = "txtTicketQuantity";
+            public const string AvailableQuantity = "txtAvailableQuantity";
         }
 
         [FindsBy(How = How.Id, Using = Locators.CreateNewTicketButton)]
@@ -47,8 +47,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = Locators.PriceInput)]
         public IWebElement PriceInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = Locators.QuantityInput)]
-        public IWebElement QuantityInput { get; set; }
+        [FindsBy(How = How.Id, Using = Locators.AvailableQuantity)]
+        public IWebElement AvailableQuantityInput { get; set; }
 
         public ManageTicketsPage WithNewTicket()
         {
@@ -72,16 +72,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             return this;
         }
 
-        public ManageTicketsPage WithQuantity(int qty)
+        public ManageTicketsPage WithAvailableQuantity(int qty)
         {
-            QuantityInput.FillText(qty.ToString());
+            AvailableQuantityInput.FillText(qty.ToString());
             return this;
         }
 
         public void Save()
         {
             _webDriver.JsClick(SaveTicketButton);
-            Thread.Sleep(1000); // Wait a little until the db record is persisted
+            Thread.Sleep(800); // Wait a little until the db record is persisted
         }
 
         public ManageTicketsPage WithField(string fieldName, bool isRequired)

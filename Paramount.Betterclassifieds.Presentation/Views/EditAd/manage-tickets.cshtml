@@ -44,7 +44,7 @@
     </div>
     
     <div class="row bounceIn top-buffer-20" data-bind="visible: isCreateEnabled">
-        <div class="col-md-offset-2 col-md-8 well">
+        <div class="col-md-offset-2 col-md-8 well" id="createTicketForm">
             <ticket-editor data-bind="visible: isCreateEnabled" params="{adId: @Model.Id, eventId: @Model.EventId, onSave : ticketSaved}"></ticket-editor>
         </div>
     </div>
@@ -84,8 +84,10 @@
                                 <div class="panel-heading">
                                     <h4>
                                         <i class="fa fa-ticket"></i>
+                                        <span data-bind="visible: isActive() === false">*NOT ACTIVE - </span>
                                         <span data-bind="text: ticketName"></span>
                                         <span data-bind="text: priceFormatted"></span>
+                                       
                                     </h4>
                                 </div>
                                 <div class="panel-body">

@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         private readonly PageBrowser _pageBrowser;
         private readonly ContextData<EventAdContext> _eventAdContext;
         private readonly ITestDataRepository _repository;
-
+        
         public ManageTicketSteps(PageBrowser pageBrowser, ContextData<EventAdContext> eventAdContext,
             ITestDataRepository repository)
         {
@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             page.WithNewTicket()
                 .WithTicketName(ticketName)
                 .WithPrice(price)
-                .WithQuantity(quantity)
+                .WithAvailableQuantity(quantity)
                 .WithField(fieldName, false)
                 .Save();
         }
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void WhenIEditTheTicket(string ticketName)
         {
             var page = _pageBrowser.Init<ManageTicketsPage>(_eventAdContext.Get().AdId, _eventAdContext.Get().EventId);
-            int ticketId;
+            int ticketId;   
             page.EditTicket(ticketName, out ticketId);
             ScenarioContext.Current.Add("editTicketId", ticketId);
         }

@@ -22,6 +22,9 @@
         }
 
         me.ticketSaved = function (newTicketDetails) {
+            toastr.success('Ticket ' + newTicketDetails.ticketName + ' has been added successfully.');
+            newTicketDetails.soldQty = 0;
+            newTicketDetails.adId = me.id();
             me.tickets.push(new $p.models.EventTicket(newTicketDetails));
             me.isCreateEnabled(false);
         }

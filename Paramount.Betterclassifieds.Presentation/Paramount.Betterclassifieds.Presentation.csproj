@@ -483,6 +483,7 @@
     <Content Include="Content\KandoBay\kando.nav.min.css">
       <DependentUpon>kando.nav.css</DependentUpon>
     </Content>
+    <Content Include="Content\SriLankanEvents\ico\favicon.ico" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
@@ -510,7 +511,9 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\images\hero-bg.JPG" />
+    <Content Include="Content\SriLankanEvents\img\logo-nav.png" />
     <Content Include="Content\SriLankanEvents\img\logo.png" />
+    <Content Include="Content\SriLankanEvents\img\logo-nav-1.png" />
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
     </Content>

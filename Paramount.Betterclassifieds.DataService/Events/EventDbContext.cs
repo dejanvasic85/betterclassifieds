@@ -40,6 +40,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public IDbSet<EventInvitation> EventInvitations { get; set; }
         public IDbSet<Address> Addresses { get; set; }
         public IDbSet<EventGroup> EventGroups { get; set; }
+        public IDbSet<EventOrganiser> EventOganisers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

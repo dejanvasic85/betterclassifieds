@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? EventEndDateUtc { get; set; }
         public IList<EventTicket> Tickets { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
+        public IList<EventOrganiser> EventOrganisers { get; set; }
         
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }

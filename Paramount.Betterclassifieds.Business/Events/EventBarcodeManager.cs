@@ -56,7 +56,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 return EventBookingTicketValidationResult.PartialSuccess();
             }
 
-            // Create the validation for the first time
+            // CreateRepository the validation for the first time
             _eventRepository.CreateEventBookingTicketValidation(new EventBookingTicketValidation(eventBookingTicketId));
             return EventBookingTicketValidationResult.Success(eventModel, eventBookingTicket);
         }

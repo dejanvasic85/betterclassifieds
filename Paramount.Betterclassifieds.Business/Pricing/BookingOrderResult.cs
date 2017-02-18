@@ -74,7 +74,7 @@ namespace Paramount.Betterclassifieds.Business
 
         public void AddOnlineRate(params OnlineChargeItem[] onlineLineItems)
         {
-            // Create the online 'publication'
+            // CreateRepository the online 'publication'
             if (this.OnlineBookingAdRate == null)
                 this.OnlineBookingAdRate = new BookingAdRateResult("Online", BookingReference, null);
 

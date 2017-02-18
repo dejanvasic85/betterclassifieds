@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<IBookCartRepository, BookCartDocumentRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
-                .RegisterType<ICategoryAdRepositoryFactory, CategoryRepositoryFactory>()
+                .RegisterType<ICategoryAdFactory, CategoryFactory>()
 
                 // Events
                 .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), "Event")

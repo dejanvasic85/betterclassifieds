@@ -11,20 +11,20 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
     public class BookingManager : IBookingManager
     {
-        
+
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
         {
-            // Create a new extension model
+            // CreateRepository a new extension model
             var extension = new AdBookingExtensionModel
-                {
-                    AdBookingId = adBookingId,
-                    Insertions = numberOfInsertions,
-                    LastModifiedDate = DateTime.Now,
-                    LastModifiedUserId = username,
-                    ExtensionPrice = price,
-                    Status = status,
-                    IsOnlineOnly = isOnlineOnly
-                };
+            {
+                AdBookingId = adBookingId,
+                Insertions = numberOfInsertions,
+                LastModifiedDate = DateTime.Now,
+                LastModifiedUserId = username,
+                ExtensionPrice = price,
+                Status = status,
+                IsOnlineOnly = isOnlineOnly
+            };
 
             _bookingRepository.AddBookingExtension(extension);
 
@@ -45,14 +45,18 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             var ads = _bookingRepository.GetUserBookings(username, takeMax);
 
-            int[] onlineAds = _eventRepository.GetEventsForOrganiser(username)
-                .Select(e => e.OnlineAdId)
+            // Each category ad type (e.g. Events) could have other ways of authorisation to an ad
+            // E.g. EventOrganiser
+            var onlineAdIds =
+                _categoryAdFactory.CreateAuthorisers()
+                .SelectMany(a => a.GetAdsForUser(username))
+                .Distinct()
                 .ToArray();
 
-            if (onlineAds.Length > 0)
+            if (onlineAdIds.Length > 0)
             {
-                var adsAsEventOrganiser =_bookingRepository.GetBookingsForOnlineAds(onlineAds);
-                return ads.Union(adsAsEventOrganiser.AsEnumerable(), new AdBookingIdComparer());
+                var adsAsEventOrganiser = _bookingRepository.GetBookingsForOnlineAds(onlineAdIds);
+                return ads.Union(adsAsEventOrganiser, new AdBookingIdComparer());
             }
 
             return ads;
@@ -112,7 +116,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
                 isOnlineOnly = _bookingRepository.IsBookingOnlineOnly(adBookingId);
             }
 
-            // Create the booking extension
+            // CreateRepository the booking extension
             var extension = CreateExtension(adBookingId, numberOfInsertions, username, price, extensionStatus, isOnlineOnly.Value);
 
             // Then extend it :)
@@ -132,7 +136,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public void SubmitAdEnquiry(AdEnquiry adEnquiry)
         {
-            // Create enquiry in Db
+            // CreateRepository enquiry in Db
             _adRepository.CreateAdEnquiry(adEnquiry);
 
             var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
@@ -157,19 +161,19 @@ namespace Paramount.Betterclassifieds.Business.Booking
             if (!adBookingId.HasValue)
                 throw new Exception("AdBookingId was not returned when trying to create a new booking");
 
-            // Create the order details in the database 
+            // CreateRepository the order details in the database 
             // that are used for invoice details 
             _bookingRepository.CreateBookingOrder(bookingOrder, adBookingId.Value);
 
             if (bookingCart.CategoryAdType.HasValue())
             {
-                var categoryAdRepository = _categoryAdRepositoryFactory.Create(bookingCart);
+                var categoryAdRepository = _categoryAdFactory.CreateRepository(bookingCart);
                 var categoryAd = bookingCart.GetCategoryAd();
                 categoryAd.OnlineAdId = bookingCart.OnlineAdModel.OnlineAdId;
                 categoryAdRepository.Add(categoryAd);
             }
 
-            // Create the line ad
+            // CreateRepository the line ad
             if (!bookingCart.IsLineAdIncluded)
                 return adBookingId;
 
@@ -304,7 +308,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         private readonly IPaymentsRepository _payments;
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
-        private readonly ICategoryAdRepositoryFactory _categoryAdRepositoryFactory;
+        private readonly ICategoryAdFactory _categoryAdFactory;
         private readonly IDateService _dateService;
         private readonly IEventRepository _eventRepository;
 
@@ -314,9 +318,9 @@ namespace Paramount.Betterclassifieds.Business.Booking
             IPaymentsRepository payments,
             IAdRepository adRepository,
             IUserManager userManager,
-            IBroadcastManager broadcastManager, 
-            ICategoryAdRepositoryFactory categoryAdRepositoryFactory, 
-            IDateService dateService, 
+            IBroadcastManager broadcastManager,
+            ICategoryAdFactory categoryAdFactory,
+            IDateService dateService,
             IEventRepository eventRepository)
         {
             _bookingRepository = bookingRepository;
@@ -326,7 +330,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             _adRepository = adRepository;
             _userManager = userManager;
             _broadcastManager = broadcastManager;
-            _categoryAdRepositoryFactory = categoryAdRepositoryFactory;
+            _categoryAdFactory = categoryAdFactory;
             _dateService = dateService;
             _eventRepository = eventRepository;
         }

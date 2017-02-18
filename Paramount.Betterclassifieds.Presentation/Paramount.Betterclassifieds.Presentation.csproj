@@ -268,7 +268,7 @@
     <Compile Include="Services\AdText.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
     <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />
-    <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />
+    <Compile Include="Framework\Factories\CategoryFactory.cs" />
     <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\Filters\AuthorizeCartIdentity.cs" />
     <Compile Include="Framework\Filters\BookingCategoryTypeRequired.cs" />

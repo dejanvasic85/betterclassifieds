@@ -43,9 +43,9 @@
 
     </div>
     
-    <div class="row bounceIn top-buffer-20" data-bind="visible: isCreateEnabled">
+    <div class="row bounceIn top-buffer-20" data-bind="visible: isCreateRepositoryEnabled">
         <div class="col-md-offset-2 col-md-8 well" id="createTicketForm">
-            <ticket-editor data-bind="visible: isCreateEnabled" params="{adId: @Model.Id, eventId: @Model.EventId, onSave : ticketSaved}"></ticket-editor>
+            <ticket-editor data-bind="visible: isCreateRepositoryEnabled" params="{adId: @Model.Id, eventId: @Model.EventId, onSave : ticketSaved}"></ticket-editor>
         </div>
     </div>
 

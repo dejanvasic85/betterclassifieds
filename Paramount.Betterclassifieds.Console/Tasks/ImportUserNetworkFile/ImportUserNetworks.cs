@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Console.Tasks
                             record.Email,
                             record.FullName);
 
-                        // Create the invite
+                        // CreateRepository the invite
                         _eventManager.CreateInvitationForUserNetwork(_eventId, person.UserNetworkId.GetValueOrDefault());
 
                         scope.Complete();

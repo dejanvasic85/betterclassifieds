@@ -56,10 +56,11 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IBookCartRepository, BookCartDocumentRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
-                .RegisterType<ICategoryAdRepositoryFactory, CategoryRepositoryFactory>()
+                .RegisterType<ICategoryAdFactory, CategoryFactory>()
 
                 // Events
-                .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), "Event")
+                .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), CategoryAdType.Event)
+                .RegisterType(typeof(ICategoryAdAuthoriser), typeof(EventAccess), CategoryAdType.Event)
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
                 .RegisterType<IEventBarcodeValidator, EventBarcodeValidator>()

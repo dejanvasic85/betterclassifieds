@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Business
                 .SetConfirmationCode(_confirmationCodeGenerator.GenerateCode())
                 ;
 
-            // Create in the database
+            // CreateRepository in the database
             _userRepository.CreateRegistration(registrationModel);
 
             if (isConfirmationRequired)

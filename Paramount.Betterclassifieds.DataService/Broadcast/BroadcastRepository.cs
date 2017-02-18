@@ -37,7 +37,7 @@
                 }
                 else
                 {
-                    // Create
+                    // CreateRepository
                     context.Notifications.Add(notification);
                 }
                 context.SaveChanges();
@@ -71,7 +71,7 @@
             {
                 if (email.EmailDeliveryId == null || email.EmailDeliveryId == default(int))
                 {
-                    // Create
+                    // CreateRepository
                     context.Emails.Add(email);
                 }
                 else

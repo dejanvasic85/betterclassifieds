@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
                     .Include(e => e.Address)
+                    .Include(e => e.EventOrganisers)
                     .SingleOrDefault(e => e.EventId == eventId);
 
                 if (eventModel == null)
@@ -68,6 +69,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
                     .Include(e => e.Address)
+                    .Include(e => e.EventOrganisers)
                     .SingleOrDefault(e => e.OnlineAdId == onlineAdId);
 
                 if (eventModel != null && includeBookings)

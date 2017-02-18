@@ -66,10 +66,12 @@
     <Compile Include="Broadcast\DocTypes\EventPaymentRequest.cs" />
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />
+    <Compile Include="CategoryAdType.cs" />
     <Compile Include="ContentType.cs" />
     <Compile Include="Csv\CsvGenerator.cs" />
     <Compile Include="Csv\GenericCsvLineProvider.cs" />
     <Compile Include="Csv\ICsvLineProvider.cs" />
+    <Compile Include="Events\EventAccess.cs" />
     <Compile Include="Events\EventOrganiser.cs" />
     <Compile Include="Events\EventBarcodeManager.cs" />
     <Compile Include="Events\EventBookingFactory.cs" />
@@ -109,8 +111,9 @@
     <Compile Include="Events\TicketPrice.cs" />
     <Compile Include="IBarcodeGenerator.cs" />
     <Compile Include="IBusinessRule.cs" />
+    <Compile Include="ICategoryAdAuthoriser.cs" />
     <Compile Include="ICategoryAdRepository.cs" />
-    <Compile Include="ICategoryAdRepositoryFactory.cs" />
+    <Compile Include="ICategoryAdFactory.cs" />
     <Compile Include="Broadcast\DocTypes\AdShare.cs" />
     <Compile Include="Booking\BookingCart.cs" />
     <Compile Include="Booking\IBookCartRepository.cs" />

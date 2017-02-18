@@ -174,7 +174,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             CancelReservationsForSession(sessionId);
 
-            // Create reservation for each request
+            // CreateRepository reservation for each request
             foreach (var r in reservations)
             {
                 _eventRepository.CreateEventTicketReservation(r);
@@ -600,7 +600,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var t = tickets?.ToList() ?? new List<int>();
 
-            // Create the new event group
+            // CreateRepository the new event group
             var eventGroup = new EventGroup
             {
                 EventId = eventId,

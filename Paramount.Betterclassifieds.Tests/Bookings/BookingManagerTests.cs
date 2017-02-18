@@ -1,3 +1,5 @@
+using Paramount.Betterclassifieds.Business.Events;
+
 namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
     using Microsoft.Practices.Unity;
@@ -132,6 +134,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IBookCartRepository> _cartRepositoryMock;
         private Mock<ICategoryAdRepositoryFactory> _categoryAdRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
+        private Mock<IEventRepository> _eventRepositoryMock;
 
         [SetUp]
         public void Setup()
@@ -152,6 +155,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
             _categoryAdRepositoryMock = _mockRepository.CreateMockOf<ICategoryAdRepositoryFactory>(_container);
             _dateServiceMock = _mockRepository.CreateMockOf<IDateService>(_container);
+            _eventRepositoryMock = _mockRepository.CreateMockOf<IEventRepository>(_container);
         }
     }
 }

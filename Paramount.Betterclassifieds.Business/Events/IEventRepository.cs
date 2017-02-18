@@ -7,6 +7,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         // Event
         EventModel GetEventDetails(int eventId);
+        IEnumerable<EventModel> GetEventsForOrganiser(string username);
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventTicket GetEventTicketDetails(int ticketId, bool includeReservations = false);
         EventBooking GetEventBooking(int eventBookingId, bool includeTickets = false, bool includeEvent = false);
@@ -32,6 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CreateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void CreateEventInvitation(EventInvitation eventInvitation);
         void CreateEventGroup(EventGroup eventGroup, IEnumerable<int> tickets);
+        void CreateEventOrganiser(EventOrganiser eventOrganiser);
 
         void UpdateEvent(EventModel eventModel);
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
@@ -45,5 +47,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventBookingTicketField(EventBookingTicketField eventBookingTicketField);
         void UpdateEventGroupStatus(int eventGroupId, bool isDisabled);
         void UpdateEventTicketIncudingFields(EventTicket eventTicket);
+        
     }
 }

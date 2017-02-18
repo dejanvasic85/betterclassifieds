@@ -1,12 +1,7 @@
 ﻿using Paramount.Betterclassifieds.Business.Events;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Paramount.Betterclassifieds.DataService.Events.EntityConfigurations
+namespace Paramount.Betterclassifieds.DataService.Events
 {
     public class EventOrganiserConfiguration : EntityTypeConfiguration<EventOrganiser>
     {

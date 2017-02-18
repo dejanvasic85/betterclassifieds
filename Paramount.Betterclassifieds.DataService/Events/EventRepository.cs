@@ -50,6 +50,17 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public IEnumerable<EventModel> GetEventsForOrganiser(string username)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventOrganisers
+                    .Where(eo => eo.UserId == username)
+                    .Select(eo => eo.Event)
+                    .ToList();
+            }
+        }
+
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -301,6 +312,15 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     new SqlParameter("availableToAllTickets", SqlDbType.Bit) { SqlValue = eventGroup.AvailableToAllTickets.SqlNullIfEmpty() },
                     new SqlParameter("isDisabled", eventGroup.IsDisabled),
                     new SqlParameter("tickets", SqlDbType.VarChar) { SqlValue = (tickets == null ? "" : string.Join(",", tickets)).SqlNullIfEmpty() });
+            }
+        }
+
+        public void CreateEventOrganiser(EventOrganiser eventOrganiser)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventOrganisers.Add(eventOrganiser);
+                context.SaveChanges();
             }
         }
 

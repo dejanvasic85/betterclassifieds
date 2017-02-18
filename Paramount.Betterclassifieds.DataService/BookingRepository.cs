@@ -53,6 +53,31 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public List<AdBookingModel> GetBookingsForOnlineAds(int[] onlineAds)
+        {
+            var results = new List<AdBookingModel>(onlineAds.Length);
+
+            using (var context = _dbContextFactory.CreateClassifiedContext())
+            {
+                foreach (var onlineAdId in onlineAds)
+                {
+                    var data = context.OnlineAds
+                        .Single(o => o.OnlineAdId == onlineAdId)
+                        .AdDesign
+                        .Ad
+                        .AdBookings
+                        .ToArray();
+
+                    if(data.Length > 1)
+                        throw new ApplicationException($"There are multiple bookings for online ad {onlineAdId}");
+
+                    results.AddRange(MapToModels(data, withOnlineAd: true, withLineAd: true, withPublications: true));
+                }
+            }
+
+            return results;
+        }
+
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
@@ -109,7 +134,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     {
                         var onlineAdDataModel = adBookingData.Ad.AdDesigns.First(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId).OnlineAds.Single();
                         var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
-                    
+
                         onlineAd.Images.AddRange(onlineAdDataModel
                             .With(o => o.AdDesign)
                             .With(d => d.AdGraphics)
@@ -150,7 +175,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return this.MapList<Classifieds.BookEntry, BookEntryModel>(bookEntryList);
             }
         }
-        
+
         public OnlineAdModel GetOnlineAd(int adId)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())

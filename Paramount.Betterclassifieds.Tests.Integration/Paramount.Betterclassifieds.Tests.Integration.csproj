@@ -67,6 +67,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BookingRepositoryTests.cs" />
     <Compile Include="DocumentRepositoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="StripeIntegrationTests.cs" />

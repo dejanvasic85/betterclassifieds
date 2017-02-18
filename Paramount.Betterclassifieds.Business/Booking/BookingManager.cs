@@ -1,4 +1,5 @@
-﻿namespace Paramount.Betterclassifieds.Business.Booking
+﻿
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +7,7 @@
     using Broadcast;
     using Print;
     using Payment;
+    using Events;
 
     public class BookingManager : IBookingManager
     {
@@ -41,7 +43,19 @@
 
         public IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax)
         {
-            return _bookingRepository.GetUserBookings(username, takeMax);
+            var ads = _bookingRepository.GetUserBookings(username, takeMax);
+
+            int[] onlineAds = _eventRepository.GetEventsForOrganiser(username)
+                .Select(e => e.OnlineAdId)
+                .ToArray();
+
+            if (onlineAds.Length > 0)
+            {
+                var adsAsEventOrganiser =_bookingRepository.GetBookingsForOnlineAds(onlineAds);
+                return ads.Union(adsAsEventOrganiser.AsEnumerable(), new AdBookingIdComparer());
+            }
+
+            return ads;
         }
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
@@ -292,6 +306,7 @@
         private readonly IBroadcastManager _broadcastManager;
         private readonly ICategoryAdRepositoryFactory _categoryAdRepositoryFactory;
         private readonly IDateService _dateService;
+        private readonly IEventRepository _eventRepository;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
@@ -299,7 +314,10 @@
             IPaymentsRepository payments,
             IAdRepository adRepository,
             IUserManager userManager,
-            IBroadcastManager broadcastManager, ICategoryAdRepositoryFactory categoryAdRepositoryFactory, IDateService dateService)
+            IBroadcastManager broadcastManager, 
+            ICategoryAdRepositoryFactory categoryAdRepositoryFactory, 
+            IDateService dateService, 
+            IEventRepository eventRepository)
         {
             _bookingRepository = bookingRepository;
             _publicationRepository = publicationRepository;
@@ -310,6 +328,7 @@
             _broadcastManager = broadcastManager;
             _categoryAdRepositoryFactory = categoryAdRepositoryFactory;
             _dateService = dateService;
+            _eventRepository = eventRepository;
         }
 
     }

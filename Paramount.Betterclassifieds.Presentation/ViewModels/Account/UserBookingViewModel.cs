@@ -27,16 +27,17 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             ParentCategoryName = ad.ParentCategoryName;
             CategoryName = ad.CategoryName;
 
-            Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel
-            {
-                FullName = enq.FullName,
-                AdId = ad.AdBookingId,
-                Email = enq.Email,
-                Question = enq.EnquiryText,
-                CreatedDate = enq.CreatedDate.ToString("dd-MMM-yyyy")
-            })
+            Messages = ad.Enquiries?
+                .Select(enq => new AdEnquiryViewModel
+                {
+                    FullName = enq.FullName,
+                    AdId = ad.AdBookingId,
+                    Email = enq.Email,
+                    Question = enq.EnquiryText,
+                    CreatedDate = enq.CreatedDate.ToString("dd-MMM-yyyy")
+                })
                 .OrderByDescending(enq => enq.CreatedDate)
-                .ToArray();
+                .ToArray() ?? new AdEnquiryViewModel[0];
         }
 
         public string CategoryFontIcon { get; set; }
@@ -63,7 +64,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string AdImageId { get; set; }
         public string AdPublishedDateDescription { get; set; }
         public int Visits { get; set; }
-        public int MessageCount => this.Messages.Length;
+        public int MessageCount => this.Messages?.Length ?? 0;
         public string Status { get; set; }
         public AdEnquiryViewModel[] Messages { get; set; }
         public decimal TotalPrice { get; set; }

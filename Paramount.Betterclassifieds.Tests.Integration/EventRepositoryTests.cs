@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
-using Paramount.Betterclassifieds.DataService.Events;
+using Paramount.Betterclassifieds.DataService.Events; 
 
 namespace Paramount.Betterclassifieds.Tests.Integration
 {
-    [TestFixture("These tests are not executed on the build server and are just used for testing out entity framework repository methods directly.")]
+    [TestFixture()]
     public class EventRepositoryTests
     {
+        private readonly IEventRepository _repository;
+
+        public EventRepositoryTests()
+        {
+            _repository = new EventRepository(
+                new DbContextFactory());
+        }
+
+
         [Test]
         public void GetEventGroups()
         {
@@ -76,6 +85,24 @@ namespace Paramount.Betterclassifieds.Tests.Integration
             };
 
             repository.UpdateEventTicketIncudingFields(ticketToUpdate);
+        }
+
+        [Test]
+        public void CreateEventOrganiser()
+        {
+            var organiser = new EventOrganiser
+            {
+                EventId = 1,
+                UserId = "shia",
+                IsActive = true,
+                LastModifiedBy = "admin",
+                LastModifiedDate = DateTime.Now,
+                LastModifiedDateUtc = DateTime.UtcNow
+            };
+
+           _repository.CreateEventOrganiser(organiser);
+
+            Assert.That(organiser.EventOrganiserId, Is.Not.EqualTo(0));
         }
     }
 }

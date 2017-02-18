@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             bool withEnquiries = false);
 
         List<AdBookingModel> GetUserBookings(string username, int takeMax);
+        List<AdBookingModel> GetBookingsForOnlineAds(int[] onlineAds);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
         [Obsolete("Please use GetUserBookings instead")]
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
@@ -45,6 +46,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         // Images
         void CreateImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId, bool removeExisting = false);
         void DeleteImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+
 
         
     }

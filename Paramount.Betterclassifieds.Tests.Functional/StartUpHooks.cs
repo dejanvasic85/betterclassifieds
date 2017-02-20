@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _configuration = ConfigFactory.CreateConfig();
             _webDriver = GetDriverForBrowser("firefox");
         }
-        
+
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {

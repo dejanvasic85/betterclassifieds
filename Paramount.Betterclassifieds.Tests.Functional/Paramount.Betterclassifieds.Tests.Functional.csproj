@@ -97,6 +97,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EventDashboard.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\EventOrganiserAccess.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventOrganiserAccess.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Mocks\Models\AdTestData.cs" />
+    <Compile Include="Mocks\Models\EventTestData.cs" />
     <Compile Include="Mocks\Models\TicketDetails.cs" />
     <Compile Include="Pages\Events\BookTicketsPage.cs" />
     <Compile Include="ContextData\EventAdContext.cs" />
@@ -136,6 +143,7 @@
     <Compile Include="Pages\Events\ManageGroupsPage.cs" />
     <Compile Include="Pages\Events\ManageGuestsPage.cs" />
     <Compile Include="Pages\Events\ManageTicketsPage.cs" />
+    <Compile Include="Steps\EventOrganiserSteps.cs" />
     <Compile Include="Steps\ManageGroupsSteps.cs" />
     <Compile Include="Pages\Events\RemoveGuestCompletePage.cs" />
     <Compile Include="Pages\Events\TicketSelectionComponent.cs" />
@@ -223,6 +231,7 @@
     <Compile Include="Steps\RegistrationSteps.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
     <Compile Include="ContextData\UserContext.cs" />
+    <Compile Include="Steps\UserAdSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\photo1.jpg" />
@@ -255,6 +264,10 @@
     <None Include="Features\BookEventTickets.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookEventTickets.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\EventOrganiserAccess.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EventOrganiserAccess.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

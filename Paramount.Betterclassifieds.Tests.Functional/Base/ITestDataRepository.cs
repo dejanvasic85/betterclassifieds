@@ -46,6 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         void AddPrintRateForCategoryIfNotExists(string categoryName);
 
         // Events
+        EventTestData GetEventByName(string eventTitle);
         EventBookingData GetEventBooking(int eventId);
         List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId);
         List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId);
@@ -58,6 +59,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         int AddEventInvitationIfNotExists(int eventId, int userNetworkId);
         void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests);
         int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId);
+        int AddEventOrganiser(int eventId, string username);
         void SetEventIncludeTransactionFee(int eventId, bool include);
         void SetEventGroupsRequired(int eventId);
         
@@ -65,7 +67,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         // Address
         int AddAddress(object address);
 
-
-        
     }
 }

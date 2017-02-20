@@ -33,6 +33,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _userContext.Email = email;
         }
 
+        [Given(@"a registered user ""(.*)"" with password ""(.*)"" and email ""(.*)"" exists")]
+        public void GivenARegisteredUserWithPasswordAndEmailExists(string username, string password, string email)
+        {
+            GivenIAmARegisteredUserWithUsernameAndPassword(username, password, email);
+        }
+
+
         [Given(@"The user with username ""(.*)"" and email ""(.*)"" does not exist")]
         public void GivenTheUserWithUsernameDoesNotExist(string username, string email)
         {

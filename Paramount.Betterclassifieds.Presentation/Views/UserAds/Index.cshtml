@@ -47,7 +47,8 @@
             </div>
 
             <div id="adList" class="listing-results" data-bind="foreach: ads">
-                <div class="panel panel-default" data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
+                <div class="panel panel-default" 
+                     data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                     <div class="panel-body">
                         <div class="row">
                             @*Image*@

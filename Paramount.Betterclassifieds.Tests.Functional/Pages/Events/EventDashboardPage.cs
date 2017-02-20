@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
@@ -17,7 +14,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             _webDriver = webDriver;
         }
 
-        
+        [FindsBy(How = How.ClassName, Using = "page-header")]
+        private IWebElement PageHeading { get; set; }
+
         [FindsBy(How = How.Id, Using = "lnkManageGroups")]
         private IWebElement ManageGroupsButton { get; set; }
 
@@ -31,7 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "totalSoldQty")]
         public IWebElement TotalSoldQtyStat { get; set; }
 
-        
+
         public EventDashboardPage ManageGroups()
         {
             ManageGroupsButton.Click();
@@ -50,12 +49,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             return this;
         }
 
-        
+
         public int GetTotalSoldQty()
         {
             return int.Parse(TotalSoldQtyStat.Text);
         }
 
-        
+
+        public string GetEventTitle()
+        {
+            return PageHeading.Text.Replace(" - Event Dashboard", string.Empty);
+        }
     }
 }

@@ -352,5 +352,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(msg, Is.EqualTo("Email has been sent successfully."));
         }
 
+        [Then(@"the event dashboard for ""(.*)"" should display")]
+        public void ThenTheEventDashboardForShouldDisplay(string title)
+        {
+            var eventDashboardPage = _pageBrowser.Init<EventDashboardPage>(ensureUrl: false);
+
+            var eventTitle = eventDashboardPage.GetEventTitle();
+
+            Assert.That(eventTitle, Is.EqualTo(title));
+        }
+
     }
 }

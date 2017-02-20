@@ -83,6 +83,7 @@
             public const string Event = "Event";
             public const string EventInvitation = "EventInvitation";
             public const string EventTicket = "EventTicket";
+            public const string EventOrganiser = "EventOrganiser";
             public const string Transaction = "Transaction";
             public const string EventTicketReservation = "EventTicketReservation";
             public const string EventBooking = "EventBooking";

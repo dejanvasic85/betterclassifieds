@@ -109,6 +109,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public int AddEventOrganiser(int eventId, string username)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Add(Constants.Table.EventOrganiser, new
+                {
+                    eventId,
+                    UserId = username,
+                    LastModifiedBy = "eventAdmin",
+                    LastModifiedDate = DateTime.Now,
+                    LastModifiedDateUtc = DateTime.UtcNow,
+                    IsActive = true
+                });
+            }
+        }
+
         public void SetEventIncludeTransactionFee(int eventId, bool include)
         {
             using (var connection = _connectionFactory.CreateClassifieds())
@@ -122,6 +138,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var connection = _connectionFactory.CreateClassifieds())
             {
                 connection.ExecuteSql("UPDATE [Event] SET [GroupsRequired] = 1 WHERE EventId = @eventId", new { eventId });
+            }
+        }
+
+        public EventTestData GetEventByName(string eventTitle)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Query<EventTestData>(
+                    "select bk.AdBookingId as AdId, o.Heading as Title, e.EventId" +
+                    "from dbo.[Event] e" +
+                    "join dbo.OnlineAd o on o.OnlineAdId = e.OnlineAdId" +
+                    "join dbo.AdDesign d on d.AdDesignId = o.AdDesignId" +
+                    "join dbo.AdBooking bk on bk.AdId = d.AdId" +
+                    "where o.Heading = '" + eventTitle + "'").SingleOrDefault();
             }
         }
 

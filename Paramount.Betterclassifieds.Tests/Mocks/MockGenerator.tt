@@ -37,6 +37,7 @@
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicketField",  "EventTicketField" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventInvitation",  "EventInvitation" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventGroup",  "EventGroup" },	
+		{ "Paramount.Betterclassifieds.Business.Events.EventOrganiser",  "EventOrganiser" },	
 		
 	};
 #>

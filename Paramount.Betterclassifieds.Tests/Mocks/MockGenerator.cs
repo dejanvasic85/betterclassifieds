@@ -563,6 +563,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventBookings = val);
 		}
+		public EventModelMockBuilder WithEventOrganisers(IList<EventOrganiser> val)
+		{ 
+			return WithBuildStep(p => p.EventOrganisers = val);
+		}
 		public EventModelMockBuilder WithLocationFloorPlanDocumentId(String val)
 		{ 
 			return WithBuildStep(p => p.LocationFloorPlanDocumentId = val);
@@ -638,6 +642,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventTicketMockBuilder WithPrice(Decimal val)
 		{ 
 			return WithBuildStep(p => p.Price = val);
+		}
+		public EventTicketMockBuilder WithIsActive(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsActive = val);
 		}
 		public EventTicketMockBuilder WithEventTicketReservations(IList<EventTicketReservation> val)
 		{ 
@@ -742,6 +750,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingTicketMockBuilder WithTicketDocumentId(Guid? val)
 		{ 
 			return WithBuildStep(p => p.TicketDocumentId = val);
+		}
+		public EventBookingTicketMockBuilder WithIsPublic(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsPublic = val);
 		}
 	}
 
@@ -935,6 +947,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventGroupId = val);
 		}
+		public EventTicketReservationMockBuilder WithIsPublic(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsPublic = val);
+		}
 	}
 
 	internal partial class EventGuestDetailsMockBuilder : MockBuilder<EventGuestDetailsMockBuilder, EventGuestDetails>
@@ -982,6 +998,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithGroupName(String val)
 		{ 
 			return WithBuildStep(p => p.GroupName = val);
+		}
+		public EventGuestDetailsMockBuilder WithIsPublic(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsPublic = val);
 		}
 	}
 
@@ -1154,6 +1174,42 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGroupMockBuilder WithIsDisabled(Boolean val)
 		{ 
 			return WithBuildStep(p => p.IsDisabled = val);
+		}
+	}
+
+	internal partial class EventOrganiserMockBuilder : MockBuilder<EventOrganiserMockBuilder, EventOrganiser>
+	{	
+		public EventOrganiserMockBuilder WithEventOrganiserId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventOrganiserId = val);
+		}
+		public EventOrganiserMockBuilder WithEventId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventOrganiserMockBuilder WithEvent(EventModel val)
+		{ 
+			return WithBuildStep(p => p.Event = val);
+		}
+		public EventOrganiserMockBuilder WithUserId(String val)
+		{ 
+			return WithBuildStep(p => p.UserId = val);
+		}
+		public EventOrganiserMockBuilder WithLastModifiedBy(String val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedBy = val);
+		}
+		public EventOrganiserMockBuilder WithLastModifiedDateUtc(DateTime val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDateUtc = val);
+		}
+		public EventOrganiserMockBuilder WithLastModifiedDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDate = val);
+		}
+		public EventOrganiserMockBuilder WithIsActive(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsActive = val);
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
                     .Select(a => GetBaseUrl().ToLower() + string.Format(a.RelativeUrl.ToLower(), query))
                     .Concat(attr.Select(b => GetBaseUrl(true).ToLower() + string.Format(b.RelativeUrl.ToLower(), query)))
                     .ToList();
-
+                
                 // Let's wait until the page is loaded before we initialise the elements
                 var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(60));
                 wait.Until(drv => acceptedUrls.Any(drv.Url.ToLower().Contains));

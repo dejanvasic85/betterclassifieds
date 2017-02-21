@@ -34,10 +34,19 @@ namespace Paramount.Betterclassifieds.Tests
             WithBuildStep(p => p.ClosingDate = DateTime.Now.AddDays(2));
             return this;
         }
-        
+
         public EventModelMockBuilder WithCustomTicket(params EventTicket[] eventTickets)
         {
             return WithTickets(eventTickets.ToList());
+        }
+
+        public EventModelMockBuilder WithOrganiser(EventOrganiser organiser)
+        {
+            this.WithEventOrganisers(new List<EventOrganiser>
+            {
+                organiser
+            });
+            return this;
         }
     }
 }

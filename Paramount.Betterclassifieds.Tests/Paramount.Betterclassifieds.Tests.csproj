@@ -149,6 +149,7 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Csv\CsvGeneratorTests.cs" />
     <Compile Include="Csv\ExcelGuestGeneratorServiceTests.cs" />
+    <Compile Include="Events\EventAccessTests.cs" />
     <Compile Include="Events\EventBarcodeManagerTests.cs" />
     <Compile Include="Events\EventBookingFactoryTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Mocks\EventGroupMockBuilder.cs" />
     <Compile Include="Mocks\EventInvitationMockBuilder.cs" />
     <Compile Include="Mocks\EventModelMockBuilder.cs" />
+    <Compile Include="Mocks\EventOrganiserMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketFieldMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />

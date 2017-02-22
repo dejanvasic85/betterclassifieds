@@ -277,12 +277,12 @@ WHERE EventGroupId IN
 	SELECT EventGroupId FROM EventGroup gr WHERE gr.EventId = @eventId
 );
 
-
 DELETE FROM EventGroup WHERE EventId = @eventId;
 DELETE FROM EventBooking WHERE EventId = @eventId;
 DELETE FROM EventPaymentRequest WHERE EventId = @eventId;
 DELETE FROM EventInvitation WHERE EventId = @eventId;
 DELETE FROM EventTicket WHERE EventId = @eventId;
+DELETE FROM EventOrganiser WHERE EventId = @eventId;
 DELETE FROM [Event] WHERE EventId = @eventId;
 ";
 

@@ -146,12 +146,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var db = _connectionFactory.CreateClassifieds())
             {
                 return db.Query<EventTestData>(
-                    "select bk.AdBookingId as AdId, o.Heading as Title, e.EventId" +
-                    "from dbo.[Event] e" +
-                    "join dbo.OnlineAd o on o.OnlineAdId = e.OnlineAdId" +
-                    "join dbo.AdDesign d on d.AdDesignId = o.AdDesignId" +
-                    "join dbo.AdBooking bk on bk.AdId = d.AdId" +
-                    "where o.Heading = '" + eventTitle + "'").SingleOrDefault();
+                    @"select bk.AdBookingId as AdId, o.Heading as Title, e.EventId 
+                    from dbo.[Event] e 
+                    join dbo.OnlineAd o on o.OnlineAdId = e.OnlineAdId
+                    join dbo.AdDesign d on d.AdDesignId = o.AdDesignId
+                    join dbo.AdBooking bk on bk.AdId = d.AdId 
+                    where o.Heading = '" + eventTitle + "'" + 
+                    @" order by bk.AdBookingId desc").FirstOrDefault();
             }
         }
 

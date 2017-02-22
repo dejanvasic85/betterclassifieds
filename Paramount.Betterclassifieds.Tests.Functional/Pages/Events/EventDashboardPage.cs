@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -9,14 +11,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
     {
         private readonly IWebDriver _webDriver;
 
+        struct Locator
+        {
+            public static By PageHeader = By.ClassName("page-header");
+        }
+
         public EventDashboardPage(IWebDriver webDriver)
         {
             _webDriver = webDriver;
         }
-
-        [FindsBy(How = How.ClassName, Using = "page-header")]
-        private IWebElement PageHeading { get; set; }
-
+        
         [FindsBy(How = How.Id, Using = "lnkManageGroups")]
         private IWebElement ManageGroupsButton { get; set; }
 
@@ -58,7 +62,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public string GetEventTitle()
         {
-            return PageHeading.Text.Replace(" - Event Dashboard", string.Empty);
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            var pageHeading = wait.Until(ExpectedConditions.ElementIsVisible(Locator.PageHeader));
+
+            return pageHeading.Text.Replace(" - Event Dashboard", string.Empty);
         }
     }
 }

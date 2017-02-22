@@ -32,8 +32,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Multiple event organiser access", "In order to manage an event more efficiently\nAs an event organiser\nI want the abi" +
-                    "lity to provide access to other organisers for the same event", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Multiple event organiser access", "In order to manage an event more efficiently\r\nAs an event organiser\r\nI want the a" +
+                    "bility to provide access to other organisers for the same event", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,23 +75,26 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I am logged in as \"eventAssistant\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a registered user \"eventOrganiser\" with password \"password\" and email \"email@org." +
+                    "com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("a registered user \"eventOrganiser\" with password \"password\" and email \"email@admi" +
-                    "n.com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a registered user \"eventAssistant\" with password \"password123\" and email \"assista" +
+                    "nt@org.com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
+ testRunner.And("I am logged in as \"eventAssistant\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
  testRunner.And("an event ad titled \"Event with multiple organisers\" exists for user \"eventOrganis" +
                     "er\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
+#line 12
  testRunner.And("event titled \"Event with multiple organisers\" is assigned to organiser \"eventAssi" +
                     "stant\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.When("I view the user ads page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
- testRunner.Then("I should see the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I view the user ads page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.When("selecting to manage the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("I should see the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
+ testRunner.When("selecting to manage the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
  testRunner.Then("the event dashboard for \"Event with multiple organisers\" should display", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

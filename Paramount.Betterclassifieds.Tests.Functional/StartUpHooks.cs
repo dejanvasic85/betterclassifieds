@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static void SetupPageBrowser()
         {
             _configuration = ConfigFactory.CreateConfig();
-            _webDriver = GetDriverForBrowser("chrome");
+            _webDriver = GetDriverForBrowser("firefox");
         }
 
         [BeforeScenario]

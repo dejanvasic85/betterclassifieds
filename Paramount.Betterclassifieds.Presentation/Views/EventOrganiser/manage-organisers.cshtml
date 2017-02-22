@@ -1,0 +1,49 @@
+﻿@model ManageOrganisersViewModel
+
+
+@{
+    ViewBag.Title = "Manage Event Organisers";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            console.log(data);
+        });
+    </script>
+}
+
+<div class="container top-buffer-60" id="manageOrganisers">
+    <h2 class="page-header">
+        Manage Event Organisers
+    </h2>
+    <p>
+        Provide access to other team members that can manage your event.
+    </p>
+    
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
+            <button id="btnAddOrganiser" class="btn btn-primary btn-block" 
+                    @*data-bind="click: addOrganiser"*@
+                    >
+                <i class="fa fa-plus-circle"></i>
+                Add Organiser
+            </button>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="@Url.EventDashboard(Model.AdId)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-sm">Event</span>
+                Dashboard
+            </a>
+        </div>
+
+    </div>
+
+</div>

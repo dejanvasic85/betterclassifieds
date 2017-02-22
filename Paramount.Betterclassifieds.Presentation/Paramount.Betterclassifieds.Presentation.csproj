@@ -235,6 +235,7 @@
     <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\EventOrganiserController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
     <Compile Include="Services\EventNotificationFactory.cs" />
+    <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketFieldViewModel.cs" />
@@ -1005,6 +1007,7 @@
     <Content Include="Views\Account\confirm-event-organiser.cshtml" />
     <Content Include="Views\EditAd\edit-ticket.cshtml" />
     <Content Include="Views\EditAd\manage-guests.cshtml" />
+    <Content Include="Views\EventOrganiser\manage-organisers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

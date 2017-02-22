@@ -171,6 +171,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(!_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost, Authorize]
+        public ActionResult Find(string email)
+        {
+            var user = _userManager.GetUserByEmail(email);
+            
+            return Json(user != null);
+        }
+
         public JsonResult ForgotPassword(string email)
         {
             var user = _userManager.GetUserByEmailOrUsername(email);

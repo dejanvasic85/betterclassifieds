@@ -640,5 +640,24 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             _eventRepository.UpdateEvent(eventModel);
         }
+
+        public EventOrganiser CreateEventOrganiser(int eventId, string username)
+        {
+            var currentUser = _userManager.GetCurrentUser();
+
+            var eventOrganiser = new EventOrganiser
+            {
+                EventId = eventId,
+                UserId = username,
+                IsActive = true,
+                LastModifiedDate = _dateService.Now,
+                LastModifiedDateUtc = _dateService.UtcNow,
+                LastModifiedBy = currentUser.Username
+            };
+
+            _eventRepository.CreateEventOrganiser(eventOrganiser);
+
+            return eventOrganiser;
+        }
     }
 }

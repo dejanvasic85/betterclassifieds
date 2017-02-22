@@ -101,14 +101,14 @@
 
         <div class="col-xs-12">
             <div class="action-item clearfix">
-                <h3>Event Details</h3>
+                <h3> <i class="fa fa-edit"></i> Event Details</h3>
                 <p class="action-info">
                     Some details may be modified if your event has been published or
                     tickets have been purchased.
                 </p>
                 <div class="action-btn">
                     <a href="@Url.EditEventDetails(Model.AdId)" class="btn btn-primary js-load">
-                        Edit Details <i class="fa fa-edit"></i>
+                        Edit Details 
                     </a>
                 </div>
             </div>
@@ -118,12 +118,12 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Ticketing
+                    <i class="fa fa-ticket"></i> Ticketing
                 </h3>
                 <p class="action-info">Add or change your ticket structure here. See what people are buying and what is remaining.</p>
                 <div class="action-btn">
                     <a href="@Url.EventTicketManagement(Model.AdId, Model.EventId)" id="lnkManageTickets" class="btn btn-primary js-load">
-                        Manage Tickets <i class="fa fa-ticket"></i>
+                        Manage Tickets 
                     </a>
                 </div>
             </div>
@@ -133,12 +133,12 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Groups
+                    <i class="fa fa-group"></i> Groups
                 </h3>
                 <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
                 <div class="action-btn">
                     <a id="lnkManageGroups" class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
-                        Manage Groups <i class="fa fa-group"></i>
+                        Manage Groups 
                     </a>
                 </div>
             </div>
@@ -148,12 +148,12 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Guests
+                    <i class="fa fa-user"></i> Guests
                 </h3>
                 <p class="action-info">See who's coming, edit their details or transfer tickets.</p>
                 <div class="action-btn">
                     <a id="lnkManageGuests" class="btn btn-primary js-load" href="@Url.ManageGuests(Model.AdId, Model.EventId)">
-                        Manage Guests <i class="fa fa-user"></i>
+                        Manage Guests 
                     </a>
                 </div>
             </div>
@@ -162,14 +162,14 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Organisers
+                    <i class="fa fa-bolt"></i> Organisers
                 </h3>
                 <p class="action-info">
                     Add / Remove other users that can manage your event.
                 </p>
                 <div class="action-btn">
-                    <a id="lnkManageOrganisers" class="btn btn-primary js-load" href="@Url.ManageGuests(Model.AdId, Model.EventId)">
-                        Manage Organisers <i class="fa fa-user"></i>
+                    <a id="lnkManageOrganisers" class="btn btn-primary js-load" href="@Url.ManageEventOrganisers(Model.AdId, Model.EventId)">
+                        Manage Organisers 
                     </a>
                 </div>
 
@@ -180,11 +180,11 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Close Event
+                    <i class="fa fa-ban"></i> Close Event
                 </h3>
                 <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
                 <div class="action-btn">
-                    <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close Event <i class="fa fa-ban"></i></button>
+                    <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close Event</button>
                     <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
                 </div>
             </div>

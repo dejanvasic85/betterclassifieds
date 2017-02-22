@@ -690,10 +690,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        
+
+
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
             configuration.RecognizePrefixes("OnlineAd", "Line");
+
+            configuration.CreateMap<EventOrganiser, EventOrganiserViewModel>().ReverseMap();
 
             // To view model
             configuration.CreateMap<OnlineAdModel, EditAdDetailsViewModel>()

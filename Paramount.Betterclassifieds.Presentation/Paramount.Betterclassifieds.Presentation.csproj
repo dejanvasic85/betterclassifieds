@@ -249,6 +249,7 @@
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowController.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowManager.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowTable.cs" />
+    <Compile Include="Framework\Filters\AuthorizeEventAccess.cs" />
     <Compile Include="Framework\Filters\EnsurePaymentNotInProgressAttribute.cs" />
     <Compile Include="Framework\Filters\EventBookingRequiredAttribute.cs" />
     <Compile Include="Framework\Filters\LoggingFilter.cs" />
@@ -598,6 +599,11 @@
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
     <Content Include="Scripts\app\events\guest-settings.js" />
+    <Content Include="Scripts\app\events\organisers\add-organiser.js" />
+    <Content Include="Scripts\app\events\organisers\add-organiser.html" />
+    <Content Include="Scripts\app\events\organisers\event-organiser.js" />
+    <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
+    <Content Include="Scripts\app\events\organisers\organiser-service.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.html" />
     <Content Include="Scripts\app\events\event.service.js" />

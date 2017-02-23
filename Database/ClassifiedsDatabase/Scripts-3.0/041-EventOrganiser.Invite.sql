@@ -1,0 +1,14 @@
+﻿
+ALTER TABLE EventOrganiser
+ADD InviteToken UNIQUEIDENTIFIER NULL
+
+GO
+
+ALTER TABLE EventOrganiser
+ADD Email NVARCHAR(100) NULL
+
+GO
+
+-- Make the UserId 
+ALTER TABLE EventOrganiser
+ALTER COLUMN UserId NVARCHAR(100) NULL

@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_HasAccess_ReturnsTrue()
+        public void IsUserAuthorisedForAd_HasAccess_ReturnsTrue()
         {
             var ad = new AdBookingModelMockBuilder()
                 .WithAds(new List<IAd>()
@@ -44,13 +44,26 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 , result: mockEventDetails);
 
             var access = BuildTargetObject();
-            var result = access.IsUserAuthorisedForAdId("foobar", ad);
+            var result = access.IsUserAuthorisedForAd("foobar", ad);
 
             result.IsTrue();
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_AccessIsNotActive_ReturnsFalse()
+        public void IsUserAuthorisedForAd_HasAccessInBooking_ReturnsTrue()
+        {
+            var ad = new AdBookingModelMockBuilder()
+                .WithUserId("foobar")
+                .Build();
+
+            var access = BuildTargetObject();
+            var result = access.IsUserAuthorisedForAd("foobar", ad);
+
+            result.IsTrue();
+        }
+
+        [Test]
+        public void IsUserAuthorisedForAd_AccessIsNotActive_ReturnsFalse()
         {
             var ad = new AdBookingModelMockBuilder()
                 .WithAds(new List<IAd>()
@@ -68,13 +81,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 , result: mockEventDetails);
 
             var access = BuildTargetObject();
-            var result = access.IsUserAuthorisedForAdId("foobar", ad);
+            var result = access.IsUserAuthorisedForAd("foobar", ad);
 
             result.IsFalse();
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_NoMatchingUser_ReturnsFalse()
+        public void IsUserAuthorisedForAd_NoMatchingUser_ReturnsFalse()
         {
             var ad = new AdBookingModelMockBuilder()
                 .WithAds(new List<IAd>()
@@ -92,13 +105,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 , result: mockEventDetails);
 
             var access = BuildTargetObject();
-            var result = access.IsUserAuthorisedForAdId("foobar", ad);
+            var result = access.IsUserAuthorisedForAd("foobar", ad);
 
             result.IsFalse();
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_NullOrganisers_ReturnsFalse()
+        public void IsUserAuthorisedForAd_NullOrganisers_ReturnsFalse()
         {
             var ad = new AdBookingModelMockBuilder()
                 .WithAds(new List<IAd>()
@@ -116,37 +129,37 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 , result: mockEventDetails);
 
             var access = BuildTargetObject();
-            var result = access.IsUserAuthorisedForAdId("foobar", ad);
+            var result = access.IsUserAuthorisedForAd("foobar", ad);
 
             result.IsFalse();
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_AdBookingIsNull_ThrowsArgException()
+        public void IsUserAuthorisedForAd_AdBookingIsNull_ThrowsArgException()
         {
             var access = BuildTargetObject();
-            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAdId("blah", null));
+            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAd("blah", null));
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_UserNull_ThrowsArgException()
+        public void IsUserAuthorisedForAd_UserNull_ThrowsArgException()
         {
             var access = BuildTargetObject();
-            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAdId(null, new AdBookingModel()));
+            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAd(null, new AdBookingModel()));
         }
 
         [Test]
-        public void IsUserAuthorisedForAdId_OnlineAdIdNotAvailable_ThrowsException()
+        public void IsUserAuthorisedForAd_OnlineAdIdNotAvailable_ThrowsException()
         {
             var access = BuildTargetObject();
-            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAdId("foobar", new AdBookingModelMockBuilder().Build()));
+            Assert.Throws<ArgumentNullException>(() => access.IsUserAuthorisedForAd("foobar", new AdBookingModelMockBuilder().Build()));
         }
 
         [Test]
         public void GetAdsForUser_NullUsername_ThrowsArgumentException()
         {
             var access = BuildTargetObject();
-            Assert.Throws<ArgumentNullException>(() => access.GetAdsForUser(null));
+            Assert.Throws<ArgumentNullException>(() => access.GetOnlineAdsForUser(null));
         }
 
         [Test]
@@ -163,7 +176,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepository.SetupWithVerification(call => call.GetEventsForOrganiser(It.IsAny<string>()), result: mockResults);
 
             var access = BuildTargetObject();
-            var results = access.GetAdsForUser("foobar").ToArray();
+            var results = access.GetOnlineAdsForUser("foobar").ToArray();
 
             results.Length.IsEqualTo(3);
             results[0].IsEqualTo(1);

@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             // E.g. EventOrganiser
             var onlineAdIds =
                 _categoryAdFactory.CreateAuthorisers()
-                .SelectMany(a => a.GetAdsForUser(username))
+                .SelectMany(a => a.GetOnlineAdsForUser(username))
                 .Distinct()
                 .ToArray();
 

@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             if (adBooking.CategoryAdType.HasValue() &&
                 CategoryAdFactory.CreateAuthoriser(adBooking.CategoryAdType)
-                    .IsUserAuthorisedForAdId(username, adBooking))
+                    .IsUserAuthorisedForAd(username, adBooking))
                 return;
 
             throw new BookingAuthorisationException(

@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     public interface ICategoryAdAuthoriser
     {
-        bool IsUserAuthorisedForAdId(string username, AdBookingModel adBookingModel);
-        IEnumerable<int> GetAdsForUser(string username);
+        bool IsUserAuthorisedForAd(string username, AdBookingModel adBookingModel);
+        IEnumerable<int> GetOnlineAdsForUser(string username);
     }
 }

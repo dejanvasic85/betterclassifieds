@@ -9,7 +9,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             ToTable("EventOrganiser");
             HasKey(prop => prop.EventOrganiserId);
-            Property(prop => prop.UserId).IsRequired().HasMaxLength(100);
+            Property(prop => prop.UserId).HasMaxLength(100);
+            Property(prop => prop.Email).HasMaxLength(100);
             Property(prop => prop.LastModifiedBy).IsRequired().HasMaxLength(100);
             Property(prop => prop.LastModifiedDate).IsRequired();
             Property(prop => prop.LastModifiedDateUtc).IsRequired();

@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-xs-12 well">
+
+        <div class="form-group" data-bind="validationElement: email">
+            <label for="newOrganiserEmail">Email</label>
+            <input type="text" class="form-control" id="newOrganiserEmail"
+                   placeholder="e.g. joe@gmail.com"
+                   data-bind="value: email">
+        </div>
+        
+        <button class="btn btn-warning"
+                data-bind="click: cancel">
+            Cancel
+        </button>
+
+        <button class="btn btn-primary"
+                data-bind="click: submit">
+            Send invitation
+        </button>
+
+
+
+    </div>
+</div>

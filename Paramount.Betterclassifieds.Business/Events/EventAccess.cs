@@ -63,16 +63,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IEnumerable<int> GetOnlineAdsForUser(string username)
         {
             Guard.NotNull(username);
-
-            var adsAsOwner = _bookingManager.GetBookingsForUser(username, 1000)
-                .Select(b => b.OnlineAd.OnlineAdId)
-                .ToList();
             
-            var adsAsOrganiser = _eventRepository.GetEventsForOrganiser(username)
-                .Select(e => e.OnlineAdId)
-                .ToList();
-
-            return adsAsOwner.Union(adsAsOrganiser).Distinct();
+            return _eventRepository.GetEventsForOrganiser(username)
+                .Select(e => e.OnlineAdId);
         }
     }
 }

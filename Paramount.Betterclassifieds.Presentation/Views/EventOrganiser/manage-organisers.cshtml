@@ -13,7 +13,7 @@
         $(function() {
             var data = @Html.Raw(Model.ToJsonString());
             var vm = new $paramount.models.ManageOrganisers(data);
-            ko.applyBindings(vm, document.getElementById('manageOrganisers'));
+            ko.applyBindings(vm);
         });
     </script>
 }
@@ -29,7 +29,7 @@
     <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
-            <button id="btnAddOrganiser" class="btn btn-primary btn-block"
+            <button id="btnAddOrganiser" class="btn btn-primary btn-block ko-load"
                     data-bind="click: addOrganiser">
                 <i class="fa fa-plus-circle"></i>
                 Add Organiser
@@ -45,11 +45,43 @@
         </div>
 
     </div>
-    
+
     <div class="top-buffer-20 bounceIn" data-bind="visible: showAddOrganiser">
         <add-organiser params="eventId: @Model.EventId, onSuccess: organiserAdded, onCancel: cancelAdd"></add-organiser>
     </div>
-    
-    @*Todo: Print the existing organisers*@
 
+    <div class="row top-buffer-20" data-bind="visible: organisers().length > 0">
+        <div class="col-xs-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>Status</td>
+                        <td>Email</td>
+                        <td>Added</td>
+                        <td>Options</td>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: organisers">
+                    <tr>
+                        <td>
+                            <span class="label label-warning"
+                                  data-bind="text: status"></span>
+                        </td>
+                        <td data-bind="text: email"></td>
+                        <td data-bind="text: lastModifiedDate"></td>
+                        <td>
+                            <button class="btn btn-default">
+                                <i class="fa fa-times"></i>
+                                <span class="hidden-xs">
+                                    Revoke Access
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+

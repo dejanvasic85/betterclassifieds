@@ -19,6 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int EventOrganiserId { get; set; }
         public int EventId { get; set; }
         public string UserId { get; set; }
+        public string Email { get; set; }
+        public Guid? InviteToken { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDateUtc { get; set; }
         public DateTime LastModifiedDate { get; set; }

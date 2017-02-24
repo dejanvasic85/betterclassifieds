@@ -7,8 +7,9 @@
             var me = this;
             me.email = ko.observable();
 
-            me.submit = function () {
-                
+            me.submit = function (model, event) {
+                var $btn = $(event.target).loadBtn();
+
                 if (!$p.checkValidity(me)) {
                     return;
                 }

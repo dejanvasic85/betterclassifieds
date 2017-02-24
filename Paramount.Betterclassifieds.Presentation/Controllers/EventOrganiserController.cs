@@ -41,28 +41,27 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(vm);
         }
-        
-        [HttpPost]
-        [Route("add")]
-        public ActionResult AddOrganiser(int eventId, string username)
-        {
-            var organiser = _eventManager.CreateEventOrganiser(eventId, username);
 
-            return Json(this.Map<EventOrganiser, EventOrganiserViewModel>(organiser));
+        [HttpPost]
+        [Route("invite")]
+        public ActionResult InviteOrganiser(int eventId, string email)
+        {
+            // Ensure the organiser 
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            if (eventDetails.EventOrganisers.Any(org => org.Email == email && org.IsActive))
+            {
+                ModelState.AddModelError("Email", "An event organiser with email " + email + " already exists.");
+            }
+
+            var organiser = _eventManager.CreateEventOrganiser(eventId, email);
+            
+            return Json(organiser);
         }
 
         [HttpPost]
         [Route("remove")]
         public ActionResult RemoveOrganiser(int eventId, string username)
         {
-            return Json(true);
-        }
-        
-        [HttpPost]
-        [Route("invite")]
-        public ActionResult InviteOrganiser(int eventId, string email)
-        {
-            // Todo - send email to organiser and create invite record
             return Json(true);
         }
 
@@ -73,7 +72,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Todo - remove the invitation
             return Json(true);
         }
-        
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventOrganiser, EventOrganiserViewModel>().ReverseMap();

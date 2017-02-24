@@ -641,14 +641,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
-        public EventOrganiser CreateEventOrganiser(int eventId, string username)
+        public EventOrganiser CreateEventOrganiser(int eventId, string email)
         {
             var currentUser = _userManager.GetCurrentUser();
 
             var eventOrganiser = new EventOrganiser
             {
                 EventId = eventId,
-                UserId = username,
+                Email = email,
+                InviteToken = Guid.NewGuid(),
                 IsActive = true,
                 LastModifiedDate = _dateService.Now,
                 LastModifiedDateUtc = _dateService.UtcNow,

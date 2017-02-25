@@ -641,6 +641,21 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
+        public void RevokeOrganiserAccess(int eventOrganiserId)
+        {
+            var eventOrganiser = _eventRepository.GetEventOrganiser(eventOrganiserId);
+            if (eventOrganiser == null)
+                throw new NullReferenceException($"The eventOrganiser id {eventOrganiserId} does not exist");
+
+            var currentUser = _userManager.GetCurrentUser();
+            eventOrganiser.LastModifiedDate = _dateService.Now;
+            eventOrganiser.LastModifiedDateUtc = _dateService.UtcNow;
+            eventOrganiser.LastModifiedBy = currentUser.Username;
+            eventOrganiser.IsActive = false;
+            
+            _eventRepository.UpdateEventOrganiser(eventOrganiser);
+        }
+
         public EventOrganiser CreateEventOrganiser(int eventId, string email)
         {
             var currentUser = _userManager.GetCurrentUser();

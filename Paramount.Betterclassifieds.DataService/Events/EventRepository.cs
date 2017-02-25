@@ -271,6 +271,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventOrganiser GetEventOrganiser(int eventOrganiserId)
+        {
+            using (var context = new EventDbContext())
+            {
+                return context.EventOrganisers.SingleOrDefault(o => o.EventOrganiserId == eventOrganiserId);
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -478,6 +486,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     "WHERE EventGroupId = @eventGroupId",
                     new SqlParameter("isDisabled", isDisabled),
                     new SqlParameter("eventGroupId", eventGroupId));
+            }
+        }
+
+        public void UpdateEventOrganiser(EventOrganiser eventOrganiser)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventOrganisers.Attach(eventOrganiser);
+                context.Entry(eventOrganiser).State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
 

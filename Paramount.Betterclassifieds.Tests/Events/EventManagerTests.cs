@@ -1000,6 +1000,70 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockEvent.DisplayGuests.IsTrue();
         }
 
+
+        [Test]
+        public void RevokeOrganiserAccess_GetsObjects_UpdatesActiveFlag()
+        {
+            var eventOrganiserMock= new EventOrganiserMockBuilder()
+                .WithEventOrganiserId(88)
+                .WithIsActive(true)
+                .Build();
+
+            var userMock = new ApplicationUserMockBuilder().Default().Build();
+
+            _dateServiceMock.SetupNow().SetupNowUtc();
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventOrganiser(It.IsAny<int>()), eventOrganiserMock);
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventOrganiser(It.Is<EventOrganiser>(org => org == eventOrganiserMock)));
+            _userManager.SetupWithVerification(
+                call => call.GetCurrentUser(), userMock);
+
+            var target = BuildTargetObject();
+            target.RevokeOrganiserAccess(88);
+
+            // assert
+            eventOrganiserMock.IsActive.IsFalse();
+            eventOrganiserMock.LastModifiedBy.IsEqualTo(userMock.Username);
+            eventOrganiserMock.LastModifiedDate.IsNotNull();
+            eventOrganiserMock.LastModifiedDateUtc.IsNotNull();
+
+        }
+
+        [Test]
+        public void RevokeOrganiserAccess_NoOrganiserFound_ThrowsNullException()
+        {
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventOrganiser(It.IsAny<int>()), null);
+
+            Assert.Throws<NullReferenceException>(() => BuildTargetObject().RevokeOrganiserAccess(1));
+        }
+
+        [Test]
+        public void CreateEventOrganiser_NewObjectCreated_CallsRepository()
+        {
+            var userMock = new ApplicationUserMockBuilder().Default().Build();
+
+            _userManager.SetupWithVerification(
+                call => call.GetCurrentUser(), userMock);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.CreateEventOrganiser(It.IsAny<EventOrganiser>()));
+
+            _dateServiceMock.SetupNowUtc().SetupNow();
+
+            var result = BuildTargetObject().CreateEventOrganiser(1, "foo@bar.com");
+
+            result.EventId.IsEqualTo(1);
+            result.Email.IsEqualTo("foo@bar.com");
+            result.InviteToken.IsNotNull();
+            result.IsActive.IsTrue();
+            result.LastModifiedDate.IsNotNull();
+            result.LastModifiedDateUtc.IsNotNull();
+            result.LastModifiedBy.IsEqualTo(userMock.Username);
+            
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

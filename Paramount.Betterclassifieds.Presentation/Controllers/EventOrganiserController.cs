@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Events;
@@ -46,11 +43,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("invite")]
         public ActionResult InviteOrganiser(int eventId, string email)
         {
-            // Ensure the organiser 
             var eventDetails = _eventManager.GetEventDetails(eventId);
             if (eventDetails.EventOrganisers.Any(org => org.Email == email && org.IsActive))
             {
                 ModelState.AddModelError("Email", "An event organiser with email " + email + " already exists.");
+                return JsonModelErrors();
             }
 
             var organiser = _eventManager.CreateEventOrganiser(eventId, email);
@@ -60,8 +57,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [Route("remove")]
-        public ActionResult RemoveOrganiser(int eventId, string username)
+        public ActionResult RemoveOrganiser(int eventId, string email)
         {
+            var organiser = _eventManager.GetEventDetails(eventId);
+
             return Json(true);
         }
 

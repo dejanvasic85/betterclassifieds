@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Events
@@ -16,11 +17,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
     public class EventAccessTests : TestContext<EventAccess>
     {
         private Mock<IEventRepository> _eventRepository;
+        private Mock<IBookingManager> _bookingManager;
+        private Mock<ISearchService> _searchService;
 
         [SetUp]
         public void SetupDependencies()
         {
             _eventRepository = CreateMockOf<IEventRepository>();
+            _bookingManager = CreateMockOf<IBookingManager>();
+            _searchService = CreateMockOf<ISearchService>();
         }
 
         [Test]

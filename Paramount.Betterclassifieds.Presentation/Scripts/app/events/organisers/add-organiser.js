@@ -8,11 +8,12 @@
             me.email = ko.observable();
 
             me.submit = function (model, event) {
-                var $btn = $(event.target).loadBtn();
-
+                
                 if (!$p.checkValidity(me)) {
                     return;
                 }
+
+                $(event.target).loadBtn();
 
                 organiserService.addOrganiser(me.email())
                     .success(function (r) {
@@ -37,10 +38,18 @@
             }
 
             me.validator = ko.validatedObservable({
-                email: me.email.extend({ required: true, email: true, maxLength: 100 })
+                email: me.email.extend({
+                    required: true,
+                    email: true,
+                    maxLength: 100,
+                    mustNotEqual: {
+                        params: params.ownerEmail,
+                        message: 'This email is already the owner'
+                    }
+                })
             });
 
         },
-        template: { path: $p.baseUrl + '/Scripts/app/events/organisers/add-organiser.html' }
+        template: { path: $p.baseUrl + 'Scripts/app/events/organisers/add-organiser.html' }
     });
 })(ko, $paramount, toastr);

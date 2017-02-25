@@ -8,10 +8,6 @@
         me.email = ko.observable(data.email);
         me.lastModifiedDate = moment.utc(data.lastModifiedDateUtc).local().format($p.jsToDisplayDateFormat);
         me.status = ko.observable(getStatus(data));
-
-        me.remove = function(model, event) {
-            
-        }
     }
     
     function getStatus(organiser) {

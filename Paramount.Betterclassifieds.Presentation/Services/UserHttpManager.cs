@@ -29,6 +29,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return _userManager.GetUserByEmailOrUsername(emailOrUsername);
         }
 
+        public ApplicationUser GetUserByUsername(string username)
+        {
+            return _userManager.GetUserByUsername(username);
+        }
+
         public ApplicationUser GetCurrentUser()
         {
             return GetCurrentUser(_httpContext.User);

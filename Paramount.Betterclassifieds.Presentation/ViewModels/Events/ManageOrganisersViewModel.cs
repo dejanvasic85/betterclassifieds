@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public IEnumerable<EventOrganiserInviteViewModel> Invites { get; set; }
 
         public IEnumerable<EventOrganiserViewModel> Organisers { get; set; }
+        public string OwnerEmail { get; set; }
     }
 
     public class EventOrganiserViewModel

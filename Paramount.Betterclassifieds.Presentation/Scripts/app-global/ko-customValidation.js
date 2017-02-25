@@ -56,6 +56,21 @@
         message: 'Must be a later date'
     };
 
+    ko.validation.rules['mustNotEqual'] = {
+        validator: function (val, comparisonVal) {
+            if (!val) {
+                return false;
+            }
+
+            if (!comparisonVal) {
+                return false;
+            }
+
+            return val.trim() !== comparisonVal.trim();
+        },
+        message : 'Must not equal this value.'
+    };
+
     ko.validation.registerExtenders();
     
 })(ko, moment);

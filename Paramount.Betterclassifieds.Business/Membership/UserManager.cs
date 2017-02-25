@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.Business
     {
         ApplicationUser GetUserByEmail(string email);
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
+        ApplicationUser GetUserByUsername(string username);
         ApplicationUser GetCurrentUser();
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
@@ -55,6 +56,11 @@ namespace Paramount.Betterclassifieds.Business
                 return userByEmail;
 
             return _userRepository.GetUserByUsername(emailOrUsername);
+        }
+
+        public ApplicationUser GetUserByUsername(string username)
+        {
+            return _userRepository.GetUserByUsername(username);
         }
 
         public ApplicationUser GetCurrentUser()

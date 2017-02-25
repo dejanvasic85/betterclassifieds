@@ -47,41 +47,55 @@
     </div>
 
     <div class="top-buffer-20 bounceIn" data-bind="visible: showAddOrganiser">
-        <add-organiser params="eventId: @Model.EventId, onSuccess: organiserAdded, onCancel: cancelAdd"></add-organiser>
+        <add-organiser params="eventId: @Model.EventId, ownerEmail: '@Model.OwnerEmail', onSuccess: organiserAdded, onCancel: cancelAdd"></add-organiser>
     </div>
-
-    <div class="row top-buffer-20" data-bind="visible: organisers().length > 0">
+    
+    <div class="row top-buffer-20">
+        
         <div class="col-xs-12">
+            <div class="alert alert-info-alt">
+                Event owner : @Model.OwnerEmail
+            </div>
+        </div>
+
+        <div class="col-xs-12" data-bind="visible: organisers().length === 0">
+            You are currently the only organiser.
+        </div>
+
+        <div class="col-xs-12" data-bind="visible: organisers().length > 0">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <td>Status</td>
-                        <td>Email</td>
-                        <td>Added</td>
-                        <td></td>
-                    </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>Email</td>
+                    <td>Added</td>
+                    <td></td>
+                </tr>
                 </thead>
                 <tbody data-bind="foreach: organisers">
-                    <tr>
-                        <td>
-                            <span class="label label-warning"
-                                  data-bind="text: status"></span>
-                        </td>
-                        <td data-bind="text: email"></td>
-                        <td data-bind="text: lastModifiedDate"></td>
-                        <td>
-                            <button class="btn btn-default">
-                                <i class="fa fa-times"></i>
-                                <span class="hidden-xs">
-                                    Revoke Access
-                                </span>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <span class="label label-warning"
+                              data-bind="text: status"></span>
+                    </td>
+                    <td data-bind="text: email"></td>
+                    <td data-bind="text: lastModifiedDate"></td>
+                    <td class="text-right">
+                        <button class="btn btn-default" data-bind="click: $parent.removeOrganiser">
+                            <i class="fa fa-times"></i>
+                            <span class="hidden-xs">
+                                Revoke Access
+                            </span>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
+
     </div>
+    
+    
 </div>
 
 

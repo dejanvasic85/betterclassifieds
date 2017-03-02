@@ -233,6 +233,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EditAdController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\EventOrganiserController.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
+    <Compile Include="ViewModels\Email\EventOrganiserInviteViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\CreateEventGroupViewModel.cs" />
@@ -1014,6 +1016,11 @@
     <Content Include="Views\EditAd\edit-ticket.cshtml" />
     <Content Include="Views\EditAd\manage-guests.cshtml" />
     <Content Include="Views\EventOrganiser\manage-organisers.cshtml" />
+    <Content Include="Views\Email\_EmailMaster.cshtml" />
+    <Content Include="Views\Email\EventOrganiserInvite.cshtml" />
+    <Content Include="Views\Email\_EmailHeader.cshtml" />
+    <Content Include="Views\Email\_EmailFooter.cshtml" />
+    <Content Include="Views\Email\_EmailFooter.SriLankanEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

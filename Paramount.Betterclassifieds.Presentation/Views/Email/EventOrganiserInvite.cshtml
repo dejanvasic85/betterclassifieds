@@ -1,0 +1,29 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.Email.EventOrganiserInviteViewModel
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+}
+
+<h1>
+    Invitation to Manage Event
+</h1>
+
+<h3>You have been chosen by a friend!</h3>
+
+<p>
+    You have been kindly invited by <strong>@Model.FullName</strong> to
+    be an organiser for the event
+    <a href="@Model.EventUrl">
+        <strong>@Model.EventName</strong>
+    </a>
+    at <strong>@Model.SiteAddress.</strong>
+</p>
+
+<p>
+    To get started click the Accept Invite button.
+</p>
+
+<p style="text-align: center">
+    <a style="background-color: #444; border-radius: 3px; color: #fff; display: inline-block; font-family: sans-serif; font-size: 16px; line-height: 44px; text-align: center; text-decoration: none; width: 150px; -webkit-text-size-adjust: none; mso-hide: all;"
+       href="@Model.Url">Accept Invitation</a>
+</p>

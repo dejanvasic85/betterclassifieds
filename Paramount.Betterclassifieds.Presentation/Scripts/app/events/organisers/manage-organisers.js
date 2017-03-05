@@ -13,7 +13,6 @@
         // Triggers when add-organiser component fires
         me.organiserAdded = function (organiser) {
             toastr.success('Organiser has been invited.');
-            console.log(organiser);
             me.organisers.push(new $p.models.EventOrganiser(organiser));
             me.showAddOrganiser(false);
         }

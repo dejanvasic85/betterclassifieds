@@ -288,5 +288,18 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("session-expired", "event");
         }
+
+        public static UrlBuilder EventOrganiserInviteUrl(this UrlHelper urlHelper, int eventId, string token,
+            string recipient)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("accept-organiser-invite", "event")
+                .WithRouteValues(new
+                {
+                    eventId,
+                    token,
+                    recipient
+                });
+        }
     }
 }

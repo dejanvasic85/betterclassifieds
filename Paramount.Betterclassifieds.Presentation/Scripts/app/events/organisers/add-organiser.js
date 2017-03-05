@@ -8,16 +8,15 @@
             me.email = ko.observable();
 
             me.submit = function (model, event) {
-                
+
                 if (!$p.checkValidity(me)) {
                     return;
                 }
-
-                $(event.target).loadBtn();
+                var $btn = $(event.target);
+                $btn.loadBtn();
 
                 organiserService.addOrganiser(me.email())
                     .success(function (r) {
-
                         if (r.errors) {
                             return;
                         }

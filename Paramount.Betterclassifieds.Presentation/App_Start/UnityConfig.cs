@@ -107,6 +107,9 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<ILocationService, LocationService>()
                 .RegisterType<ISitemapFactory, SitemapFactory>()
                 .RegisterType<IEventNotificationBuilder, EventNotificationBuilder>()
+                .RegisterType<IUrl, UrlService>()
+                .RegisterType<IMailService, MailService>()
+                .RegisterType<IMailSender<EmailDetails>, MailgunSender<EmailDetails>>()
                 ;
 
             return container;

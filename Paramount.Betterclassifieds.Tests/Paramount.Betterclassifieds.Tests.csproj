@@ -184,6 +184,7 @@
       <DependentUpon>MockGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Mocks\UserNetworkModelMockBuilder.cs" />
+    <Compile Include="PresentationServices\MailServiceTests.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />

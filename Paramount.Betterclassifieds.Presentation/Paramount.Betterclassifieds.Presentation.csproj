@@ -129,6 +129,10 @@
       <HintPath>..\packages\NReco.PdfGenerator.1.1.10.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -294,10 +298,14 @@
     <Compile Include="Services\BarcodeGenerator.cs" />
     <Compile Include="Services\ClientConfigService.cs" />
     <Compile Include="Services\Constants.cs" />
+    <Compile Include="Services\EmailDetails.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
+    <Compile Include="Services\IMailSender.cs" />
+    <Compile Include="Services\IUrl.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LogService.cs" />
+    <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\TemplatingService.cs" />
     <Compile Include="Services\UserHttpManager.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
@@ -1021,6 +1029,7 @@
     <Content Include="Views\Email\_EmailHeader.cshtml" />
     <Content Include="Views\Email\_EmailFooter.cshtml" />
     <Content Include="Views\Email\_EmailFooter.SriLankanEvents.cshtml" />
+    <Content Include="Views\Event\accept-organiser-invite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

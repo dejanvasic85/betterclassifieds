@@ -5,6 +5,7 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -17,12 +18,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventManager _eventManager;
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
+        private readonly IMailService _mailService;
 
-        public EventOrganiserController(IEventManager eventManager, ISearchService searchService, IUserManager userManager)
+        public EventOrganiserController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IMailService mailService)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
+            _mailService = mailService;
+            _mailService.Initialise(this);
         }
 
         [HttpGet, ActionName("manage-organisers")]
@@ -68,6 +72,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var organiser = _eventManager.CreateEventOrganiser(eventId, email);
+            _mailService.SendEventOrganiserInvite(email, ad, eventId, organiser.InviteToken.ToString());
 
             return Json(organiser);
         }

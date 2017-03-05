@@ -360,15 +360,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        public ActionResult GuestList(int id)
-        {
-            var eventGuestDetails = _eventManager.BuildGuestList(id).ToList();
-            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
-            var viewModel = new EventGuestListDownloadViewModel { EventName = "Event Guest List", Guests = guests };
-
-            return View("~/Views/EditAd/EventGuestList.cshtml", viewModel);
-        }
-
 #endif
 
         public ActionResult ValidateBarcode(string barcode)
@@ -408,6 +399,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult SessionExpired()
         {
             return View(_eventBookingContext.EventUrl);
+        }
+
+        [HttpGet, ActionName("accept-organiser-invite")]
+        [Authorize]
+        public ActionResult AcceptInvite(int eventId, string token, string recipient)
+        {
+            // Todo - activate the organiser in the EventOrganiser table
+            return View();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

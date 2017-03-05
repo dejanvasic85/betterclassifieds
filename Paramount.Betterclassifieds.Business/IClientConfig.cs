@@ -29,5 +29,7 @@
         bool IsPrintEnabled { get; }
         bool EnablePayPalPayments { get; }
         bool EnableCreditCardPayments { get; }
+        string EmailFromAddress { get; }
+        string EmailDomain { get; }
     }
 }

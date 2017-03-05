@@ -38,7 +38,8 @@ execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Fo
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '950300948385613', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'True', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'True', @Force = 1
-
+execute temp_createAppSetting @Key = 'Email.FromAddress', @Setting = 'SriLankanEvents <no-reply@srilankanevents.com.au>', @Force=1
+execute temp_createAppSetting @Key = 'Email.DomainName', @Setting = 'srilankanevents.com.au', @Force=1
 
 drop procedure temp_createAppSetting
 

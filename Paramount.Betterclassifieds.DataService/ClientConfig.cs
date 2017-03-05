@@ -109,5 +109,7 @@
         public bool EnablePayPalPayments => GetValueFromDatabase<bool>("Events.EnablePayPalPayments", false);
 
         public bool EnableCreditCardPayments => GetValueFromDatabase<bool>("Events.EnableCreditCardPayments", false);
+        public string EmailFromAddress => GetValueFromDatabase<string>("Email.FromAddress");
+        public string EmailDomain => GetValueFromDatabase<string>("Email.DomainName");
     }
 }

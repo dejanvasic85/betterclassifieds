@@ -19,5 +19,6 @@ namespace Paramount.Betterclassifieds.Business
         string StripePublishableKey { get; }
         string Version { get; }
         bool DropMailsToFolder { get; }
+        string MailgunApiKey { get; }
     }
 }

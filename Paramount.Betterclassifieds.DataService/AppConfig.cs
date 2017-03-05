@@ -7,63 +7,28 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
     public class AppConfig : IApplicationConfig
     {
-        public string Brand
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("Brand");
-            }
-        }
+        public string Brand => ConfigManager.ReadAppSetting<string>("Brand");
 
-        public string Environment
-        {
-            get { return ConfigManager.ReadAppSetting<string>("Environment"); }
-        }
+        public string Environment => ConfigManager.ReadAppSetting<string>("Environment");
 
-        public string GoogleTimezoneApiUrl
-        {
-            get { return ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiUrl"); }
-        }
+        public string GoogleTimezoneApiUrl => ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiUrl");
 
-        public string GoogleTimezoneApiKey
-        {
-            get { return ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiKey"); }
-        }
+        public string GoogleTimezoneApiKey => ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiKey");
 
-        public string StripeApiKey
-        {
-            get { return ConfigManager.ReadAppSetting<string>("StripeApiKey"); }
-        }
+        public string StripeApiKey => ConfigManager.ReadAppSetting<string>("StripeApiKey");
 
-        public string StripePublishableKey
-        {
-            get { return ConfigManager.ReadAppSetting<string>("StripePublishableKey"); }
-        }
+        public string StripePublishableKey => ConfigManager.ReadAppSetting<string>("StripePublishableKey");
 
         public string Version => ConfigManager.ReadAppSetting<string>("Version");
 
         public bool DropMailsToFolder => Environment.EquivalentToAny("DEV", "CI");
+        public string MailgunApiKey => ConfigManager.ReadAppSetting<string>("Mailgun.ApiKey");
 
-        public string DslImageUrlHandler
-        {
-            get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }
-        }
+        public string DslImageUrlHandler => ConfigManager.ReadAppSetting<string>("DslImageUrlHandler");
 
-        public bool UseHttps
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting("UseHttps", false);
-            }
-        }
+        public bool UseHttps => ConfigManager.ReadAppSetting("UseHttps", false);
 
-        public string ImageCacheDirectory
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("ImageCacheDirectory");
-            }
-        }
+        public string ImageCacheDirectory => ConfigManager.ReadAppSetting<string>("ImageCacheDirectory");
 
         public DirectoryInfo ImageCropDirectory
         {
@@ -79,19 +44,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public int MaxImageUploadBytes
-        {
-            get { return ConfigManager.ReadAppSetting<int>("MaxImageUploadBytes"); }
-        }
+        public int MaxImageUploadBytes => ConfigManager.ReadAppSetting<int>("MaxImageUploadBytes");
 
-        public string[] AcceptedImageFileTypes
-        {
-            get { return ConfigManager.ReadAppSetting<string>("AcceptedFileTypes").Split('|'); }
-        }
+        public string[] AcceptedImageFileTypes => ConfigManager.ReadAppSetting<string>("AcceptedFileTypes").Split('|');
 
-        public bool IsPaymentEnabled
-        {
-            get { return ConfigManager.ReadAppSetting<bool>("IsPaymentEnabled"); }
-        }
+        public bool IsPaymentEnabled => ConfigManager.ReadAppSetting<bool>("IsPaymentEnabled");
     }
 }

@@ -27,7 +27,7 @@ namespace Paramount
         public static string ContentForBrand(this UrlHelper urlHelper, string contentUrl)
         {
             var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
-            return urlHelper.Content($"~/Content/{brand}{contentUrl}");
+            return urlHelper.ContentAbsolute($"~/Content/{brand}{contentUrl}");
         }
 
         public static UrlBuilder AdUrl(this UrlHelper urlHelper, string titleSlug, int id, string categoryAdType = "")

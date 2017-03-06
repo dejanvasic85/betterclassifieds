@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var fakeVm = new EventOrganiserInviteViewModel
             {
                 EventName = "The Great Festival",
-                HomeUrl = Url.Home(),
+                HomeUrl = Url.Home().WithFullUrl(),
                 FullName = "John Doe",
                 EventUrl = "http://kandobay.com.au",
                 AcceptInvitationUrl = "http://kandobay.com.au"

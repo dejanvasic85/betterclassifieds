@@ -1027,9 +1027,10 @@
     <Content Include="Views\Email\_EmailMaster.cshtml" />
     <Content Include="Views\Email\EventOrganiserInvite.cshtml" />
     <Content Include="Views\Email\_EmailHeader.cshtml" />
-    <Content Include="Views\Email\_EmailFooter.cshtml" />
+    <Content Include="Views\Email\_EmailFooter.KandoBay.cshtml" />
     <Content Include="Views\Email\_EmailFooter.SriLankanEvents.cshtml" />
     <Content Include="Views\Event\accept-organiser-invite.cshtml" />
+    <Content Include="Views\Email\_EmailStyles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

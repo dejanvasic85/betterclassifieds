@@ -25,8 +25,14 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         {
             _templatingService = templatingService;
             _url = url;
+            _url.WithAbsoluteUrl(); // All outgoing links need to be absolute
             _userManager = userManager;
             _mailSender = mailSender;
+        }
+
+        struct Views
+        {
+            public const string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -35,24 +41,28 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return this;
         }
 
-        public void SendEventOrganiserInvite(string to,
-            AdSearchResult ad, int eventId, string inviteToken)
+        public void SendEventOrganiserInvite(string to, AdSearchResult ad, int eventId, string inviteToken)
         {
+            Guard.NotNullOrEmpty(to);
+            Guard.NotNull(ad);
+            Guard.MustBePositive(eventId);
+            Guard.NotNullOrEmpty(inviteToken);
+
             var fakeVm = new EventOrganiserInviteViewModel
             {
                 EventName = ad.Heading,
-                HomeUrl = _url.Home().WithFullUrl().Build(),
-                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId).WithFullUrl().Build(),
+                HomeUrl = _url.Home(),
+                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
                 FullName = _userManager.GetCurrentUser().FullName,
-                AcceptInvitationUrl = _url.EventOrganiserInviteUrl(eventId, inviteToken, to).WithFullUrl().Build()
+                AcceptInvitationUrl = _url.EventOrganiserInviteUrl(eventId, inviteToken, to)
             };
 
-            var body = _templatingService.Generate(fakeVm, "~/Views/Email/EventOrganiserInvite.cshtml");
+            var body = _templatingService.Generate(fakeVm, Views.EventOrganiserView);
 
             _mailSender.Send(new EmailDetails
             {
                 Body = body,
-                Subject = "You have an invite!",
+                Subject = "Invite to event management",
                 To = to
             });
         }

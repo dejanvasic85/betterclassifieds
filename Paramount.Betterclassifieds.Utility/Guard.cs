@@ -115,5 +115,13 @@ namespace Paramount
         {
             return ((MemberExpression)reference.Body).Member.Name;
         }
+
+        public static void MustBePositive(int value)
+        {
+            if (value <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Must be 1 or greater");
+            }
+        }
     }
 }

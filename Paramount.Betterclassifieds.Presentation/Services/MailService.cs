@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 
@@ -8,10 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     public interface IMailService
     {
         IMailService Initialise(Controller controller);
-        void SendEventOrganiserInvite(string to,
-            AdSearchResult ad,
-            int eventId,
-            string inviteToken);
+        void SendEventOrganiserInvite(string to, AdSearchResult ad, int eventId, string inviteToken);
     }
 
     public class MailService : IMailService
@@ -19,9 +17,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly ITemplatingService _templatingService;
         private readonly IUrl _url;
         private readonly IUserManager _userManager;
-        private readonly IMailSender<EmailDetails> _mailSender;
+        private readonly IMailSender _mailSender;
 
-        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender<EmailDetails> mailSender)
+        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender)
         {
             _templatingService = templatingService;
             _url = url;
@@ -33,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         struct Views
         {
             public const string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
+            public static string EventPurchaserNotificationView = "~/Views/Email/EventTicketBuyer.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -48,7 +47,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             Guard.MustBePositive(eventId);
             Guard.NotNullOrEmpty(inviteToken);
 
-            var fakeVm = new EventOrganiserInviteViewModel
+            var viewModel = new EventOrganiserInviteViewModel
             {
                 EventName = ad.Heading,
                 HomeUrl = _url.Home(),
@@ -57,14 +56,30 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 AcceptInvitationUrl = _url.EventOrganiserInviteUrl(eventId, inviteToken, to)
             };
 
-            var body = _templatingService.Generate(fakeVm, Views.EventOrganiserView);
+            var body = _templatingService.Generate(viewModel, Views.EventOrganiserView);
 
-            _mailSender.Send(new EmailDetails
-            {
-                Body = body,
-                Subject = "Invite to event management",
-                To = to
-            });
+            _mailSender.Send(to, body, "Invite to manage " + ad.Heading);
         }
+
+        public void SendTicketBuyerNotification(string to, AdSearchResult ad, EventModel eventModel)
+        {
+            Guard.NotNullOrEmpty(to);
+            Guard.NotNull(ad);
+            Guard.NotNull(eventModel);
+
+            var viewModel = new EventTicketBuyerViewModel
+            {
+                EventName = ad.Heading,
+                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
+                Address = eventModel.Location,
+                StartDate = eventModel.EventStartDate?.ToString("dd-MMM-yyyy hh:mm"),
+            };
+
+            var body = _templatingService.Generate(viewModel, Views.EventPurchaserNotificationView);
+
+            _mailSender.Send(to, body, "Tickets booked for " + ad.Heading);
+        }
+
+        
     }
 }

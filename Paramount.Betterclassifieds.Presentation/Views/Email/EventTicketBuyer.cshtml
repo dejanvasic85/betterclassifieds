@@ -1,0 +1,18 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model EventTicketBuyerViewModel
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+}
+
+<p>
+    Your booking for tickets to <strong>@Model.EventName</strong>
+    event has been processed successfully. The event is registered to
+    start @Model.StartDate at location @Model.Address.
+</p>
+
+<p>
+    Each guest will receive an email containing their barcode for mobile display
+    and ticket for printing. Please check event details on the method used for entry.
+</p>

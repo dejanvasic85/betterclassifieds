@@ -298,7 +298,6 @@
     <Compile Include="Services\BarcodeGenerator.cs" />
     <Compile Include="Services\ClientConfigService.cs" />
     <Compile Include="Services\Constants.cs" />
-    <Compile Include="Services\EmailDetails.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
     <Compile Include="Services\IMailSender.cs" />
@@ -321,6 +320,7 @@
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteViewModel.cs" />
+    <Compile Include="ViewModels\Email\EventTicketBuyerViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\CreateEventGroupViewModel.cs" />
@@ -1031,6 +1031,7 @@
     <Content Include="Views\Email\_EmailFooter.SriLankanEvents.cshtml" />
     <Content Include="Views\Event\accept-organiser-invite.cshtml" />
     <Content Include="Views\Email\_EmailStyles.cshtml" />
+    <Content Include="Views\Email\EventTicketBuyer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

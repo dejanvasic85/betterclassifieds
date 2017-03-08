@@ -109,7 +109,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IEventNotificationBuilder, EventNotificationBuilder>()
                 .RegisterType<IUrl, UrlService>()
                 .RegisterType<IMailService, MailService>()
-                .RegisterType<IMailSender<EmailDetails>, MailgunSender<EmailDetails>>()
+                .RegisterType<IMailSender, MailgunSender>()
                 ;
 
             return container;

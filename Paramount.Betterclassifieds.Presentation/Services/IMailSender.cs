@@ -5,12 +5,12 @@ using RestSharp.Authenticators;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
-    public interface IMailSender<in TMail> where TMail : EmailDetails
+    public interface IMailSender
     {
-        void Send(TMail mail);
+        void Send(string to, string body, string subject);
     }
 
-    public class MailgunSender<TMail> : IMailSender<TMail> where TMail : EmailDetails
+    public class MailgunSender : IMailSender
     {
         private readonly IClientConfig _clientConfig;
         private readonly IRestClient _restClient;
@@ -25,15 +25,15 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             };
         }
 
-        public void Send(TMail mail)
+        public void Send(string to, string body, string subject)
         {
             var request = new RestRequest();
             request.AddParameter("domain", _clientConfig.EmailDomain, ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", _clientConfig.EmailFromAddress);
-            request.AddParameter("to", mail.To);
-            request.AddParameter("subject", mail.Subject);
-            request.AddParameter("html", mail.Body);
+            request.AddParameter("to", to);
+            request.AddParameter("subject", subject);
+            request.AddParameter("html", body);
             request.Method = Method.POST;
             _restClient.Execute(request);
         }

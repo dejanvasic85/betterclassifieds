@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<ITemplatingService> _templatingService;
         private Mock<IUrl> _urlMock;
         private Mock<IUserManager> _userManager;
-        private Mock<IMailSender<EmailDetails>> _mailSender;
+        private Mock<IMailSender> _mailSender;
         private ApplicationUser _mockUser;
 
         [SetUp]
@@ -25,12 +25,12 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             _templatingService = CreateMockOf<ITemplatingService>();
             _userManager = CreateMockOf<IUserManager>();
-            _mailSender = CreateMockOf<IMailSender<EmailDetails>>();
+            _mailSender = CreateMockOf<IMailSender>();
 
             _mockUser = new ApplicationUserMockBuilder().Default().Build();
             _userManager.Setup(call => call.GetCurrentUser()).Returns(_mockUser);
         }
-
+        
 
         [Test]
         public void SendEventOrganiserInvite_CreatesViewModel_CallsMailSender()
@@ -55,7 +55,10 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                 call => call.EventOrganiserInviteUrl(It.Is<int>(v => v == 1), It.Is<string>(t => t == inviteToken), It.Is<string>(r => r == "foo@bar.com")), "/invitation");
 
             _mailSender.SetupWithVerification(
-                call => call.Send(It.IsAny<EmailDetails>()));
+                call => call.Send(
+                    It.Is<string>(t => t == "foo@bar.com"),
+                    It.Is<string>(b => b == "email-body"),
+                    It.Is<string>(s => s == "Invite to manage " + mockAd.Heading)));
 
 
             var mailService = BuildTargetObject();
@@ -63,8 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             mailService.SendEventOrganiserInvite("foo@bar.com",
                 mockAd, 1, inviteToken);
         }
-
-
+        
         [Test]
         public void SendEventOrganiserInvite_NoTo_ThrowsException()
         {
@@ -91,6 +93,17 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject()
             .SendEventOrganiserInvite("foo@bar.com", new AdSearchResult(), 1, string.Empty));
+        }
+
+        [Test]
+        public void SendTicketBuyerNotification_CreatesModel_CallsMailSender()
+        {
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+
+            var target = BuildTargetObject();
+
+            target.SendTicketBuyerNotification("foo@bar.com", mockAd, mockEvent);
         }
 
     }

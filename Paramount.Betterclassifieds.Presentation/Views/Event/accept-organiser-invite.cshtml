@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model AcceptOrganiserInviteViewModel
 
 
 @{
@@ -13,12 +13,16 @@
 
 <div class="container top-buffer-60" id="manageOrganisers">
     <h2 class="page-header">
-        Hello 
+        Hi 
     </h2>
-    <p>
-        Congratulations, you now have access to manage the event.
-        Click here to access the dashboard.
-    </p>
+    @if (Model.IsSuccessful)
+    {
+        <p>
+            Congratulations, you now have access to manage the event <a href="@Model.EventUrl">
+                @Model.EventName
+            </a>. If you have any issues please contact the event administrator.
+        </p>
+    }
    
 </div>
 

@@ -24,4 +24,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return UserId.IsNullOrEmpty() && InviteToken.HasValue;
         }
     }
+
+    public enum OrganiserConfirmationResult
+    {
+        NotFound,
+        Success,
+        AlreadyActivated
+    }
 }

@@ -656,6 +656,38 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventOrganiser(eventOrganiser);
         }
 
+        public OrganiserConfirmationResult ConfirmOrganiserInvite(int eventId, string token, string recipient)
+        {
+            var organisers = _eventRepository.GetEventOrganisersForEvent(eventId);
+
+            var organiserToActivate = organisers.FirstOrDefault(o => 
+                o.IsActive && 
+                o.Email.Equals(recipient, StringComparison.OrdinalIgnoreCase) &&
+                o.InviteToken.ToString() == token);
+
+            if (organiserToActivate == null)
+            {
+                _logService.Info($"Organiser not found for token {token}, event {eventId}, email {recipient}");
+                return OrganiserConfirmationResult.NotFound;
+            }
+
+            if (organiserToActivate.UserId.HasValue())
+            {
+                _logService.Info($"Organiser {recipient} is already activated for event {eventId}");
+                return OrganiserConfirmationResult.AlreadyActivated;
+            }
+
+            _logService.Info($"Activating organiser {recipient} for event {eventId}");
+            organiserToActivate.LastModifiedDate = _dateService.Now;
+            organiserToActivate.LastModifiedDateUtc = _dateService.UtcNow;
+            organiserToActivate.UserId = _userManager.GetCurrentUser().Username;
+            organiserToActivate.IsActive = true;
+
+            _eventRepository.UpdateEventOrganiser(organiserToActivate);
+
+            return OrganiserConfirmationResult.Success;
+        }
+
         public EventOrganiser CreateEventOrganiser(int eventId, string email)
         {
             var currentUser = _userManager.GetCurrentUser();

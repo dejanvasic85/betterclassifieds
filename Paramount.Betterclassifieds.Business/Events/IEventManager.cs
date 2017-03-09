@@ -63,5 +63,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         // Event Organisers
         EventOrganiser CreateEventOrganiser(int eventId, string email);
         void RevokeOrganiserAccess(int eventOrganiserId);
+        OrganiserConfirmationResult ConfirmOrganiserInvite(int eventId, string token, string recipient);
     }
 }

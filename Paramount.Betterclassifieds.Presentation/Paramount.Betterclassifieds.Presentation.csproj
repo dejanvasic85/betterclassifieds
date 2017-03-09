@@ -322,6 +322,7 @@
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
+    <Compile Include="ViewModels\Events\AcceptOrganiserInviteViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\CreateEventGroupViewModel.cs" />

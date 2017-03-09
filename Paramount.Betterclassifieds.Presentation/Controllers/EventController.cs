@@ -405,7 +405,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Authorize]
         public ActionResult AcceptInvite(int eventId, string token, string recipient)
         {
-            // Todo - activate the organiser in the EventOrganiser table
+            var result = _eventManager.ConfirmOrganiserInvite(eventId, token, recipient);
+
+            if (result == OrganiserConfirmationResult.NotFound)
+            {
+                
+            }
+
             return View();
         }
 

@@ -110,6 +110,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IUrl, UrlService>()
                 .RegisterType<IMailService, MailService>()
                 .RegisterType<IMailSender, MailgunSender>()
+                .RegisterType<IPdfGenerator, PdfGenerator>()
                 ;
 
             return container;

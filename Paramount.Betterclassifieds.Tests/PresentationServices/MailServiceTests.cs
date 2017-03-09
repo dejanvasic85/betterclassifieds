@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -15,7 +16,10 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<IUrl> _urlMock;
         private Mock<IUserManager> _userManager;
         private Mock<IMailSender> _mailSender;
+        private Mock<IPdfGenerator> _pdfGenerator;
+        private Mock<IClientConfig> _clientConfig;
         private ApplicationUser _mockUser;
+       
 
         [SetUp]
         public void SetupDependencies()
@@ -26,12 +30,13 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             _templatingService = CreateMockOf<ITemplatingService>();
             _userManager = CreateMockOf<IUserManager>();
             _mailSender = CreateMockOf<IMailSender>();
+            _pdfGenerator = CreateMockOf<IPdfGenerator>();
+            _clientConfig = CreateMockOf<IClientConfig>();
 
             _mockUser = new ApplicationUserMockBuilder().Default().Build();
             _userManager.Setup(call => call.GetCurrentUser()).Returns(_mockUser);
         }
         
-
         [Test]
         public void SendEventOrganiserInvite_CreatesViewModel_CallsMailSender()
         {
@@ -96,14 +101,36 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         }
 
         [Test]
-        public void SendTicketBuyerNotification_CreatesModel_CallsMailSender()
+        public void SendTicketBuyerNotification_NoInvoiceAttachment_CallsMailSender()
         {
             var mockAd = new AdSearchResultMockBuilder().Default().Build();
             var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockEventBooking = new EventBookingMockBuilder().Default()
+                .WithEvent(mockEvent)
+                .WithEventId(mockEvent.EventId.GetValueOrDefault())
+                .WithTotalCost(0)
+                .Build();
+
+            // Setup service calls
+            _urlMock.SetupWithVerification(
+                call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()), "http://event-url.com");
+
+            var htmlMockbodyHtml = "<html>MockBody</html>";
+            _templatingService.SetupWithVerification(
+                call => call.Generate(
+                    It.IsAny<object>(), 
+                    It.Is<string>(str => str == "~/Views/Email/EventTicketBuyer.cshtml")),
+                htmlMockbodyHtml);
+            
+            _mailSender.SetupWithVerification(
+                call => call.Send(It.Is<string>(str => str == "foo@bar.com"), 
+                    It.Is<string>(body=> body == htmlMockbodyHtml),
+                    It.Is<string>(subject => subject == "Event booking for " + mockAd.Heading),
+                    It.IsAny<Attachment[]>()));
 
             var target = BuildTargetObject();
 
-            target.SendTicketBuyerNotification("foo@bar.com", mockAd, mockEvent);
+            target.SendTicketBuyerEmail("foo@bar.com", mockAd, mockEventBooking);
         }
 
     }

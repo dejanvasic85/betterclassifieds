@@ -1,6 +1,6 @@
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
 {
-    public class EventTicketBuyerViewModel
+    public class EventTicketBuyerEmail
     {
         public string EventName { get; set; }
         public string EventUrl { get; set; }

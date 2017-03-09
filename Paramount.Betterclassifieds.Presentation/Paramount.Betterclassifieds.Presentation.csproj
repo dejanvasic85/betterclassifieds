@@ -301,6 +301,7 @@
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
     <Compile Include="Services\IMailSender.cs" />
+    <Compile Include="Services\IPdfGenerator.cs" />
     <Compile Include="Services\IUrl.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LogService.cs" />
@@ -319,8 +320,8 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
-    <Compile Include="ViewModels\Email\EventOrganiserInviteViewModel.cs" />
-    <Compile Include="ViewModels\Email\EventTicketBuyerViewModel.cs" />
+    <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
+    <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\CreateEventGroupViewModel.cs" />

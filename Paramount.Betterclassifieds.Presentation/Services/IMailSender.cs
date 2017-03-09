@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Net.Mail;
 using Paramount.Betterclassifieds.Business;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -7,7 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 {
     public interface IMailSender
     {
-        void Send(string to, string body, string subject);
+        void Send(string to, string body, string subject, params Attachment[] attachment);
     }
 
     public class MailgunSender : IMailSender
@@ -24,8 +26,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 Authenticator = new HttpBasicAuthenticator("api", applicationConfig.MailgunApiKey)
             };
         }
-
-        public void Send(string to, string body, string subject)
+        
+        public void Send(string to, string body, string subject, params Attachment[] attachment)
         {
             var request = new RestRequest();
             request.AddParameter("domain", _clientConfig.EmailDomain, ParameterType.UrlSegment);

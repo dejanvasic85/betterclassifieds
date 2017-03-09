@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("view/organiser-invite")]
         public ActionResult ViewEventOrganiserInvite()
         {
-            var fakeVm = new EventOrganiserInviteViewModel
+            var fakeVm = new EventOrganiserInviteEmail
             {
                 EventName = "The Great Festival",
                 HomeUrl = Url.Home().WithFullUrl(),
@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("view/ticket-buyer")]
         public ActionResult ViewEventTicketBuyerNotification()
         {
-            var fakeVm = new EventTicketBuyerViewModel
+            var fakeVm = new EventTicketBuyerEmail
             {
                 Address = "1 hello world",
                 EventName = "The Great Festival",

@@ -1,6 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
 {
-    public class EventOrganiserInviteViewModel
+    public class EventOrganiserInviteEmail
     {
         public string AcceptInvitationUrl { get; set; }
         public string HomeUrl { get; set; }

@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         }
 
         /// <summary>
-        /// 
+        /// When turned set, it will generate full outgoing absolute URL's
         /// </summary>
         /// <returns></returns>
         public IUrl WithAbsoluteUrl()
@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         {
             return BuildIt(_urlHelper.Home);
         }
-
+        
         public string EventUrl(string titleSlug, int id)
         {
             return BuildIt(() => _urlHelper.AdUrl(titleSlug, id, CategoryAdType.Event));

@@ -12,18 +12,29 @@
 }
 
 <div class="container top-buffer-60" id="manageOrganisers">
-    <h2 class="page-header">
-        Hi 
-    </h2>
-    @if (Model.IsSuccessful)
+    @if (Model.BadRequest)
     {
-        <p>
-            Congratulations, you now have access to manage the event <a href="@Model.EventUrl">
-                @Model.EventName
-            </a>. If you have any issues please contact the event administrator.
-        </p>
+        <div class="alert alert-danger">
+            <h3>
+                <i class="fa fa-warning"></i> Hmmmmm .... There seems to be a
+                problem with your request. Some information is
+                missing or no longer valid.
+            </h3>
+
+        </div>
     }
-   
+    else
+    {
+        <h2 class="page-header">
+            Hi
+        </h2>
+
+        if (Model.IsSuccessful)
+        {
+            <p>
+                Congratulations, you now have access to manage the
+                event <a href="@Model.EventUrl">@Model.EventName</a>.
+            </p>
+        }
+    }
 </div>
-
-

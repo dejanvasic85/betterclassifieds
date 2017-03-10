@@ -352,7 +352,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            
+
             // arrange service calls
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
@@ -405,7 +405,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
-            
+
             _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
@@ -416,7 +416,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
                 .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())
                 .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), result: new EventTicketsBookedNotification())
-                .SetupWithVerification(call => call.CreateEventGuestNotifications(), result: new [] { new EventGuestNotification(), new EventGuestNotification()})
+                .SetupWithVerification(call => call.CreateEventGuestNotifications(), result: new[] { new EventGuestNotification(), new EventGuestNotification() })
                 ;
 
             // act
@@ -476,10 +476,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
-            
+
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
 
-            
+
             _paymentService.SetupWithVerification(call => call.CompletePayment(
                 "ref123",
                 "payer123",
@@ -530,6 +530,26 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
         }
 
+        [Test]
+        public void AcceptInvite_NoEventFound_ReturnsNotFoundRedirect()
+        {
+            var mockRequest = new AcceptOrganiserInviteRequestVm
+            {
+                EventId = 123,
+                Recipient = "foo@bar.com",
+                Token = Guid.NewGuid().ToString()
+            };
+
+            // Setup services
+            _searchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), null);
+
+            var controller = BuildController();
+            var result = controller.AcceptInvite(mockRequest);
+
+            // Assert
+            result.IsRedirectingToNotFound();
+        }
+
         private Mock<HttpContextBase> _httpContext;
         private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;
@@ -547,6 +567,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<ICreditCardService> _creditCardService;
         private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
         private Mock<ITicketRequestValidator> _ticketRequestValidator;
+        private Mock<ILogService> _logService;
 
         [SetUp]
         public void SetupController()
@@ -571,6 +592,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventNotificationBuilder.Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>())).Returns(
                 _eventNotificationBuilder.Object);
             _ticketRequestValidator = CreateMockOf<ITicketRequestValidator>();
+            _logService = CreateMockOf<ILogService>();
         }
     }
 }

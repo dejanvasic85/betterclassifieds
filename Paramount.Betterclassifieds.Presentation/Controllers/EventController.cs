@@ -14,6 +14,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
@@ -403,16 +404,31 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpGet, ActionName("accept-organiser-invite")]
         [Authorize]
-        public ActionResult AcceptInvite(int eventId, string token, string recipient)
+        public ActionResult AcceptInvite(AcceptOrganiserInviteRequestVm request)
         {
-            var result = _eventManager.ConfirmOrganiserInvite(eventId, token, recipient);
-
-            if (result == OrganiserConfirmationResult.NotFound)
+            if (!ModelState.IsValid)
             {
-                
+                _logService.Warn("Invitation view model state invalid. Details: \n" + request.ToJsonString());
+                return View(new AcceptOrganiserInviteViewModel() {BadRequest = true});
+            }
+            
+            var eventDetails = _searchService.GetEvent(request.EventId.GetValueOrDefault());
+            if (eventDetails == null)
+            {
+                return Url.NotFound().ToRedirectResult();
             }
 
-            return View();
+            var result = _eventManager.ConfirmOrganiserInvite(request.EventId.GetValueOrDefault(),
+            request.Token, request.Recipient);
+
+            var vm = new AcceptOrganiserInviteViewModel
+            {
+                IsSuccessful = result == OrganiserConfirmationResult.Success,
+                EventName = eventDetails.AdSearchResult.Heading,
+                EventUrl = Url.EventDashboard(eventDetails.AdSearchResult.AdId)
+            };
+            
+            return View(vm);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -452,8 +468,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ICreditCardService _creditCardService;
         private readonly IEventNotificationBuilder _eventNotificationBuilder;
         private readonly ITicketRequestValidator _ticketRequestValidator;
+        private readonly ILogService _logService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder, ITicketRequestValidator ticketRequestValidator)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder, ITicketRequestValidator ticketRequestValidator, ILogService logService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -469,6 +486,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _appConfig = appConfig;
             _creditCardService = creditCardService;
             _ticketRequestValidator = ticketRequestValidator;
+            _logService = logService;
             _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(templatingService.Init(this));
         }
     }

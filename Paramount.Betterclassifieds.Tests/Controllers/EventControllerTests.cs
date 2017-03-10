@@ -550,6 +550,42 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsRedirectingToNotFound();
         }
 
+        [Test]
+        public void AcceptInvite_CallsEventManagerToConfirm_ReturnsViewModel()
+        {
+            var mockRequest = new AcceptOrganiserInviteRequestVm
+            {
+                EventId = 123,
+                Recipient = "foo@bar.com",
+                Token = Guid.NewGuid().ToString()
+            };
+            
+            var mockEvent = new EventModelMockBuilder().Default()
+                .WithEventId(mockRequest.EventId).Build();
+
+            var mockSearchResult = new EventSearchResult(
+                new AdSearchResultMockBuilder().Default().Build(), mockEvent, null);
+
+            // Setup services
+            _searchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), mockSearchResult);
+            _eventManager.SetupWithVerification(call => call.ConfirmOrganiserInvite(
+                It.Is<int>(eventId => eventId == mockRequest.EventId),
+                It.Is<string>(token => token == mockRequest.Token),
+                It.Is<string>(recipient => recipient == mockRequest.Recipient)),
+                result: OrganiserConfirmationResult.Success);
+
+            var controller = BuildController();
+            var result = controller.AcceptInvite(mockRequest);
+
+            // Assert
+            var vm= result.ViewResultModelIsTypeOf<AcceptOrganiserInviteViewModel>();
+            vm.IsSuccessful.IsTrue();
+            vm.EventName.IsEqualTo(mockSearchResult.AdSearchResult.Heading);
+            
+        }
+
+
+
         private Mock<HttpContextBase> _httpContext;
         private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;

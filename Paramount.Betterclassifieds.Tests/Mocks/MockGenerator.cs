@@ -1195,6 +1195,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.UserId = val);
 		}
+		public EventOrganiserMockBuilder WithEmail(String val)
+		{ 
+			return WithBuildStep(p => p.Email = val);
+		}
+		public EventOrganiserMockBuilder WithInviteToken(Guid? val)
+		{ 
+			return WithBuildStep(p => p.InviteToken = val);
+		}
 		public EventOrganiserMockBuilder WithLastModifiedBy(String val)
 		{ 
 			return WithBuildStep(p => p.LastModifiedBy = val);

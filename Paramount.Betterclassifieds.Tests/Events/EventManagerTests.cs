@@ -793,13 +793,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(updatedEventBookingTicket.IsPublic, Is.EqualTo(true));
             Assert.That(updatedEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
-        
+
         [Test]
         public void UpdateEventBookingTicket_ThrowsArgumentException()
         {
             var manager = BuildTargetObject();
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
-            
+
             Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, false, null, b => "barcode123"));
         }
 
@@ -960,7 +960,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var expectedClosingDate = DateTime.Now.AddDays(30);
             var expectedClosingDateUtc = expectedClosingDate.AddSeconds(-110);
-            
+
             var expectedOpeningDate = DateTime.Now.AddDays(1);
             var expectedOpeningDateUtc = expectedOpeningDate.AddSeconds(-110);
 
@@ -971,8 +971,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 call => call.UpdateEvent(It.Is<EventModel>(e => e == mockEvent)));
 
             var mgr = BuildTargetObject();
-            
-            mgr.UpdateEventTicketSettings(mockEvent.EventId.Value, 
+
+            mgr.UpdateEventTicketSettings(mockEvent.EventId.Value,
                 includeTransactionFee: false,
                 closingDate: expectedClosingDate,
                 openingDate: expectedOpeningDate);
@@ -991,10 +991,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockEvent = new EventModelMockBuilder().Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), result: mockEvent);
-            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(e=> e == mockEvent)));
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(e => e == mockEvent)));
 
             var manager = BuildTargetObject();
-            
+
             manager.UpdateEventGuestSettings(mockEvent.EventId.GetValueOrDefault(), true);
 
             mockEvent.DisplayGuests.IsTrue();
@@ -1004,7 +1004,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void RevokeOrganiserAccess_GetsObjects_UpdatesActiveFlag()
         {
-            var eventOrganiserMock= new EventOrganiserMockBuilder()
+            var eventOrganiserMock = new EventOrganiserMockBuilder()
                 .WithEventOrganiserId(88)
                 .WithIsActive(true)
                 .Build();
@@ -1061,7 +1061,77 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.LastModifiedDate.IsNotNull();
             result.LastModifiedDateUtc.IsNotNull();
             result.LastModifiedBy.IsEqualTo(userMock.Username);
+
+        }
+
+
+        [Test]
+        public void ConfirmOrganiserInvite_OrganiserNotFound()
+        {
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.GetEventOrganisersForEvent(It.IsAny<int>()),
+                null
+                );
+
+            var manager = BuildTargetObject();
+            var result = manager.ConfirmOrganiserInvite(123, "token123", "foo@bar.com");
+
+            result.IsEqualTo(OrganiserConfirmationResult.NotFound);
+        }
+
+        [Test]
+        public void ConfirmOrganiserInvite_UserIdAlreadyExists()
+        {
+            var eventOrganiserMock = new EventOrganiserMockBuilder().Default()
+                .WithUserId("user-1234")
+                .WithIsActive(true)
+                .WithEmail("foo@bar.com")
+                .WithInviteToken(Guid.NewGuid())
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.GetEventOrganisersForEvent(It.IsAny<int>()),
+                new List<EventOrganiser> { eventOrganiserMock });
+
+            var manager = BuildTargetObject();
+            var result = manager.ConfirmOrganiserInvite(123, eventOrganiserMock.InviteToken.ToString(), "foo@bar.com");
+
+            result.IsEqualTo(OrganiserConfirmationResult.AlreadyActivated);
+        }
+
+        [Test]
+        public void ConfirmOrganiserInvite_UpdatesObject_SavesToRepository()
+        {
+            // Mocks
+            var eventOrganiserMock = new EventOrganiserMockBuilder().Default()
+                .WithUserId(null)
+                .WithIsActive(true)
+                .WithEmail("foo@bar.com")
+                .WithInviteToken(Guid.NewGuid())
+                .WithLastModifiedBy(null)
+                .Build();
+
+            var applicationUser = new ApplicationUserMockBuilder().Default().Build();
+
+            // Setup services
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.GetEventOrganisersForEvent(It.IsAny<int>()),
+                new List<EventOrganiser> { eventOrganiserMock });
+
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.UpdateEventOrganiser(It.Is<EventOrganiser>(o => o == eventOrganiserMock)));
+
+            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            _dateServiceMock.SetupNowUtc().SetupNow();
             
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), applicationUser);
+
+            var manager = BuildTargetObject();
+            var result = manager.ConfirmOrganiserInvite(123, eventOrganiserMock.InviteToken.ToString(), "foo@bar.com");
+            
+            result.IsEqualTo(OrganiserConfirmationResult.Success);
+            eventOrganiserMock.LastModifiedDate.IsNotNull();
+            eventOrganiserMock.UserId.IsEqualTo(applicationUser.Username);
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

@@ -657,10 +657,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public OrganiserConfirmationResult ConfirmOrganiserInvite(int eventId, string token, string recipient)
-        {
+        {   
             var organisers = _eventRepository.GetEventOrganisersForEvent(eventId);
 
-            var organiserToActivate = organisers.FirstOrDefault(o => 
+            var organiserToActivate = organisers?.FirstOrDefault(o => 
                 o.IsActive && 
                 o.Email.Equals(recipient, StringComparison.OrdinalIgnoreCase) &&
                 o.InviteToken.ToString() == token);
@@ -681,7 +681,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             organiserToActivate.LastModifiedDate = _dateService.Now;
             organiserToActivate.LastModifiedDateUtc = _dateService.UtcNow;
             organiserToActivate.UserId = _userManager.GetCurrentUser().Username;
-            organiserToActivate.IsActive = true;
 
             _eventRepository.UpdateEventOrganiser(organiserToActivate);
 

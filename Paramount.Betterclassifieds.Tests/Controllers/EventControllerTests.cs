@@ -581,7 +581,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var vm= result.ViewResultModelIsTypeOf<AcceptOrganiserInviteViewModel>();
             vm.IsSuccessful.IsTrue();
             vm.EventName.IsEqualTo(mockSearchResult.AdSearchResult.Heading);
-            
+            // Todo - Assert the url
         }
 
 

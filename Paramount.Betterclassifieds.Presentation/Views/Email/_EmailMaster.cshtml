@@ -3,7 +3,7 @@
 @{
     Layout = null;
     var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
-    var footer = "_EmailFooter." + brand;
+    var footer = string.Format("~/Views/Email/_EmailFooter.{0}.cshtml", brand);
 
 }
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Actionable emails e.g. reset password</title>
 
-    @Html.Partial("_EmailStyles")
+    @Html.Partial("~/Views/Email/_EmailStyles.cshtml")
 
 </head>
 

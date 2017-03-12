@@ -25,16 +25,43 @@
     }
     else
     {
-        <h2 class="page-header">
-            Hi
-        </h2>
-
         if (Model.IsSuccessful)
         {
-            <p>
-                Congratulations, you now have access to manage the
-                event <a href="@Model.EventUrl">@Model.EventName</a>.
-            </p>
+            <h3 class="page-header">
+                Access Granted
+            </h3>
+
+            <div class="alert alert-success">
+                <strong>
+                    <i class="fa fa-check"></i> Congratulations @Model.Name,
+                </strong> you now have access to manage the
+                event @Model.EventName.
+            </div>
+
+            <div>
+                <a class="btn btn-default" href="@Model.EventUrl">Go to Event Dashboard</a>
+            </div>
+        }
+        else if (Model.AlreadyActivated)
+        {
+            <h3 class="page-header">
+                Duplicate invite detected
+            </h3>
+
+            <div class="alert alert-warning">
+                Hmmmm. It seems that this invite has already been used. Contact the 
+                event organiser to get another invite!
+            </div>
+        }
+        else if (Model.WrongEmail)
+        {
+            <h3 class="page-header">
+                Mismatched email invite
+            </h3>
+
+            <div class="alert alert-danger">
+                The invited email address does not match the currently logged in email address.
+            </div>
         }
     }
 </div>

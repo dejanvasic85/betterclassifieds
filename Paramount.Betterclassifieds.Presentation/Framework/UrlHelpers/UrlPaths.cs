@@ -257,9 +257,9 @@ namespace Paramount
             return new UrlBuilder(urlHelper).WithAction("manage-guests", "editad").WithRouteValues(new { id, eventId });
         }
 
-        public static UrlBuilder ManageEventOrganisers(this UrlHelper urlHelper, int id, int eventId)
+        public static UrlBuilder ManageEventOrganisers(this UrlHelper urlHelper, int eventId)
         {
-            return new UrlBuilder(urlHelper).WithAction("manage-organisers", "EventOrganiser").WithRouteValues(new {id, eventId});
+            return new UrlBuilder(urlHelper).WithAction("manage-organisers", "EventOrganiser").WithRouteValues(new {eventId});
         }
 
         public static UrlBuilder CategorySeoView(this UrlHelper urlHelper, string seoName)

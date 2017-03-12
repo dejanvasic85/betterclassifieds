@@ -75,8 +75,8 @@
                 <tbody data-bind="foreach: organisers">
                 <tr>
                     <td>
-                        <span class="label label-warning"
-                              data-bind="text: status"></span>
+                        <span class="label"
+                              data-bind="text: status, css : statusClass"></span>
                     </td>
                     <td data-bind="text: email"></td>
                     <td data-bind="text: lastModifiedDate"></td>

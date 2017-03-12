@@ -409,25 +409,28 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
             {
                 _logService.Warn("Invitation view model state invalid. Details: \n" + request.ToJsonString());
-                return View(new AcceptOrganiserInviteViewModel() {BadRequest = true});
+                return View(new AcceptOrganiserInviteViewModel { BadRequest = true });
             }
-            
+
             var eventDetails = _searchService.GetEvent(request.EventId.GetValueOrDefault());
             if (eventDetails == null)
             {
                 return Url.NotFound().ToRedirectResult();
             }
 
-            var result = _eventManager.ConfirmOrganiserInvite(request.EventId.GetValueOrDefault(),
-            request.Token, request.Recipient);
+            var result = _eventManager.ConfirmOrganiserInvite(request.EventId.GetValueOrDefault(), request.Token, request.Recipient);
 
             var vm = new AcceptOrganiserInviteViewModel
             {
                 IsSuccessful = result == OrganiserConfirmationResult.Success,
+                AlreadyActivated = result == OrganiserConfirmationResult.AlreadyActivated,
+                WrongEmail = result == OrganiserConfirmationResult.MismatchedEmail,
                 EventName = eventDetails.AdSearchResult.Heading,
-                EventUrl = Url.EventDashboard(eventDetails.AdSearchResult.AdId)
+                EventUrl = Url.EventDashboard(eventDetails.AdSearchResult.AdId),
+                Name = _userManager.GetCurrentUser().FirstName,
+                BrandName = _clientConfig.ClientName
             };
-            
+
             return View(vm);
         }
 

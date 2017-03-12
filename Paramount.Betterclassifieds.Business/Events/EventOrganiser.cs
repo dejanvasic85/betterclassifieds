@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         NotFound,
         Success,
-        AlreadyActivated
+        AlreadyActivated,
+        MismatchedEmail
     }
 }

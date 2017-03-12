@@ -11,13 +11,11 @@ namespace Paramount.Betterclassifieds.Business.Events
     public class EventAccess : ICategoryAdAuthoriser
     {
         private readonly IEventRepository _eventRepository;
-        private readonly IBookingManager _bookingManager;
         private readonly ISearchService _searchService;
 
-        public EventAccess(IEventRepository eventRepository, IBookingManager bookingManager, ISearchService searchService)
+        public EventAccess(IEventRepository eventRepository, ISearchService searchService)
         {
             _eventRepository = eventRepository;
-            _bookingManager = bookingManager;
             _searchService = searchService;
         }
 

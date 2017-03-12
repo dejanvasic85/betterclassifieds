@@ -8,8 +8,19 @@
         me.email = ko.observable(data.email);
         me.lastModifiedDate = moment.utc(data.lastModifiedDateUtc).local().format($p.jsToDisplayDateFormat);
         me.status = ko.observable(getStatus(data));
+        me.userId = ko.observable(data.userId);
+        me.inviteToken = ko.observable(data.inviteToken);
+
+        me.statusClass = ko.computed(function () {
+            console.log(me.status());
+            if (me.status() === 'Active') {
+                return "label-success";
+            }
+
+            return 'label-warning';
+        });
     }
-    
+
     function getStatus(organiser) {
         if (organiser.userId !== null && organiser.userId !== '') {
             return "Active";
@@ -20,16 +31,6 @@
         }
 
         return null;
-    }
-
-    function getStatusClass(status) {
-        if (status === 'Active') {
-            return "success";
-        }
-
-        if (status === 'Invited') {
-            return "warning";
-        }
     }
 
 })(jQuery, $paramount, ko, moment);

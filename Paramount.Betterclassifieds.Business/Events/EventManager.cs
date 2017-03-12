@@ -677,10 +677,18 @@ namespace Paramount.Betterclassifieds.Business.Events
                 return OrganiserConfirmationResult.AlreadyActivated;
             }
 
+            var applicationUser = _userManager.GetCurrentUser();
+
+            if (applicationUser.Email.DoesNotEqual(recipient))
+            {
+                _logService.Info($"Mistatched email. Current: {applicationUser.Email}. Recipient: {recipient}");
+                return OrganiserConfirmationResult.MismatchedEmail;
+            }
+
             _logService.Info($"Activating organiser {recipient} for event {eventId}");
             organiserToActivate.LastModifiedDate = _dateService.Now;
             organiserToActivate.LastModifiedDateUtc = _dateService.UtcNow;
-            organiserToActivate.UserId = _userManager.GetCurrentUser().Username;
+            organiserToActivate.UserId = applicationUser.Username;
 
             _eventRepository.UpdateEventOrganiser(organiserToActivate);
 

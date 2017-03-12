@@ -1064,7 +1064,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
         }
 
-
         [Test]
         public void ConfirmOrganiserInvite_OrganiserNotFound()
         {
@@ -1097,6 +1096,31 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = manager.ConfirmOrganiserInvite(123, eventOrganiserMock.InviteToken.ToString(), "foo@bar.com");
 
             result.IsEqualTo(OrganiserConfirmationResult.AlreadyActivated);
+        }
+
+        [Test]
+        public void ConfirmOrganiserInvite_UserLoggedIn_MisMatchedEmail()
+        {
+            var eventOrganiserMock = new EventOrganiserMockBuilder().Default()
+                .WithUserId(null)
+                .WithIsActive(true)
+                .WithEmail("foo@bar.com")
+                .WithInviteToken(Guid.NewGuid())
+                .Build();
+
+            // Currently logged in user doesn't match what was in the recipient!
+            var mockUser = new ApplicationUserMockBuilder().Default().WithEmail("someone@else.com").Build();
+
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.GetEventOrganisersForEvent(It.IsAny<int>()),
+                new List<EventOrganiser> { eventOrganiserMock });
+
+            var manager = BuildTargetObject();
+            var result = manager.ConfirmOrganiserInvite(123, eventOrganiserMock.InviteToken.ToString(), "foo@bar.com");
+
+            result.IsEqualTo(OrganiserConfirmationResult.MismatchedEmail);
         }
 
         [Test]

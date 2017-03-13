@@ -206,9 +206,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingManager.WithEventBooking(_eventBookingContext.EventBookingId);
 
             var viewModel = _eventBookingManager.CreateEventBookedViewModel();
-            var ticketPurchaserNotification = _eventBookingManager.CreateTicketPurchaserNotification();
-
-            _broadcastManager.Queue(ticketPurchaserNotification, eventBooking.Email);
+            _eventBookingManager.SendTicketBuyerNotification();
 
             // Todo - think about how this can be done offline. Maybe once we have a better emailing system and Azure functions!
             _eventBookingManager.CreateEventGuestNotifications().ForEach(notification =>
@@ -472,7 +470,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ITicketRequestValidator _ticketRequestValidator;
         private readonly ILogService _logService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -489,7 +487,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _creditCardService = creditCardService;
             _ticketRequestValidator = ticketRequestValidator;
             _logService = logService;
-            _eventBookingManager = eventBookingManager.WithTemplateService(templatingService.Init(this));
+            _eventBookingManager = eventBookingManager
+                .WithTemplateService(templatingService.Init(this))
+                .WithMailService(mailService.Initialise(this));
+            
+
         }
     }
 }

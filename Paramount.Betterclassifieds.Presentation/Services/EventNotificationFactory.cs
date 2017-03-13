@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -17,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     {
         IEventBookingManager WithEventBooking(int? eventBookingId);
         IEventBookingManager WithTemplateService(ITemplatingService templateService);
-        EventTicketsBookedNotification CreateTicketPurchaserNotification();
+        IEventBookingManager WithMailService(IMailService mailService);
         byte[] CreateTicketAttachment(EventBookingTicket ticket);
         EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket);
         IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
@@ -28,6 +27,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         EventBookedViewModel CreateEventBookedViewModel();
         EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName,
             string newGuestEmail, string newGuestFullName);
+
+        void SendTicketBuyerNotification();
     }
 
     public class EventBookingManager : IMappingBehaviour, IEventBookingManager
@@ -37,7 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly IEventManager _eventManager;
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
-
+        private IMailService _mailService;
         private ITemplatingService _templateService;
         private EventBookedViewModel _eventBookedViewModel;
 
@@ -94,6 +95,12 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return this;
         }
 
+        public IEventBookingManager WithMailService(IMailService mailService)
+        {
+            _mailService = mailService;
+            return this;
+        }
+
         private Lazy<EventBooking> EventBooking => new Lazy<EventBooking>(() =>
             {
                 if (!EventBookingId.HasValue)
@@ -136,14 +143,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             };
         }
 
-        public EventTicketsBookedNotification CreateTicketPurchaserNotification()
+        public void SendTicketBuyerNotification()
         {
-            var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(_eventBookedViewModel);
-
-            if (EventBooking.Value.TotalCost > 0)
-                notification.WithInvoice(CreateInvoiceAttachment());
-
-            return notification;
+            _mailService.SendTicketBuyerEmail(EventBooking.Value.Email, Ad.Value, EventBooking.Value);
         }
 
         public byte[] CreateTicketAttachment(EventBookingTicket ticket)

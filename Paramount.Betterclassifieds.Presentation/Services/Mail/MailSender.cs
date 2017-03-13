@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             {
                 foreach (var attachment in attachments)
                 {
-                    request.AddFileBytes(attachment.Filename.WithoutFileExtension(),
+                    request.AddFileBytes("attachment",
                         attachment.FileContents,
                         attachment.Filename,
                         attachment.ContentType);

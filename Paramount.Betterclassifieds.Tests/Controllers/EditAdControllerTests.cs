@@ -22,7 +22,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 {
     internal class EditAdControllerTests : ControllerTest<EditAdController>
     {
-
         [Test]
         public void EventDashboard_Get_Returns_ViewResult()
         {
@@ -278,9 +277,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
                 It.IsAny<IList<EventBookingTicket>>()));
 
-            _eventNotificationBuilder
-                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
-                .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), new EventTicketsBookedNotification())
+            _eventBookingManager
+                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)
                 .SetupWithVerification(call => call.CreateEventGuestNotifications(), new[] { new EventGuestNotification() });
 
             _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string>()), result: null);
@@ -419,8 +417,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // arrange service calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
-            _eventNotificationBuilder.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventNotificationBuilder.Object);
-            _eventNotificationBuilder.SetupWithVerification(call => call.CreateEventGuestResendNotifications(), mockEventGuestNotifications);
+            _eventBookingManager.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventBookingManager.Object);
+            _eventBookingManager.SetupWithVerification(call => call.CreateEventGuestResendNotifications(), mockEventGuestNotifications);
             _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestResendNotification>(), It.IsAny<string[]>()), null);
 
             var controller = BuildController();
@@ -518,7 +516,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
         private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
-        private Mock<IEventBookingManager> _eventNotificationBuilder;
+        private Mock<IEventBookingManager> _eventBookingManager;
+        private Mock<IMailService> _mailService;
+
 
         [SetUp]
         public void SetupDependencies()
@@ -536,11 +536,19 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
-            _eventNotificationBuilder = CreateMockOf<IEventBookingManager>();
+            _eventBookingManager = CreateMockOf<IEventBookingManager>();
 
-            _eventNotificationBuilder
+            _mailService = CreateMockOf<IMailService>();
+            _mailService.Setup(call => call.Initialise(It.IsAny<Controller>()))
+                .Returns(_mailService.Object);
+
+            _eventBookingManager
                 .Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>()))
-                .Returns(_eventNotificationBuilder.Object);
+                .Returns(_eventBookingManager.Object);
+
+            _eventBookingManager
+               .Setup(call => call.WithMailService(It.IsAny<IMailService>()))
+               .Returns(_eventBookingManager.Object);
         }
     }
 }

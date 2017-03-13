@@ -400,8 +400,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 })
                 .WithEventId(eventMock.EventId.GetValueOrDefault())
                 .Build();
-
-            var applicationUserMock = new ApplicationUserMockBuilder().Default().Build();
+            
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
@@ -412,10 +411,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
-            _eventNotificationBuilder
-                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
+            _eventBookingManager
+                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)
                 .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())
-                .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), result: new EventTicketsBookedNotification())
+                .SetupWithVerification(call => call.SendTicketBuyerNotification())
                 .SetupWithVerification(call => call.CreateEventGuestNotifications(), result: new[] { new EventGuestNotification(), new EventGuestNotification() })
                 ;
 
@@ -427,7 +426,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewModel = result.ViewResultModelIsTypeOf<EventBookedViewModel>();
             viewModel.EventHasGroups.IsEqualTo(false);
 
-            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(3)); // Sends the tickets and each guest a calendar invite!
+            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(2)); // Sends the tickets and each guest a calendar invite!
         }
 
         [Test]
@@ -602,9 +601,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
         private Mock<IApplicationConfig> _appConfig;
         private Mock<ICreditCardService> _creditCardService;
-        private Mock<IEventBookingManager> _eventNotificationBuilder;
+        private Mock<IEventBookingManager> _eventBookingManager;
         private Mock<ITicketRequestValidator> _ticketRequestValidator;
         private Mock<ILogService> _logService;
+        private Mock<IMailService> _mailService;
 
         [SetUp]
         public void SetupController()
@@ -625,9 +625,18 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _appConfig = CreateMockOf<IApplicationConfig>();
             _creditCardService = CreateMockOf<ICreditCardService>();
-            _eventNotificationBuilder = CreateMockOf<IEventBookingManager>();
-            _eventNotificationBuilder.Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>())).Returns(
-                _eventNotificationBuilder.Object);
+
+            _mailService = CreateMockOf<IMailService>();
+            _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
+
+            _eventBookingManager = CreateMockOf<IEventBookingManager>();
+            _eventBookingManager
+                .Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>()))
+                .Returns(_eventBookingManager.Object);
+            _eventBookingManager
+                .Setup(call => call.WithMailService(It.IsAny<IMailService>()))
+                .Returns(_eventBookingManager.Object);
+
             _ticketRequestValidator = CreateMockOf<ITicketRequestValidator>();
             _logService = CreateMockOf<ILogService>();
         }

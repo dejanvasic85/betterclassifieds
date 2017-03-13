@@ -192,6 +192,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockClientConfig = CreateMockOf<IClientConfig>();
             _mockSmtpMailer = CreateMockOf<ISmtpMailer>();
             _mailService = CreateMockOf<IMailService>();
+            _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
         }
     }
 }

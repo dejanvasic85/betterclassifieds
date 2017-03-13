@@ -573,6 +573,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<string>(token => token == mockRequest.Token),
                 It.Is<string>(recipient => recipient == mockRequest.Recipient)),
                 result: OrganiserConfirmationResult.Success);
+            _clientConfig.SetupWithVerification(call => call.ClientName, "BrandOne");
 
             var controller = BuildController();
             var result = controller.AcceptInvite(mockRequest);

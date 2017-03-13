@@ -11,7 +11,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool AlreadyActivated { get; set; }
         public bool WrongEmail { get; set; }
         public string BrandName { get; set; }
-        public string Name { get; set; }
     }
 
     public class AcceptOrganiserInviteRequestVm

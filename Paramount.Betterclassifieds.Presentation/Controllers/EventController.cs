@@ -427,7 +427,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 WrongEmail = result == OrganiserConfirmationResult.MismatchedEmail,
                 EventName = eventDetails.AdSearchResult.Heading,
                 EventUrl = Url.EventDashboard(eventDetails.AdSearchResult.AdId),
-                Name = _userManager.GetCurrentUser().FirstName,
                 BrandName = _clientConfig.ClientName
             };
 

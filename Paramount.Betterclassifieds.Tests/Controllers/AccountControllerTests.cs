@@ -174,7 +174,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
         private Mock<IUserManager> _mockUserMgr;
         private Mock<IAuthManager> _mockAuthMgr;
-        private Mock<IBroadcastManager> _mockBroadcastMgr;
         private Mock<ISearchService> _searchServiceMgr;
         private Mock<IPrincipal> _mockLoggedInUser;
         private Mock<IClientConfig> _mockClientConfig;
@@ -187,7 +186,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockLoggedInUser = CreateMockOf<IPrincipal>();
             _mockUserMgr = CreateMockOf<IUserManager>();
             _mockAuthMgr = CreateMockOf<IAuthManager>();
-            _mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
             _searchServiceMgr = CreateMockOf<ISearchService>();
             _mockClientConfig = CreateMockOf<IClientConfig>();
             _mockSmtpMailer = CreateMockOf<ISmtpMailer>();

@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         void SendTicketBuyerEmail(string to, AdSearchResult ad, EventBooking eventBooking);
         void SendWelcomeEmail(string email, string username);
+        void SendForgotPasswordEmail(string email, string newPassword);
     }
 
     public class MailService : IMailService
@@ -42,10 +43,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         struct Views
         {
-            public const string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
+            public static string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
             public static string EventPurchaserNotificationView = "~/Views/Email/EventTicketBuyer.cshtml";
             public static string EventBookingInvoiceView = "~/Views/Templates/Invoice.cshtml";
             public static string WelcomeView = "~/Views/Email/Welcome.cshtml";
+            public static string ForgotPasswordView = "~/Views/Email/ForgotPassword.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -102,7 +104,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
                 var invoiceHtml = _templatingService.Generate(invoiceViewModel, Views.EventBookingInvoiceView);
                 var invoicePdf = _pdfGenerator.BuildFromHtml(invoiceHtml);
-                
+
                 var invoiceFileName = "Invoice - " + ad.Heading + ".pdf";
                 var attachment = new MailAttachment
                 {
@@ -120,15 +122,28 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         {
             var clientName = _clientConfig.ClientName;
 
-            var body = _templatingService.Generate(new WelcomeViewModel
+            var body = _templatingService.Generate(new WelcomeEmail
             {
-                Email=  email,
+                Email = email,
                 Username = username,
                 HomeUrl = _url.Home(),
                 BrandName = clientName
             }, Views.WelcomeView);
 
             _mailSender.Send(email, body, "Welcome to " + clientName);
+        }
+
+        public void SendForgotPasswordEmail(string email, string newPassword)
+        {
+            var body = _templatingService.Generate(new ForgotPasswordEmail
+            {
+                Email = email,
+                NewPassword = newPassword,
+                LoginUrl = _url.Login()
+
+            }, Views.ForgotPasswordView);
+
+            _mailSender.Send(email, body, "Password Reset");
         }
     }
 }

@@ -13,18 +13,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
         private readonly ISmtpMailer _emailer;
         private readonly IMailService _mailService;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, ISmtpMailer emailer, IMailService mailService)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IClientConfig clientConfig, ISmtpMailer emailer, IMailService mailService)
         {
             _userManager = userManager;
             _authManager = authManager;
-            _broadcastManager = broadcastManager;
             _clientConfig = clientConfig;
             _emailer = emailer;
             _mailService = mailService.Initialise(this);
@@ -191,16 +189,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var user = _userManager.GetUserByEmailOrUsername(email);
 
             if (user == null)
+            {
                 return Json(new { Error = "The provided email is not valid or does not exist." });
+            }
 
             var password = _authManager.SetRandomPassword(user.Email);
 
-            _broadcastManager.SendEmail(new ForgottenPassword
-            {
-                Email = email,
-                Password = password,
-                Username = user.Username
-            }, email);
+            _mailService.SendForgotPasswordEmail(email, password);
 
             return Json(new { Completed = true });
         }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Net.Mail;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.PresentationServices
@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<IPdfGenerator> _pdfGenerator;
         private Mock<IClientConfig> _clientConfig;
         private ApplicationUser _mockUser;
-       
+
 
         [SetUp]
         public void SetupDependencies()
@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             _mockUser = new ApplicationUserMockBuilder().Default().Build();
             _userManager.Setup(call => call.GetCurrentUser()).Returns(_mockUser);
         }
-        
+
         [Test]
         public void SendEventOrganiserInvite_CreatesViewModel_CallsMailSender()
         {
@@ -71,7 +71,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             mailService.SendEventOrganiserInvite("foo@bar.com",
                 mockAd, 1, inviteToken);
         }
-        
+
         [Test]
         public void SendEventOrganiserInvite_NoTo_ThrowsException()
         {
@@ -118,13 +118,13 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             var htmlMockbodyHtml = "<html>MockBody</html>";
             _templatingService.SetupWithVerification(
                 call => call.Generate(
-                    It.IsAny<object>(), 
+                    It.IsAny<object>(),
                     It.Is<string>(str => str == "~/Views/Email/EventTicketBuyer.cshtml")),
                 htmlMockbodyHtml);
-            
+
             _mailSender.SetupWithVerification(
-                call => call.Send(It.Is<string>(str => str == "foo@bar.com"), 
-                    It.Is<string>(body=> body == htmlMockbodyHtml),
+                call => call.Send(It.Is<string>(str => str == "foo@bar.com"),
+                    It.Is<string>(body => body == htmlMockbodyHtml),
                     It.Is<string>(subject => subject == "Event booking for " + mockAd.Heading),
                     It.IsAny<MailAttachment[]>()));
 
@@ -132,6 +132,39 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             target.SendTicketBuyerEmail("foo@bar.com", mockAd, mockEventBooking);
         }
+        
+        [Test]
+        public void SendWelcomeEmail_CallsMailSender()
+        {
+            _urlMock.SetupWithVerification(call => call.Home(), "/home");
 
+            _clientConfig.SetupWithVerification(call => call.ClientName, "client123");
+
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<WelcomeEmail>(),
+                "~/Views/Email/Welcome.cshtml"), "<body>hello</body>");
+
+            _mailSender.SetupWithVerification(call => call.Send(
+                It.Is<string>(str => str == "foo@bar.com"),
+                It.IsAny<string>(),
+                It.IsAny<string>()));
+
+            BuildTargetObject().SendWelcomeEmail("foo@bar.com", "user123");
+        }
+
+        [Test]
+        public void SendForgotPasswordEmail_CallsMailSender()
+        {
+            _urlMock.SetupWithVerification(call => call.Login(), "/home");
+            
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<ForgotPasswordEmail>(),
+                "~/Views/Email/ForgotPassword.cshtml"), "<body>hello</body>");
+
+            _mailSender.SetupWithVerification(call => call.Send(
+                It.Is<string>(str => str == "foo@bar.com"),
+                It.IsAny<string>(),
+                It.IsAny<string>()));
+
+            BuildTargetObject().SendForgotPasswordEmail("foo@bar.com", "password123");
+        }
     }
 }

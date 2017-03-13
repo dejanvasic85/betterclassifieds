@@ -323,7 +323,8 @@
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
-    <Compile Include="ViewModels\Email\WelcomeViewModel.cs" />
+    <Compile Include="ViewModels\Email\ForgotPasswordEmail.cs" />
+    <Compile Include="ViewModels\Email\WelcomeEmail.cs" />
     <Compile Include="ViewModels\Events\AcceptOrganiserInviteViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
@@ -1036,6 +1037,7 @@
     <Content Include="Views\Email\_EmailStyles.cshtml" />
     <Content Include="Views\Email\EventTicketBuyer.cshtml" />
     <Content Include="Views\Email\Welcome.cshtml" />
+    <Content Include="Views\Email\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

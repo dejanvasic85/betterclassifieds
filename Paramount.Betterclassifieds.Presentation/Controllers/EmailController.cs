@@ -39,5 +39,28 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View("EventTicketBuyer", fakeVm);
         }
+
+        [Route("view/welcome")]
+        public ActionResult Welcome()
+        {
+            return View("Welcome", new WelcomeEmail
+            {
+                BrandName = "BlandBrand",
+                Email = "Foo@Bar.com",
+                HomeUrl = "http://kandobay.com.au",
+                Username = "foo bar"
+            });
+        }
+
+        [Route("view/forgot-password")]
+        public ActionResult ForgotPassword()
+        {
+            return View("ForgotPassword", new ForgotPasswordEmail()
+            {
+                Email = "Foo@Bar.com",
+                LoginUrl = "http://kandobay.com.au",
+                NewPassword = "Password123"
+            });
+        }
     }
 }

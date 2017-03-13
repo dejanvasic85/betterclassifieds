@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string Home();
         string EventUrl(string titleSlug, int id);
         string EventOrganiserInviteUrl(int eventId, string token, string recipient);
+        string Login();
     }
 
     /// <summary>
@@ -51,6 +52,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public string EventOrganiserInviteUrl(int eventId, string token, string recipient)
         {
             return BuildIt(() => _urlHelper.EventOrganiserInviteUrl(eventId, token, recipient));
+        }
+
+        public string Login()
+        {
+            return BuildIt(() => _urlHelper.Login());
         }
 
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)

@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -178,6 +179,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IPrincipal> _mockLoggedInUser;
         private Mock<IClientConfig> _mockClientConfig;
         private Mock<ISmtpMailer> _mockSmtpMailer;
+        private Mock<IMailService> _mailService;
 
         [SetUp]
         public void SetupCotroller()
@@ -189,6 +191,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _searchServiceMgr = CreateMockOf<ISearchService>();
             _mockClientConfig = CreateMockOf<IClientConfig>();
             _mockSmtpMailer = CreateMockOf<ISmtpMailer>();
+            _mailService = CreateMockOf<IMailService>();
         }
     }
 }

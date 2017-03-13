@@ -300,12 +300,13 @@
     <Compile Include="Services\Constants.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
-    <Compile Include="Services\IMailSender.cs" />
+    <Compile Include="Services\Mail\MailAttachment.cs" />
+    <Compile Include="Services\Mail\MailSender.cs" />
     <Compile Include="Services\IPdfGenerator.cs" />
     <Compile Include="Services\IUrl.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LogService.cs" />
-    <Compile Include="Services\MailService.cs" />
+    <Compile Include="Services\Mail\MailService.cs" />
     <Compile Include="Services\TemplatingService.cs" />
     <Compile Include="Services\UserHttpManager.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
+    <Compile Include="ViewModels\Email\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\Events\AcceptOrganiserInviteViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
@@ -1028,12 +1030,12 @@
     <Content Include="Views\EventOrganiser\manage-organisers.cshtml" />
     <Content Include="Views\Email\_EmailMaster.cshtml" />
     <Content Include="Views\Email\EventOrganiserInvite.cshtml" />
-    <Content Include="Views\Email\_EmailHeader.cshtml" />
     <Content Include="Views\Email\_EmailFooter.KandoBay.cshtml" />
     <Content Include="Views\Email\_EmailFooter.SriLankanEvents.cshtml" />
     <Content Include="Views\Event\accept-organiser-invite.cshtml" />
     <Content Include="Views\Email\_EmailStyles.cshtml" />
     <Content Include="Views\Email\EventTicketBuyer.cshtml" />
+    <Content Include="Views\Email\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

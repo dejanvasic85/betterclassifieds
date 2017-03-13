@@ -126,7 +126,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                 call => call.Send(It.Is<string>(str => str == "foo@bar.com"), 
                     It.Is<string>(body=> body == htmlMockbodyHtml),
                     It.Is<string>(subject => subject == "Event booking for " + mockAd.Heading),
-                    It.IsAny<Attachment[]>()));
+                    It.IsAny<MailAttachment[]>()));
 
             var target = BuildTargetObject();
 

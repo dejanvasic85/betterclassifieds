@@ -4,7 +4,7 @@
     Layout = null;
     var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
     var footer = string.Format("~/Views/Email/_EmailFooter.{0}.cshtml", brand);
-
+    var headerImgUrl = string.Format("http://img.kandobay.com.au/{0}_logo.png", brand);
 }
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +26,7 @@
                     <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope=itemscope itemtype="http://schema.org/ConfirmAction">
                         <tr>
                             <td class="alert">
-                                <img src="@Url.ContentForBrand("/img/logo.png")" style="max-height: 100px" />
+                                <img alt="Logo" src="@headerImgUrl" height="100" />
                             </td>
                         </tr>
                         <tr>

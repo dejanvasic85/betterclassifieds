@@ -1,0 +1,20 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model WelcomeViewModel
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+}
+
+<p>
+    Hi @Model.Email
+</p>
+
+<p>
+    Thank you for registering with @Model.BrandName, your account is currently active and ready to go.
+    In the future you may need to verify this email. 
+</p>
+
+<p>
+    <a class="btn-primary" href="@Model.HomeUrl">Let's Go</a>
+</p>

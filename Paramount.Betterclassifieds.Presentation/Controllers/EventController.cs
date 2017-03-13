@@ -203,15 +203,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var sessionId = _httpContext.With(h => h.Session).SessionID;
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
-            _eventNotificationBuilder.WithEventBooking(_eventBookingContext.EventBookingId);
+            _eventBookingManager.WithEventBooking(_eventBookingContext.EventBookingId);
 
-            var viewModel = _eventNotificationBuilder.CreateEventBookedViewModel();
-            var ticketPurchaserNotification = _eventNotificationBuilder.CreateTicketPurchaserNotification();
+            var viewModel = _eventBookingManager.CreateEventBookedViewModel();
+            var ticketPurchaserNotification = _eventBookingManager.CreateTicketPurchaserNotification();
 
             _broadcastManager.Queue(ticketPurchaserNotification, eventBooking.Email);
 
             // Todo - think about how this can be done offline. Maybe once we have a better emailing system and Azure functions!
-            _eventNotificationBuilder.CreateEventGuestNotifications().ForEach(notification =>
+            _eventBookingManager.CreateEventGuestNotifications().ForEach(notification =>
                 {
                     _broadcastManager.Queue(notification, notification.GuestEmail);
                 });
@@ -346,7 +346,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets(int id)
         {
-            var builder = _eventNotificationBuilder.WithEventBooking(id);
+            var builder = _eventBookingManager.WithEventBooking(id);
 
             var viewModels = builder.CreateEventTicketPrintViewModelsForBooking();
             return View(viewModels.ToList());
@@ -468,11 +468,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventBarcodeValidator _eventBarcodeValidator;
         private readonly IApplicationConfig _appConfig;
         private readonly ICreditCardService _creditCardService;
-        private readonly IEventNotificationBuilder _eventNotificationBuilder;
+        private readonly IEventBookingManager _eventBookingManager;
         private readonly ITicketRequestValidator _ticketRequestValidator;
         private readonly ILogService _logService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder, ITicketRequestValidator ticketRequestValidator, ILogService logService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -489,7 +489,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _creditCardService = creditCardService;
             _ticketRequestValidator = ticketRequestValidator;
             _logService = logService;
-            _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(templatingService.Init(this));
+            _eventBookingManager = eventBookingManager.WithTemplateService(templatingService.Init(this));
         }
     }
 }

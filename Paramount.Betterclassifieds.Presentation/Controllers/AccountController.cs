@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -16,16 +16,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
         private readonly ISmtpMailer _emailer;
+        private readonly IMailService _mailService;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, ISmtpMailer emailer)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, ISmtpMailer emailer, IMailService mailService)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
             _clientConfig = clientConfig;
             _emailer = emailer;
+            _mailService = mailService.Initialise(this);
         }
 
         [HttpGet]
@@ -119,6 +121,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     RegistrationId = registrationResult.Registration.RegistrationId,
                     ReturnUrl = TempData[ReturnUrlKey]?.ToString() ?? string.Empty,
                 });
+            }
+            else
+            {
+                // Send welcome email
+                _mailService.SendWelcomeEmail(registrationResult.Registration.Email, registrationResult.Registration.Username);
             }
 
             if (viewModel.ReturnUrl.HasValue())

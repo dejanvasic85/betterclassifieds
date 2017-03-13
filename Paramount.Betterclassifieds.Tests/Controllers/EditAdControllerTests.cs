@@ -518,7 +518,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
         private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
-        private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
+        private Mock<IEventBookingManager> _eventNotificationBuilder;
 
         [SetUp]
         public void SetupDependencies()
@@ -536,7 +536,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
-            _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();
+            _eventNotificationBuilder = CreateMockOf<IEventBookingManager>();
 
             _eventNotificationBuilder
                 .Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>()))

@@ -13,10 +13,10 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
-    public interface IEventNotificationBuilder
+    public interface IEventBookingManager
     {
-        IEventNotificationBuilder WithEventBooking(int? eventBookingId);
-        IEventNotificationBuilder WithTemplateService(ITemplatingService templateService);
+        IEventBookingManager WithEventBooking(int? eventBookingId);
+        IEventBookingManager WithTemplateService(ITemplatingService templateService);
         EventTicketsBookedNotification CreateTicketPurchaserNotification();
         byte[] CreateTicketAttachment(EventBookingTicket ticket);
         EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket);
@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             string newGuestEmail, string newGuestFullName);
     }
 
-    public class EventNotificationBuilder : IMappingBehaviour, IEventNotificationBuilder
+    public class EventBookingManager : IMappingBehaviour, IEventBookingManager
     {
         private readonly HttpContextBase _httpContextBase;
         private readonly IClientConfig _clientConfig;
@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private ITemplatingService _templateService;
         private EventBookedViewModel _eventBookedViewModel;
 
-        public EventNotificationBuilder(
+        public EventBookingManager(
             HttpContextBase httpContextBase,
             ISearchService searchService,
             IClientConfig clientConfig,
@@ -58,7 +58,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public int? EventBookingId { get; private set; }
 
-        public IEventNotificationBuilder WithEventBooking(int? eventBookingId)
+        public IEventBookingManager WithEventBooking(int? eventBookingId)
         {
             Guard.NotNull(eventBookingId);
 
@@ -88,7 +88,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return _eventBookedViewModel;
         }
 
-        public IEventNotificationBuilder WithTemplateService(ITemplatingService templateService)
+        public IEventBookingManager WithTemplateService(ITemplatingService templateService)
         {
             _templateService = templateService;
             return this;

@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendEventOrganiserInvite(string to, AdSearchResult ad, int eventId, string inviteToken);
 
         void SendTicketBuyerEmail(string to, AdSearchResult ad, EventBooking eventBooking);
+        void SendWelcomeEmail(string email, string username);
     }
 
     public class MailService : IMailService
@@ -44,6 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public const string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
             public static string EventPurchaserNotificationView = "~/Views/Email/EventTicketBuyer.cshtml";
             public static string EventBookingInvoiceView = "~/Views/Templates/Invoice.cshtml";
+            public static string WelcomeView = "~/Views/Email/Welcome.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -91,7 +93,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             };
 
             var body = _templatingService.Generate(viewModel, Views.EventPurchaserNotificationView);
-            var attachments = new List<Attachment>();
+            var attachments = new List<MailAttachment>();
 
             if (eventBooking.TotalCost > 0)
             {
@@ -100,16 +102,33 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
                 var invoiceHtml = _templatingService.Generate(invoiceViewModel, Views.EventBookingInvoiceView);
                 var invoicePdf = _pdfGenerator.BuildFromHtml(invoiceHtml);
-
-                var stream = new MemoryStream(invoicePdf);
+                
                 var invoiceFileName = "Invoice - " + ad.Heading + ".pdf";
-                var attachment = new Attachment(stream, invoiceFileName, ContentType.Pdf);
+                var attachment = new MailAttachment
+                {
+                    ContentType = ContentType.Pdf,
+                    Filename = invoiceFileName,
+                    FileContents = invoicePdf
+                };
                 attachments.Add(attachment);
             }
 
             _mailSender.Send(to, body, "Event booking for " + ad.Heading, attachments.ToArray());
         }
 
+        public void SendWelcomeEmail(string email, string username)
+        {
+            var clientName = _clientConfig.ClientName;
 
+            var body = _templatingService.Generate(new WelcomeViewModel
+            {
+                Email=  email,
+                Username = username,
+                HomeUrl = _url.Home(),
+                BrandName = clientName
+            }, Views.WelcomeView);
+
+            _mailSender.Send(email, body, "Welcome to " + clientName);
+        }
     }
 }

@@ -495,10 +495,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
 
-            var purchaserNotification = _eventNotificationBuilder.WithEventBooking(eventBooking.EventBookingId).CreateTicketPurchaserNotification();
+            var purchaserNotification = _eventBookingManager.WithEventBooking(eventBooking.EventBookingId).CreateTicketPurchaserNotification();
             _broadcastManager.Queue(purchaserNotification, viewModel.GuestEmail);
 
-            var guestNotification = _eventNotificationBuilder.CreateEventGuestNotifications().Single();
+            var guestNotification = _eventBookingManager.CreateEventGuestNotifications().Single();
             _broadcastManager.Queue(guestNotification, guestNotification.GuestEmail);
 
             return Json(true);
@@ -555,7 +555,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (vm.SendTransferEmail)
             {
-                var builder = _eventNotificationBuilder.WithEventBooking(vm.EventBookingId);
+                var builder = _eventBookingManager.WithEventBooking(vm.EventBookingId);
 
                 // Send the new guest an email
                 builder.CreateEventGuestNotifications(vm.GuestEmail)
@@ -597,7 +597,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ResendGuestEmail(int id, int eventBookingTicketId)
         {
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
-            var notification = _eventNotificationBuilder
+            var notification = _eventBookingManager
                 .WithEventBooking(eventBookingTicket.EventBookingId)
                 .CreateEventGuestResendNotifications()
                 .Single(g => g.GuestEmail == eventBookingTicket.GuestEmail);
@@ -739,9 +739,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDateService _dateService;
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
-        private readonly IEventNotificationBuilder _eventNotificationBuilder;
+        private readonly IEventBookingManager _eventBookingManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventNotificationBuilder eventNotificationBuilder)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -754,7 +754,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
-            _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(_templatingService);
+            _eventBookingManager = eventBookingManager.WithTemplateService(_templatingService);
         }
     }
 }

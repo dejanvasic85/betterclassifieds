@@ -17,18 +17,15 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEventBookingManager WithEventBooking(int? eventBookingId);
         IEventBookingManager WithTemplateService(ITemplatingService templateService);
         IEventBookingManager WithMailService(IMailService mailService);
-        byte[] CreateTicketAttachment(EventBookingTicket ticket);
         EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket);
         IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
-        byte[] CreateInvoiceAttachment();
-        IEnumerable<EventGuestNotification> CreateEventGuestNotifications();
-        IEnumerable<EventGuestNotification> CreateEventGuestNotifications(string targetGuestEmail);
-        IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications();
         EventBookedViewModel CreateEventBookedViewModel();
-        EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName,
-            string newGuestEmail, string newGuestFullName);
-
-        void SendTicketBuyerNotification();
+        EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName, string newGuestEmail, string newGuestFullName);
+        IEventBookingManager SendTicketBuyerNotification();
+        IEventBookingManager SendTicketsToAllGuests();
+        IEventBookingManager SendTicketToGuest(string guestEmail);
+        IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail);
+        IEventBookingManager ResendGuestEmail(EventBookingTicket eventBookingTicket);
     }
 
     public class EventBookingManager : IMappingBehaviour, IEventBookingManager
@@ -143,12 +140,45 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             };
         }
 
-        public void SendTicketBuyerNotification()
+        public IEventBookingManager SendTicketBuyerNotification()
         {
             _mailService.SendTicketBuyerEmail(EventBooking.Value.Email, Ad.Value, EventBooking.Value);
+            return this;
         }
 
-        public byte[] CreateTicketAttachment(EventBookingTicket ticket)
+        public IEventBookingManager SendTicketsToAllGuests()
+        {
+            foreach (var eventBookingTicket in EventBooking.Value.EventBookingTickets)
+            {
+                SendTicketToGuest(eventBookingTicket);
+            }
+            return this;
+        }
+
+        public IEventBookingManager SendTicketToGuest(string guestEmail)
+        {
+            SendTicketToGuest(EventBooking.Value.EventBookingTickets.Single(t => t.GuestEmail.EqualTo(guestEmail)));
+            return this;
+        }
+
+        public IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEventBookingManager ResendGuestEmail(EventBookingTicket eventBookingTicket)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket)
+        {
+            var ticketAttachmentContent = CreateTicketAttachment(eventBookingTicket);
+            _mailService.SendTicketGuestEmail(Ad.Value, EventBooking.Value, eventBookingTicket, ticketAttachmentContent);
+            return this;
+        }
+
+        private byte[] CreateTicketAttachment(EventBookingTicket ticket)
         {
             var viewModel = CreateEventTicketPrintViewModel(ticket);
 
@@ -171,61 +201,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var viewModelFactory = new EventTicketPrintViewModelFactory();
             return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
         }
-
-        public byte[] CreateInvoiceAttachment()
-        {
-            var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig,
-                EventBooking.Value, EventBookingUser.Value, Ad.Value.Heading);
-
-            var invoiceHtml = _templateService.Generate(invoiceViewModel, "~/Views/Templates/Invoice.cshtml");
-            return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
-        }
-
-        public IEnumerable<EventGuestNotification> CreateEventGuestNotifications()
-        {
-            var eventGuestNotificationFactory = new EventGuestNotificationFactory();
-            return EventBooking.Value.EventBookingTickets.Select(ToEventGuestNotification(eventGuestNotificationFactory));
-        }
-
-        public IEnumerable<EventGuestNotification> CreateEventGuestNotifications(string targetGuestEmail)
-        {
-            var eventGuestNotificationFactory = new EventGuestNotificationFactory();
-
-            return EventBooking.Value.EventBookingTickets
-                .Where(t => t.GuestEmail.Equals(targetGuestEmail, StringComparison.OrdinalIgnoreCase))
-                .Select(ToEventGuestNotification(eventGuestNotificationFactory));
-        }
-
-        private Func<EventBookingTicket, EventGuestNotification> ToEventGuestNotification(EventGuestNotificationFactory eventGuestNotificationFactory)
-        {
-            return eventBookingTicket => eventGuestNotificationFactory.Create(
-                _httpContextBase,
-                _clientConfig,
-                EventDetails.Value,
-                eventBookingTicket,
-                Ad.Value,
-                EventGroups.Value,
-                EventUrl.Value,
-                EventBooking.Value.GetFullName(),
-                CreateTicketAttachment(eventBookingTicket));
-        }
-
-        public IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications()
-        {
-            var eventGuestNotificationFactory = new EventGuestNotificationFactory();
-
-            return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.CreateGuestResendNotification(
-                _httpContextBase,
-                _clientConfig,
-                EventDetails.Value,
-                eventBookingTicket,
-                Ad.Value,
-                EventGroups.Value,
-                EventUrl.Value,
-                EventBooking.Value.GetFullName(),
-                CreateTicketAttachment(eventBookingTicket)));
-        }
-
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()

@@ -142,7 +142,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         [Route("event-dashboard/{id}")]
         public ActionResult EventDashboard(int id)
-        { 
+        {
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, includeBookings: true);
             var guestList = _eventManager.BuildGuestList(eventDetails.EventId);
@@ -213,7 +213,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EditTicket(int id, int ticketId, UpdateEventTicketViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
 
             var vm = viewModel.EventTicket;
             if (vm.SoldQty == 0)
@@ -223,7 +223,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 if (guestCount > 0)
                 {
                     ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
-                    return JsonModelErrors();;
+                    return JsonModelErrors(); ;
                 }
             }
 
@@ -233,15 +233,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(viewModel.EventTicket);
         }
-            
+
         [HttpPost]
         [Route("event-dashboard/{id}/event/{eventId}/edit-ticket-settings")]
         public ActionResult EditTicketSettings(int id, int eventId, TicketSettingsViewModel ticketSettingsViewModel)
         {
             if (!ModelState.IsValid)
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
 
-            _eventManager.UpdateEventTicketSettings(eventId, 
+            _eventManager.UpdateEventTicketSettings(eventId,
                 ticketSettingsViewModel.IncludeTransactionFee,
                 ticketSettingsViewModel.ClosingDate,
                 ticketSettingsViewModel.OpeningDate);
@@ -496,10 +496,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
             _eventBookingManager
                 .WithEventBooking(eventBooking.EventBookingId)
-                ;
-            
-            var guestNotification = _eventBookingManager.CreateEventGuestNotifications().Single();
-            _broadcastManager.Queue(guestNotification, guestNotification.GuestEmail);
+                .SendTicketToGuest(reservation.GuestEmail);
 
             return Json(true);
         }
@@ -536,7 +533,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             if (!ModelState.IsValid)
-                return JsonModelErrors();;
+                return JsonModelErrors();
 
             // Fetch the existing fields and merge
             var fields = vm.Fields.Select(f => new EventBookingTicketField
@@ -555,16 +552,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (vm.SendTransferEmail)
             {
-                var builder = _eventBookingManager.WithEventBooking(vm.EventBookingId);
-
-                // Send the new guest an email
-                builder.CreateEventGuestNotifications(vm.GuestEmail)
-                    .ForEach(notification => { _broadcastManager.Queue(notification, notification.GuestEmail); });
-
-                // Send the old guest a transfer email
-                var transferNotification = builder.CreateEventTransferEmail(vm.TicketName, vm.GuestEmail, vm.GuestFullName);
-
-                _broadcastManager.Queue(transferNotification, vm.OriginalGuestEmail);
+                _eventBookingManager.WithEventBooking(vm.EventBookingId)
+                    .SendTicketToGuest(vm.GuestEmail)
+                    .SendTicketTransfer(eventBookingTicket.GuestEmail, vm.GuestEmail);
             }
 
             return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });
@@ -575,17 +565,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult RemoveGuest(int id, int eventId, int eventBookingTicketId, bool sendEmailToGuestAboutRemoval)
         {
             var eventBookingTicket = _eventManager.CancelEventBookingTicket(eventBookingTicketId);
-            
+
             if (sendEmailToGuestAboutRemoval)
             {
                 var adDetails = _searchService.GetByAdId(id);
                 var eventModel = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
-
-                _broadcastManager.Queue(new EventGuestNotificationFactory().CreateGuestRemovedNotification(
-                    new UrlHelper(_httpContext.Request.RequestContext), adDetails, eventModel, eventBookingTicket),
-                    to: eventBookingTicket?.GuestEmail);
+                _mailService.SendGuestRemoval(eventModel, eventBookingTicket);
             }
-            
+
             return Json(new
             {
                 NextUrl = Url.RemoveGuestComplete(id, eventId).ToString()
@@ -597,19 +584,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ResendGuestEmail(int id, int eventBookingTicketId)
         {
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
-            var notification = _eventBookingManager
-                .WithEventBooking(eventBookingTicket.EventBookingId)
-                .CreateEventGuestResendNotifications()
-                .Single(g => g.GuestEmail == eventBookingTicket.GuestEmail);
 
-            _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
+            _eventBookingManager
+                .WithEventBooking(eventBookingTicket.EventBookingId)
+                .ResendGuestEmail(eventBookingTicket);
+            
             return Json(true);
         }
 
         [HttpGet, ActionName("remove-guest-complete")]
         public ActionResult RemoveGuestComplete(int id, int eventId)
         {
-            var vm = new RemoveGuestCompleteViewModel { AdId = id, EventId = eventId};
+            var vm = new RemoveGuestCompleteViewModel { AdId = id, EventId = eventId };
             return View(vm);
         }
 
@@ -637,7 +623,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(manageGroupsViewModel);
         }
-        
+
         [HttpGet, ActionName("manage-guests")]
         [Route("event-dashboard/{id}/event/{eventId}/manage-guests")]
         public ActionResult ManageGuests(int id, int eventId)
@@ -690,7 +676,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
-        
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
@@ -737,6 +723,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
         private readonly IEventBookingManager _eventBookingManager;
+        private readonly IMailService _mailService;
 
         public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager, IMailService mailService)
         {
@@ -755,6 +742,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(_templatingService)
                 .WithMailService(mailService.Initialise(this));
+
+            
         }
     }
 }

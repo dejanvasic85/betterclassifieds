@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
 using System.Web.Mvc;
@@ -17,8 +18,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendEventOrganiserInvite(string to, AdSearchResult ad, int eventId, string inviteToken);
 
         void SendTicketBuyerEmail(string to, AdSearchResult ad, EventBooking eventBooking);
+        void SendTicketGuestEmail(AdSearchResult ad, EventBooking eventBooking, EventBookingTicket eventBookingTicket, byte[] ticket);
         void SendWelcomeEmail(string email, string username);
         void SendForgotPasswordEmail(string email, string newPassword);
+        void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket);
     }
 
     public class MailService : IMailService
@@ -29,6 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly IMailSender _mailSender;
         private readonly IClientConfig _clientConfig;
         private readonly IPdfGenerator _pdfGenerator;
+        private const string EventDateFormat = "dd-MMM-yyyy hh:mm";
 
         public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator)
         {
@@ -48,6 +52,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventBookingInvoiceView = "~/Views/Templates/Invoice.cshtml";
             public static string WelcomeView = "~/Views/Email/Welcome.cshtml";
             public static string ForgotPasswordView = "~/Views/Email/ForgotPassword.cshtml";
+            public static string EventGuestTicketView = "~/Views/Email/EventTicketGuest.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -91,7 +96,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 EventName = ad.Heading,
                 EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
                 Address = eventModel.Location,
-                StartDate = eventModel.EventStartDate?.ToString("dd-MMM-yyyy hh:mm")
+                StartDate = eventModel.EventStartDate?.ToString(EventDateFormat)
             };
 
             var body = _templatingService.Generate(viewModel, Views.EventPurchaserNotificationView);
@@ -116,6 +121,32 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             }
 
             _mailSender.Send(to, body, "Event booking for " + ad.Heading, attachments.ToArray());
+        }
+
+        public void SendTicketGuestEmail(AdSearchResult ad, EventBooking eventBooking, EventBookingTicket eventBookingTicket, byte[] ticketAttachment)
+        {
+            var eventDetails = eventBooking.Event;
+
+            var body = _templatingService.Generate(new EventTicketGuestEmail
+            {
+                EventName = ad.Heading,
+                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
+                EventLocation = eventDetails.Location,
+                BuyerName = eventBooking.GetFullName(),
+                EventStartDateTime = eventDetails?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
+                IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail
+
+            }, Views.EventGuestTicketView);
+
+            var subject = "Tickets to " + ad.Heading;
+            var attachment = new MailAttachment
+            {
+                ContentType = ContentType.Pdf,
+                Filename = "Tickets to " + ad.Heading + ".pdf",
+                FileContents = ticketAttachment
+            };
+
+            _mailSender.Send(eventBookingTicket.GuestEmail, body, subject, attachment);
         }
 
         public void SendWelcomeEmail(string email, string username)
@@ -144,6 +175,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             }, Views.ForgotPasswordView);
 
             _mailSender.Send(email, body, "Password Reset");
+        }
+
+        public void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -206,13 +206,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingManager.WithEventBooking(_eventBookingContext.EventBookingId);
 
             var viewModel = _eventBookingManager.CreateEventBookedViewModel();
-            _eventBookingManager.SendTicketBuyerNotification();
-
-            // Todo - think about how this can be done offline. Maybe once we have a better emailing system and Azure functions!
-            _eventBookingManager.CreateEventGuestNotifications().ForEach(notification =>
-                {
-                    _broadcastManager.Queue(notification, notification.GuestEmail);
-                });
+            _eventBookingManager
+                .SendTicketBuyerNotification()
+                .SendTicketsToAllGuests();
 
             _eventBookingContext.EventBookingComplete = true;
             return View(viewModel);

@@ -1,0 +1,28 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model EventTicketGuestEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    Congratulations, you have tickets to @Model.EventName
+
+    @if (!Model.IsGuestTheBuyer)
+    {
+        <text>organised by @Model.BuyerName</text>
+    }
+        
+</p>
+
+<p>
+    Event starts at @Model.EventStartDateTime at @Model.EventLocation.
+    Tickets are attached to this email.
+</p>
+
+<p>
+    <a class="btn-primary" href="@Model.EventUrl">See Event Page</a>
+</p>
+

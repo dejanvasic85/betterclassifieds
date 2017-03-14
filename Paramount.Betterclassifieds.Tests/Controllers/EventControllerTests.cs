@@ -410,11 +410,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
-            _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
+            // _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _eventBookingManager
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)
                 .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())
-                .SetupWithVerification(call => call.SendTicketBuyerNotification())
+                .SetupWithVerification(call => call.SendTicketBuyerNotification(), _eventBookingManager.Object)
                 .SetupWithVerification(call => call.SendTicketsToAllGuests(), _eventBookingManager.Object);
 
             // act
@@ -424,8 +424,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             var viewModel = result.ViewResultModelIsTypeOf<EventBookedViewModel>();
             viewModel.EventHasGroups.IsEqualTo(false);
-
-            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(2)); // Sends the tickets and each guest a calendar invite!
         }
 
         [Test]

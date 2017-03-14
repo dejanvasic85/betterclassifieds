@@ -416,7 +416,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange service calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
             _eventBookingManager.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventBookingManager.Object);
-            _eventBookingManager.SetupWithVerification(call => call.ResendGuestEmail(It.IsAny<EventBookingTicket>()), _eventBookingManager.Object);
+            _eventBookingManager.SetupWithVerification(call => call.SendTicketToGuest(It.IsAny<EventBookingTicket>()), _eventBookingManager.Object);
            
             var controller = BuildController();
             var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);

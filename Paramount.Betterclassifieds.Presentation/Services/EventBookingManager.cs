@@ -24,8 +24,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEventBookingManager SendTicketBuyerNotification();
         IEventBookingManager SendTicketsToAllGuests();
         IEventBookingManager SendTicketToGuest(string guestEmail);
+        IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket);
         IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail);
-        IEventBookingManager ResendGuestEmail(EventBookingTicket eventBookingTicket);
     }
 
     public class EventBookingManager : IMappingBehaviour, IEventBookingManager
@@ -164,14 +164,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail)
         {
             throw new NotImplementedException();
+            return this;
         }
-
-        public IEventBookingManager ResendGuestEmail(EventBookingTicket eventBookingTicket)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket)
+        
+        public IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket)
         {
             var ticketAttachmentContent = CreateTicketAttachment(eventBookingTicket);
             _mailService.SendTicketGuestEmail(Ad.Value, EventBooking.Value, eventBookingTicket, ticketAttachmentContent);

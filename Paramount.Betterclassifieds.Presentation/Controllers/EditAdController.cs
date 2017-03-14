@@ -587,7 +587,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventBookingManager
                 .WithEventBooking(eventBookingTicket.EventBookingId)
-                .ResendGuestEmail(eventBookingTicket);
+                .SendTicketToGuest(eventBookingTicket);
             
             return Json(true);
         }

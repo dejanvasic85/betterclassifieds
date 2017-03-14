@@ -111,13 +111,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 var invoicePdf = _pdfGenerator.BuildFromHtml(invoiceHtml);
 
                 var invoiceFileName = "Invoice - " + ad.Heading + ".pdf";
-                var attachment = new MailAttachment
-                {
-                    ContentType = ContentType.Pdf,
-                    Filename = invoiceFileName,
-                    FileContents = invoicePdf
-                };
-                attachments.Add(attachment);
+                
+                attachments.Add(MailAttachment.Create(invoiceFileName, invoicePdf));
             }
 
             _mailSender.Send(to, body, "Event booking for " + ad.Heading, attachments.ToArray());
@@ -125,28 +120,40 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public void SendTicketGuestEmail(AdSearchResult ad, EventBooking eventBooking, EventBookingTicket eventBookingTicket, byte[] ticketAttachment)
         {
-            var eventDetails = eventBooking.Event;
+            var eventModel = eventBooking.Event;
 
+            var eventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId);
             var body = _templatingService.Generate(new EventTicketGuestEmail
             {
                 EventName = ad.Heading,
-                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
-                EventLocation = eventDetails.Location,
+                EventUrl = eventUrl,
+                EventLocation = eventModel.Location,
                 BuyerName = eventBooking.GetFullName(),
-                EventStartDateTime = eventDetails?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
+                EventStartDateTime = eventModel?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
                 IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail
 
             }, Views.EventGuestTicketView);
 
             var subject = "Tickets to " + ad.Heading;
-            var attachment = new MailAttachment
+
+            var attachments = new MailAttachment[]
             {
-                ContentType = ContentType.Pdf,
-                Filename = "Tickets to " + ad.Heading + ".pdf",
-                FileContents = ticketAttachment
+                MailAttachment.Create(subject + ".pdf", ticketAttachment),
+                MailAttachment.CreateCalendarAttachment(_clientConfig.ClientName,
+                    eventModel.EventId.GetValueOrDefault(),
+                    ad.Heading,
+                    ad.Description,
+                    eventModel.EventStartDate.GetValueOrDefault(),
+                    eventModel.EventEndDate.GetValueOrDefault(),
+                    eventBookingTicket.GuestEmail,
+                    eventModel.Location,
+                    eventModel.LocationLatitude.GetValueOrDefault(),
+                    eventModel.LocationLongitude.GetValueOrDefault(),
+                    eventUrl,
+                    eventModel.TimeZoneId),
             };
 
-            _mailSender.Send(eventBookingTicket.GuestEmail, body, subject, attachment);
+            _mailSender.Send(eventBookingTicket.GuestEmail, body, subject, attachments);
         }
 
         public void SendWelcomeEmail(string email, string username)

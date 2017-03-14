@@ -1040,6 +1040,7 @@
     <Content Include="Views\Email\Welcome.cshtml" />
     <Content Include="Views\Email\ForgotPassword.cshtml" />
     <Content Include="Views\Email\EventTicketGuest.cshtml" />
+    <Content Include="Views\Email\_EmailFooter.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

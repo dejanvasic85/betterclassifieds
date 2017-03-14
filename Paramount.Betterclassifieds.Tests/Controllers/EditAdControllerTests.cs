@@ -230,16 +230,16 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEvent = new EventModelMockBuilder().Default()
                 .WithTickets(new[] { mockTicket })
                 .Build();
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
 
             // Mock service calls
-
-            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            var eventGroups = new List<EventGroup>();
-            _eventManagerMock.Setup(call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>())).Returns(Task.FromResult(eventGroups.AsEnumerable()));
+            _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.IsAny<int>()), mockAd);
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.IsAny<int>(), It.IsAny<bool>()), mockEvent);
+            _eventManagerMock.Setup(call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>())).Returns(Task.FromResult(Enumerable.Empty<EventGroup>()));
 
             // Act
             var controller = BuildController();
-            var result = controller.AddGuest(123, mockEvent.EventId.GetValueOrDefault()).Result;
+            var result = controller.AddGuest(123).Result;
 
             result.IsTypeOf<ActionResult>();
             var vm = result.ViewResultModelIsTypeOf<AddEventGuestViewModel>();
@@ -417,10 +417,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
             _eventBookingManager.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventBookingManager.Object);
             _eventBookingManager.SetupWithVerification(call => call.SendTicketToGuest(It.IsAny<EventBookingTicket>()), _eventBookingManager.Object);
-           
+
             var controller = BuildController();
             var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);
-            
+
             result.IsTypeOf<JsonResult>();
         }
 
@@ -490,13 +490,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventManagerMock.SetupWithVerification(
                 call => call.UpdateEventTicketSettings(
-                    It.Is<int>(id => id == 10), 
+                    It.Is<int>(id => id == 10),
                     It.Is<bool>(val => val == mockSettings.IncludeTransactionFee),
                     It.Is<DateTime?>(val => val == mockSettings.ClosingDate),
                     It.Is<DateTime?>(val => val == mockSettings.OpeningDate)));
 
             var controller = BuildController();
-            
+
             controller.EditTicketSettings(1, 10, mockSettings);
         }
 

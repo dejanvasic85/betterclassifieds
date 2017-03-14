@@ -443,9 +443,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, ActionName("add-guest")]
-        public async Task<ActionResult> AddGuest(int id, int eventId)
+        [Route("event-dashboard/{id}/add-guest")]
+        public async Task<ActionResult> AddGuest(int id)
         {
-            var eventModel = _eventManager.GetEventDetails(eventId);
+            var ad = _searchService.GetByAdId(id);
+            var eventModel = _eventManager.GetEventDetailsForOnlineAdId(ad.OnlineAdId);
+            var eventId = eventModel.EventId.GetValueOrDefault();
             var groups = await _eventManager
                 .GetEventGroupsAsync(eventId, eventModel.With(e => e.Tickets.FirstOrDefault()).With(e => e.EventTicketId.GetValueOrDefault()));
 

@@ -234,7 +234,7 @@ namespace Paramount
 
         public static UrlBuilder AddEventGuest(this UrlHelper urlHelper, int id, int eventId)
         {
-            return new UrlBuilder(urlHelper).WithAction("add-guest", "editad").WithRouteValues(new { id, eventId });
+            return new UrlBuilder(urlHelper).WithAction("add-guest", "editad").WithRouteValues(new { id });
         }
 
         public static UrlBuilder DownloadGuestListPdf(this UrlHelper urlHelper, int id, int eventId)

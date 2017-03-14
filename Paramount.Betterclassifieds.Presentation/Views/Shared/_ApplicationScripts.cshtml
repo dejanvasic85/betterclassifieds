@@ -46,7 +46,7 @@
 
             $('#serverValidation').hide();
             var promise = call('POST', url, data);
-            promise.then(function (resp) {
+            promise.then(function(resp) {
                 if (resp.nextUrl) {
                     window.location = resp.nextUrl;
                     return;
@@ -55,11 +55,13 @@
                 }
 
                 if (resp.errors) {
+                    // Reset any button
+                    $('[data-loading-text]').button('reset');
                     var errors = [];
 
                     // Flatten all the server errors
-                    _.forEach(resp.errors, function (err) {
-                        _.forEach(err.value, function (msg) {
+                    _.forEach(resp.errors, function(err) {
+                        _.forEach(err.value, function(msg) {
                             errors.push(msg);
                         });
                     });
@@ -70,18 +72,21 @@
                         $errorContainer.empty();
                         $('#serverValidation').show();
 
-                        _.forEach(errors, function (e) {
+                        _.forEach(errors, function(e) {
                             $errorContainer.append('<span>' + e + '</span><br />');
                         });
 
                     } else {
-                        _.forEach(errors, function (e) {
+                        _.forEach(errors, function(e) {
                             toastr.error(e);
                         });
                     }
 
                     return;
                 }
+
+            }).fail(function() {
+                $('[data-loading-text]').button('reset');
             });
             return promise;
         }

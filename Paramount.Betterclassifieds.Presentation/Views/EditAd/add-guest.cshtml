@@ -37,9 +37,16 @@
 
 
     <!-- ko if: tickets().length <= 0 -->
-    <div class="row">
+    <div class="row top-buffer-20">
         <div class="col-xs-12">
             <div class="alert alert-warning">You will need to create some tickets so you can assign them to your guests...</div>
+        </div>
+
+        <div class="col-xs-12">
+            <a class="btn btn-primary js-load"
+               href="@Url.EventTicketManagement(Model.Id.Value, Model.EventId.Value)">
+                Go to ticket management
+            </a>
         </div>
     </div>
 
@@ -50,12 +57,12 @@
         <div class="col-md-12">
             <div class="well">
 
-                <div class="form-group-lg" data-bind="validationElement: guestFullName">
+                <div class="form-group" data-bind="validationElement: guestFullName">
                     <label for="guestFullName" class="control-label">Full Name:</label>
                     <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
                 </div>
 
-                <div class="form-group-lg" data-bind="validationElement: guestEmail">
+                <div class="form-group" data-bind="validationElement: guestEmail">
                     <label for="guestEmail" class="control-label">Email *:</label>
                     <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
                 </div>
@@ -68,7 +75,7 @@
                     </span>
                 </div>
 
-                <div class="form-group-lg">
+                <div class="form-group">
                     <label class="control-label">Ticket *:</label>
                     <select class="form-control" id="tickets"
                             data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket,  event:{ change: ticketChanged}"></select>
@@ -89,7 +96,7 @@
 
                 @*Groups (if any)*@
                 <div data-bind="visible: hasGroups">
-                    <div class="form-group-lg">
+                    <div class="form-group">
                         <label class="control-label">Group</label>
                         <select class="form-control" id="groups"
                                 data-bind="options: eventGroups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned'"></select>

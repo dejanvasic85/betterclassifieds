@@ -555,9 +555,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (vm.SendTransferEmail)
             {
-                _eventBookingManager.WithEventBooking(vm.EventBookingId)
+                _eventBookingManager
+                    .WithEventBooking(vm.EventBookingId)
                     .SendTicketToGuest(vm.GuestEmail)
-                    .SendTicketTransfer(eventBookingTicket.GuestEmail, vm.GuestEmail);
+                    .SendTicketTransfer(
+                        previousGuestEmail: vm.OriginalGuestEmail, 
+                        newGuestEmail: vm.GuestEmail);
             }
 
             return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });

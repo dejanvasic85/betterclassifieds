@@ -163,7 +163,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail)
         {
-            throw new NotImplementedException();
+            _mailService.SendTicketTransfer(Ad.Value,
+                previousGuestEmail,
+                newGuestEmail);
+
             return this;
         }
         

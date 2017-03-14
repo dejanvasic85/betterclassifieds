@@ -1,0 +1,21 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model TicketTransferEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+}
+
+<p>
+    Hi @Model.PreviousGuestEmail
+</p>
+
+<p>
+    We wish to advise that your ticket to event <a href="@Model.EventUrl">
+        <strong>
+            @Model.EventName
+        </strong>
+    </a> has now been transferred to @Model.NewGuestEmail.
+    Their tickets have been sent to them. If you believe this happened
+    in error, please contact the event organiser.
+</p>

@@ -325,6 +325,7 @@
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketGuestEmail.cs" />
     <Compile Include="ViewModels\Email\ForgotPasswordEmail.cs" />
+    <Compile Include="ViewModels\Email\TicketTransferEmail.cs" />
     <Compile Include="ViewModels\Email\WelcomeEmail.cs" />
     <Compile Include="ViewModels\Events\AcceptOrganiserInviteViewModel.cs" />
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
@@ -1041,6 +1042,7 @@
     <Content Include="Views\Email\ForgotPassword.cshtml" />
     <Content Include="Views\Email\EventTicketGuest.cshtml" />
     <Content Include="Views\Email\_EmailFooter.TheMusic.cshtml" />
+    <Content Include="Views\Email\EventTicketTransfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

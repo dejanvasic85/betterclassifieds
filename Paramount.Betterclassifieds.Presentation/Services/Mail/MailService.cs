@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendWelcomeEmail(string email, string username);
         void SendForgotPasswordEmail(string email, string newPassword);
         void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket);
+        void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail);
     }
 
     public class MailService : IMailService
@@ -53,6 +54,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string WelcomeView = "~/Views/Email/Welcome.cshtml";
             public static string ForgotPasswordView = "~/Views/Email/ForgotPassword.cshtml";
             public static string EventGuestTicketView = "~/Views/Email/EventTicketGuest.cshtml";
+            public static string EventTicketTransferView = "~/Views/Email/EventTicketTransfer.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -111,7 +113,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 var invoicePdf = _pdfGenerator.BuildFromHtml(invoiceHtml);
 
                 var invoiceFileName = "Invoice - " + ad.Heading + ".pdf";
-                
+
                 attachments.Add(MailAttachment.Create(invoiceFileName, invoicePdf));
             }
 
@@ -187,6 +189,27 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket)
         {
             throw new NotImplementedException();
+        }
+
+        public void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail)
+        {
+            var eventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId);
+
+            var body = _templatingService.Generate(new
+                TicketTransferEmail
+                {
+                    EventName = ad.Heading,
+                    EventUrl = eventUrl,
+                    NewGuestEmail = newGuestEmail,
+                    PreviousGuestEmail = previousGuestEmail
+                }
+                , Views.EventTicketTransferView);
+
+            var subject = $"Tickets transfer for event {ad.Heading}";
+
+            _mailSender.Send(previousGuestEmail,
+                body,
+                subject);
         }
     }
 }

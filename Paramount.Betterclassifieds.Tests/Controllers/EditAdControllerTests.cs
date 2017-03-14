@@ -417,12 +417,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
             _eventBookingManager.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventBookingManager.Object);
             _eventBookingManager.SetupWithVerification(call => call.ResendGuestEmail(It.IsAny<EventBookingTicket>()), _eventBookingManager.Object);
-            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestResendNotification>(), It.IsAny<string[]>()), null);
-
+           
             var controller = BuildController();
             var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);
-
-
+            
             result.IsTypeOf<JsonResult>();
         }
 

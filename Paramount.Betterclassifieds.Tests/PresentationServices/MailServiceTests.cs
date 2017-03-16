@@ -166,5 +166,28 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             BuildTargetObject().SendForgotPasswordEmail("foo@bar.com", "password123");
         }
+
+        [Test]
+        public void SendTicketTransfer_CallsMailSender()
+        {
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+
+            var mockBody = "<body>hello</body>";
+
+            var expectedSubject = $"Tickets transfer for event {mockAd.Heading}";
+
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<TicketTransferEmail>(),
+                "~/Views/Email/EventTicketTransfer.cshtml"), mockBody);
+
+            _urlMock.SetupWithVerification(call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()), "http://eventurl");
+
+            _mailSender.SetupWithVerification(call => call.Send(
+                It.Is<string>(str => str == "foo@bar.com"),
+                It.Is<string>(str => str == mockBody),
+                It.Is<string>(str => str == expectedSubject)
+                ));
+
+            BuildTargetObject().SendTicketTransfer(mockAd, "foo@bar.com", "bar@foo.com");
+        }
     }
 }

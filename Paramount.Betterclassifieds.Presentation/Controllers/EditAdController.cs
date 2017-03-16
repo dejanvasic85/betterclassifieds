@@ -497,9 +497,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
-            _eventBookingManager
-                .WithEventBooking(eventBooking.EventBookingId)
-                .SendTicketToGuest(reservation.GuestEmail);
+
+            if (viewModel.SendEmailToGuest)
+            {
+                _eventBookingManager
+                    .WithEventBooking(eventBooking.EventBookingId)
+                    .SendTicketToGuest(reservation.GuestEmail);
+            }
 
             return Json(true);
         }
@@ -559,7 +563,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     .WithEventBooking(vm.EventBookingId)
                     .SendTicketToGuest(vm.GuestEmail)
                     .SendTicketTransfer(
-                        previousGuestEmail: vm.OriginalGuestEmail, 
+                        previousGuestEmail: vm.OriginalGuestEmail,
                         newGuestEmail: vm.GuestEmail);
             }
 
@@ -576,7 +580,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 var adDetails = _searchService.GetByAdId(id);
                 var eventModel = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
-                _mailService.SendGuestRemoval(eventModel, eventBookingTicket);
+                _mailService.SendGuestRemoval(adDetails, eventModel, eventBookingTicket);
             }
 
             return Json(new
@@ -594,7 +598,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingManager
                 .WithEventBooking(eventBookingTicket.EventBookingId)
                 .SendTicketToGuest(eventBookingTicket);
-            
+
             return Json(true);
         }
 
@@ -744,12 +748,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
+            _mailService = mailService;
 
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(_templatingService)
-                .WithMailService(mailService.Initialise(this));
+                .WithMailService(_mailService.Initialise(this));
 
-            
+
         }
     }
 }

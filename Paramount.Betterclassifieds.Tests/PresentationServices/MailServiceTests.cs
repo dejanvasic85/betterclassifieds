@@ -189,5 +189,30 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             BuildTargetObject().SendTicketTransfer(mockAd, "foo@bar.com", "bar@foo.com");
         }
+
+        [Test]
+        public void SendSendGuestRemoval_CallsMailSender()
+        {
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default().Build();
+            
+            var mockBody = "<body>guest removed</body>";
+
+            var expectedSubject = $"Ticket Cancelled for {mockAd.Heading}";
+
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<EventGuestRemovedEmail>(),
+                "~/Views/Email/EventGuestRemoved.cshtml"), mockBody);
+
+            _urlMock.SetupWithVerification(call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()), "http://eventurl");
+
+            _mailSender.SetupWithVerification(call => call.Send(
+                It.Is<string>(str => str == "foo@bar.com"),
+                It.Is<string>(str => str == mockBody),
+                It.Is<string>(str => str == expectedSubject)
+                ));
+
+            BuildTargetObject().SendGuestRemoval(mockAd, mockEvent, mockEventBookingTicket);
+        }
     }
 }

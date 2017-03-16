@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendTicketGuestEmail(AdSearchResult ad, EventBooking eventBooking, EventBookingTicket eventBookingTicket, byte[] ticket);
         void SendWelcomeEmail(string email, string username);
         void SendForgotPasswordEmail(string email, string newPassword);
-        void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket);
+        void SendGuestRemoval(AdSearchResult ad, EventModel eventModel, EventBookingTicket eventBookingTicket);
         void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail);
     }
 
@@ -55,6 +55,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string ForgotPasswordView = "~/Views/Email/ForgotPassword.cshtml";
             public static string EventGuestTicketView = "~/Views/Email/EventTicketGuest.cshtml";
             public static string EventTicketTransferView = "~/Views/Email/EventTicketTransfer.cshtml";
+            public static string EventGuestRemoved = "~/Views/Email/EventGuestRemoved.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -186,9 +187,21 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _mailSender.Send(email, body, "Password Reset");
         }
 
-        public void SendGuestRemoval(EventModel eventModel, EventBookingTicket eventBookingTicket)
+        public void SendGuestRemoval(AdSearchResult ad, EventModel eventModel, EventBookingTicket eventBookingTicket)
         {
-            throw new NotImplementedException();
+            var viewModel = new EventGuestRemovedEmail
+            {
+                EventName = ad.Heading,
+                EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
+                EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
+                TicketNumber = eventBookingTicket.EventBookingTicketId.ToString()
+            };
+
+            var body = _templatingService.Generate(viewModel, Views.EventGuestRemoved);
+
+            var subject = $"Ticket Cancelled for {ad.Heading}";
+
+            _mailSender.Send(eventBookingTicket.GuestEmail, body, subject);
         }
 
         public void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail)

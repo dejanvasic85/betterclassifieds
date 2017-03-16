@@ -321,6 +321,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
+    <Compile Include="ViewModels\Email\EventGuestRemovedEmail.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketGuestEmail.cs" />
@@ -1043,6 +1044,7 @@
     <Content Include="Views\Email\EventTicketGuest.cshtml" />
     <Content Include="Views\Email\_EmailFooter.TheMusic.cshtml" />
     <Content Include="Views\Email\EventTicketTransfer.cshtml" />
+    <Content Include="Views\Email\EventGuestRemoved.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

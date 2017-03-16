@@ -1,0 +1,28 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model EventGuestRemovedEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    <strong>Ticket Cancelled</strong>
+</p>
+
+<p>
+    Hey there, we just wanted to let you know that your ticket for
+    event @Model.EventName on @Model.EventStartDate has been
+    cancelled by the event organiser.
+</p>
+
+<p>
+    Please visit the <a href="@Model.EventUrl">event page</a> to contact the organiser
+    should you have any issues with this.
+</p>
+
+<p>
+    Thank you
+</p>
+

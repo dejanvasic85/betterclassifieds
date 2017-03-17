@@ -176,27 +176,34 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void EventPaymentRequest_Post_CallsManagerAndBroadcast_ReturnsJsonUrl()
         {
             // arrange
-            var username = "fooBarr";
-            var mockUser = CreateMockOf<IPrincipal>().SetupIdentityCall(username);
             var adId = 10;
             var eventId = 1;
-            var requestedAmount = 100;
+            decimal requestedAmount = 100;
             var paymentMethod = "PayPal";
             var supportEmails = new[] { "support@email.com" };
 
-            _clientConfigMock.SetupWithVerification(call => call.SupportEmailList, supportEmails);
             _eventManagerMock.SetupWithVerification(call => call.CreateEventPaymentRequest(
                 It.Is<int>(p => p == eventId),
                 It.Is<PaymentType>(p => p == PaymentType.PayPal),
-                It.Is<decimal>(p => p == requestedAmount),
-                It.Is<string>(p => p == username)));
+                It.Is<decimal>(p => p == requestedAmount)));
 
-            _broadcastManagerMock.SetupWithVerification(call => call.SendEmail(
-                It.IsAny<Business.Broadcast.EventPaymentRequest>(),
-                It.Is<string[]>(p => p == supportEmails)), new Notification(Guid.NewGuid()));
+            _searchServiceMock.SetupWithVerification(
+                call => call.GetByAdId(It.IsAny<int>()), 
+                new AdSearchResultMockBuilder().Default().WithAdId(adId).Build());
+
+            _eventManagerMock.SetupWithVerification(
+                call => call.GetEventDetails(It.IsAny<int>()), 
+                new EventModelMockBuilder().Default().WithEventId(eventId).Build());
+
+            _mailService.SetupWithVerification(call => call.SendEventPaymentRequest(
+                It.IsAny<AdSearchResult>(),
+                It.IsAny<EventModel>(),
+                It.Is<string>(payment => payment == paymentMethod),
+                It.Is<decimal>(amount => amount == requestedAmount)
+            ));
 
             // act
-            var controller = BuildController(mockUser: mockUser);
+            var controller = BuildController();
 
             var result = controller.EventPaymentRequest(adId, new EventPaymentRequestViewModel
             {
@@ -273,7 +280,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
             _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), mockApplicationUser);
-
+            
             _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
                 It.IsAny<IList<EventBookingTicket>>()));
 

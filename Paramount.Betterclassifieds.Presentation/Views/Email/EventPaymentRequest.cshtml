@@ -1,0 +1,22 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model EventPaymentRequestEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<div>
+    <h3>Event payment Request</h3>
+</div>
+
+<p>
+    User @Model.RequestUsername has requested payment of amount
+    <strong>@Model.RequestedAmount.ToString("C")</strong>
+    for event @Model.EventName.
+</p>
+
+<p>
+    Preferred payment method is @Model.PreferredPaymentMethod
+</p>

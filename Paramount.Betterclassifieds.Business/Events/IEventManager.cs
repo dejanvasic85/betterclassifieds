@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
         EventPaymentSummary BuildPaymentSummary(int? eventId);
         bool IsEventEditable(int? eventId);
-        void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
+        void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
         EventInvitation GetEventInvitation(long eventInvitationId);
 

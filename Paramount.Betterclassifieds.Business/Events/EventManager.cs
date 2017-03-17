@@ -405,7 +405,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return !_eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault()).Any();
         }
 
-        public void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser)
+        public void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount)
         {
             Guard.NotDefaultValue(eventId);
             Guard.NotDefaultValue(requestedAmount);
@@ -415,6 +415,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 throw new ArgumentException("Payment cannot be set to none.", "paymentType");
             }
 
+            var requestedByUser = _userManager.GetCurrentUser().Username;
             var request = new EventPaymentRequestFactory()
                 .Create(eventId, paymentType, requestedAmount, requestedByUser, _dateService.Now, _dateService.UtcNow);
 

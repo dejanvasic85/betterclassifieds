@@ -276,39 +276,39 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             _dateServiceMock.SetupNow().SetupNowUtc();
             _eventRepositoryMock.SetupWithVerification(call => call.CreateEventPaymentRequest(It.IsAny<EventPaymentRequest>()));
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), new ApplicationUserMockBuilder().Default().Build());
 
             BuildTargetObject().CreateEventPaymentRequest(eventId: 10,
                 paymentType: PaymentType.PayPal,
-                requestedAmount: 100,
-                requestedByUser: "FooBarr");
+                requestedAmount: 100);
         }
 
         [Test]
         public void CreateEventPaymentRequest_WithPaymentType_None_ThrowsArgException()
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject()
-                .CreateEventPaymentRequest(1, PaymentType.None, 1, "fooBar"));
+                .CreateEventPaymentRequest(1, PaymentType.None, 1));
         }
 
         [Test]
         public void CreateEventPaymentRequest_WithPaymentType_CreditCard_ThrowsArgException()
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject()
-                .CreateEventPaymentRequest(1, PaymentType.CreditCard, 1, "fooBar"));
+                .CreateEventPaymentRequest(1, PaymentType.CreditCard, 1));
         }
 
         [Test]
         public void CreateEventPaymentRequest_With_EventIdAsZero_ThrowsArgException()
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject()
-                .CreateEventPaymentRequest(0, PaymentType.None, 0, "fooBar"));
+                .CreateEventPaymentRequest(0, PaymentType.None, 0));
         }
 
         [Test]
         public void CreateEventPaymentRequest_With_RequestedAmountAsZero_ThrowsArgException()
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject()
-                .CreateEventPaymentRequest(1, PaymentType.None, 0, "fooBar"));
+                .CreateEventPaymentRequest(1, PaymentType.None, 0));
         }
 
         [Test]

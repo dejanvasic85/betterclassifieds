@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendForgotPasswordEmail(string email, string newPassword);
         void SendGuestRemoval(AdSearchResult ad, EventModel eventModel, EventBookingTicket eventBookingTicket);
         void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail);
+        void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
     }
 
     public class MailService : IMailService
@@ -56,6 +57,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventGuestTicketView = "~/Views/Email/EventTicketGuest.cshtml";
             public static string EventTicketTransferView = "~/Views/Email/EventTicketTransfer.cshtml";
             public static string EventGuestRemoved = "~/Views/Email/EventGuestRemoved.cshtml";
+            public static string EventPaymentRequestView = "~/Views/Email/EventPaymentRequest.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -223,6 +225,26 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _mailSender.Send(previousGuestEmail,
                 body,
                 subject);
+        }
+
+        public void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount)
+        {
+            var subject = $"Event payment request for {ad.Heading} {ad.AdId}";
+            var body = _templatingService.Generate(new EventPaymentRequestEmail
+            {
+                EventId = eventModel.EventId.GetValueOrDefault(),
+                EventName = ad.Heading,
+                PreferredPaymentMethod = preferredPayment,
+                RequestedAmount = requestedAmount,
+                RequestUsername = ad.Username
+
+            }, Views.EventPaymentRequestView);
+
+            _clientConfig.SupportEmailList.ForEach(email =>
+            {
+                _mailSender.Send(email, body, subject);
+            });
+
         }
     }
 }

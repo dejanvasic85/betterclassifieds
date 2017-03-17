@@ -346,22 +346,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return JsonModelErrors();
 
             var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
-            var currentUserId = this.User.Identity.Name;
 
             _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId.GetValueOrDefault(),
                 mappedPaymentMethod,
-                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(),
-                currentUserId);
+                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault());
 
-            _broadcastManager.SendEmail(new Business.Broadcast.EventPaymentRequest
-            {
-                AdId = id,
-                EventId = eventPaymentRequestViewModel.EventId.GetValueOrDefault(),
-                PreferredPaymentMethod = eventPaymentRequestViewModel.PaymentMethod,
-                RequestedAmount = eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(),
-                Username = currentUserId
-            }, _clientConfig.SupportEmailList);
+            var ad = _searchService.GetByAdId(id);
+            var eventModel = _eventManager.GetEventDetails(eventPaymentRequestViewModel.EventId.GetValueOrDefault());
 
+             
+            _mailService.SendEventPaymentRequest(ad, eventModel, 
+                eventPaymentRequestViewModel.PaymentMethod,
+                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault());
+            
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 

@@ -725,14 +725,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventManager _eventManager;
         private readonly ITemplatingService _templatingService;
         private readonly IUserManager _userManager;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IDateService _dateService;
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
         private readonly IEventBookingManager _eventBookingManager;
         private readonly IMailService _mailService;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager, IMailService mailService)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager, IMailService mailService)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -740,7 +739,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
             _eventManager = eventManager;
             _userManager = userManager;
-            _broadcastManager = broadcastManager;
             _dateService = dateService;
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;

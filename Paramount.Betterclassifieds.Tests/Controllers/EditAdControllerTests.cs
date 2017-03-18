@@ -514,7 +514,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventManager> _eventManagerMock;
         private Mock<ITemplatingService> _templatingServiceMock;
         private Mock<IUserManager> _userManagerMock;
-        private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IDateService> _dateService;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
@@ -534,7 +533,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingServiceMock = CreateMockOf<ITemplatingService>();
             _templatingServiceMock.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingServiceMock.Object);
             _userManagerMock = CreateMockOf<IUserManager>();
-            _broadcastManagerMock = CreateMockOf<IBroadcastManager>();
             _dateService = CreateMockOf<IDateService>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();

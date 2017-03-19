@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.Services;
@@ -172,12 +171,20 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewResult.ViewBag.ModelStateNotValid, Is.False);
         }
 
+        [Test]
+        public void ConfirmEventOrganiser_Get_ReturnsView()
+        {
+            var controller = BuildController();
+            var result = controller.ConfirmEventOrganiser();
+
+            result.ViewResultModelIsTypeOf<EventOrganiserConfirmationViewModel>();
+        }
+        
         private Mock<IUserManager> _mockUserMgr;
         private Mock<IAuthManager> _mockAuthMgr;
         private Mock<ISearchService> _searchServiceMgr;
         private Mock<IPrincipal> _mockLoggedInUser;
         private Mock<IClientConfig> _mockClientConfig;
-        private Mock<ISmtpMailer> _mockSmtpMailer;
         private Mock<IMailService> _mailService;
 
         [SetUp]
@@ -188,7 +195,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr = CreateMockOf<IAuthManager>();
             _searchServiceMgr = CreateMockOf<ISearchService>();
             _mockClientConfig = CreateMockOf<IClientConfig>();
-            _mockSmtpMailer = CreateMockOf<ISmtpMailer>();
             _mailService = CreateMockOf<IMailService>();
             _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
         }

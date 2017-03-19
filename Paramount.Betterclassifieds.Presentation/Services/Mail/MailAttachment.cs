@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public byte[] FileContents { get; private set; }
         public string ContentType { get; private set; }
 
-        public static MailAttachment Create(string filename, byte[] fileContents, string contentType = Business.ContentType.Pdf)
+        public static MailAttachment New(string filename, byte[] fileContents, string contentType = Business.ContentType.Pdf)
         {
             Guard.NotNullOrEmpty(filename);
             Guard.NotNull(fileContents);
@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         /// <summary>
         /// Creates a mailAttachment as the iCal that will add details to GMail.
         /// </summary>
-        public static MailAttachment CreateCalendarAttachment(string brand, int id, string title, string description,
+        public static MailAttachment NewCalendarAttachment(string brand, int id, string title, string description,
             DateTime startDate, DateTime endDate, string reminderEmail, string location, decimal latitude,
             decimal longitude, string eventUrl, string timezoneId)
         {

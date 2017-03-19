@@ -456,7 +456,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
         private readonly IPayPalService _payPalService;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
         private readonly IEventBarcodeValidator _eventBarcodeValidator;
@@ -466,7 +465,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ITicketRequestValidator _ticketRequestValidator;
         private readonly ILogService _logService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -475,7 +474,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _userManager = userManager;
             _eventBookingContext = eventBookingContext;
             _payPalService = payPalService;
-            _broadcastManager = broadcastManager;
             _bookingManager = bookingManager;
             _eventTicketReservationFactory = eventTicketReservationFactory;
             _eventBarcodeValidator = eventBarcodeValidator;

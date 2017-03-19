@@ -322,6 +322,7 @@
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\EventGuestRemovedEmail.cs" />
+    <Compile Include="ViewModels\Email\EventOrganiserIdentityConfirmationEmail.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserInviteEmail.cs" />
     <Compile Include="ViewModels\Email\EventPaymentRequestEmail.cs" />
     <Compile Include="ViewModels\Email\EventTicketBuyerEmail.cs" />
@@ -1047,6 +1048,7 @@
     <Content Include="Views\Email\EventTicketTransfer.cshtml" />
     <Content Include="Views\Email\EventGuestRemoved.cshtml" />
     <Content Include="Views\Email\EventPaymentRequest.cshtml" />
+    <Content Include="Views\Email\EventOrganiserIdentityConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

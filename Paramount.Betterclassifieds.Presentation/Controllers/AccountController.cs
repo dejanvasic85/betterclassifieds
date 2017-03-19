@@ -5,7 +5,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
-    using Business.Broadcast;
     using System.Web.Mvc;
     using ViewModels;
 
@@ -14,17 +13,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IClientConfig _clientConfig;
-        private readonly ISmtpMailer _emailer;
         private readonly IMailService _mailService;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IClientConfig clientConfig, ISmtpMailer emailer, IMailService mailService)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IClientConfig clientConfig, IMailService mailService)
         {
             _userManager = userManager;
             _authManager = authManager;
             _clientConfig = clientConfig;
-            _emailer = emailer;
             _mailService = mailService.Initialise(this);
         }
 
@@ -282,14 +279,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return View(viewModel);
             }
-
-            var currentUser = _userManager.GetCurrentUser();
-            var body = $"User [{currentUser.Email}, {currentUser.Username}] would like to confirm their account.";
-
-            _emailer.SendEmail("Organiser Confirmation", body, "support@paramountit.com.au", viewModel.Files.Select(file => new EmailAttachment
-            {
-                Content = file.InputStream.ToBytes(), ContentType = file.ContentType, FileName = file.FileName
-            }).ToArray(), _clientConfig.SupportEmailList );
+                
+            var attachments = viewModel.Files.Select(f => MailAttachment.New(f.FileName, f.InputStream.ToBytes(), f.ContentType));
+            _mailService.SendEventOrganiserIdentityConfirmation(attachments);
 
             viewModel.IsSubmitted = true;
             return View(viewModel);

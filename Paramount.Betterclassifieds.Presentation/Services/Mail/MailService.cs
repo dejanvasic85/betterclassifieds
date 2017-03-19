@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
@@ -24,6 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendGuestRemoval(AdSearchResult ad, EventModel eventModel, EventBookingTicket eventBookingTicket);
         void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail);
         void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
+        void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments);
     }
 
     public class MailService : IMailService
@@ -58,6 +60,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventTicketTransferView = "~/Views/Email/EventTicketTransfer.cshtml";
             public static string EventGuestRemoved = "~/Views/Email/EventGuestRemoved.cshtml";
             public static string EventPaymentRequestView = "~/Views/Email/EventPaymentRequest.cshtml";
+            public static string EventOrganiserIdentityConfirmation = "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -117,7 +120,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
                 var invoiceFileName = "Invoice - " + ad.Heading + ".pdf";
 
-                attachments.Add(MailAttachment.Create(invoiceFileName, invoicePdf));
+                attachments.Add(MailAttachment.New(invoiceFileName, invoicePdf));
             }
 
             _mailSender.Send(to, body, "Event booking for " + ad.Heading, attachments.ToArray());
@@ -143,8 +146,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             var attachments = new MailAttachment[]
             {
-                MailAttachment.Create(subject + ".pdf", ticketAttachment),
-                MailAttachment.CreateCalendarAttachment(_clientConfig.ClientName,
+                MailAttachment.New(subject + ".pdf", ticketAttachment),
+                MailAttachment.NewCalendarAttachment(_clientConfig.ClientName,
                     eventModel.EventId.GetValueOrDefault(),
                     ad.Heading,
                     ad.Description,
@@ -245,6 +248,24 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 _mailSender.Send(email, body, subject);
             });
 
+        }
+
+        public void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments)
+        {
+            var currentUser = _userManager.GetCurrentUser();
+
+            var subject = "Event organiser identity";
+            var body = _templatingService.Generate(new EventOrganiserIdentityConfirmationEmail
+            {
+                Name = currentUser.FullName,
+                Email = currentUser.Email
+
+            }, Views.EventOrganiserIdentityConfirmation);
+
+            _clientConfig.SupportEmailList.ForEach(supportEmail =>
+            {
+                _mailSender.Send(supportEmail, body, subject, attachments.ToArray());
+            });
         }
     }
 }

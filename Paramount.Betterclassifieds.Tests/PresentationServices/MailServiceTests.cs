@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -213,6 +214,39 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                 ));
 
             BuildTargetObject().SendGuestRemoval(mockAd, mockEvent, mockEventBookingTicket);
+        }
+
+        [Test]
+        public void SendEventOrganiserIdentityApproval_CallsMailSender()
+        {
+            var expectedSubject = "Event organiser identity";
+            var mockUser = new ApplicationUserMockBuilder().Default().Build();
+
+
+            var mockBody = "<body></body>";
+            _templatingService.SetupWithVerification(call =>
+                call.Generate(It.IsAny<EventOrganiserIdentityConfirmationEmail>(),
+                    It.Is<string>(t => t == "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml")),
+                    mockBody);
+
+
+            _clientConfig.SetupWithVerification(call => call.SupportEmailList, new[] {"foo@bar.com"});
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+
+            _mailSender.SetupWithVerification(call => call.Send(
+               It.Is<string>(str => str == "foo@bar.com"),
+               It.Is<string>(str => str == mockBody),
+               It.Is<string>(str => str == expectedSubject),
+               It.IsAny<MailAttachment[]>()
+               ));
+
+
+            var attachments = new List<MailAttachment>
+            {
+                new MailAttachment()
+            };
+
+            BuildTargetObject().SendEventOrganiserIdentityConfirmation(attachments);
         }
     }
 }

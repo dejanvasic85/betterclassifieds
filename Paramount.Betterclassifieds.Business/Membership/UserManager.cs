@@ -28,16 +28,14 @@ namespace Paramount.Betterclassifieds.Business
 
         private readonly IUserRepository _userRepository;
         private readonly IAuthManager _authManager;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
         private readonly IConfirmationCodeGenerator _confirmationCodeGenerator;
         private readonly IDateService _dateService;
 
-        public UserManager(IUserRepository userRepository, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, IConfirmationCodeGenerator confirmationCodeGenerator, IDateService dateService)
+        public UserManager(IUserRepository userRepository, IAuthManager authManager, IClientConfig clientConfig, IConfirmationCodeGenerator confirmationCodeGenerator, IDateService dateService)
         {
             _userRepository = userRepository;
             _authManager = authManager;
-            _broadcastManager = broadcastManager;
             _clientConfig = clientConfig;
             _confirmationCodeGenerator = confirmationCodeGenerator;
             _dateService = dateService;
@@ -107,17 +105,7 @@ namespace Paramount.Betterclassifieds.Business
             // CreateRepository in the database
             _userRepository.CreateRegistration(registrationModel);
 
-            if (isConfirmationRequired)
-            {
-                // Send the two factor authorisation email
-                _broadcastManager.SendEmail(new NewRegistration
-                {
-                    FirstName = registrationModel.FirstName,
-                    LastName = registrationModel.LastName,
-                    ConfirmationCode = registrationModel.Token
-                }, registrationModel.Email);
-            }
-            else
+            if (!isConfirmationRequired)
             {
                 ConfirmRegistration(registrationModel.RegistrationId.GetValueOrDefault(),
                     registrationModel.Token);

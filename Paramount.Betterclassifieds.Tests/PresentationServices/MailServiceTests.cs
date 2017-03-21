@@ -133,7 +133,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             target.SendTicketBuyerEmail("foo@bar.com", mockAd, mockEventBooking);
         }
-        
+
         [Test]
         public void SendWelcomeEmail_CallsMailSender()
         {
@@ -156,7 +156,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         public void SendForgotPasswordEmail_CallsMailSender()
         {
             _urlMock.SetupWithVerification(call => call.Login(), "/home");
-            
+
             _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<ForgotPasswordEmail>(),
                 "~/Views/Email/ForgotPassword.cshtml"), "<body>hello</body>");
 
@@ -197,7 +197,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             var mockAd = new AdSearchResultMockBuilder().Default().Build();
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default().Build();
-            
+
             var mockBody = "<body>guest removed</body>";
 
             var expectedSubject = $"Ticket Cancelled for {mockAd.Heading}";
@@ -230,7 +230,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                     mockBody);
 
 
-            _clientConfig.SetupWithVerification(call => call.SupportEmailList, new[] {"foo@bar.com"});
+            _clientConfig.SetupWithVerification(call => call.SupportEmailList, new[] { "foo@bar.com" });
             _userManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
 
             _mailSender.SetupWithVerification(call => call.Send(
@@ -247,6 +247,25 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             };
 
             BuildTargetObject().SendEventOrganiserIdentityConfirmation(attachments);
+        }
+
+        [Test]
+        public void SendRegistrationConfirmationEmail_CallsMailSender()
+        {
+            _mailSender.SetupWithVerification(call =>
+                call.Send(It.Is<string>(str => str == "foo@bar.com"),
+                    It.Is<string>(str => str == "<fake-body></fake-body>"),
+                    It.Is<string>(str => str == "Confirmation Code")));
+
+            _templatingService.SetupWithVerification(call => call.Generate(
+                It.IsAny<RegisrationConfirmationEmail>(),
+                It.Is<string>(t => t == "~/Views/Email/RegistrationConfirmation.cshtml")),
+                result: "<fake-body></fake-body>"
+                );
+            
+
+            BuildTargetObject()
+                .SendRegistrationConfirmationEmail("foo@bar.com", "token123");
         }
     }
 }

@@ -111,17 +111,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (registrationResult.RequiresConfirmation)
             {
+                // Send email
+                var confirmationCode = registrationResult.Registration.Token;
+                _mailService.SendRegistrationConfirmationEmail(registrationResult.Registration.Email, confirmationCode);
+
                 return View("Confirmation", new AccountConfirmationViewModel
                 {
                     RegistrationId = registrationResult.Registration.RegistrationId,
                     ReturnUrl = TempData[ReturnUrlKey]?.ToString() ?? string.Empty,
                 });
             }
-            else
-            {
-                // Send welcome email
-                _mailService.SendWelcomeEmail(registrationResult.Registration.Email, registrationResult.Registration.Username);
-            }
+
+            // Send welcome email
+            _mailService.SendWelcomeEmail(registrationResult.Registration.Email, registrationResult.Registration.Username);
 
             if (viewModel.ReturnUrl.HasValue())
             {

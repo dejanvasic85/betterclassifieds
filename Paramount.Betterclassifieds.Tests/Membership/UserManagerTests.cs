@@ -266,7 +266,6 @@ namespace Paramount.Betterclassifieds.Tests.Membership
 
         private Mock<IUserRepository> _mockUserRepository;
         private Mock<IAuthManager> _mockAuthManager;
-        private Mock<IBroadcastManager> _mockBroadcastManager;
         private Mock<IClientConfig> _mockConfig;
         private Mock<IConfirmationCodeGenerator> _mockCodeGenerator;
         private Mock<IDateService> _mockDateService;
@@ -276,7 +275,6 @@ namespace Paramount.Betterclassifieds.Tests.Membership
         {
             _mockUserRepository = CreateMockOf<IUserRepository>();
             _mockAuthManager = CreateMockOf<IAuthManager>();
-            _mockBroadcastManager = CreateMockOf<IBroadcastManager>();
             _mockConfig = CreateMockOf<IClientConfig>();
             _mockCodeGenerator = CreateMockOf<IConfirmationCodeGenerator>();
             _mockDateService = CreateMockOf<IDateService>();

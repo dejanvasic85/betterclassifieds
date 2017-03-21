@@ -179,7 +179,179 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             result.ViewResultModelIsTypeOf<EventOrganiserConfirmationViewModel>();
         }
-        
+
+        [Test]
+        public void Register_AlreadyLoggedIn_ReturnsLoginViewWithErrors()
+        {
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel();
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                It.Is<IPrincipal>(p => p == mockUser.Object)), 
+                result: true);
+            
+            var controller = BuildController(mockUser: mockUser);
+            var result = controller.Register(mockViewModel);
+            
+            result.ViewResultModelIsTypeOf<LoginOrRegisterModel>();
+            controller.ModelState.Keys.Single().IsEqualTo("UserAlreadyRegistered");
+        }
+
+        [Test]
+        public void Register_ModelStateHasValues_ReturnsLoginViewWithErrors()
+        {
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel();
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                It.Is<IPrincipal>(p => p == mockUser.Object)),
+                result: false);
+
+            var controller = BuildController(mockUser: mockUser);
+            controller.ModelState.AddModelError("RandomError", "Does not matter what it is");
+
+            // act
+            var result = controller.Register(mockViewModel);
+
+            result.ViewResultModelIsTypeOf<LoginOrRegisterModel>();
+            controller.ModelState.Keys.Single().IsEqualTo("RandomError");
+        }
+
+        [Test]
+        public void Register_NeedConfirmation_SendsRegistrationEmail_ReturnsConfirmationView()
+        {
+            var registrationMockModel = new RegistrationModelMockBuilder()
+                .WithEmail("foo@bar.com")
+                .WithRegistrationId(1)
+                .Build();
+
+            var requiresConfirmation = true;
+            var mockRegistrationResult = new RegistrationResult(registrationMockModel, requiresConfirmation);
+
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel
+            {
+                FirstName = "Foo",
+                LastName = "Bar",
+                Phone = "0433030303",
+                PostCode = "3000",
+                RegisterEmail = "foo@bar.com",
+                RegisterPassword = "password123",
+                ReturnUrl = "/url"
+            };
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                It.Is<IPrincipal>(p => p == mockUser.Object)),
+                result: false);
+            
+            _mockUserMgr.SetupWithVerification(call => call.RegisterUser(
+                It.IsAny<RegistrationModel>(),
+                It.Is<string>(password => password == mockViewModel.RegisterPassword),
+                It.Is<bool>(disabledConfirm => disabledConfirm == false)),
+                result: mockRegistrationResult);
+
+            _mailService.SetupWithVerification(call => call.SendRegistrationConfirmationEmail(
+                It.Is<string>(email => email == mockViewModel.RegisterEmail),
+                It.IsAny<string>()));
+
+            var controller = BuildController(mockUser: mockUser);
+
+            // act
+            var result = controller.Register(mockViewModel);
+            var vm = result.ViewResultModelIsTypeOf<AccountConfirmationViewModel>();
+            vm.RegistrationId.IsNotNull();
+        }
+
+        [Test]
+        public void Register_SendsWelcomeEmail_RedirectsToReturnUrl()
+        {
+            var registrationMockModel = new RegistrationModelMockBuilder()
+                .WithEmail("foo@bar.com")
+                .WithUsername("username123")
+                .WithRegistrationId(1)
+                .Build();
+
+            var requiresConfirmation = false;
+            var mockRegistrationResult = new RegistrationResult(registrationMockModel, requiresConfirmation);
+
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel
+            {
+                FirstName = "Foo",
+                LastName = "Bar",
+                Phone = "0433030303",
+                PostCode = "3000",
+                RegisterEmail = "foo@bar.com",
+                RegisterPassword = "password123",
+                ReturnUrl = "/redirect-url"
+            };
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                It.Is<IPrincipal>(p => p == mockUser.Object)),
+                result: false);
+
+            _mockUserMgr.SetupWithVerification(call => call.RegisterUser(
+                It.IsAny<RegistrationModel>(),
+                It.Is<string>(password => password == mockViewModel.RegisterPassword),
+                It.Is<bool>(disabledConfirm => disabledConfirm == false)),
+                result: mockRegistrationResult);
+
+            _mailService.SetupWithVerification(call => call.SendWelcomeEmail(
+                It.Is<string>(email => email == mockViewModel.RegisterEmail),
+                It.Is<string>(username => username == registrationMockModel.Username)));
+
+            var controller = BuildController(mockUser: mockUser);
+
+            // act
+            var result = controller.Register(mockViewModel);
+            result.IsRedirectingTo("/redirect-url");
+        }
+
+        [Test]
+        public void Register_SendsWelcomeEmail_RedirectsToHome()
+        {
+            var registrationMockModel = new RegistrationModelMockBuilder()
+                .WithEmail("foo@bar.com")
+                .WithUsername("username123")
+                .WithRegistrationId(1)
+                .Build();
+
+            var requiresConfirmation = false;
+            var mockRegistrationResult = new RegistrationResult(registrationMockModel, requiresConfirmation);
+
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel
+            {
+                FirstName = "Foo",
+                LastName = "Bar",
+                Phone = "0433030303",
+                PostCode = "3000",
+                RegisterEmail = "foo@bar.com",
+                RegisterPassword = "password123",
+                ReturnUrl = null
+            };
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                It.Is<IPrincipal>(p => p == mockUser.Object)),
+                result: false);
+
+            _mockUserMgr.SetupWithVerification(call => call.RegisterUser(
+                It.IsAny<RegistrationModel>(),
+                It.Is<string>(password => password == mockViewModel.RegisterPassword),
+                It.Is<bool>(disabledConfirm => disabledConfirm == false)),
+                result: mockRegistrationResult);
+
+            _mailService.SetupWithVerification(call => call.SendWelcomeEmail(
+                It.Is<string>(email => email == mockViewModel.RegisterEmail),
+                It.Is<string>(username => username == registrationMockModel.Username)));
+
+            var controller = BuildController(mockUser: mockUser);
+
+            // act
+            var result = controller.Register(mockViewModel);
+            result.IsRedirectingTo("home", "index");
+        }
+
         private Mock<IUserManager> _mockUserMgr;
         private Mock<IAuthManager> _mockAuthMgr;
         private Mock<ISearchService> _searchServiceMgr;

@@ -62,5 +62,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 NewPassword = "Password123"
             });
         }
+
+        [Route("view/confirm-registration")]
+        public ActionResult ConfirmRegistration()
+        {
+            return View("RegistrationConfirmation", new RegisrationConfirmationEmail
+            {
+                Email = "foo@bar.com",
+                Token = "Token123"
+            });
+        }
     }
 }

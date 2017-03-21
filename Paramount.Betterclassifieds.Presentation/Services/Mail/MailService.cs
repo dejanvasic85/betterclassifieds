@@ -26,6 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendTicketTransfer(AdSearchResult ad, string previousGuestEmail, string newGuestEmail);
         void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
         void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments);
+        void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode);
     }
 
     public class MailService : IMailService
@@ -61,6 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventGuestRemoved = "~/Views/Email/EventGuestRemoved.cshtml";
             public static string EventPaymentRequestView = "~/Views/Email/EventPaymentRequest.cshtml";
             public static string EventOrganiserIdentityConfirmation = "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml";
+            public static string ConfirmationEmail = "~/Views/Email/RegistrationConfirmation.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -215,12 +217,12 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             var body = _templatingService.Generate(new
                 TicketTransferEmail
-                {
-                    EventName = ad.Heading,
-                    EventUrl = eventUrl,
-                    NewGuestEmail = newGuestEmail,
-                    PreviousGuestEmail = previousGuestEmail
-                }
+            {
+                EventName = ad.Heading,
+                EventUrl = eventUrl,
+                NewGuestEmail = newGuestEmail,
+                PreviousGuestEmail = previousGuestEmail
+            }
                 , Views.EventTicketTransferView);
 
             var subject = $"Tickets transfer for event {ad.Heading}";
@@ -266,6 +268,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             {
                 _mailSender.Send(supportEmail, body, subject, attachments.ToArray());
             });
+        }
+
+        public void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode)
+        {
+            string body = _templatingService.Generate(new RegisrationConfirmationEmail
+            {
+                Email = registrationEmail,
+                Token = confirmationCode
+
+            }, Views.ConfirmationEmail);
+
+            var subject = "Confirmation Code";
+            _mailSender.Send(registrationEmail, body, subject);
         }
     }
 }

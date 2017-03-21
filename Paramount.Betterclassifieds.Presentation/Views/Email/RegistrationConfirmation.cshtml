@@ -1,0 +1,18 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model RegisrationConfirmationEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    Hi @Model.Email. Thank you for signing up with us.
+    For security reasons, in order to complete your registration
+    please find the security code below. 
+</p>
+
+<p>
+    <strong>@Model.Token</strong>
+</p>

@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
@@ -13,6 +14,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string EventUrl(string titleSlug, int id);
         string EventOrganiserInviteUrl(int eventId, string token, string recipient);
         string Login();
+        string AdUrl(string heading, int id, string categoryAdType);
+        string AdUrl(AdBookingModel ad);
     }
 
     /// <summary>
@@ -57,6 +60,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public string Login()
         {
             return BuildIt(() => _urlHelper.Login());
+        }
+
+        public string AdUrl(string heading, int id, string categoryAdType)
+        {
+            return BuildIt(() => _urlHelper.AdUrl(Slug.Create(true, heading), id, categoryAdType));
+        }
+
+        public string AdUrl(AdBookingModel ad)
+        {
+            Guard.NotNull(ad);
+            Guard.NotNull(ad.OnlineAd);
+
+            return AdUrl(ad.OnlineAd.Heading, ad.AdBookingId, ad.CategoryAdType);
         }
 
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)

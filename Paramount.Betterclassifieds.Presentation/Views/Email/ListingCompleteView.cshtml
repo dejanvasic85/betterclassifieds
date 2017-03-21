@@ -1,0 +1,24 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model ListingCompleteEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    Hi @Model.Email. Your listing at has been placed successfully.
+    It commences @Model.ListingDate.ToString("dd-MMM-yyyy hh:mm").
+    <a href="@Model.ListingUrl">Click here to view it online.</a>
+</p>
+
+<h4>
+    @Model.Heading
+</h4>
+
+<hr />
+
+<div>
+    @Model.DescriptionHtml
+</div>

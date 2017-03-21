@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
@@ -27,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
         void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments);
         void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode);
+        void SendBookingCompleteEmail(string to, AdBookingModel ad);
     }
 
     public class MailService : IMailService
@@ -63,6 +65,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventPaymentRequestView = "~/Views/Email/EventPaymentRequest.cshtml";
             public static string EventOrganiserIdentityConfirmation = "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml";
             public static string ConfirmationEmail = "~/Views/Email/RegistrationConfirmation.cshtml";
+            public static string ListingCompleteView = "~/Views/Email/ListingCompleteView.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -282,5 +285,27 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var subject = "Confirmation Code";
             _mailSender.Send(registrationEmail, body, subject);
         }
+
+        public void SendBookingCompleteEmail(string to, AdBookingModel ad)
+        {
+            Guard.NotNullOrEmpty(to);
+            Guard.NotNull(ad);
+            Guard.NotNull(ad.OnlineAd);
+
+            var bookingUser = _userManager.GetUserByUsername(ad.UserId);
+            var subject = "Listing placed";
+            var body = _templatingService.Generate(new ListingCompleteEmail
+            {
+                Heading = ad.OnlineAd.Heading,
+                DescriptionHtml = ad.OnlineAd.HtmlText,
+                Id = ad.AdBookingId,
+                Email = bookingUser.Email,
+                ListingDate = ad.StartDate,
+                ListingUrl = _url.AdUrl(ad)
+
+            }, Views.ListingCompleteView);
+
+            _mailSender.Send(to, body, subject);
+         }
     }
 }

@@ -28,7 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
         void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments);
         void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode);
-        void SendBookingCompleteEmail(string to, AdBookingModel ad);
+        void SendListingCompleteEmail(string to, int id, IBookingCart ad);
     }
 
     public class MailService : IMailService
@@ -286,22 +286,21 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _mailSender.Send(registrationEmail, body, subject);
         }
 
-        public void SendBookingCompleteEmail(string to, AdBookingModel ad)
+        public void SendListingCompleteEmail(string to, int id, IBookingCart ad)
         {
             Guard.NotNullOrEmpty(to);
             Guard.NotNull(ad);
-            Guard.NotNull(ad.OnlineAd);
+            Guard.NotNull(ad.OnlineAdModel);
 
             var bookingUser = _userManager.GetUserByUsername(ad.UserId);
             var subject = "Listing placed";
             var body = _templatingService.Generate(new ListingCompleteEmail
             {
-                Heading = ad.OnlineAd.Heading,
-                DescriptionHtml = ad.OnlineAd.HtmlText,
-                Id = ad.AdBookingId,
+                Heading = ad.OnlineAdModel.HtmlText,
+                Id = id,
                 Email = bookingUser.Email,
-                ListingDate = ad.StartDate,
-                ListingUrl = _url.AdUrl(ad)
+                ListingDate = ad.GetStartDateOrMinimum().GetValueOrDefault(),
+                ListingUrl = _url.AdUrl(ad.OnlineAdModel.Heading, id, ad.CategoryAdType)
 
             }, Views.ListingCompleteView);
 

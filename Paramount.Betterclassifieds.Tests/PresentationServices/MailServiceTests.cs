@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
@@ -257,15 +258,54 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                     It.Is<string>(str => str == "<fake-body></fake-body>"),
                     It.Is<string>(str => str == "Confirmation Code")));
 
+
             _templatingService.SetupWithVerification(call => call.Generate(
                 It.IsAny<RegisrationConfirmationEmail>(),
                 It.Is<string>(t => t == "~/Views/Email/RegistrationConfirmation.cshtml")),
                 result: "<fake-body></fake-body>"
                 );
-            
+
 
             BuildTargetObject()
                 .SendRegistrationConfirmationEmail("foo@bar.com", "token123");
+        }
+
+        [Test]
+        public void SendListingCompleteEmail_CallsMailSender()
+        {
+            var mockBookingCart = new Mock<IBookingCart>();
+            mockBookingCart.Setup(call => call.UserId).Returns("user123");
+            mockBookingCart.Setup(call => call.CategoryAdType).Returns("BoomBam");
+
+            var mockOnlineAd = new OnlineAdModel
+            {
+                Heading = "Fake Listing"
+            };
+
+            mockBookingCart.Setup(call => call.OnlineAdModel).Returns(mockOnlineAd);
+
+            _userManager.SetupWithVerification(call => call.GetUserByUsername(
+                It.Is<string>(username => username == mockBookingCart.Object.UserId)),
+                new ApplicationUserMockBuilder().Default().Build());
+
+            _mailSender.SetupWithVerification(call =>
+               call.Send(It.Is<string>(str => str == "foo@bar.com"),
+                   It.Is<string>(str => str == "<fake-body></fake-body>"),
+                   It.Is<string>(str => str == "Listing placed")));
+
+            _templatingService.SetupWithVerification(call => call.Generate(
+                It.IsAny<ListingCompleteEmail>(),
+                It.Is<string>(t => t == "~/Views/Email/ListingCompleteView.cshtml")),
+                result: "<fake-body></fake-body>");
+
+            _urlMock.SetupWithVerification(call => call.AdUrl(
+                It.Is<string>(heading => heading == mockOnlineAd.Heading),
+                It.Is<int>(id => id == 123),
+                It.Is<string>(adType => adType == mockBookingCart.Object.CategoryAdType)),
+                result: "http://fake-url");
+
+            BuildTargetObject()
+                .SendListingCompleteEmail("foo@bar.com", 123, mockBookingCart.Object);
         }
     }
 }

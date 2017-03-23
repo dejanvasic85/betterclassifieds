@@ -13,6 +13,8 @@ using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
+using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -42,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockField = new EventTicketFieldMockBuilder().Default().Build();
             var mockEventTicket = new EventTicketMockBuilder()
-                .Default().WithEventTicketFields(new [] {mockField}).Build();
+                .Default().WithEventTicketFields(new[] { mockField }).Build();
             var mockEvent = new EventModelMockBuilder()
                 .WithFutureClosedDate()
                 .WithTickets(new[] { mockEventTicket })
@@ -60,7 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             result.IsTypeOf<ViewResult>();
             var model = result.ViewResultModelIsTypeOf<BookingEventTicketSetupViewModel>();
-            
+
             model.Tickets.Count.IsEqualTo(1);
             model.Tickets.First().EventTicketFields.Count.IsEqualTo(1);
             model.EventTicketFee.IsEqualTo(5);
@@ -88,8 +90,70 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<JsonResult>();
             result.JsonResultContains("{ nextUrl = /Booking/Step/3 }");
         }
-        
-        
+
+        [Test]
+        public void Success_ReturnsView()
+        {
+            var mockAppUser = new ApplicationUserMockBuilder().Default().Build();
+
+            var mockBookingCart = new BookingCart
+            {
+                UserId = mockAppUser.Username,
+                CategoryAdType = CategoryAdType.Event,
+                OnlineAdModel = new OnlineAdModel
+                {
+                    Heading = "Sample Listing"
+                }
+            };
+            var mockBookingOrder = new BookingOrderResult();
+
+            var mockAdId = 123;
+
+            // Service calls
+            _bookingContextMock.SetupWithVerification(call => call.Current(), result: (BookingCart)mockBookingCart);
+
+            _bookingContextMock.SetupWithVerification(call => call.Clear());
+
+            _rateCalculatorMock
+                .Setup(call => call.Calculate(It.IsAny<IAdRateContext>(), It.IsAny<int?>()))
+                .Returns(mockBookingOrder);
+
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), result: mockAppUser);
+
+
+            _userManagerMock.SetupWithVerification(call => call.GetUserNetworksForUserId(
+                It.Is<string>(userId => userId == mockAppUser.Username)),
+                new List<UserNetworkModel>());
+
+
+            _bookingManagerMock.SetupWithVerification(call => call.CreateBooking(
+                It.Is<BookingCart>(cart => cart == mockBookingCart),
+                It.Is<BookingOrderResult>(order => order == mockBookingOrder)),
+                result: mockAdId);
+
+            _cartRepositoryMock.SetupWithVerification(call => call.Save(
+                It.IsAny<BookingCart>()), mockBookingCart);
+
+
+            _mailService.SetupWithVerification(call => call.SendListingCompleteEmail(
+                It.IsAny<string>(),
+                It.Is<int>(id => id == mockAdId),
+                It.Is<IBookingCart>(cart => cart == mockBookingCart)));
+
+            _clientConfigMock.SetupWithVerification(call => call.RestrictedOnlineDaysCount, 10);
+            _clientConfigMock.SetupWithVerification(call => call.SupportEmailList, new[] { "support@email.com" });
+
+
+            var controller = BuildController();
+            var result = controller.Success();
+
+            var viewModel = result.ViewResultModelIsTypeOf<SuccessView>();
+            viewModel.AdUrl.IsEqualTo("http://dummy-localhost/Event/sample-listing/123");
+            viewModel.AdId.IsEqualTo(mockAdId);
+            viewModel.IsBookingActive = true;
+        }
+
+
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IBookCartRepository> _cartRepositoryMock;
         private Mock<IBookingContext> _bookingContextMock;
@@ -97,7 +161,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IDocumentRepository> _documentRepositoryMock;
         private Mock<IUserManager> _userManagerMock;
         private Mock<IRateCalculator> _rateCalculatorMock;
-        private Mock<IBroadcastManager> _broadcastManagerMock;
+        private Mock<IMailService> _mailService;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IBookingManager> _bookingManagerMock;
         private Mock<IPayPalService> _paymentServiceMock;
@@ -116,7 +180,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _documentRepositoryMock = CreateMockOf<IDocumentRepository>();
             _userManagerMock = CreateMockOf<IUserManager>();
             _rateCalculatorMock = CreateMockOf<IRateCalculator>();
-            _broadcastManagerMock = CreateMockOf<IBroadcastManager>();
             _applicationConfigMock = CreateMockOf<IApplicationConfig>();
             _bookingManagerMock = CreateMockOf<IBookingManager>();
             _paymentServiceMock = CreateMockOf<IPayPalService>();
@@ -124,6 +187,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _dateServiceMock = CreateMockOf<IDateService>();
             _locationServiceMock = CreateMockOf<ILocationService>();
             _logServiceMock = CreateMockOf<ILogService>();
+
+            _mailService = CreateMockOf<IMailService>();
+            _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
         }
     }
 }

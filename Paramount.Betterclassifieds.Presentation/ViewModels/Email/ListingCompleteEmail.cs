@@ -9,6 +9,5 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
         public int Id { get; set; }
         public string Email { get; set; }
         public DateTime ListingDate { get; set; }
-        public string DescriptionHtml { get; set; }
     }
 }

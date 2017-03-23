@@ -8,17 +8,8 @@
 }
 
 <p>
-    Hi @Model.Email. Your listing at has been placed successfully.
-    It commences @Model.ListingDate.ToString("dd-MMM-yyyy hh:mm").
+    Hi @Model.Email. Your listing number <strong>@Model.Id</strong> titled
+    <strong>@Model.Heading</strong> has been placed successfully.
+    It commences @Model.ListingDate.ToString("dd-MMM-yyyy HH:mm").
     <a href="@Model.ListingUrl">Click here to view it online.</a>
 </p>
-
-<h4>
-    @Model.Heading
-</h4>
-
-<hr />
-
-<div>
-    @Model.DescriptionHtml
-</div>

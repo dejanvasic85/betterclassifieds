@@ -14,6 +14,7 @@ using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Framework;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
@@ -228,21 +229,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var bookingOrder = _rateCalculator.Calculate(bookingCart);
-            bookingOrder.SetRecipientDetails(_userManager.GetCurrentUser());
+            var currentUser = _userManager.GetCurrentUser();
+            bookingOrder.SetRecipientDetails(currentUser);
            
             var id = _bookingManager.CreateBooking(bookingCart, bookingOrder);
 
             // Complete the booking
             _cartRepository.Save(bookingCart);
-
-            var currentUser = _userManager.GetCurrentUser(User);
-
-            // Send email to the user and support staff
-            var newBookingEmail = this.Map<BookingCart, NewBooking>(bookingCart);
-            newBookingEmail.AdId = id.ToString(); // We can only get the Id 
-            _broadcastManager.Queue(newBookingEmail, _clientConfig.SupportEmailList);
-            _broadcastManager.Queue(newBookingEmail, currentUser.Email);
-
+            
+            foreach (var supportEmail in _clientConfig.SupportEmailList)
+            {
+                _mailService.SendListingCompleteEmail(supportEmail, id.GetValueOrDefault(), bookingCart);
+            }
+            _mailService.SendListingCompleteEmail(currentUser.Email, id.GetValueOrDefault(), bookingCart);
+            
             // Build the view model
             var successView = new SuccessView
             {
@@ -490,7 +490,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDocumentRepository _documentRepository;
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IApplicationConfig _applicationConfig;
         private readonly IBookingManager _bookingManager;
         private readonly IPayPalService _payPalService;
@@ -498,6 +497,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDateService _dateService;
         private readonly ILocationService _locationService;
         private readonly ILogService _logService;
+        private readonly IMailService _mailService;
 
         public BookingController(
             ISearchService searchService,
@@ -506,7 +506,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IBookCartRepository cartRepository,
             IUserManager userManager,
             IRateCalculator rateCalculator,
-            IBroadcastManager broadcastManager,
             IApplicationConfig applicationConfig,
             IBookingContext bookingContext,
             IBookingManager bookingManager,
@@ -514,7 +513,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IEditionManager editionManager,
             IDateService dateService,
             ILocationService locationService,
-            ILogService logService)
+            ILogService logService,
+            IMailService mailService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -522,7 +522,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _cartRepository = cartRepository;
             _userManager = userManager;
             _rateCalculator = rateCalculator;
-            _broadcastManager = broadcastManager;
             _applicationConfig = applicationConfig;
             _bookingContext = bookingContext;
             _bookingManager = bookingManager;
@@ -531,6 +530,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _dateService = dateService;
             _locationService = locationService;
             _logService = logService;
+            _mailService = mailService.Initialise(this);
         }
     }
 }

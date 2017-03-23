@@ -72,5 +72,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Token = "Token123"
             });
         }
+
+        [Route("view/listing-complete")]
+        public ActionResult ListingComplete()
+        {
+            return View("ListingCompleteView", new ListingCompleteEmail
+            {
+                Heading = "Hello 123",
+                Id = 123,
+                Email = "foo@bar.com",
+                ListingUrl = "http://listing123",
+                ListingDate = DateTime.Today.AddDays(1).AddHours(20)
+            });
+        }
     }
 }

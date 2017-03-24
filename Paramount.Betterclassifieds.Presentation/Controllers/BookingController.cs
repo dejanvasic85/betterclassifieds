@@ -13,7 +13,6 @@ using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
@@ -77,7 +76,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var workflow = new BookingWorkflowController<CategorySelectionStep>(Url, bookingCart);
             var nextUrl = workflow.GetNextStepUrl(new { adType = category.CategoryAdType });
-            return Json(nextUrl);
+            return Json(new { nextUrl});
         }
 
         //

@@ -43,24 +43,18 @@
 
         $('#btnSubmit').on('click', function () {
             var $btn = $(this);
-            $btn.button('loading');
+            $btn.loadBtn();
             var modelToPost = ko.toJS(categorySelection);
             
             // Validate
             if (isNaN(categorySelection.subCategoryId()) || categorySelection.subCategoryId() === null) {
                 categorySelection.errorMsg('You must select a sub category for your ad');
                 $(this).button('reset');
+                $btn.resetBtn();
                 return;
             }
 
-            adDesignService.setCategoryAndPublications(modelToPost)
-                .success(function (respondUrl) {
-                    window.location = respondUrl;
-                })
-                .error(function (resp) {
-                    categorySelection.errorMsg(resp.statusText);
-                    $btn.button('reset');
-                });
+            adDesignService.setCategoryAndPublications(modelToPost);
         });
     };
 

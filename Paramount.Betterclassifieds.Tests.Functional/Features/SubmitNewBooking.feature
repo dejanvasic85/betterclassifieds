@@ -11,7 +11,6 @@ Scenario: Submit online ad and notify friends
 	And the booking details are confirmed
 	And I notify my friend "Emmanual Adebayor" "ade@spurs.com" about my add
 	Then the booking should be successful
-	And my friends email "ade@spurs.com" should receive the notification
 
 @EventBooking
 @EventAd

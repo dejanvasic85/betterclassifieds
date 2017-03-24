@@ -9,7 +9,6 @@ using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
@@ -444,9 +443,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventTicketRequestViewModel, EventTicket>();
             configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
             configuration.CreateMap<EventTicketReservedViewModel, Business.Events.EventTicketReservation>();
-            configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()
-                .ForMember(m => m.DocumentType, options => options.Ignore());
-
         }
 
         private readonly HttpContextBase _httpContext;

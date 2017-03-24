@@ -288,15 +288,7 @@ DELETE FROM [Event] WHERE EventId = @eventId;
 
 
         }
-
-        public List<Email> GetSentEmailsFor(string email)
-        {
-            using (var db = _connectionFactory.CreateBroadcast())
-            {
-                return db.Query<Email>("SELECT [To], DocType, ModifiedDate FROM EmailDelivery WHERE [To] = @email", new { email }).ToList();
-
-            }
-        }
+        
 
         public void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category = "", bool autoAssign = true)
         {

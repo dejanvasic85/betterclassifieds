@@ -1,0 +1,19 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.Email.NewListingNetworkEmail
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    Hey there!
+</p>
+
+<p>
+    Your friend @Model.AdvertiserFullName &amp;@Model.AdvertiserEmail&gt; has just posted a new listing
+    titled <strong>@Model.Heading</strong> online, and they wanted to let you know.
+</p>
+
+<p>
+    <a class="btn-primary" href="@Model.AdUrl">See more details!</a>
+</p>

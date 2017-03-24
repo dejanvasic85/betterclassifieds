@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -13,13 +11,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
-        private readonly IBroadcastManager _broadcastManager;
+        private readonly IMailService _mailService;
 
-        public UserNetworkController(ISearchService searchService, IUserManager userManager, IBroadcastManager broadcastManager)
+        public UserNetworkController(ISearchService searchService, IUserManager userManager, IMailService mailService)
         {
             _searchService = searchService;
             _userManager = userManager;
-            _broadcastManager = broadcastManager;
+            _mailService = mailService.Initialise(this);
         }
 
         [HttpPost]
@@ -27,16 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var adSearchResult = _searchService.GetByAdId(adId);
 
-            foreach (var friendEmail in userNetworkUsers.Where(u => u.Selected).Select(u => u.Email))
-            {
-                _broadcastManager.Queue(new AdShare
-                {
-                    AdvertiserName = adSearchResult.ContactName,
-                    AdDescription = adSearchResult.HtmlText,
-                    AdTitle = adSearchResult.Heading,
-                    ClientName = friendEmail
-                }, friendEmail);
-            }
+            _mailService.SendListingNotificationToUserNetwork(userNetworkUsers, adSearchResult);
+
             return Json(true);
         }
 

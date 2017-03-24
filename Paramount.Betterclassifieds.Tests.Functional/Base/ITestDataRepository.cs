@@ -34,10 +34,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         Guid? DropCreateUser(string username, string password, string email, RoleType roleType);
         void DropUserNetwork(string userId, string userNetworkEmail);
         int AddUserNetworkIfNotExists(string username, string email, string fullName);
-
-        // Emails / Notifications
-        List<Email> GetSentEmailsFor(string email);
-
+        
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);
 

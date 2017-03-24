@@ -43,7 +43,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // arrange services
             _searchService.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == mockAd.AdId)), mockAd);
-            _bookingManager.SetupWithVerification(call => call.IncrementHits(It.Is<int>(p => p == mockAd.AdId)));
             _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockEventAd.OnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
@@ -590,8 +589,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IClientConfig> _clientConfig;
         private Mock<IUserManager> _userManager;
         private Mock<IPayPalService> _paymentService;
-        private Mock<IBroadcastManager> _broadcastManager;
-        private Mock<IBookingManager> _bookingManager;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<IPrincipal> _mockUser;
         private Mock<ITemplatingService> _templatingService;
@@ -602,6 +599,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<ITicketRequestValidator> _ticketRequestValidator;
         private Mock<ILogService> _logService;
         private Mock<IMailService> _mailService;
+        private Mock<IBookingManager> _bookingManager;
 
         [SetUp]
         public void SetupController()
@@ -614,14 +612,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig = CreateMockOf<IClientConfig>();
             _userManager = CreateMockOf<IUserManager>();
             _paymentService = CreateMockOf<IPayPalService>();
-            _broadcastManager = CreateMockOf<IBroadcastManager>();
-            _bookingManager = CreateMockOf<IBookingManager>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _templatingService = CreateMockOf<ITemplatingService>();
             _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _appConfig = CreateMockOf<IApplicationConfig>();
             _creditCardService = CreateMockOf<ICreditCardService>();
+            _bookingManager = CreateMockOf<IBookingManager>();
 
             _mailService = CreateMockOf<IMailService>();
             _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);

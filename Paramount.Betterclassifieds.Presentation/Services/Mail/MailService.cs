@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http.Validation;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
@@ -29,6 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode);
         void SendListingCompleteEmail(ApplicationUser bookedByUser, int id, IBookingCart ad);
         void SendSupportEmail(ContactUsView contactUsView);
+        void SendListingNotificationToUserNetwork(UserNetworkEmailView[] userNetworkUsers, AdSearchResult adSearchResult);
     }
 
     public class MailService : IMailService
@@ -69,6 +71,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string ConfirmationEmail = "~/Views/Email/RegistrationConfirmation.cshtml";
             public static string ListingCompleteView = "~/Views/Email/ListingCompleteView.cshtml";
             public static string SupportEmailView = "~/Views/Email/SupportEmailView.cshtml";
+            public static string NewListingNetworkView = "~/Views/Email/NewListingNetworkView.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -329,6 +332,26 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             });
         }
 
+        public void SendListingNotificationToUserNetwork(UserNetworkEmailView[] userNetworkUsers, AdSearchResult adSearchResult)
+        {
+            var bookingUser = _userManager.GetUserByUsername(adSearchResult.Username);
+            var subject = "Your friend has a new listing";
+            var body = _templatingService.Generate(new NewListingNetworkEmail
+            {
+                AdUrl = _url.AdUrl(adSearchResult.Heading, adSearchResult.AdId, adSearchResult.CategoryAdType),
+                Heading = adSearchResult.Heading,
+                AdvertiserFullName = bookingUser.FullName,
+                AdvertiserEmail = bookingUser.Email
+
+            }, Views.NewListingNetworkView);
+            
+
+            Parallel.ForEach(userNetworkUsers, user =>
+            {
+                _mailSender.Send(user.Email, body, subject);
+            });
+        }
+
         private void SendAllSupportPersonsEmail(string body, string subject, params MailAttachment[] attachments)
         {
             var supportEmails = _clientConfig.SupportEmailList;
@@ -338,8 +361,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 _log.Warn("Unable to send support email. There are no support emails configured. ");
                 return;
             }
-
-            supportEmails.ForEach(support =>
+            
+            Parallel.ForEach(supportEmails, support =>
             {
                 _mailSender.Send(support,  body, subject, attachments);
             });

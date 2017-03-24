@@ -92,21 +92,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(registrationResult, Is.True);
         }
 
-        [Then(@"a registration email should be sent to ""(.*)""")]
-        public void ThenARegistrationEmailShouldBeSentTo(string userEmail)
-        {
-            var isRegistrationEmailQueued = _pageBrowser.WaitUntil(() =>
-            {
-                var emailsQueued = _dataRepository.GetSentEmailsFor(userEmail);
-
-                return emailsQueued.Any(e =>
-                    e.ModifiedDate >= _userContext.StartRegistrationTime &&
-                    e.DocType == "NewRegistration");
-            });
-
-            Assert.That(isRegistrationEmailQueued, Is.True);
-        }
-
-
+       
     }
 }

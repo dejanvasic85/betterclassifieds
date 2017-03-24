@@ -110,12 +110,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _pageBrowser.Init<BookingCompletePage>().CheckoutAd();
         }
-
-        [Then(@"my friends email ""(.*)"" should receive the notification")]
-        public void ThenMyFriendsEmailShouldReceiveTheNotification(string email)
-        {
-            var emails = _repository.GetSentEmailsFor(email);
-            Assert.That(emails.Count, Is.GreaterThan(0));
-        }
     }
 }

@@ -12,7 +12,6 @@ Scenario: Create new account successfully
 	And I have entered my account details "bdd@user.com", "password123"
 	When I click register button
 	Then the user "bdd@user.com" should be created successfully
-	And a registration email should be sent to "bdd@user.com"
 	And I should see a code confirmation page
 
 Scenario: Create user without confirmation

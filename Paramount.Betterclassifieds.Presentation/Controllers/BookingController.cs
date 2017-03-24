@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Location;
@@ -465,15 +464,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
             configuration.CreateMap<EventViewModel, IBookingCart>().ConvertUsing(new EventViewToBookingCartConverter(_dateService, _clientConfig));
-
-
-            // To Email Template
-            configuration.CreateMap<BookingCart, NewBooking>()
-                .ForMember(member => member.AdDescription, options => options.MapFrom(source => source.OnlineAdModel.HtmlText))
-                .ForMember(member => member.AdHeading, options => options.MapFrom(source => source.OnlineAdModel.Heading))
-                .ForMember(member => member.StartDate, options => options.MapFrom(source => source.StartDate.Value.ToString("dd-MMM-yyyy")))
-                .ForMember(member => member.EndDate, options => options.MapFrom(source => source.EndDate.Value.ToString("dd-MMM-yyyy")))
-                .ForMember(member => member.TotalPrice, options => options.MapFrom(source => source.TotalPrice.ToString("N")));
         }
 
         #endregion

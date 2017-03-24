@@ -1053,6 +1053,7 @@
     <Content Include="Views\Email\EventOrganiserIdentityConfirmation.cshtml" />
     <Content Include="Views\Email\RegistrationConfirmation.cshtml" />
     <Content Include="Views\Email\ListingCompleteView.cshtml" />
+    <Content Include="Views\Email\SupportEmailView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

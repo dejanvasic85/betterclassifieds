@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<IPdfGenerator> _pdfGenerator;
         private Mock<IClientConfig> _clientConfig;
         private ApplicationUser _mockUser;
-
+        private Mock<ILogService> _logService;
 
         [SetUp]
         public void SetupDependencies()
@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             _mailSender = CreateMockOf<IMailSender>();
             _pdfGenerator = CreateMockOf<IPdfGenerator>();
             _clientConfig = CreateMockOf<IClientConfig>();
+            _logService = CreateMockOf<ILogService>();
 
             _mockUser = new ApplicationUserMockBuilder().Default().Build();
             _userManager.Setup(call => call.GetCurrentUser()).Returns(_mockUser);
@@ -276,6 +277,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             var mockBookingCart = new Mock<IBookingCart>();
             mockBookingCart.Setup(call => call.UserId).Returns("user123");
             mockBookingCart.Setup(call => call.CategoryAdType).Returns("BoomBam");
+            var mockSupportEmail = "fake@support.com";
 
             var mockOnlineAd = new OnlineAdModel
             {
@@ -284,14 +286,19 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             mockBookingCart.Setup(call => call.OnlineAdModel).Returns(mockOnlineAd);
 
-            _userManager.SetupWithVerification(call => call.GetUserByUsername(
-                It.Is<string>(username => username == mockBookingCart.Object.UserId)),
-                new ApplicationUserMockBuilder().Default().Build());
+            var applicationUser = new ApplicationUserMockBuilder().Default().Build();
 
-            _mailSender.SetupWithVerification(call =>
-               call.Send(It.Is<string>(str => str == "foo@bar.com"),
+            _mailSender.Setup(call =>
+               call.Send(It.Is<string>(str => str == applicationUser.Email),
                    It.Is<string>(str => str == "<fake-body></fake-body>"),
                    It.Is<string>(str => str == "Listing placed")));
+            
+            
+            _mailSender.Setup(call =>
+               call.Send(It.Is<string>(str => str == mockSupportEmail),
+                   It.Is<string>(str => str == "<fake-body></fake-body>"),
+                   It.Is<string>(str => str == "Listing placed")));
+
 
             _templatingService.SetupWithVerification(call => call.Generate(
                 It.IsAny<ListingCompleteEmail>(),
@@ -304,8 +311,10 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                 It.Is<string>(adType => adType == mockBookingCart.Object.CategoryAdType)),
                 result: "http://fake-url");
 
+            _clientConfig.SetupWithVerification(call => call.SupportEmailList, new[] { mockSupportEmail });
+
             BuildTargetObject()
-                .SendListingCompleteEmail("foo@bar.com", 123, mockBookingCart.Object);
+                .SendListingCompleteEmail(applicationUser, 123, mockBookingCart.Object);
         }
     }
 }

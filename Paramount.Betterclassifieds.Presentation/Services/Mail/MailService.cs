@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
+using System.Web.Http.Validation;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
@@ -28,7 +27,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendEventPaymentRequest(AdSearchResult ad, EventModel eventModel, string preferredPayment, decimal requestedAmount);
         void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments);
         void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode);
-        void SendListingCompleteEmail(string to, int id, IBookingCart ad);
+        void SendListingCompleteEmail(ApplicationUser bookedByUser, int id, IBookingCart ad);
+        void SendSupportEmail(ContactUsView contactUsView);
     }
 
     public class MailService : IMailService
@@ -39,9 +39,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly IMailSender _mailSender;
         private readonly IClientConfig _clientConfig;
         private readonly IPdfGenerator _pdfGenerator;
+        private readonly ILogService _log;
         private const string EventDateFormat = "dd-MMM-yyyy hh:mm";
 
-        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator)
+        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator, ILogService log)
         {
             _templatingService = templatingService;
             _url = url;
@@ -50,6 +51,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _mailSender = mailSender;
             _clientConfig = clientConfig;
             _pdfGenerator = pdfGenerator;
+            _log = log;
         }
 
         struct Views
@@ -66,6 +68,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             public static string EventOrganiserIdentityConfirmation = "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml";
             public static string ConfirmationEmail = "~/Views/Email/RegistrationConfirmation.cshtml";
             public static string ListingCompleteView = "~/Views/Email/ListingCompleteView.cshtml";
+            public static string SupportEmailView = "~/Views/Email/SupportEmailView.cshtml";
         }
 
         public IMailService Initialise(Controller controller)
@@ -149,7 +152,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             var subject = "Tickets to " + ad.Heading;
 
-            var attachments = new MailAttachment[]
+            var attachments = new[]
             {
                 MailAttachment.New(subject + ".pdf", ticketAttachment),
                 MailAttachment.NewCalendarAttachment(_clientConfig.ClientName,
@@ -248,11 +251,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             }, Views.EventPaymentRequestView);
 
-            _clientConfig.SupportEmailList.ForEach(email =>
-            {
-                _mailSender.Send(email, body, subject);
-            });
-
+            SendAllSupportPersonsEmail(body, subject);
         }
 
         public void SendEventOrganiserIdentityConfirmation(IEnumerable<MailAttachment> attachments)
@@ -267,10 +266,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             }, Views.EventOrganiserIdentityConfirmation);
 
-            _clientConfig.SupportEmailList.ForEach(supportEmail =>
-            {
-                _mailSender.Send(supportEmail, body, subject, attachments.ToArray());
-            });
+            SendAllSupportPersonsEmail(body, subject, attachments.ToArray());
         }
 
         public void SendRegistrationConfirmationEmail(string registrationEmail, string confirmationCode)
@@ -286,25 +282,72 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _mailSender.Send(registrationEmail, body, subject);
         }
 
-        public void SendListingCompleteEmail(string to, int id, IBookingCart ad)
+        public void SendListingCompleteEmail(ApplicationUser bookedByUser, int id, IBookingCart ad)
         {
-            Guard.NotNullOrEmpty(to);
+            Guard.NotNull(bookedByUser);
             Guard.NotNull(ad);
             Guard.NotNull(ad.OnlineAdModel);
-
-            var bookingUser = _userManager.GetUserByUsername(ad.UserId);
+            
             var subject = "Listing placed";
             var body = _templatingService.Generate(new ListingCompleteEmail
             {
                 Heading = ad.OnlineAdModel.HtmlText,
                 Id = id,
-                Email = bookingUser.Email,
+                Email = bookedByUser.Email,
                 ListingDate = ad.GetStartDateOrMinimum().GetValueOrDefault(),
                 ListingUrl = _url.AdUrl(ad.OnlineAdModel.Heading, id, ad.CategoryAdType)
 
             }, Views.ListingCompleteView);
 
-            _mailSender.Send(to, body, subject);
-         }
+            _mailSender.Send(bookedByUser.Email, body, subject);
+
+            SendAllSupportPersonsEmail(body, subject);
+        }
+
+        public void SendSupportEmail(ContactUsView contactUsView)
+        {
+            Guard.NotNull(contactUsView);
+
+            var supportEmails = _clientConfig.SupportEmailList;
+
+            if (supportEmails.Length == 0)
+            {
+                _log.Warn("Unable to send support email. There are no support emails configured. " +
+                          $"\n From: {contactUsView.Email} " +
+                          $"\n FullName: {contactUsView.FullName} " +
+                          $"\n Phone: {contactUsView.Phone} " +
+                          $"\n Comment: {contactUsView.Comment}");
+                return;
+            }
+
+            var body = _templatingService.Generate(contactUsView, Views.SupportEmailView);
+            var subject = "Website Support Required";
+
+            supportEmails.ForEach(support =>
+            {
+                _mailSender.Send(support, body, subject);
+            });
+        }
+
+        private void SendAllSupportPersonsEmail(string body, string subject, params MailAttachment[] attachments)
+        {
+            var supportEmails = _clientConfig.SupportEmailList;
+
+            if (supportEmails.Length == 0)
+            {
+                _log.Warn("Unable to send support email. There are no support emails configured. ");
+                return;
+            }
+
+            supportEmails.ForEach(support =>
+            {
+                _mailSender.Send(support,  body, subject, attachments);
+            });
+        }
+
+        public void SendSupportEmail()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

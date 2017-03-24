@@ -170,12 +170,10 @@
     <Compile Include="Pricing\PrintCharges\PrintWordCharge.cs" />
     <Compile Include="Pricing\PrintCharges\PrintSuperBoldHeadingCharge.cs" />
     <Compile Include="Print\EditionManager.cs" />
-    <Compile Include="EnquiryManager.cs" />
     <Compile Include="Booking\BookingAuthorisationException.cs" />
     <Compile Include="Search\EventSearchResult.cs" />
     <Compile Include="SetupException.cs" />
     <Compile Include="IApplicationConfig.cs" />
-    <Compile Include="IEnquiryManager.cs" />
     <Compile Include="Membership\RegistrationResult.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="AdEnquiry.cs" />
@@ -185,7 +183,6 @@
     <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\BookingAdRateResult.cs" />
-    <Compile Include="IEnquiryRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />

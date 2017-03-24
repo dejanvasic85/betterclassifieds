@@ -9,6 +9,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.Services.Seo;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
@@ -75,8 +76,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void ContactUs_Post_SendsEmailAndCallsManager_ReturnsJsonResult()
         {
-            // Arrange
-            var supportEmails = new[] { "fake@email.com" };
             var mockModel = new ContactUsView
             {
                 FullName = "George C",
@@ -85,23 +84,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 Phone = "555 498"
             };
 
-            _mockBroadcastManager
-                .SetupWithVerification(call => call.SendEmail(
-                    It.IsAny<SupportRequest>(),
-                    It.Is<string[]>(s => s == supportEmails)),
-                    result: It.IsAny<Notification>());
-
-            _mockEnquiryManager
-                .SetupWithVerification(call => call.CreateSupportEnquiry(
-                    It.Is<string>(s => s == mockModel.FullName),
-                    It.Is<string>(s => s == mockModel.Email),
-                    It.Is<string>(s => s == mockModel.Phone),
-                    It.Is<string>(s => s == mockModel.Comment),
-                    It.IsAny<string>()));
-
-            _mockClientConfig
-                .SetupGet(prop => prop.SupportEmailList).Returns(supportEmails).Verifiable();
-
+            _mailService.SetupWithVerification(call => call.SendSupportEmail(It.Is<ContactUsView>( view => view == mockModel)));
+            
             // Act
             var controller = BuildController();
 
@@ -111,8 +95,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
 
-        private Mock<IBroadcastManager> _mockBroadcastManager;
-        private Mock<IEnquiryManager> _mockEnquiryManager;
+        private Mock<IMailService> _mailService;
         private Mock<IClientConfig> _mockClientConfig;
         private Mock<ISearchService> _mockSearchService;
         private Mock<ISitemapFactory> _mockSitemapFactory;
@@ -120,8 +103,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [SetUp]
         public void SetupDependencies()
         {
-            _mockBroadcastManager = CreateMockOf<IBroadcastManager>();
-            _mockEnquiryManager = CreateMockOf<IEnquiryManager>();
+            _mailService = CreateMockOf<IMailService>();
             _mockClientConfig = CreateMockOf<IClientConfig>();
             _mockSearchService = CreateMockOf<ISearchService>();
             _mockSitemapFactory = CreateMockOf<ISitemapFactory>();

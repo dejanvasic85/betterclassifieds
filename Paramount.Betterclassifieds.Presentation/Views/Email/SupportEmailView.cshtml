@@ -1,0 +1,18 @@
+﻿@model ContactUsView
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<p>
+    Support required for @Model.FullName <br />
+    Phone: @Model.Phone <br/>
+    Email: @Model.Email<br />
+</p>
+
+<p>
+    <strong>Comment:</strong><br/>
+    @Model.Comment
+</p>
+

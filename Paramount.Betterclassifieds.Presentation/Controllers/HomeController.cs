@@ -2,29 +2,27 @@
 {
     using AutoMapper;
     using Business;
-    using Business.Broadcast;
     using Business.Search;
     using ViewModels;
     using System.Linq;
     using System.Web.Mvc;
     using System.Text;
     using Services.Seo;
+    using Services;
 
     public class HomeController : ApplicationController, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
         private readonly IClientConfig _clientConfig;
-        private readonly IBroadcastManager _broadcastManager;
-        private readonly IEnquiryManager _enquiryManager;
+        private readonly IMailService _mailService;
         private readonly ISitemapFactory _sitemapProvider;
 
-        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager, ISitemapFactory sitemapFactory)
+        public HomeController(ISearchService searchService, IClientConfig clientConfig, ISitemapFactory sitemapFactory, IMailService mailService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
-            _broadcastManager = broadcastManager;
-            _enquiryManager = enquiryManager;
             _sitemapProvider = sitemapFactory;
+            _mailService = mailService;
         }
 
         public ActionResult Index()
@@ -55,21 +53,10 @@
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { isValid = false });
+                return JsonModelErrors();
             }
 
-            _broadcastManager.SendEmail(new SupportRequest
-            {
-                RequestDetails = contactUsView.Comment,
-                Email = contactUsView.Email,
-                Name = contactUsView.FullName,
-                Phone = contactUsView.Phone
-            }, _clientConfig.SupportEmailList);
-
-            _enquiryManager.CreateSupportEnquiry(contactUsView.FullName,
-                contactUsView.Email,
-                contactUsView.Phone,
-                contactUsView.Comment);
+            _mailService.SendSupportEmail(contactUsView);
 
             return Json(new { IsValid = true });
         }

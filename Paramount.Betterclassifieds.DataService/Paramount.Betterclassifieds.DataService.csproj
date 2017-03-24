@@ -127,7 +127,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
-    <Compile Include="EnquiryRepository.cs" />
     <Compile Include="Search\ClassifiedsSearchEntities.cs">
       <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
     </Compile>

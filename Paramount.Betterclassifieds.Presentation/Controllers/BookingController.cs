@@ -236,12 +236,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Complete the booking
             _cartRepository.Save(bookingCart);
-            
-            foreach (var supportEmail in _clientConfig.SupportEmailList)
-            {
-                _mailService.SendListingCompleteEmail(supportEmail, id.GetValueOrDefault(), bookingCart);
-            }
-            _mailService.SendListingCompleteEmail(currentUser.Email, id.GetValueOrDefault(), bookingCart);
+
+            // Send the email(s) about the booking
+            _mailService.SendListingCompleteEmail(currentUser, id.GetValueOrDefault(), bookingCart);
             
             // Build the view model
             var successView = new SuccessView

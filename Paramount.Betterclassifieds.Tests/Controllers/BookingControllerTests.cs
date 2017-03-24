@@ -136,12 +136,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             _mailService.SetupWithVerification(call => call.SendListingCompleteEmail(
-                It.IsAny<string>(),
+                It.Is<ApplicationUser>(user => user == mockAppUser),
                 It.Is<int>(id => id == mockAdId),
                 It.Is<IBookingCart>(cart => cart == mockBookingCart)));
 
             _clientConfigMock.SetupWithVerification(call => call.RestrictedOnlineDaysCount, 10);
-            _clientConfigMock.SetupWithVerification(call => call.SupportEmailList, new[] { "support@email.com" });
 
 
             var controller = BuildController();

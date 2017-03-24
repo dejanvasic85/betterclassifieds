@@ -291,7 +291,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var subject = "Listing placed";
             var body = _templatingService.Generate(new ListingCompleteEmail
             {
-                Heading = ad.OnlineAdModel.HtmlText,
+                Heading = ad.OnlineAdModel.Heading,
                 Id = id,
                 Email = bookedByUser.Email,
                 ListingDate = ad.GetStartDateOrMinimum().GetValueOrDefault(),
@@ -344,10 +344,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 _mailSender.Send(support,  body, subject, attachments);
             });
         }
-
-        public void SendSupportEmail()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

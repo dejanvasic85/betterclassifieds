@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers

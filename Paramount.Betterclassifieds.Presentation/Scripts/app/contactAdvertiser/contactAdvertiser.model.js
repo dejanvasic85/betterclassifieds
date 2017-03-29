@@ -1,6 +1,7 @@
 ﻿(function ($, $models) {
 
     $models.ContactAdvertiser = function (data) {
+
         var me = this;
 
         if (!$paramount.notNullOrUndefined(data) ||

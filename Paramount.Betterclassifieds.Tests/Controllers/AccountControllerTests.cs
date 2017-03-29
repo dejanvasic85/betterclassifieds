@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
 

@@ -138,18 +138,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             // CreateRepository enquiry in Db
             _adRepository.CreateAdEnquiry(adEnquiry);
-
-            var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
-            var bookingUser = _userManager.GetUserByEmailOrUsername(booking.UserId);
-
-            // Send email to the advertiser about the enquiry
-            _broadcastManager.SendEmail(new AdEnquiryTemplate
-            {
-                AdNumber = adEnquiry.AdId.ToString(),
-                Name = adEnquiry.FullName,
-                Email = adEnquiry.Email,
-                Question = adEnquiry.Question
-            }, bookingUser.Email);
         }
 
         public int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder)
@@ -307,7 +295,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         private readonly IClientConfig _clientConfigSettings;
         private readonly IPaymentsRepository _payments;
         private readonly IUserManager _userManager;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly ICategoryAdFactory _categoryAdFactory;
         private readonly IDateService _dateService;
         private readonly IEventRepository _eventRepository;
@@ -318,7 +305,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
             IPaymentsRepository payments,
             IAdRepository adRepository,
             IUserManager userManager,
-            IBroadcastManager broadcastManager,
             ICategoryAdFactory categoryAdFactory,
             IDateService dateService,
             IEventRepository eventRepository)
@@ -329,7 +315,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
             _payments = payments;
             _adRepository = adRepository;
             _userManager = userManager;
-            _broadcastManager = broadcastManager;
             _categoryAdFactory = categoryAdFactory;
             _dateService = dateService;
             _eventRepository = eventRepository;

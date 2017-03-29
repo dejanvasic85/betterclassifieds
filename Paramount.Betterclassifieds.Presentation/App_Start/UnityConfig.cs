@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using Payments.Stripe;
     using Services;
     using Services.Seo;
+    using Services.Mail;
     using ViewModels;
     using Unity.Mvc5;
 

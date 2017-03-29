@@ -25,5 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string Question { get; set; }
 
         public string CreatedDate { get; set; }
+
+        public string AdTitle { get; set; }
+        public string AdUrl { get; set; }
     }
 }

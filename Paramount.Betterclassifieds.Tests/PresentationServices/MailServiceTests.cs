@@ -6,6 +6,8 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -22,8 +24,9 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<IClientConfig> _clientConfig;
         private ApplicationUser _mockUser;
         private Mock<ILogService> _logService;
+        private Mock<ISearchService> _searchService;
 
-        [SetUp]
+        [SetUp] 
         public void SetupDependencies()
         {
             _urlMock = CreateMockOf<IUrl>();
@@ -35,6 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             _pdfGenerator = CreateMockOf<IPdfGenerator>();
             _clientConfig = CreateMockOf<IClientConfig>();
             _logService = CreateMockOf<ILogService>();
+            _searchService = CreateMockOf<ISearchService>();
 
             _mockUser = new ApplicationUserMockBuilder().Default().Build();
             _userManager.Setup(call => call.GetCurrentUser()).Returns(_mockUser);
@@ -315,6 +319,49 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
 
             BuildTargetObject()
                 .SendListingCompleteEmail(applicationUser, 123, mockBookingCart.Object);
+        }
+
+        [Test]
+        public void SendListingEnquiryEmail_CallsMailSender()
+        {
+            var mockAdEnquiry = new AdEnquiryViewModel
+            {
+                AdId = 1,
+                Email = "hello@email.com",
+                Question = "whoa dude!"
+            };
+
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+            var applicationUser = new ApplicationUserMockBuilder().Default().Build();
+
+            _userManager.SetupWithVerification(call => call.GetUserByUsername(
+                It.Is<string>(username => username == mockAd.Username)),
+                applicationUser);
+
+            _mailSender.Setup(call =>
+               call.Send(It.Is<string>(str => str == applicationUser.Email),
+                   It.Is<string>(str => str == "<fake-body></fake-body>"),
+                   It.Is<string>(str => str == "Support required for " + mockAd.Heading)));
+
+
+            _urlMock.SetupWithVerification(call =>
+                call.AdUrl(It.Is<string>(heading => heading == mockAd.Heading),
+                    It.Is<int>(id => id == mockAd.AdId),
+                    It.Is<string>(adType => adType == mockAd.CategoryAdType)),
+                    result: "http://adUrl.com.au");
+
+            _searchService.SetupWithVerification(call =>
+                call.GetByAdId(It.Is<int>(adId => adId == mockAdEnquiry.AdId)),
+                result: mockAd);
+
+            _templatingService.SetupWithVerification(call => call.Generate(
+                It.Is<AdEnquiryViewModel>(vm => vm == mockAdEnquiry),
+                It.Is<string>(t => t == "~/Views/Email/ContactAdvertiser.cshtml")),
+                result: "<fake-body></fake-body>");
+            
+
+            BuildTargetObject()
+                .SendListingEnquiryEmail(mockAdEnquiry);
         }
     }
 }

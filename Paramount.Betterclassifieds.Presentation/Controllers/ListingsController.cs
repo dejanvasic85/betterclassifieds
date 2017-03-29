@@ -1,14 +1,16 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
+using Microsoft.Ajax.Utilities;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    using AutoMapper;
-    using Business;
-    using Business.Booking;
-    using Business.Search;
-    using Microsoft.Ajax.Utilities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
-    using ViewModels;
 
     public class ListingsController : ApplicationController, IMappingBehaviour
     {
@@ -17,16 +19,18 @@
         private readonly SearchFilters _searchFilters;
         private readonly IClientConfig _clientConfig;
         private readonly IAuthManager _authManager;
+        private readonly IMailService _mailService;
 
         private const string Tempdata_ComingFromSearch = "IsComingFromSearch";
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IBookingManager bookingManager, IAuthManager authManager)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IBookingManager bookingManager, IAuthManager authManager, IMailService mailService)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
             _authManager = authManager;
+            _mailService = mailService.Initialise(this);
         }
 
         [HttpGet]
@@ -181,11 +185,13 @@
         {
             if (!ModelState.IsValid)
             {
-                return Json(new {isValid = false});
+                return JsonModelErrors();
             }
 
             var enquiry = this.Map<AdEnquiryViewModel, AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
+            _mailService.SendListingEnquiryEmail(adEnquiry);
+
             return Json(new { isValid = true });
         }
 

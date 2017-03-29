@@ -11,7 +11,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
-namespace Paramount.Betterclassifieds.Presentation.Services
+namespace Paramount.Betterclassifieds.Presentation.Services.Mail
 {
     public interface IMailService
     {
@@ -31,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         void SendListingCompleteEmail(ApplicationUser bookedByUser, int id, IBookingCart ad);
         void SendSupportEmail(ContactUsView contactUsView);
         void SendListingNotificationToUserNetwork(UserNetworkEmailView[] userNetworkUsers, AdSearchResult adSearchResult);
+        void SendListingEnquiryEmail(AdEnquiryViewModel adEnquiry);
     }
 
     public class MailService : IMailService
@@ -42,9 +43,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly IClientConfig _clientConfig;
         private readonly IPdfGenerator _pdfGenerator;
         private readonly ILogService _log;
+        private readonly ISearchService _searchService;
+        
         private const string EventDateFormat = "dd-MMM-yyyy hh:mm";
 
-        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator, ILogService log)
+        public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator, ILogService log, ISearchService searchService)
         {
             _templatingService = templatingService;
             _url = url;
@@ -54,25 +57,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _clientConfig = clientConfig;
             _pdfGenerator = pdfGenerator;
             _log = log;
+            _searchService = searchService;
         }
 
-        struct Views
-        {
-            public static string EventOrganiserView = "~/Views/Email/EventOrganiserInvite.cshtml";
-            public static string EventPurchaserNotificationView = "~/Views/Email/EventTicketBuyer.cshtml";
-            public static string EventBookingInvoiceView = "~/Views/Templates/Invoice.cshtml";
-            public static string WelcomeView = "~/Views/Email/Welcome.cshtml";
-            public static string ForgotPasswordView = "~/Views/Email/ForgotPassword.cshtml";
-            public static string EventGuestTicketView = "~/Views/Email/EventTicketGuest.cshtml";
-            public static string EventTicketTransferView = "~/Views/Email/EventTicketTransfer.cshtml";
-            public static string EventGuestRemoved = "~/Views/Email/EventGuestRemoved.cshtml";
-            public static string EventPaymentRequestView = "~/Views/Email/EventPaymentRequest.cshtml";
-            public static string EventOrganiserIdentityConfirmation = "~/Views/Email/EventOrganiserIdentityConfirmation.cshtml";
-            public static string ConfirmationEmail = "~/Views/Email/RegistrationConfirmation.cshtml";
-            public static string ListingCompleteView = "~/Views/Email/ListingCompleteView.cshtml";
-            public static string SupportEmailView = "~/Views/Email/SupportEmailView.cshtml";
-            public static string NewListingNetworkView = "~/Views/Email/NewListingNetworkView.cshtml";
-        }
+        
 
         public IMailService Initialise(Controller controller)
         {
@@ -350,6 +338,22 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             {
                 _mailSender.Send(user.Email, body, subject);
             });
+        }
+
+        public void SendListingEnquiryEmail(AdEnquiryViewModel adEnquiry)
+        {
+            Guard.NotNull(adEnquiry);
+
+            var ad = _searchService.GetByAdId(adEnquiry.AdId);
+            var adUser = _userManager.GetUserByUsername(ad.Username);
+
+            adEnquiry.AdTitle = ad.Heading;
+            adEnquiry.AdUrl = _url.AdUrl(ad.Heading, ad.AdId, ad.CategoryAdType);
+
+            var subject = $"Support required for {adEnquiry.AdTitle}";
+            var body = _templatingService.Generate(adEnquiry, Views.ContactAdvertiser);
+
+            _mailSender.Send(adUser.Email, body, subject);
         }
 
         private void SendAllSupportPersonsEmail(string body, string subject, params MailAttachment[] attachments)

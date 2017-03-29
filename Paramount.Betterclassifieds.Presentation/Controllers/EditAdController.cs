@@ -6,7 +6,6 @@ using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 using System;
@@ -15,6 +14,7 @@ using System.Monads;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Paramount.Betterclassifieds.Presentation.Services
+namespace Paramount.Betterclassifieds.Presentation.Services.Mail
 {
     public class MailAttachment
     {

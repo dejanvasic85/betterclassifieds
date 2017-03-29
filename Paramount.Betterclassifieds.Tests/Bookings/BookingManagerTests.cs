@@ -104,15 +104,8 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
                 .WithQuestion("Can I ask you something")
                 .Build();
 
-            var mockBooking = new AdBookingModelMockBuilder().WithUserId("user123").Build();
-            var mockApplicationUser = new ApplicationUserMockBuilder().WithEmail("me@email.com").Build();
-
             // Setup all the calls that need to be made
             _adRepository.Setup(call => call.CreateAdEnquiry(It.IsAny<AdEnquiry>())).Callback<AdEnquiry>(a => a.EnquiryId = 100);
-            _bookingRepositoryMock.Setup(call => call.GetBooking(It.Is<int>(i => i == mockAdEnquiry.AdId), false, false, false, false)).Returns(mockBooking);
-            _userManagerMock.Setup(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == mockBooking.UserId))).Returns(mockApplicationUser);
-            _broadcastManagerMock.Setup(call => call.SendEmail(It.IsAny<AdEnquiryTemplate>(), It.IsAny<string[]>()))
-                .Returns(It.IsAny<Notification>());
 
             var bookingManager = _container.Resolve<BookingManager>();
 
@@ -129,7 +122,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IClientConfig> _clientConfigMock;
         private Mock<IPaymentsRepository> _paymentRepositoryMock;
         private Mock<IUserManager> _userManagerMock;
-        private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IBookingContext> _bookingContext;
         private Mock<IBookCartRepository> _cartRepositoryMock;
         private Mock<ICategoryAdFactory> _categoryAdRepositoryMock;
@@ -150,7 +142,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _clientConfigMock = _mockRepository.CreateMockOf<IClientConfig>(_container);
             _paymentRepositoryMock = _mockRepository.CreateMockOf<IPaymentsRepository>(_container);
             _userManagerMock = _mockRepository.CreateMockOf<IUserManager>(_container);
-            _broadcastManagerMock = _mockRepository.CreateMockOf<IBroadcastManager>(_container);
             _bookingContext = _mockRepository.CreateMockOf<IBookingContext>(_container);
             _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
             _categoryAdRepositoryMock = _mockRepository.CreateMockOf<ICategoryAdFactory>(_container);

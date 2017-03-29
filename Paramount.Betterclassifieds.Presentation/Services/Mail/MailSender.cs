@@ -1,5 +1,6 @@
 using System;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -14,10 +15,12 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     {
         private readonly IClientConfig _clientConfig;
         private readonly IRestClient _restClient;
+        private readonly ILogService _logService;
 
-        public MailgunSender(IClientConfig clientConfig, IApplicationConfig applicationConfig)
+        public MailgunSender(IClientConfig clientConfig, IApplicationConfig applicationConfig, ILogService logService)
         {
             _clientConfig = clientConfig;
+            _logService = logService;
             _restClient = new RestClient
             {
                 BaseUrl = new Uri("https://api.mailgun.net/v3"),
@@ -27,6 +30,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public void Send(string to, string body, string subject, params MailAttachment[] attachments)
         {
+            _logService.Info($"MailService: Preparing message for {to} subject: {subject}");
+
             var request = new RestRequest();
             request.AddParameter("domain", _clientConfig.EmailDomain, ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
@@ -48,6 +53,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             }
 
             _restClient.Execute(request);
+
+            _logService.Info("Mailgun completed successfully");
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model AdEnquiryViewModel
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+}
+
+<p>
+    Hey, you have an enquiry for <strong>@Model.AdTitle</strong>
+</p>
+
+<p>
+    Support required for @Model.FullName <br />
+    Phone: @Model.Phone <br/>
+    Email: @Model.Email<br />
+</p>
+
+<p>
+    <strong>Comment:</strong><br/>
+    @Model.Question
+</p>
+
+<p>
+    <small> Simply send them an email directly!</small>. 
+</p>
+
+<p>
+    <a class="btn-primary" href="@Model.AdUrl">View my listing</a>
+</p>

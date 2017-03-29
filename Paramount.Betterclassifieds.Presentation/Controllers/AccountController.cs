@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.Services.Mail;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

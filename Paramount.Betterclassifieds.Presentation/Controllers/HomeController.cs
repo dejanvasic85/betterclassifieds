@@ -8,7 +8,7 @@
     using System.Web.Mvc;
     using System.Text;
     using Services.Seo;
-    using Services;
+    using Services.Mail;
 
     public class HomeController : ApplicationController, IMappingBehaviour
     {

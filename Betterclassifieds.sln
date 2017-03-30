@@ -46,12 +46,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Payments.PayPal", "Paramount.Betterclassifieds.Payments.PayPal\Paramount.Betterclassifieds.Payments.PayPal.csproj", "{27640C6A-7C6F-446D-93DD-3E938DA05F24}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CFF4354-E86F-4125-BF42-7AC43316E695}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		WE-Palette.css = WE-Palette.css
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Database Scripts", "03 Database Scripts", "{07952A32-5A2A-47E5-89BB-5F0F2985D653}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Configuration", "Paramount.Betterclassifieds.Configuration\Paramount.Betterclassifieds.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"

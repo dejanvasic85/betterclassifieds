@@ -1,5 +1,11 @@
 Here's a list of the latest changes:
 
+**3.23.0**
+
+- [Enhancement - Multuple organisers can now be assigned to an event](https://trello.com/c/UzL9O7yz/546-multiple-organiser-access-to-events)
+- [Tech - We have finally removed the custom broadcast service and replaced with MailGun](https://trello.com/c/iTfaN4wW/602-decommission-the-broadcast-db-and-code)
+
+
 **3.22.0**
 
 - [Enhancement - Tickets active status can now be toggled](https://trello.com/c/FZlTCdIM/599-tickets-should-have-isactive-flag-to-allow-organisers-to-hide-some-tickets)

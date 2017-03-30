@@ -4,7 +4,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Broadcast;
     using Print;
     using Payment;
     using Events;

@@ -9,7 +9,6 @@ using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -414,12 +413,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEventBookingTicket = new EventBookingTicketMockBuilder()
                 .WithGuestEmail("guest@one.com")
                 .Build();
-
-            var mockEventGuestNotifications = new[]
-            {
-                new EventGuestResendNotification { GuestEmail = "guest@one.com"},
-                new EventGuestResendNotification { GuestEmail = "guest@two.com"},
-            };
 
             // arrange service calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);

@@ -4,8 +4,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     using System.Collections.Generic;
     using System.Security.Principal;
-    using Broadcast;
-
+    
     public interface IUserManager
     {
         ApplicationUser GetUserByEmail(string email);

@@ -344,7 +344,6 @@
     <Compile Include="ViewModels\Events\EventGroupViewModelFactory.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
-    <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
     <Compile Include="Services\EventBookingManager.cs" />
     <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />

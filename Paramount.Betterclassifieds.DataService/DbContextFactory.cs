@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.Events;
 using Paramount.Betterclassifieds.DataService.LinqObjects;
@@ -13,7 +12,6 @@ namespace Paramount.Betterclassifieds.DataService
         ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext();
         ClassifiedsEntityContext CreateClassifiedEntitiesContext();
         UserMembershipDataContext CreateMembershipContext();
-        BroadcastContext CreateBroadcastContext();
         EventDbContext CreateEventContext();
         DocumentContext CreateDocumentContext();
     }
@@ -43,12 +41,7 @@ namespace Paramount.Betterclassifieds.DataService
             var connection = ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString;
             return new UserMembershipDataContext(connection);
         }
-
-        public BroadcastContext CreateBroadcastContext()
-        {
-            return new BroadcastContext();
-        }
-
+        
         public EventDbContext CreateEventContext()
         {
             return new EventDbContext();

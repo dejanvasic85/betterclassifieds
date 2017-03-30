@@ -2,7 +2,6 @@
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Tests.Mocks;
 

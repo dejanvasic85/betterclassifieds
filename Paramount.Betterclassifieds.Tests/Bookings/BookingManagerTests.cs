@@ -7,7 +7,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using NUnit.Framework;
     using Business;
     using Business.Booking;
-    using Business.Broadcast;
     using Business.Print;
     using Tests.Mocks;
     using System;

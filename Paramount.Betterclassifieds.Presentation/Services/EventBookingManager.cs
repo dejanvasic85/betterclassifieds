@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services.Mail;
@@ -21,7 +20,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket);
         IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
         EventBookedViewModel CreateEventBookedViewModel();
-        EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName, string newGuestEmail, string newGuestFullName);
         IEventBookingManager SendTicketBuyerNotification();
         IEventBookingManager SendTicketsToAllGuests();
         IEventBookingManager SendTicketToGuest(string guestEmail);
@@ -29,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail);
     }
 
-    public class EventBookingManager : IMappingBehaviour, IEventBookingManager
+    public class EventBookingManager : IEventBookingManager
     {
         private readonly HttpContextBase _httpContextBase;
         private readonly IClientConfig _clientConfig;
@@ -127,20 +125,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 return helper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             });
 
-        public EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName,
-            string newGuestEmail, string newGuestFullName)
-        {
-            return new EventGuestTransferFromNotification
-            {
-                EventName = Ad.Value.Heading,
-                EventStartDate = EventDetails.Value.EventStartDate.GetValueOrDefault().ToString(Constants.DATE_FORMAT),
-                EventUrl = EventUrl.Value,
-                TicketName = ticketName,
-                NewGuestEmail = newGuestEmail,
-                NewGuestName = newGuestFullName
-            };
-        }
-
         public IEventBookingManager SendTicketBuyerNotification()
         {
             _mailService.SendTicketBuyerEmail(EventBooking.Value.Email, Ad.Value, EventBooking.Value);
@@ -170,7 +154,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             return this;
         }
-        
+
         public IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket)
         {
             var ticketAttachmentContent = CreateTicketAttachment(eventBookingTicket);
@@ -201,11 +185,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var viewModelFactory = new EventTicketPrintViewModelFactory();
             return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
         }
-        
-        public void OnRegisterMaps(IConfiguration configuration)
-        {
-            configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()
-                .ForMember(m => m.DocumentType, options => options.Ignore());
-        }
+
     }
 }

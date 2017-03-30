@@ -1,19 +1,16 @@
-﻿using Paramount.Betterclassifieds.Business.Events.Reservations;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using Business;
     using Business.Booking;
-    using Business.Broadcast;
     using Business.DocumentStorage;
     using Business.Payment;
     using Business.Print;
     using Business.Repository;
     using Business.Search;
     using Business.Events;
+    using Business.Events.Reservations;
     using Business.Location;
     using DataService;
-    using DataService.Broadcast;
     using DataService.Repository;
     using Microsoft.Practices.Unity;
     using Security;
@@ -50,7 +47,6 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IUserRepository, UserRepository>()
                 .RegisterType<IPaymentsRepository, PaymentsRepository>()
                 .RegisterType<ISearchService, SearchService>()
-                .RegisterType<IBroadcastRepository, BroadcastRepository>()
                 .RegisterType<IDocumentRepository, DocumentRepository>()
                 .RegisterType<IAdRepository, AdRepository>()
                 .RegisterType<IBookCartRepository, BookCartDocumentRepository>()
@@ -76,9 +72,6 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IEditionManager, EditionManager>()
                 .RegisterType<IUserManager, UserHttpManager>()
                 .RegisterType<IAuthManager, AuthManager>()
-                .RegisterType<IBroadcastManager, BroadcastManager>()
-                .RegisterType<INotificationProcessor, EmailProcessor>("emailProcessor")
-                .RegisterType<ISmtpMailer, DefaultMailer>()
                 .RegisterType<IRateCalculator, RateCalculator>()
                 .RegisterType<IBookingContext, BookingContextInCookie>()
                 .RegisterType<IPayPalService, PayPalPayPalService>()

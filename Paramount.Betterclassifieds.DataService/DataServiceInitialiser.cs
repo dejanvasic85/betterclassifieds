@@ -10,12 +10,10 @@
             var dbContextFactory = new DbContextFactory();
 
             using (var entitiesContext = dbContextFactory.CreateClassifiedEntitiesContext())
-            using (var broadcastContext = dbContextFactory.CreateBroadcastContext())
             using (var eventContext = dbContextFactory.CreateEventContext())
             using (var documentContext = dbContextFactory.CreateDocumentContext())
             {
                 entitiesContext.Database.Initialize(false);
-                broadcastContext.Database.Initialize(false);
                 eventContext.Database.Initialize(false);
                 documentContext.Database.Initialize(false);
             }

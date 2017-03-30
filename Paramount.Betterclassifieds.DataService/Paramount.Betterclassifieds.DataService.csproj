@@ -96,12 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookCart\BookCartDocumentRepository.cs" />
-    <Compile Include="Broadcast\BroadcastContext.cs" />
-    <Compile Include="Broadcast\BroadcastRepository.cs" />
-    <Compile Include="Broadcast\MappingConfig\NotificationConfiguration.cs" />
-    <Compile Include="Broadcast\MappingConfig\EmailAttachmentConfiguration.cs" />
-    <Compile Include="Broadcast\MappingConfig\EmailDeliveryConfiguration.cs" />
-    <Compile Include="Broadcast\MappingConfig\EmailTemplateConfiguration.cs" />
     <Compile Include="ClassifiedsEntityContext.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />

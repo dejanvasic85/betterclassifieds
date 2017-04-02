@@ -61,8 +61,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void ThenATicketExistsWithPriceQuantityAndField(string ticketName, int price, int quantity, string fieldName)
         {
             // Wait a second until the data is persisted in db
-            Thread.Sleep(500);
-
+            Thread.Sleep(1000);
+            
             var ticket = _repository.GetEventTicketByName(_eventAdContext.Get().EventId, ticketName);
             Assert.That(ticket, Is.Not.Null);
             Assert.That(ticket.Price, Is.EqualTo(price));

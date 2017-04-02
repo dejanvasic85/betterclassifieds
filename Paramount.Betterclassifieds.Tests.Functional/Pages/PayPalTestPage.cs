@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public PayPalTestPage WaitForLoaderToFinish()
         {
             Thread.Sleep(500);
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(45));
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(100));
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("spinner")));
             return this;
         }

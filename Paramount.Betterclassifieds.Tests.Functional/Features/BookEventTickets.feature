@@ -7,6 +7,7 @@ Feature: bookEventTickets
 	So that I can go to the event
 
 @BookTickets
+@ignore
 Scenario: View event and book two tickets with successful payment
 	Given client setting "Events.EnablePayPalPayments" is set to "true"
 	And I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"

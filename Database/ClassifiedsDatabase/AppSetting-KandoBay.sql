@@ -39,7 +39,6 @@ execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '12779271155558
 execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'false', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'Email.FromAddress', @Setting = 'KandoBay <no-reply@kandobay.com.au>', @Force=1
-execute temp_createAppSetting @Key = 'Email.DomainName', @Setting = 'kandobay.com.au', @Force=1
 
 
 drop procedure temp_createAppSetting

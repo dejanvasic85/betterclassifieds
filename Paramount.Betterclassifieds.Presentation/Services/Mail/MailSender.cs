@@ -14,16 +14,18 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     public class MailgunSender : IMailSender
     {
         private readonly IClientConfig _clientConfig;
+        private readonly IApplicationConfig _applicationConfig;
         private readonly IRestClient _restClient;
         private readonly ILogService _logService;
 
         public MailgunSender(IClientConfig clientConfig, IApplicationConfig applicationConfig, ILogService logService)
         {
             _clientConfig = clientConfig;
+            _applicationConfig = applicationConfig;
             _logService = logService;
             _restClient = new RestClient
             {
-                BaseUrl = new Uri("https://api.mailgun.net/v3"),
+                BaseUrl = new Uri(applicationConfig.MailgunBaseUrl),
                 Authenticator = new HttpBasicAuthenticator("api", applicationConfig.MailgunApiKey)
             };
         }
@@ -33,7 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _logService.Info($"MailService: Preparing message for {to} subject: {subject}");
 
             var request = new RestRequest();
-            request.AddParameter("domain", _clientConfig.EmailDomain, ParameterType.UrlSegment);
+            request.AddParameter("domain", _applicationConfig.MailgunDomain, ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", _clientConfig.EmailFromAddress);
             request.AddParameter("to", to);

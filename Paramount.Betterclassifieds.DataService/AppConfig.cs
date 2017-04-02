@@ -21,8 +21,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string Version => ConfigManager.ReadAppSetting<string>("Version");
 
-        public bool DropMailsToFolder => Environment.EquivalentToAny("DEV", "CI");
+        public string MailgunBaseUrl => ConfigManager.ReadAppSetting<string>("Mailgun.BaseUrl");
+
         public string MailgunApiKey => ConfigManager.ReadAppSetting<string>("Mailgun.ApiKey");
+        public string MailgunDomain => ConfigManager.ReadAppSetting<string>("Mailgun.Domain");
 
         public string DslImageUrlHandler => ConfigManager.ReadAppSetting<string>("DslImageUrlHandler");
 

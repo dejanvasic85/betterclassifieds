@@ -28,7 +28,6 @@ $AppConfig =  Join-Path $CurrentPath -ChildPath "Paramount.Betterclassifieds.Tes
 # Swap all the values that are used for endpoints for testing 
 ReplaceInFile -TargetFile $AppConfig -Values @{
     'Data Source=localhost;Initial Catalog=Classifieds;Integrated Security=True' = (Get-ChildItem env:ClassifiedsConnection).Value;
-	'Data Source=localhost;Initial Catalog=Broadcast;Integrated Security=True' = (Get-ChildItem env:BroadcastConnection).Value;
 	'Data Source=localhost;Initial Catalog=AppUser;Integrated Security=True' = (Get-ChildItem env:AppUserConnection).Value;
 	'http://betterclassifieds.local' = (Get-ChildItem env:BaseUrl).Value;
 } 

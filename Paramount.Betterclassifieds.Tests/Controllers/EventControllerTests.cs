@@ -407,7 +407,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
-            // _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _eventBookingManager
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)
                 .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())

@@ -8,42 +8,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         string BaseUrl { get; }
         string BaseAdminUrl { get; }
         string ClassifiedsDbConnection { get; }
-        string BroadcastDbConnection { get; }
         string AppUserDbConnection { get; }
     }
 
     public class TestConfiguration : IConfig
     {
-        public string BaseUrl
-        {
-            get
-            {
-                return GetSafeUrl("BaseUrl");
-            }
-        }
+        public string BaseUrl => GetSafeUrl("BaseUrl");
 
-        public string BaseAdminUrl
-        {
-            get
-            {
-                return GetSafeUrl("BaseAdminUrl");
-            }
-        }
+        public string BaseAdminUrl => GetSafeUrl("BaseAdminUrl");
 
-        public string ClassifiedsDbConnection
-        {
-            get { return FromEnvironmentOrConfig("ClassifiedsConnection"); }
-        }
+        public string ClassifiedsDbConnection => FromEnvironmentOrConfig("ClassifiedsConnection");
 
-        public string BroadcastDbConnection
-        {
-            get { return FromEnvironmentOrConfig("BroadcastConnection"); }
-        }
-
-        public string AppUserDbConnection
-        {
-            get { return FromEnvironmentOrConfig("AppUserConnection"); }
-        }
+        public string AppUserDbConnection => FromEnvironmentOrConfig("AppUserConnection");
 
         private static string FromEnvironmentOrConfig(string key)
         {

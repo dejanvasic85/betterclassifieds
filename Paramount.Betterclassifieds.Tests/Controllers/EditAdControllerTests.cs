@@ -173,7 +173,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
-        public void EventPaymentRequest_Post_CallsManagerAndBroadcast_ReturnsJsonUrl()
+        public void EventPaymentRequest_Post_CallsManager_ReturnsJsonUrl()
         {
             // arrange
             var adId = 10;

@@ -18,11 +18,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return new SqlConnection(_config.ClassifiedsDbConnection);
         }
 
-        public IDbConnection CreateBroadcast()
-        {
-            return new SqlConnection(_config.BroadcastDbConnection);
-        }
-
         public IDbConnection CreateMembership()
         {
             return new SqlConnection(_config.AppUserDbConnection);

@@ -109,4 +109,13 @@ exec temp_createCategory @Title = 'Share Accommodation', @FontIcon = 'home';
 exec temp_createCategory @Title = 'Film & Stage', @FontIcon = 'film';
 exec temp_createCategory @Title = 'Tuition', @FontIcon = 'mortar-board';
 
+exec temp_createCategory @Title = 'Events & Tickets', @FontIcon = 'ticket';
+exec temp_createCategory @Title = 'Concert', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Festival', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Conference', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Class', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Social & Networking', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Food & Drink', @ParentCategory = 'Events & Tickets', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
 drop procedure temp_createCategory

@@ -22,6 +22,10 @@
         Manage Event Groups
     </h2>
 
+    <p>
+        Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.
+    </p>
+
     <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
@@ -232,9 +236,15 @@
             <div role="tabpanel" class="tab-pane active in" id="groups">
 
                 <div class="top-buffer-20">
+                    <div class="row" data-bind="visible: groups().length ===0">
+                        <div class="col-xs-12">
+                            Nothing to show at the moment. Click 'Add Group' to get started.
+                        </div>
+                    </div>
+
                     <div class="row">
 
-                       
+
                         @*List of current Groups*@
                         <!-- ko foreach: groups -->
                         <div class="col-xs-12 top-buffer-20 group-info">

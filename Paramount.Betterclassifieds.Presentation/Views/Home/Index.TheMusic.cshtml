@@ -24,7 +24,7 @@
 @section Scripts
 {
     <script>
-        $(function() {
+        $(function () {
             $paramount.ui.home.init();
         });
     </script>
@@ -39,7 +39,7 @@
                         <a href="@Url.Action("Index", "Home")">
                             <a href="http://themusic.com.au/">
                                 @*<img class="themusic-logo" src="@Url.Content("~/Content/TheMusic/img/tmlogo.png")"
-                                     alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website"/>*@
+                                    alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website"/>*@
                                 TheMusic Classies
                             </a>
                         </a>
@@ -65,18 +65,18 @@
 
 
             @*<div class="row top-buffer-40">
-                <div class="col-sm-3 col-sm-offset-3 text-left">
-                    <a class="btn btn-default btn-block" href="@Url.Booking(1)">
-                        <i class="fa fa-pencil"></i>&nbsp; Organise an Event
-                    </a>
-                </div>
-                <div class="col-sm-3 text-right">
-                    <a class="btn btn-default btn-block" href="@Url.Search()">
-                        <i class="fa fa-binoculars"></i>&nbsp; Find an Event
-                    </a>
-                </div>
+                    <div class="col-sm-3 col-sm-offset-3 text-left">
+                        <a class="btn btn-default btn-block" href="@Url.Booking(1)">
+                            <i class="fa fa-pencil"></i>&nbsp; Organise an Event
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <a class="btn btn-default btn-block" href="@Url.Search()">
+                            <i class="fa fa-binoculars"></i>&nbsp; Find an Event
+                        </a>
+                    </div>
 
-            </div>*@
+                </div>*@
 
         </div>
     </main>
@@ -110,7 +110,7 @@
 
                             @for (var r = 0; r < latestAdsRowCount; r++)
                             {
-                                var adsToDisplay = Model.AdSummaryList.Skip(r*3).Take(3);
+                                var adsToDisplay = Model.AdSummaryList.Skip(r * 3).Take(3);
                                 var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
 
                                 <div class="@itemClass">
@@ -156,6 +156,28 @@
 
 
 <div class="container top-buffer-40">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="jumbotron">
+                <h1>
+                    <i class="fa fa-ticket"></i> Events and Ticketing is here ...
+                </h1>
+                <p>
+                    Do you have an event that you need ticketing for? We have you covered. Select the
+                    <strong>Event &amp; Ticketing</strong> category from the list below. There's a bunch
+                    load of features to manage an event including:
+                    <ul>
+                        <li>Ticket validation using Barcode Recognition</li>
+                        <li>Tickets</li>
+                        <li>Guests</li>   
+                        <li>Groups (grouping guests together e.g. Tables)</li>   
+                        <li>Event Organisers</li>   
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div class="row categories-links">
         <div class="col-xs-12">

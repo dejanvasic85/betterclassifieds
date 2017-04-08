@@ -3,7 +3,7 @@ Import-Module WebAdministration -ErrorAction Continue
 
 function Setup-Upgrade-Databases(){
 	# Run each!
-	@("MembershipDatabase", "ClassifiedsDatabase", "DocumentDatabase", "LogDatabase") | 
+	@("MembershipDatabase", "ClassifiedsDatabase", "DocumentDatabase") | 
 		foreach { 
 			$pathToDeploy = ".\Database\$_\bin\Debug\PostDeploy.ps1" 
 			Write-Host "Upgrading database $_"

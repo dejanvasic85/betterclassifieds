@@ -2,9 +2,6 @@
 
 namespace Paramount.Betterclassifieds.Presentation.Framework
 {
-    /// <summary>
-    /// This is not used at the moment because default asp.net and elmah error logging are used instead
-    /// </summary>
     public class ErrorFilterWithLogging : HandleErrorAttribute
     {
         public override void OnException(ExceptionContext filterContext)

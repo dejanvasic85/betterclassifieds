@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.24.0**
+
+- [Tech - Removing the Elmah logging so no DB dependency](https://trello.com/c/TLYjQq7w/604-remove-elmah-logging-and-the-log-database)
+
 **3.23.0**
 
 - [Enhancement - Multuple organisers can now be assigned to an event](https://trello.com/c/UzL9O7yz/546-multiple-organiser-access-to-events)

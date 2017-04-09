@@ -418,6 +418,13 @@
     <Content Include="Content\animate.min.css">
       <DependentUpon>animate.css</DependentUpon>
     </Content>
+    <Content Include="Content\Beat\beat.css">
+      <DependentUpon>beat.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Beat\beat.min.css">
+      <DependentUpon>beat.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Beat\img\logo-nav.png" />
     <Content Include="Content\bootstrap-3.3.6.css" />
     <Content Include="Content\bootstrap-3.3.6.min.css">
       <DependentUpon>bootstrap-3.3.6.css</DependentUpon>
@@ -544,6 +551,9 @@
     <Content Include="Content\SriLankanEvents\Lanka.min.css">
       <DependentUpon>Lanka.css</DependentUpon>
     </Content>
+    <Content Include="Content\Beat\img\hero-bg.jpg" />
+    <Content Include="Content\Beat\img\logo.png" />
+    <Content Include="Content\Beat\img\beat_favicon.ico" />
     <Content Include="Content\TheMusic\img\hero-bg.jpg" />
     <Content Include="Content\TheMusic\img\logo.png" />
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
@@ -593,6 +603,8 @@
     <Content Include="Content\KandoBay\kando.nav.less" />
     <Content Include="Content\KandoBay\ico\manifest.json" />
     <Content Include="Content\components\bootstrap-toggleoverride.less" />
+    <Content Include="Content\Beat\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
+    <Content Include="Content\Beat\beat.less" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />
@@ -1054,6 +1066,8 @@
     <Content Include="Views\Email\SupportEmailView.cshtml" />
     <Content Include="Views\Email\NewListingNetworkView.cshtml" />
     <Content Include="Views\Email\ContactAdvertiser.cshtml" />
+    <Content Include="Views\Shared\_Layout.Beat.cshtml" />
+    <Content Include="Views\Home\Index.Beat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

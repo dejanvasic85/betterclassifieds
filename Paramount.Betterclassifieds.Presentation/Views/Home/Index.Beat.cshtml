@@ -1,0 +1,176 @@
+﻿@using System.Monads
+@using Paramount
+
+@model HomeModel
+
+@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    ViewBag.Title = "Beat Magazine.";
+
+    // Setup latest ads carousel
+    var latestAdsRowCount = 1;
+    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
+    if (adCount == 0)
+    {
+        latestAdsRowCount = 0;
+    }
+    if (adCount > 3)
+    {
+        latestAdsRowCount = adCount / 3;
+    }
+}
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $paramount.ui.home.init();
+            new WOW().init();
+        });
+    </script>
+}
+
+@section Main{
+    <main class="mast-head" id="content" role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h1>
+                        <a href="@Url.Home()">
+
+                            Beat Magazine
+
+                        </a>
+                    </h1>
+                    <p>
+                        <em>Everything Melbourne</em>
+                    </p>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <form action="@Url.Search()">
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="I'm looking for ...">
+                            <div class="input-group-btn input-group-lg">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="row top-buffer-40">
+                <div class="col-sm-3 col-sm-offset-3 text-left">
+                    <a class="btn btn-default btn-block btn-hero-cta" href="@Url.Booking(1)">
+                        <i class="fa fa-pencil"></i>&nbsp; Organise Event
+                    </a>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <a class="btn btn-default btn-block btn-hero-cta" href="@Url.Search()">
+                        <i class="fa fa-search"></i>&nbsp; Find an Event
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+}
+
+<section class="home-impact">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-ticket fa-3x wow fadeInLeft"></i>
+                    </h1>
+                    <h3>Quick & Simple Ticketing</h3>
+                    <p class="lead">
+                        In just a few steps, you can have your event online
+                        with flexible ticketing options.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.Booking()">Get Started <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-credit-card fa-3x wow fadeInRight"></i>
+                    </h1>
+                    <h3>Pricing</h3>
+                    <p class="lead">
+                        Our fees are very competitive. No charge for events with free tickets.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.EventPricing()">Our Pricing <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="home-impact alt">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-barcode fa-3x wow fadeInLeft"></i>
+                    </h1>
+                    <h3>Barcode Validation Ready</h3>
+                    <p class="lead">
+                        Do you need to validate tickets at the door? Use a QR code reader from a mobile or tablet.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.BarcodeValidationHelp()">Learn More <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <div class="item">
+                    <h1>
+                        <i class="fa fa-dashboard fa-3x wow fadeInRight"></i>
+                    </h1>
+                    <h3>Real-time Dashboard</h3>
+                    <p class="lead">
+                        Organisers have access to real time data and ability to
+                        adjust event options any time.
+                    </p>
+                    <div>
+                        <a class="btn btn-primary js-load" href="@Url.DashboardHelp()">See how it works <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="container top-buffer-20">
+
+    <div class="row categories-links">
+        <div class="col-xs-12">
+            <h2>Categories</h2>
+        </div>
+        <div data-bind="foreach: parentCategories">
+            <div class="col-xs-12 col-sm-6 category">
+                <a data-bind="attr : {href : $parent.searchLink($data)}">
+                    <i data-bind="attr : {class : fontIcon}"></i> <span data-bind="text: title"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>

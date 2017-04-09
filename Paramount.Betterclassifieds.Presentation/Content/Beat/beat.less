@@ -1,0 +1,213 @@
+﻿@backgroundred: #d64c0f;
+@darkblue: #3E8B94;
+@grayfont: #e7e7e7;
+@graylight: #e3e3e3;
+@help: #3E8B94;
+
+@white: #fff;
+
+@font-face {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-body {
+    background-color: #fff;
+    padding: 8px;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: @grayfont;
+    background-color: @backgroundred;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: @grayfont;
+    text-decoration: underline;
+}
+
+.navbar-default {
+    text-transform: uppercase;
+    background-color: @darkblue;
+    border-color: @darkblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+}
+
+.navbar-default .navbar-brand {
+    color: @grayfont;
+
+    img {
+        max-height: 45px;
+        margin-top: -15px;
+    }
+}
+
+.navbar-default .navbar-brand:hover {
+    color: @grayfont;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: @grayfont;
+}
+
+.btn-primary {
+    color: @white;
+    background-color: @backgroundred;
+    border-color: @darkblue;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    color: @grayfont;
+    background-color: @darkblue;
+    border-color: @darkblue;
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+
+.breadcrumb {
+    background-color: @graylight;
+}
+
+.label-publication {
+    background-color: @backgroundred;
+}
+
+.label-category {
+    background-color: @darkblue;
+}
+
+.google-top-ad {
+    width: 728px;
+    height: 90px;
+}
+
+.tooltip-inner {
+    max-width: 300px;
+    padding: 0;
+}
+
+.tooltip-alert {
+    padding: 8px 10px;
+    font-weight: bolder;
+    color: #A94442;
+}
+
+.panel-primary {
+    border-color: @darkblue;
+}
+
+.panel-primary > .panel-heading {
+    border-color: @darkblue;
+    background-color: @darkblue;
+}
+
+
+.bs-callout-info {
+    border-left-color: @help;
+
+    h4 {
+        color: @help;
+    }
+}
+
+.user-menu {
+
+    a {
+        color: @darkblue;
+    }
+}
+
+
+.event-dashboard {
+    span {
+        &.badge {
+            color: @darkblue;
+        }
+    }
+}
+
+
+/*
+    Event Ticketing
+*/
+.event-ticketing {
+    span {
+        &.badge {
+            font-size: 35px;
+            padding: 15px;
+            color: @darkblue;
+        }
+    }
+}
+/*
+    Masthead
+*/
+.mast-head {
+    h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+/*
+    Event Details
+*/
+.event-details {
+    .event-title {
+        background-color: @graylight;
+        color: #333;
+    }
+}
+
+/*
+    home featured
+*/
+
+.home-featured {
+    background-color: #eee;
+
+    .col-item {
+        border: 1px solid #888;
+
+        .separator {
+            border-top: 1px solid #888;
+        }
+    }
+}
+
+/*
+    Footer
+*/
+.footer {
+    margin-top: 20px;
+    background-color: @darkblue;
+    color: #fff;
+
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}

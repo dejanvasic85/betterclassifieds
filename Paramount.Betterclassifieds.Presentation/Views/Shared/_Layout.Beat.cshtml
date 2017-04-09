@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Beat.com.au - Australia's # 1 print and online classifieds network!" />
+    <meta name="keywords" content="Beat, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    <meta property="og:site_name" content="Beat Classifieds" />
+
+    @RenderSection("HeadSection", false)
+
+    <title>@ViewBag.Title - Beat Magazine</title>
+
+    <link rel="shortcut icon" href="@Url.Content("~/Content/Beat/img/Beat_favicon.ico")" type="image/x-icon" />
+    <link rel="icon" href="@Url.Content("~/Content/Beat/img/Beat_favicon.ico")" type="image/ico" />
+
+    @*Beat styles*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.6.min.css")" />
+
+    @*Base styles - see bundling configuration*@
+    @Styles.Render("~/Content/css-base")
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Beat/Beat.min.css")" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    @*JQuery should go before anything so let's place it at the top of body - a little better than head*@
+    @Scripts.Render("~/bundle/jquery")
+
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+            @Html.Partial("_Navbar")
+        </div>
+    </header>
+
+    @RenderSection("Main", false)
+
+    @*Render the application layout*@
+    @RenderBody()
+    @Html.Partial("_ApplicationScripts")
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

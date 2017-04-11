@@ -66,6 +66,9 @@
     <Content Include="AppSetting-KandoBay.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="AppSetting-Beat.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AppSetting-TheMusic.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

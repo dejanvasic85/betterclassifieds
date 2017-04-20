@@ -48,6 +48,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventOrganiserFeesTotalFeesAmount(10)
                 .WithTotalTicketSalesAmount(100).Build();
 
+            _url.SetupWithVerification(call => call.AdUrl(
+                It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>()),
+                "http://adurl"
+                );
+
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int>(p => p == eventId)), mockGuestList);
@@ -514,6 +521,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
         private Mock<IEventBookingManager> _eventBookingManager;
         private Mock<IMailService> _mailService;
+        private Mock<IUrl> _url;
 
 
         [SetUp]
@@ -532,6 +540,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContextBase = CreateMockOf<HttpContextBase>();
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _eventBookingManager = CreateMockOf<IEventBookingManager>();
+            _url = CreateMockOf<IUrl>();
 
             _mailService = CreateMockOf<IMailService>();
             _mailService.Setup(call => call.Initialise(It.IsAny<Controller>()))

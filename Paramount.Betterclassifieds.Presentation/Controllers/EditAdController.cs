@@ -150,12 +150,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var paymentSummary = _eventManager.BuildPaymentSummary(eventDetails.EventId);
             var status = _eventManager.GetEventPaymentRequestStatus(eventDetails.EventId);
             var applicationUser = _userManager.GetCurrentUser();
+            var eventUrl = _url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType);
 
             var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList()));
-
+            
             eventEditViewModel.RequiresEventOrganiserConfirmation = applicationUser.RequiresEventOrganiserConfirmation;
+            eventEditViewModel.EventUrl = eventUrl;
 
             return View(eventEditViewModel);
         }
@@ -730,8 +732,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly HttpContextBase _httpContext;
         private readonly IEventBookingManager _eventBookingManager;
         private readonly IMailService _mailService;
+        private readonly IUrl _url;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager, IMailService mailService)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBookingManager eventBookingManager, IMailService mailService, IUrl url)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -744,6 +747,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _httpContext = httpContext;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
             _mailService = mailService;
+            _url = url;
 
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(_templatingService)

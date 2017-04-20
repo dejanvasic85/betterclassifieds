@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Humanizer;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -63,5 +64,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string TotalTicketFees { get; set; }
         public bool IsClosed { get; set; }
         public bool? RequiresEventOrganiserConfirmation { get; set; }
+        public string EventUrl { get; set; }
     }
 }

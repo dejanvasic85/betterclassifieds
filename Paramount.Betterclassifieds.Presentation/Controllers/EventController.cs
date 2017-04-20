@@ -336,14 +336,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         /*
         *   The following endpoints are great for debugging purposes only. 
         *   The cshtml files are used for templates only for producing PDFs
-        */
+        */ 
 
         public ActionResult Tickets(int id)
         {
             var builder = _eventBookingManager.WithEventBooking(id);
 
             var viewModels = builder.CreateEventTicketPrintViewModelsForBooking();
-            return View(viewModels.ToList());
+            return View("~/Views/Templates/Tickets.cshtml", viewModels.ToList());
+
         }
 
         public ActionResult Invoice(int id)

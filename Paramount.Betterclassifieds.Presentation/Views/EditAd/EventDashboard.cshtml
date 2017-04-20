@@ -75,6 +75,21 @@
     @*Action Items*@
     <div class="row">
 
+        @*View Event*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    <i class="fa fa-eye"></i> View
+                </h3>
+                <p class="action-info">Visit the event page available to your guests.</p>
+                <div class="action-btn">
+                    <a href="@Model.EventUrl" class="btn btn-primary js-load">
+                        View Event
+                    </a>
+                </div>
+            </div>
+        </div>
+        @*Withdraw payment*@
         <div class="col-xs-12" data-bind="visible: showWithdrawPayment">
             <div class="action-item clearfix">
                 <h3>
@@ -99,6 +114,7 @@
             </div>
         </div>
 
+        @*Edit ad details*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3> <i class="fa fa-edit"></i> Event Details</h3>

@@ -8,7 +8,7 @@
 }
 .ticket-container {
   margin-top: 20px;
-  height: 220px;
+  height: 260px;
   border-bottom: 1px dashed;
   width: 100%;
 }
@@ -40,7 +40,7 @@
 .ticket-container .ticket .event-info .event-title h2 {
   margin: 0;
   line-height: none;
-  font-size: 21px;
+  font-size: 18px;
 }
 .ticket-container .ticket .event-info .event-title h2.smaller {
   font-size: 16px;

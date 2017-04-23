@@ -1,5 +1,12 @@
 Here's a list of the latest changes:
 
+
+**3.24.1**
+
+- [Fix - Latitude and longitude were not stored with enough precision](https://trello.com/c/ma8OVW4u/610-long-and-lat-are-fixed-to-only-2-decimal-places)
+- [Fix - Latitude and longitude were not stored with enough precision](https://trello.com/c/ma8OVW4u/610-long-and-lat-are-fixed-to-only-2-decimal-places)
+
+
 **3.24.0**
 
 - [Tech - Removing the Elmah logging so no DB dependency](https://trello.com/c/TLYjQq7w/604-remove-elmah-logging-and-the-log-database)

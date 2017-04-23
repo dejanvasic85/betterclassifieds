@@ -33,6 +33,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public string GetClientConfig(string settingName)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Query<string>("GET SettingValue FROM AppSetting WHERE SettingName = @settingName WHERE AppKey = @settingName", new { settingName })
+                    .SingleOrDefault();
+            }
+        }
+
         public int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3)
         {
             using (var scope = new TransactionScope())

@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
     {
         // Client Config
         void SetClientConfig(string settingName, string settingValue);
+        string GetClientConfig(string settingName);
 
         // Categories
         int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "");

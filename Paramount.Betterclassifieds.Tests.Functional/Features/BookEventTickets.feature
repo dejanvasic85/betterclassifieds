@@ -53,8 +53,10 @@ Scenario: Register before booking tickets
 
 
 @IncludeTransaction
+@EventTicketFee
 Scenario: View event ad with transaction fee should increase the price of tickets
 	Given I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
+	And the event ticket fee is "2.1" percent and "30" cents
 	And an event ad titled "The Opera 2" exists
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
 	And with a ticket option "VIP" for "10" dollars each and "100" available

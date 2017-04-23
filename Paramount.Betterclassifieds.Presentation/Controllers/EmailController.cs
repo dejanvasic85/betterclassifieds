@@ -85,5 +85,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ListingDate = DateTime.Today.AddDays(1).AddHours(20)
             });
         }
+
+        [Route("view/tickets")]
+        public ActionResult Tickets()
+        {
+            return View("EventTicketGuest", new EventTicketGuestEmail
+            {
+                BarcodeImgUrl = "https://betterclassifieds.local/img/dfcce154-6ae4-43a9-aa96-67322a512dd5/200/200",
+                BuyerName = "Frank Costanza",
+                EventLocation = "The Moon",
+                EventName =  "Moon Party",
+                EventStartDateTime = DateTime.Today.AddDays(1).ToLongDateString(),
+                EventUrl = "www.google.com.au",
+                IsGuestTheBuyer = true,
+            });
+        }
     }
 }

@@ -146,6 +146,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             dataRepository.DropCreateUser("bddTicketBuyer", "bddTicketBuyer", "bdd@TicketBuyer.com", RoleType.Advertiser);
         }
 
+
+        [BeforeFeature("EventTicketFee")]
+        public static void SetTransactionFee()
+        {
+            var dataRepository = DataRepositoryFactory.Create(_configuration);
+            ScenarioContext.Current["fee"] = dataRepository.GetClientConfig("EventTicketFee");
+            ScenarioContext.Current["feeCents"] = dataRepository.GetClientConfig("EventTicketFeeCents");
+        }
+
+        [AfterFeature("EventTicketFee")]
+        public static void RestoreTransactionFee()
+        {
+            var repository = DataRepositoryFactory.Create(_configuration);
+            repository.SetClientConfig("EventTicketFee", ScenarioContext.Current["fee"].ToString());
+            repository.SetClientConfig("EventTicketFeeCents", ScenarioContext.Current["feeCents"].ToString());
+        }
+
         #endregion
     }
 }

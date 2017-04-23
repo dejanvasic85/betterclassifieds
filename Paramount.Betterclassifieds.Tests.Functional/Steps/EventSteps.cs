@@ -31,6 +31,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             GivenAnEventAdTitledExistsForUser(adTitle, TestData.DefaultUsername);
         }
 
+        [Given(@"the event ticket fee is ""(.*)"" percent and ""(.*)"" cents")]
+        public void GivenTheEventTicketFeeIsPercentAndCents(string percent, int cents)
+        {
+            _repository.SetClientConfig("EventTicketFee", percent);
+            _repository.SetClientConfig("EventTicketFeeCents", cents.ToString());
+        }
+
+
         [Given(@"an event ad titled ""(.*)"" exists for user ""(.*)""")]
         public void GivenAnEventAdTitledExistsForUser(string adTitle, string username)
         {

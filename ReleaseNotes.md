@@ -4,7 +4,7 @@ Here's a list of the latest changes:
 **3.24.1**
 
 - [Fix - Latitude and longitude were not stored with enough precision](https://trello.com/c/ma8OVW4u/610-long-and-lat-are-fixed-to-only-2-decimal-places)
-- [Fix - Latitude and longitude were not stored with enough precision](https://trello.com/c/ma8OVW4u/610-long-and-lat-are-fixed-to-only-2-decimal-places)
+- [Fix - Barcode should be sent in the email again](https://trello.com/c/SGOd1Rqd/611-barcode-not-being-sent-via-email)
 
 
 **3.24.0**

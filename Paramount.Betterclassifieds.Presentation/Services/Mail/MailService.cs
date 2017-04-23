@@ -137,7 +137,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 EventLocation = eventModel.Location,
                 BuyerName = eventBooking.GetFullName(),
                 EventStartDateTime = eventModel?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
-                IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail
+                IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail,
+                BarcodeImgUrl = _url.Image(eventBookingTicket.BarcodeImageDocumentId.ToString(), 
+                    height: 200, width: 200)
 
             }, Views.EventGuestTicketView);
 

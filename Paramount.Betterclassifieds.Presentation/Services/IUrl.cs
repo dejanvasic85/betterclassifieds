@@ -16,6 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string Login();
         string AdUrl(string heading, int id, string categoryAdType);
         string AdUrl(AdBookingModel ad);
+        string Image(string documentId, int height = 100, int width = 100);
     }
 
     /// <summary>
@@ -73,6 +74,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             Guard.NotNull(ad.OnlineAd);
 
             return AdUrl(ad.OnlineAd.Heading, ad.AdBookingId, ad.CategoryAdType);
+        }
+
+        public string Image(string documentId, int height = 100, int width = 200)
+        {
+            return BuildIt(() => _urlHelper.Image(documentId, height, width));
         }
 
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)

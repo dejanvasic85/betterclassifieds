@@ -8,5 +8,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
         public bool IsGuestTheBuyer { get; set; }
         public string EventStartDateTime { get; set; }
         public string EventLocation { get; set; }
+        public string BarcodeImgUrl { get; set; }
     }
 }

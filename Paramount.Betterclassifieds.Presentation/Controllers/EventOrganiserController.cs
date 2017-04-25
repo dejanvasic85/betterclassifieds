@@ -125,6 +125,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("notifications")]
         public ActionResult Notifications(EventOrganiserNotificationsViewModel vm)
         {
+            var user = _userManager.GetCurrentUser();
+
+            _eventManager.UpdateOrganiserNotifications(vm.EventId, user, 
+                vm.SubscribeToPurchaseNotifications.GetValueOrDefault(),
+                vm.SubscribeToDailyNotifications.GetValueOrDefault());
+
             return Json(true);
         }
 

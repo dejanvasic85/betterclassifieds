@@ -1061,7 +1061,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.LastModifiedDate.IsNotNull();
             result.LastModifiedDateUtc.IsNotNull();
             result.LastModifiedBy.IsEqualTo(userMock.Username);
-
+            result.SubscribeToPurchaseNotifications.IsEqualTo(true);
+            result.SubscribeToDailyNotifications.IsEqualTo(true);
         }
 
         [Test]

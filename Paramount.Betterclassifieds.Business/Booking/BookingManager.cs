@@ -40,6 +40,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return _bookingRepository.GetBooking(id, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
         }
 
+        public AdBookingModel GetBookingForOnlineAdId(int onlineAdId)
+        {
+            return _bookingRepository.GetBookingForOnlineAdId(onlineAdId);
+        }
+
         public IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax)
         {
             var ads = _bookingRepository.GetUserBookings(username, takeMax);

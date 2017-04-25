@@ -653,16 +653,16 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventOrganiser.LastModifiedDateUtc = _dateService.UtcNow;
             eventOrganiser.LastModifiedBy = currentUser.Username;
             eventOrganiser.IsActive = false;
-            
+
             _eventRepository.UpdateEventOrganiser(eventOrganiser);
         }
 
         public OrganiserConfirmationResult ConfirmOrganiserInvite(int eventId, string token, string recipient)
-        {   
+        {
             var organisers = _eventRepository.GetEventOrganisersForEvent(eventId);
 
-            var organiserToActivate = organisers?.FirstOrDefault(o => 
-                o.IsActive && 
+            var organiserToActivate = organisers?.FirstOrDefault(o =>
+                o.IsActive &&
                 o.Email.Equals(recipient, StringComparison.OrdinalIgnoreCase) &&
                 o.InviteToken.ToString() == token);
 
@@ -696,21 +696,47 @@ namespace Paramount.Betterclassifieds.Business.Events
             return OrganiserConfirmationResult.Success;
         }
 
+        public void UpdateOrganiserNotifications(int eventId, ApplicationUser eventOrganiser, bool subscribeToPurchaseNotifications, bool subscribeToDailyNotifications)
+        {
+            var eventDetails = _eventRepository.GetEventDetails(eventId);
+            var ad = _bookingManager.GetBookingForOnlineAdId(eventDetails.OnlineAdId);
+            var organiser = eventDetails.EventOrganisers.FirstOrDefault(o => o.Email.Equals(eventOrganiser.Email, StringComparison.OrdinalIgnoreCase));
+
+            if (organiser != null)
+            {
+                organiser.SubscribeToPurchaseNotifications = subscribeToPurchaseNotifications;
+                organiser.SubscribeToDailyNotifications = subscribeToDailyNotifications;
+                organiser.LastModifiedDate = _dateService.Now;
+                organiser.LastModifiedDateUtc = _dateService.UtcNow;
+                organiser.LastModifiedBy = eventOrganiser.Username;
+
+                _eventRepository.UpdateEventOrganiser(organiser);
+
+                return;
+            }
+
+
+            var isOwner = ad.UserId.Equals(eventOrganiser.Username, StringComparison.OrdinalIgnoreCase);
+
+            if (organiser == null && !isOwner)
+            {
+                throw new UnauthorizedAccessException("You are not registered as an organiser for this event");
+            }
+
+            var newOrganiserProfile = new EventOrganiserFactory(_dateService)
+                .Create(eventId, eventOrganiser.Email, eventOrganiser.Username);
+
+            newOrganiserProfile.SubscribeToPurchaseNotifications = subscribeToPurchaseNotifications;
+            newOrganiserProfile.SubscribeToDailyNotifications = subscribeToDailyNotifications;
+            newOrganiserProfile.UserId = eventOrganiser.Username;
+
+            _eventRepository.CreateEventOrganiser(newOrganiserProfile);
+        }
+
         public EventOrganiser CreateEventOrganiser(int eventId, string email)
         {
             var currentUser = _userManager.GetCurrentUser();
-
-            var eventOrganiser = new EventOrganiser
-            {
-                EventId = eventId,
-                Email = email,
-                InviteToken = Guid.NewGuid(),
-                IsActive = true,
-                LastModifiedDate = _dateService.Now,
-                LastModifiedDateUtc = _dateService.UtcNow,
-                LastModifiedBy = currentUser.Username
-            };
-
+            var eventOrganiser = new EventOrganiserFactory(_dateService).Create(eventId, email, currentUser.Username);
             _eventRepository.CreateEventOrganiser(eventOrganiser);
 
             return eventOrganiser;

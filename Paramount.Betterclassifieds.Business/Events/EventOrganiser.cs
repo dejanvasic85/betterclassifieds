@@ -41,4 +41,30 @@ namespace Paramount.Betterclassifieds.Business.Events
         PerTicketPurchase,
         PerDay
     }
+
+    public class EventOrganiserFactory
+    {
+        private readonly IDateService _dateService;
+
+        public EventOrganiserFactory(IDateService dateService)
+        {
+            _dateService = dateService;
+        }
+
+        public EventOrganiser Create(int eventId, string email, string modifiedBy)
+        {
+            return new EventOrganiser
+            {
+                EventId = eventId,
+                Email = email,
+                InviteToken = Guid.NewGuid(),
+                IsActive = true,
+                LastModifiedDate = _dateService.Now,
+                LastModifiedDateUtc = _dateService.UtcNow,
+                LastModifiedBy = modifiedBy,
+                SubscribeToPurchaseNotifications = true,
+                SubscribeToDailyNotifications = true,
+            };
+        }
+    }
 }

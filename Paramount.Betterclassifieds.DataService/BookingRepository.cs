@@ -38,6 +38,21 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public AdBookingModel GetBookingForOnlineAdId(int onlineAdId)
+        {
+            using (var context = _dbContextFactory.CreateClassifiedContext())
+            {
+                var dataModels = from o in context.OnlineAds
+                                 where o.OnlineAdId == onlineAdId
+                                 join d in context.AdDesigns on o.AdDesignId equals d.AdDesignId
+                                 join b in context.AdBookings on d.AdId equals b.AdId
+                                 select b;
+
+                return MapToModels(dataModels).SingleOrDefault();
+            }
+        }
+
+
         public List<AdBookingModel> GetUserBookings(string username, int takeMax)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
@@ -68,7 +83,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                         .AdBookings
                         .ToArray();
 
-                    if(data.Length > 1)
+                    if (data.Length > 1)
                         throw new ApplicationException($"There are multiple bookings for online ad {onlineAdId}");
 
                     results.AddRange(MapToModels(data, withOnlineAd: true, withLineAd: true, withPublications: true));

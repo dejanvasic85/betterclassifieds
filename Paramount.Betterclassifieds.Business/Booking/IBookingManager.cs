@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly);
         AdBookingExtensionModel GetExtension(int extensionId);
         AdBookingModel GetBooking(int id);
+        AdBookingModel GetBookingForOnlineAdId(int onlineAdId);
         IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax);
 
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
@@ -29,5 +30,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void CancelAd(int adId);
         void UpdateSchedule(int id, DateTime newStartDate);
         OnlineAdModel GetOnlineAd(int adId);
+        
     }
 }

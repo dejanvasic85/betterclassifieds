@@ -1,15 +1,33 @@
 ﻿using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Email;
 using System;
+using System.Linq;
+using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [RoutePrefix("email")]
     public class EmailController : Controller
     {
-        public EmailController()
+        private readonly ISearchService _searchService;
+
+        public EmailController(ISearchService searchService)
         {
+            _searchService = searchService;
         }
+
+        [Route("events/organisers/day")]
+        public ActionResult SendDailySummaryToOrganisers(string dateTime = "")
+        {
+            var targetDate = dateTime.TryParseDateOrDefault(DateTime.Today);
+
+            // Retrieve all the current events
+            var eventsToNotify = _searchService.GetEvents();
+            
+            return Json(new {EventsQueued = eventsToNotify.Count(), TargetDate = targetDate});
+        }
+
+        #region Test View Endpoints
 
         [Route("view/organiser-invite")]
         public ActionResult ViewEventOrganiserInvite()
@@ -100,5 +118,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 IsGuestTheBuyer = true,
             });
         }
+
+        #endregion  
     }
 }

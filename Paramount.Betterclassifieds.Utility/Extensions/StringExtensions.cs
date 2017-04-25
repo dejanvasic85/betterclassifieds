@@ -19,12 +19,12 @@ namespace Paramount
 
         public static string NullIfEmpty(this string content)
         {
-            return string.IsNullOrWhiteSpace(content) ? null : content;
+            return String.IsNullOrWhiteSpace(content) ? null : content;
         }
 
         public static string EmptyIfNull(this string content)
         {
-            return content ?? string.Empty;
+            return content ?? String.Empty;
         }
 
         public static string Truncate(this string content, int maxLength, string suffix)
@@ -100,12 +100,12 @@ namespace Paramount
 
         public static bool IsNullOrEmpty(this string source)
         {
-            return string.IsNullOrEmpty(source);
+            return String.IsNullOrEmpty(source);
         }
 
         public static bool HasValue(this string source)
         {
-            return !string.IsNullOrEmpty(source);
+            return !String.IsNullOrEmpty(source);
         }
 
         public static string Append(this string source, string value)
@@ -121,7 +121,7 @@ namespace Paramount
         public static int? ToInt(this string value)
         {
             int convertedValue;
-            if (int.TryParse(value, out convertedValue))
+            if (Int32.TryParse(value, out convertedValue))
                 return convertedValue;
             return null;
         }
@@ -149,18 +149,18 @@ namespace Paramount
         /// </remarks>
         public static string ToCamelCaseWithSpaces(this string text, bool preserveAcronyms = true)
         {
-            if (string.IsNullOrWhiteSpace(text))
-                return string.Empty;
+            if (String.IsNullOrWhiteSpace(text))
+                return String.Empty;
 
             var newText = new StringBuilder(text.Length * 2);
             newText.Append(text[0]);
             for (int i = 1; i < text.Length; i++)
             {
-                if (char.IsUpper(text[i]))
+                if (Char.IsUpper(text[i]))
                 {
-                    if ((text[i - 1] != ' ' && !char.IsUpper(text[i - 1])) ||
-                        (preserveAcronyms && char.IsUpper(text[i - 1]) &&
-                         i < text.Length - 1 && !char.IsUpper(text[i + 1])))
+                    if ((text[i - 1] != ' ' && !Char.IsUpper(text[i - 1])) ||
+                        (preserveAcronyms && Char.IsUpper(text[i - 1]) &&
+                         i < text.Length - 1 && !Char.IsUpper(text[i + 1])))
                     {
                         newText.Append(' ');
                     }
@@ -173,7 +173,7 @@ namespace Paramount
         public static string FileExtension(this string text)
         {
             if (text.IndexOf('.') == -1)
-                return string.Empty;
+                return String.Empty;
 
             return text.Substring(text.LastIndexOf('.') + 1);
         }
@@ -215,7 +215,7 @@ namespace Paramount
             Guard.NotNull(bytes);
 
             if (bytes.Length == 0)
-                return string.Empty;
+                return String.Empty;
 
             if (encoding == null)
                 encoding = new UTF8Encoding();
@@ -228,6 +228,15 @@ namespace Paramount
             return str.Replace("\r\n", replacementValue).Replace("\n", replacementValue);
         }
 
+        public static DateTime TryParseDateOrDefault(this string dateTimeAsString, DateTime defaultDate)
+        {
+            DateTime parsed;
+            if (!DateTime.TryParse(dateTimeAsString, out parsed))
+            {
+                return defaultDate;
+            }
 
+            return parsed;
+        }
     }
 }

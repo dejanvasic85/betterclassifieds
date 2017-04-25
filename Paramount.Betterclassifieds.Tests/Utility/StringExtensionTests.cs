@@ -182,5 +182,15 @@ namespace Paramount.Betterclassifieds.Tests.Utility
             sampleWithReturn.IsEqualTo("hello<br /> there<br />");
         }
 
+
+        [Test]
+        public void TryParseDateOrDefault_EmptyString_ReturnsTodaysDate()
+        {
+            var dateAsString = "";
+
+            var result = dateAsString.TryParseDateOrDefault(DateTime.Today);
+
+            Assert.That(result, Is.TypeOf<string>());
+        }
     }
 }

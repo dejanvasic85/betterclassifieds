@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
         void SendSupportEmail(ContactUsView contactUsView);
         void SendListingNotificationToUserNetwork(UserNetworkEmailView[] userNetworkUsers, AdSearchResult adSearchResult);
         void SendListingEnquiryEmail(AdEnquiryViewModel adEnquiry);
-        void SendEventOrganiserTicketsSold(IEnumerable<EventOrganiser> organisersToNotify, AdSearchResult ad, EventBooking eventBooking);
+        void SendEventOrganiserTicketsSold(ApplicationUser eventOwner, IEnumerable<EventOrganiser> organisersToNotify, AdSearchResult ad, EventBooking eventBooking);
     }
 
     public class MailService : IMailService
@@ -376,7 +376,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
             });
         }
 
-        public void SendEventOrganiserTicketsSold(IEnumerable<EventOrganiser> organisers, AdSearchResult ad, EventBooking eventBooking)
+        public void SendEventOrganiserTicketsSold(ApplicationUser eventOwner, IEnumerable<EventOrganiser> organisers, AdSearchResult ad, EventBooking eventBooking)
         {
             var vm = new OrganiserTicketPurchaseViewModel
             {
@@ -391,11 +391,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
 
             var subject = "Tickets sold for " + vm.EventName;
             var body = _templatingService.Generate(vm, Views.EventOrganiserTicketsSold);
-
+            
             organisers.Where(o => o.SubscribeToPurchaseNotifications.GetValueOrDefault()).ForEach(org =>
             {
                 _mailSender.Send(org.Email, body, subject);
             });
+
+            // Event owner does not have an organiser record until they modify their subscriptions.
+            // In the meantime we assume they want the notification.
+            var organiserOwner = organisers.FirstOrDefault(o => o.Email == eventOwner.Email);
+            if (organiserOwner == null)
+            {
+                _mailSender.Send(eventOwner.Email, body, subject);
+            }
         }
     }
 }

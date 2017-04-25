@@ -189,7 +189,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public IEventBookingManager SendOrganisersNotification()
         {
-            _mailService.SendEventOrganiserTicketsSold(EventDetails.Value.EventOrganisers,
+            var eventOwner = _userManager.GetUserByUsername(Ad.Value.Username);
+
+            _mailService.SendEventOrganiserTicketsSold(eventOwner, EventDetails.Value.EventOrganisers,
                 Ad.Value, EventBooking.Value);
 
             return this;

@@ -37,15 +37,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventDetails = _eventManager.GetEventDetails(eventId);
             var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-            var owner = _userManager.GetUserByUsername(ad.Username).Email;
+            var owner = _userManager.GetUserByUsername(ad.Username);
+            var ownerEmail = owner.Email;
 
             var vm = new ManageOrganisersViewModel()
             {
                 AdId = ad.AdId,
                 EventId = eventId,
-                OwnerEmail = owner,
+                OwnerEmail = ownerEmail,
                 Organisers = eventDetails.EventOrganisers
                     .Where(org => org.IsActive)
+                    .Where(org => !org.Email.Equals(ownerEmail))
                     .Select(this.Map<EventOrganiser, EventOrganiserViewModel>)
             };
 

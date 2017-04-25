@@ -391,15 +391,18 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
 
             var subject = "Tickets sold for " + vm.EventName;
             var body = _templatingService.Generate(vm, Views.EventOrganiserTicketsSold);
+            var activeOrganisers = organisers.Where(o => o.IsActive).ToArray();
             
-            organisers.Where(o => o.SubscribeToPurchaseNotifications.GetValueOrDefault()).ForEach(org =>
+            activeOrganisers
+                .Where(o => o.SubscribeToPurchaseNotifications.GetValueOrDefault())
+                .ForEach(org =>
             {
                 _mailSender.Send(org.Email, body, subject);
             });
 
             // Event owner does not have an organiser record until they modify their subscriptions.
             // In the meantime we assume they want the notification.
-            var organiserOwner = organisers.FirstOrDefault(o => o.Email == eventOwner.Email);
+            var organiserOwner = activeOrganisers.FirstOrDefault(o => o.Email == eventOwner.Email);
             if (organiserOwner == null)
             {
                 _mailSender.Send(eventOwner.Email, body, subject);

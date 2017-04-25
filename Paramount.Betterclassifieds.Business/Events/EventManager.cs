@@ -700,7 +700,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var eventDetails = _eventRepository.GetEventDetails(eventId);
             var ad = _bookingManager.GetBookingForOnlineAdId(eventDetails.OnlineAdId);
-            var organiser = eventDetails.EventOrganisers.FirstOrDefault(o => o.Email.Equals(eventOrganiser.Email, StringComparison.OrdinalIgnoreCase));
+            var organiser = eventDetails.EventOrganisers
+                .Where(o => o.IsActive)
+                .FirstOrDefault(o => o.Email.Equals(eventOrganiser.Email, StringComparison.OrdinalIgnoreCase));
 
             if (organiser != null)
             {

@@ -75,6 +75,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.25\001-EventOrganiser.Subscriptions.sql" />
     <EmbeddedResource Include="Scripts-3.0\042-Event.AlterLatLong.sql" />
     <EmbeddedResource Include="Scripts-3.0\041-EventOrganiser.Invite.sql" />
     <EmbeddedResource Include="Scripts-3.0\040-EventOrganiser.Table.sql" />

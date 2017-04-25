@@ -19,6 +19,6 @@
         public static string SupportEmailView = $"{Folder}SupportEmailView.cshtml";
         public static string NewListingNetworkView = $"{Folder}NewListingNetworkView.cshtml";
         public static string ContactAdvertiser = $"{Folder}ContactAdvertiser.cshtml";
-        
+        public static string EventOrganiserTicketsSold = $"{Folder}EventOrganiserTicketsSold.cshtml";
     }
 }

@@ -14,7 +14,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime LastModifiedDateUtc { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public bool IsActive { get; set; }
-
+        public bool? SubscribeToPurchaseNotifications { get; set; }
+        public bool? SubscribeToDailyNotifications { get; set; }
+        
         /// <summary>
         /// Returns whether this organiser is invited
         /// </summary>
@@ -31,5 +33,12 @@ namespace Paramount.Betterclassifieds.Business.Events
         Success,
         AlreadyActivated,
         MismatchedEmail
+    }
+
+    public enum EmailSubscription
+    {
+        None,
+        PerTicketPurchase,
+        PerDay
     }
 }

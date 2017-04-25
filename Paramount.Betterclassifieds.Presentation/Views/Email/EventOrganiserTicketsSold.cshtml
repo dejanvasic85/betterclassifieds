@@ -1,0 +1,30 @@
+﻿@using Paramount.Betterclassifieds.Presentation.ViewModels.Email
+
+@model OrganiserTicketPurchaseViewModel
+
+@{
+    Layout = "~/Views/Email/_EmailMaster.cshtml";
+
+}
+
+<div>
+    <p>
+        Congratulations! Ticket has been purchased for event @Model.EventName by:
+        <strong>@Model.FirstName @Model.LastName &lt;@Model.Email&gt; </strong>
+    </p>
+    
+    <div>
+        Transaction total: <strong>@Model.TotalCost.ToString("C")</strong>
+    </div>
+    
+    <div>
+        Number of Tickets Sold: <strong>@Model.TotalTicketsPurchased</strong>
+    </div>
+    
+    <div>
+        To manage notifications visit the event dashboard.
+        <br/>
+        <a href="@Model.EventDashboardUrl" class="btn-primary" itemprop="url">Event Dashboard</a>
+    </div>
+    
+</div>

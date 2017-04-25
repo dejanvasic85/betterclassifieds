@@ -25,6 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEventBookingManager SendTicketToGuest(string guestEmail);
         IEventBookingManager SendTicketToGuest(EventBookingTicket eventBookingTicket);
         IEventBookingManager SendTicketTransfer(string previousGuestEmail, string newGuestEmail);
+        IEventBookingManager SendOrganisersNotification();
     }
 
     public class EventBookingManager : IEventBookingManager
@@ -186,5 +187,12 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
         }
 
+        public IEventBookingManager SendOrganisersNotification()
+        {
+            _mailService.SendEventOrganiserTicketsSold(EventDetails.Value.EventOrganisers,
+                Ad.Value, EventBooking.Value);
+
+            return this;
+        }
     }
 }

@@ -208,7 +208,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = _eventBookingManager.CreateEventBookedViewModel();
             _eventBookingManager
                 .SendTicketBuyerNotification()
-                .SendTicketsToAllGuests();
+                .SendTicketsToAllGuests()
+                .SendOrganisersNotification();
 
             _eventBookingContext.EventBookingComplete = true;
             return View(viewModel);

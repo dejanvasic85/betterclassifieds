@@ -321,6 +321,7 @@
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
     <Compile Include="ViewModels\Email\ListingCompleteEmail.cs" />
     <Compile Include="ViewModels\Email\NewListingNetworkEmail.cs" />
+    <Compile Include="ViewModels\Email\OrganiserTicketPurchaseViewModel.cs" />
     <Compile Include="ViewModels\Email\RegisrationConfirmationEmail.cs" />
     <Compile Include="ViewModels\Email\EventGuestRemovedEmail.cs" />
     <Compile Include="ViewModels\Email\EventOrganiserIdentityConfirmationEmail.cs" />
@@ -1069,6 +1070,7 @@
     <Content Include="Views\Shared\_Layout.Beat.cshtml" />
     <Content Include="Views\Home\Index.Beat.cshtml" />
     <Content Include="Views\Email\_EmailFooter.Beat.cshtml" />
+    <Content Include="Views\Email\EventOrganiserTicketsSold.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

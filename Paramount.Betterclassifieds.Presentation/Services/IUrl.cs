@@ -16,6 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string Login();
         string AdUrl(string heading, int id, string categoryAdType);
         string AdUrl(AdBookingModel ad);
+        string EventDashboardUrl(int adId);
         string Image(string documentId, int height = 100, int width = 100);
     }
 
@@ -74,6 +75,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             Guard.NotNull(ad.OnlineAd);
 
             return AdUrl(ad.OnlineAd.Heading, ad.AdBookingId, ad.CategoryAdType);
+        }
+
+        public string EventDashboardUrl(int adId)
+        {
+            return BuildIt(() => _urlHelper.EventDashboard(adId));
         }
 
         public string Image(string documentId, int height = 100, int width = 200)

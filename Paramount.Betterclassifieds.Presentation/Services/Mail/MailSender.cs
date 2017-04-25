@@ -54,9 +54,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 }
             }
 
-            _restClient.Execute(request);
-
-            _logService.Info("Mailgun completed successfully");
+            _restClient.ExecuteAsync(request, (r) =>
+            {
+                _logService.Info("Mailgun completed successfully");
+            });
         }
     }
 }

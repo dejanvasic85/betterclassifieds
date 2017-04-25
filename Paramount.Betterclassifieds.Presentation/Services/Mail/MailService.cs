@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Monads;
 using System.Threading.Tasks;
 using System.Web.Http.Validation;
 using System.Web.Mvc;
@@ -32,6 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
         void SendSupportEmail(ContactUsView contactUsView);
         void SendListingNotificationToUserNetwork(UserNetworkEmailView[] userNetworkUsers, AdSearchResult adSearchResult);
         void SendListingEnquiryEmail(AdEnquiryViewModel adEnquiry);
+        void SendEventOrganiserTicketsSold(IEnumerable<EventOrganiser> organisersToNotify, AdSearchResult ad, EventBooking eventBooking);
     }
 
     public class MailService : IMailService
@@ -373,6 +375,27 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 _mailSender.Send(support,  body, subject, attachments);
             });
         }
-        
+
+        public void SendEventOrganiserTicketsSold(IEnumerable<EventOrganiser> organisers, AdSearchResult ad, EventBooking eventBooking)
+        {
+            var vm = new OrganiserTicketPurchaseViewModel
+            {
+                EventName = ad.Heading,
+                FirstName = eventBooking.FirstName,
+                LastName = eventBooking.LastName,
+                Email = eventBooking.Email,
+                TotalCost = eventBooking.TotalCost,
+                TotalTicketsPurchased = eventBooking.EventBookingTickets.Count,
+                EventDashboardUrl = _url.EventDashboardUrl(ad.AdId),                
+            };
+
+            var subject = "Tickets sold for " + vm.EventName;
+            var body = _templatingService.Generate(vm, Views.EventOrganiserTicketsSold);
+
+            organisers.Where(o => o.SubscribeToPurchaseNotifications.GetValueOrDefault()).ForEach(org =>
+            {
+                _mailSender.Send(org.Email, body, subject);
+            });
+        }
     }
 }

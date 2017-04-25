@@ -33,5 +33,24 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Email { get; set; }
     }
 
-    
+    public class EventOrganiserNotificationsViewModel
+    {
+        public EventOrganiserNotificationsViewModel()
+        {
+            
+        }
+
+        public EventOrganiserNotificationsViewModel(int adId, int eventId)
+        {
+            AdId = adId;
+            EventId = eventId;
+            SubscribeToPurchaseNotifications = true;
+            SubscribeToDailyNotifications = true;
+        }
+
+        public int AdId { get; set; }
+        public int EventId { get; set; }
+        public bool? SubscribeToPurchaseNotifications { get; set; }
+        public bool? SubscribeToDailyNotifications { get; set; }
+    }
 }

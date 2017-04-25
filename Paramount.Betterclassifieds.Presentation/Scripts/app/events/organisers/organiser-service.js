@@ -14,8 +14,11 @@
 
             removeOrganiser: function (eventOrganiserId) {
                 return $p.httpPost(baseUrl + '/remove', { eventOrganiserId: eventOrganiserId });
-            }
+            },
 
+            setNotifications : function(settings) {
+                return $p.httpPost(baseUrl + '/notifications', settings);
+            }
         }
 
     }

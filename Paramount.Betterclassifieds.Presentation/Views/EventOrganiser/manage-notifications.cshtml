@@ -1,0 +1,73 @@
+﻿@model EventOrganiserNotificationsViewModel
+
+@{
+    ViewBag.Title = "Manage Your Event Notifications";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            var vm = new $paramount.models.ManageNotifications(data);
+            ko.applyBindings(vm, document.getElementById("manageNotifications"));
+        });
+    </script>
+}
+
+<div class="container top-buffer-60" id="manageNotifications">
+    <h2 class="page-header">
+        Manage Notifications
+    </h2>
+    <p>
+        Setup the notifications you would like to receive for this event.
+    </p>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-3 col-md-offset-9">
+            <a href="@Url.EventDashboard(Model.AdId)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-sm">Event</span>
+                Dashboard
+            </a>
+        </div>
+    </div>
+
+
+    <div class="row top-buffer-20">
+
+        <div class="col-xs-12">
+            
+            <table class="table table-hover">
+                <tr>
+                    <td>Every Ticket Purchase</td>
+                    <td>
+                        <input type="checkbox" data-bind="toggle: subscribeToPurchaseNotifications" data-on="On" data-off="Off" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Daily Ticket Summary</td>
+                    <td>
+                        <input type="checkbox" data-bind="toggle: subscribeToDailyNotifications" data-on="On" data-off="Off" />
+                    </td>
+                </tr>
+            </table>
+            
+
+        </div>
+
+    </div>
+
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-3 col-md-offset-9">
+            <button class="btn btn-primary btn-block js-load" data-bind="click: save">
+                Save
+            </button>
+        </div>
+    </div>
+
+</div>
+
+

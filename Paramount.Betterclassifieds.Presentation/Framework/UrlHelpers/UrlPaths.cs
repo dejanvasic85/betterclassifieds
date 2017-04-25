@@ -306,5 +306,12 @@ namespace Paramount
                     recipient
                 });
         }
+
+        public static UrlBuilder EventNotifications(this UrlHelper urlHelper, int eventId)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("manage-notifications", "EventOrganiser")
+                .WithRouteValues(new {eventId});
+        }
     }
 }

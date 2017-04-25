@@ -39,6 +39,7 @@
 /// <reference path="app/events/manage-tickets.model.js" />
 /// <reference path="app/events/organisers/add-organiser.js" />
 /// <reference path="app/events/organisers/event-organiser.js" />
+/// <reference path="app/events/organisers/manage-notifications.js" />
 /// <reference path="app/events/organisers/manage-organisers.js" />
 /// <reference path="app/events/organisers/organiser-service.js" />
 /// <reference path="app/events/ticketeditor/ticket-editor.js" />

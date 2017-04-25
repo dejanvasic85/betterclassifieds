@@ -29,6 +29,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _mailService.Initialise(this);
         }
 
+        #region View Endpoints
+
         [HttpGet, ActionName("manage-organisers")]
         [Route("")]
         public ActionResult ManageOrganisers(int eventId)
@@ -49,6 +51,32 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(vm);
         }
+
+        [HttpGet]
+        [Route("notifications")]
+        [ActionName("manage-notifications")]
+        public ActionResult ManageEventNotifications(int eventId)
+        {
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var currentUser = _userManager.GetCurrentUser();
+
+            // Defaults to true for all subscriptions
+            var vm = new EventOrganiserNotificationsViewModel(ad.AdId, eventId);
+
+            var organiser = eventDetails.EventOrganisers.FirstOrDefault(o => o.Email == currentUser.Email);
+            if (organiser != null)
+            {
+                vm.SubscribeToPurchaseNotifications = organiser.SubscribeToPurchaseNotifications;
+                vm.SubscribeToDailyNotifications = organiser.SubscribeToDailyNotifications;
+            }
+
+            return View(vm);
+        }
+
+        #endregion View Endpoints
+
+        #region Json Endpoints
 
         [HttpPost]
         [Route("invite")]
@@ -92,6 +120,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Todo - remove the invitation
             return Json(true);
         }
+
+        [HttpPost]
+        [Route("notifications")]
+        public ActionResult Notifications(EventOrganiserNotificationsViewModel vm)
+        {
+            return Json(true);
+        }
+
+        #endregion
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

@@ -729,7 +729,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 .Create(eventId, eventOrganiser.Email, eventOrganiser.Username);
 
             newOrganiserProfile.SubscribeToPurchaseNotifications = subscribeToPurchaseNotifications;
-            newOrganiserProfile.SubscribeToDailyNotifications = subscribeToDailyNotifications;
+
+            // Todo SubscribeToDailyNotifications
+            // newOrganiserProfile.SubscribeToDailyNotifications = subscribeToDailyNotifications;
             newOrganiserProfile.UserId = eventOrganiser.Username;
 
             _eventRepository.CreateEventOrganiser(newOrganiserProfile);

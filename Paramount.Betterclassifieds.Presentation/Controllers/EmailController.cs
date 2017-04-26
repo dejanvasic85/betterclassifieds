@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("events/organisers/day")]
         public ActionResult SendDailySummaryToOrganisers(string dateTime = "")
         {
+            // todo SubscribeToDailyNotifications
             var targetDate = dateTime.TryParseDateOrDefault(DateTime.Today);
 
             // Retrieve all the current events

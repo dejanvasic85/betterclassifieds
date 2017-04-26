@@ -411,7 +411,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)
                 .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())
                 .SetupWithVerification(call => call.SendTicketBuyerNotification(), _eventBookingManager.Object)
-                .SetupWithVerification(call => call.SendTicketsToAllGuests(), _eventBookingManager.Object);
+                .SetupWithVerification(call => call.SendTicketsToAllGuests(), _eventBookingManager.Object)
+                .SetupWithVerification(call => call.SendOrganisersNotification(), _eventBookingManager.Object)
+                ;
 
             // act
             var result = BuildController().EventBooked();

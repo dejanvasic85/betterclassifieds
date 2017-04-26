@@ -190,7 +190,7 @@ namespace Paramount.Betterclassifieds.Tests.Utility
 
             var result = dateAsString.TryParseDateOrDefault(DateTime.Today);
 
-            Assert.That(result, Is.TypeOf<string>());
+            Assert.That(result, Is.TypeOf<DateTime>());
         }
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="Events\EventTicketFactory.cs" />
     <Compile Include="Events\EventTicketReservationStatus.cs" />
     <Compile Include="Events\IEventBarcodeValidator.cs" />
+    <Compile Include="Events\Organisers\IEventOrganiserService.cs" />
     <Compile Include="Events\Reservations\GroupQuantityRequestRule.cs" />
     <Compile Include="Events\Reservations\GroupRequest.cs" />
     <Compile Include="Events\Reservations\TicketQuantityRequest.cs" />

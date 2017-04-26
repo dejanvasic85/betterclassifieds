@@ -57,15 +57,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser, bool isDisabled);
         void SetEventGroupStatus(int eventGroupId, bool isDisabled);
-        void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate);
-
-
-        // Event Organisers
-        EventOrganiser CreateEventOrganiser(int eventId, string email);
-        void RevokeOrganiserAccess(int eventOrganiserId);
-        OrganiserConfirmationResult ConfirmOrganiserInvite(int eventId, string token, string recipient);
-
-        void UpdateOrganiserNotifications(int eventId, ApplicationUser eventOrganiser, bool subscribeToPurchaseNotifications,
-            bool subscribeToDailyNotifications);
+        void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate);       
     }
 }

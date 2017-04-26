@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Organisers;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services.Mail;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
@@ -16,16 +17,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class EventOrganiserController : ApplicationController, IMappingBehaviour
     {
         private readonly IEventManager _eventManager;
+        private readonly IEventOrganiserService _eventOrganiserService;
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
         private readonly IMailService _mailService;
 
-        public EventOrganiserController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IMailService mailService)
+        public EventOrganiserController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IMailService mailService, IEventOrganiserService eventOrganiserService)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
             _mailService = mailService;
+            _eventOrganiserService = eventOrganiserService;
             _mailService.Initialise(this);
         }
 
@@ -101,7 +104,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return JsonModelErrors();
             }
 
-            var organiser = _eventManager.CreateEventOrganiser(eventId, email);
+            var organiser = _eventOrganiserService.CreateEventOrganiser(eventId, email);
             _mailService.SendEventOrganiserInvite(email, ad, eventId, organiser.InviteToken.ToString());
 
             return Json(organiser);
@@ -111,25 +114,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("remove")]
         public ActionResult RemoveOrganiser(int eventId, int eventOrganiserId)
         {
-            _eventManager.RevokeOrganiserAccess(eventOrganiserId);
+            _eventOrganiserService.RevokeOrganiserAccess(eventOrganiserId);
             return Json(true);
         }
-
-        [HttpPost]
-        [Route("revoke")]
-        public ActionResult RevokeInvite(int eventId, string email)
-        {
-            // Todo - remove the invitation
-            return Json(true);
-        }
-
+        
         [HttpPost]
         [Route("notifications")]
         public ActionResult Notifications(EventOrganiserNotificationsViewModel vm)
         {
             var user = _userManager.GetCurrentUser();
 
-            _eventManager.UpdateOrganiserNotifications(vm.EventId, user, 
+            _eventOrganiserService.UpdateOrganiserNotifications(vm.EventId, user, 
                 vm.SubscribeToPurchaseNotifications.GetValueOrDefault(),
                 vm.SubscribeToDailyNotifications.GetValueOrDefault());
 

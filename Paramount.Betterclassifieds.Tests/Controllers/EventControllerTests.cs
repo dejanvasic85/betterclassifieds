@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Organisers;
 using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -562,7 +563,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // Setup services
             _searchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), mockSearchResult);
-            _eventManager.SetupWithVerification(call => call.ConfirmOrganiserInvite(
+            _eventOrganiserService.SetupWithVerification(call => call.ConfirmOrganiserInvite(
                 It.Is<int>(eventId => eventId == mockRequest.EventId),
                 It.Is<string>(token => token == mockRequest.Token),
                 It.Is<string>(recipient => recipient == mockRequest.Recipient)),
@@ -578,7 +579,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             vm.EventName.IsEqualTo(mockSearchResult.AdSearchResult.Heading);
             // Todo - Assert the url
         }
-
+        
 
 
         private Mock<HttpContextBase> _httpContext;
@@ -599,6 +600,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<ILogService> _logService;
         private Mock<IMailService> _mailService;
         private Mock<IBookingManager> _bookingManager;
+        private Mock<IEventOrganiserService> _eventOrganiserService;
 
         [SetUp]
         public void SetupController()
@@ -632,6 +634,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _ticketRequestValidator = CreateMockOf<ITicketRequestValidator>();
             _logService = CreateMockOf<ILogService>();
+            _eventOrganiserService = CreateMockOf<IEventOrganiserService>();
         }
     }
 }

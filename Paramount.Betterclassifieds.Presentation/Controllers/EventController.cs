@@ -10,6 +10,7 @@ using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Organisers;
 using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -414,7 +415,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Url.NotFound().ToRedirectResult();
             }
 
-            var result = _eventManager.ConfirmOrganiserInvite(request.EventId.GetValueOrDefault(), request.Token, request.Recipient);
+            var result = _eventOrganiserService.ConfirmOrganiserInvite(request.EventId.GetValueOrDefault(), request.Token, request.Recipient);
 
             var vm = new AcceptOrganiserInviteViewModel
             {
@@ -463,8 +464,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventBookingManager _eventBookingManager;
         private readonly ITicketRequestValidator _ticketRequestValidator;
         private readonly ILogService _logService;
+        private readonly IEventOrganiserService _eventOrganiserService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService, IEventOrganiserService eventOrganiserService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -480,6 +482,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _creditCardService = creditCardService;
             _ticketRequestValidator = ticketRequestValidator;
             _logService = logService;
+            _eventOrganiserService = eventOrganiserService;
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(templatingService.Init(this))
                 .WithMailService(mailService.Initialise(this));

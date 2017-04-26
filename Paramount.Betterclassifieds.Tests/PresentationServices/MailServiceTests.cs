@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
         private Mock<ILogService> _logService;
         private Mock<ISearchService> _searchService;
 
-        [SetUp] 
+        [SetUp]
         public void SetupDependencies()
         {
             _urlMock = CreateMockOf<IUrl>();
@@ -296,8 +296,8 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                call.Send(It.Is<string>(str => str == applicationUser.Email),
                    It.Is<string>(str => str == "<fake-body></fake-body>"),
                    It.Is<string>(str => str == "Listing placed")));
-            
-            
+
+
             _mailSender.Setup(call =>
                call.Send(It.Is<string>(str => str == mockSupportEmail),
                    It.Is<string>(str => str == "<fake-body></fake-body>"),
@@ -358,10 +358,43 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
                 It.Is<AdEnquiryViewModel>(vm => vm == mockAdEnquiry),
                 It.Is<string>(t => t == "~/Views/Email/ContactAdvertiser.cshtml")),
                 result: "<fake-body></fake-body>");
-            
+
 
             BuildTargetObject()
                 .SendListingEnquiryEmail(mockAdEnquiry);
+        }
+
+        [Test]
+        public void SendEventOrganiserTicketsSold_CallsMailSender()
+        {
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+            var mockEventOwner = new ApplicationUserMockBuilder().Default().Build();
+            var mockEventBooking = new EventBookingMockBuilder().Default().Build();
+            var eventOrganiserBuilder = new EventOrganiserMockBuilder().Default();
+            var mockEventOrganisers = new[]
+            {
+                eventOrganiserBuilder.WithEmail("frank@email.com").Build(),
+                eventOrganiserBuilder.WithEmail("lou@email.com").Build()
+            };
+
+            _mailSender.Setup(call =>
+               call.Send(It.Is<string>(str => str == mockEventOwner.Email),
+                   It.Is<string>(str => str == "<fake-body></fake-body>"),
+                   It.Is<string>(str => str == "Tickets sold for " + mockAd.Heading)));
+
+
+            _urlMock.SetupWithVerification(call =>
+                call.EventDashboardUrl(It.IsAny<int>()),
+                    result: "http://event-dashboard.com");
+
+            _templatingService.SetupWithVerification(call => call.Generate(
+                It.IsAny<OrganiserTicketPurchaseViewModel>(),
+                It.Is<string>(t => t == "~/Views/Email/EventOrganiserTicketsSold.cshtml")),
+                result: "<fake-body></fake-body>");
+
+
+            BuildTargetObject().SendEventOrganiserTicketsSold(mockEventOwner, mockEventOrganisers,
+                mockAd, mockEventBooking);
         }
     }
 }

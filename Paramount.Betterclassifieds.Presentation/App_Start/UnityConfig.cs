@@ -9,6 +9,7 @@
     using Business.Search;
     using Business.Events;
     using Business.Events.Reservations;
+    using Business.Events.Organisers;
     using Business.Location;
     using DataService;
     using DataService.Repository;
@@ -64,6 +65,7 @@
                 .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(
                     new SessionLifetimeManager<Business.Events.EventBookingContext>())
                 .RegisterType<ITicketRequestValidator, TicketRequestValidator>()
+                .RegisterType<IEventOrganiserService, EventOrganiserService>()
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

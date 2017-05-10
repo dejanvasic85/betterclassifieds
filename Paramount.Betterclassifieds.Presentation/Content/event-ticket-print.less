@@ -4,35 +4,27 @@
     padding: 0;
 }
 
-.ticket-container:nth-child(4n) {
+.ticket-container:nth-child(2n) {
     page-break-after: always;
 }
 
 .ticket-container {
     margin-top: 20px;
-    height: 260px;
+    height: 500px;
     border-bottom: 1px dashed;
     width: 100%;
 
-    .ticket {
-        position: relative;
+    .brand-text{
+        font-size: 0.8em;
+    }
 
-        .event-picture {
-            float: left;
-            width: 200px;
-            vertical-align: top;
-        }
+    .ticket {
 
         .event-info {
-            font-size: 0.9em;
-            margin-left: 200px;
-            width: 480px;
-            /* In case there is no image */
-            &.full {
-                width: 700px;
-                margin-left: 0;
-            }
-
+            font-size: 1.1em;
+            margin-left: 15px;
+            width: 670px;
+           
             .event-title {
                 border-top: 1px solid #eee;
                 border-bottom: 1px solid #eee;
@@ -43,40 +35,32 @@
                 h2 {
                     margin: 0;
                     line-height: none;
-                    font-size: 18px;
+                    font-size: 30px;
 
-                    &.smaller{
+                    &.smaller {
                         font-size: 16px;
                     }
                 }
             }
 
             .event-details {
-                .col-xs-6 {
-                    margin-top: 10px;
-                }
 
                 label {
-                    i {
-                        width: 20px;
-                    }
-
-                    min-width: 100px;
+                    margin-bottom: 0px;
+                    display:block;
                 }
 
                 span {
                     &.detail {
-                        margin-left: 12px;
                     }
                 }
             }
         }
 
         .event-barcode {
-            /*coming soon*/
-            position: absolute;
+            /*position: absolute;
             right: 0%;
-            top: 20%;
+            top: 20%;*/
         }
     }
 }

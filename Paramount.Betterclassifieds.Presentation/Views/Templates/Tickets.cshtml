@@ -21,14 +21,8 @@
     {
         <div class="ticket-container">
             <div class="ticket">
-                @if (tick.EventPhoto.HasValue())
-                {
-                    <div class="event-picture">
-                        <img class="thumbnail" src="@Url.Image(@tick.EventPhoto, height: 200, width: 200).WithFullUrl()" />
-                    </div>
-                }
+
                 @{
-                    var eventInfoClass = tick.EventPhoto.HasValue() ? string.Empty : "full";
                     var ticketNameClass = string.Empty;
                     var eventNameLength = tick.EventName.Length;
                     if (eventNameLength > 55)
@@ -37,75 +31,99 @@
                     }
                 }
 
-                <div class="event-info @eventInfoClass">
+                <div class="event-info">
                     <div class="event-title">
                         <h2 class="@ticketNameClass">
                             @tick.EventName
                         </h2>
                     </div>
+
                     <div class="event-details container-fluid">
                         <div class="row">
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <label>
-                                    <i class="fa fa-ticket"></i> Ticket
+                                    <i class="fa fa-ticket"></i> Ticket Type:
                                 </label>
                                 <span class="detail"> @tick.TickTypeAndPrice</span>
                             </div>
 
                             @if (tick.GroupName.HasValue())
                             {
-                                <div class="col-xs-12">
+                                <div class="col-xs-6">
                                     <label>
-                                        <i class="fa fa-list-ol"></i> Group
+                                        <i class="fa fa-list-ol"></i> Group:
                                     </label>
                                     <span class="detail">@tick.GroupName</span>
                                 </div>
                             }
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
+
                                 <label>
-                                    <i class="fa fa-map-marker"></i> Location
+                                    <i class="fa fa-map-marker"></i> Location:
                                 </label>
                                 <span class="detail">@tick.Location</span>
                             </div>
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <label>
-                                    <i class="fa fa-clock-o"></i> When
+                                    <i class="fa fa-clock-o"></i> When:
                                 </label>
                                 <span class="detail">@tick.StartDateTime</span>
                             </div>
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <label>
-                                    <i class="fa fa-clock-o"></i> Guest Name
+                                    <i class="fa fa-clock-o"></i> Guest Name:
                                 </label>
                                 <span class="detail">@tick.GuestFullName</span>, @tick.GuestEmail
                             </div>
 
-                            @if (tick.ContactNumber.HasValue())
-                            {
-                                <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                @if (tick.ContactNumber.HasValue())
+                                {
                                     <label>
                                         <i class="fa fa-phone"></i> Contact
                                     </label>
                                     <span class="detail">@tick.ContactNumber</span>
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <hr />
+                            @if (tick.EventPhoto.HasValue())
+                            {
+                                <div class="col-xs-6">
+                                    <img class="thumbnail" src="@Url.Image(tick.EventPhoto, height: 200, width: 300).WithFullUrl()" />
+
                                 </div>
                             }
+
+                            <div class="col-xs-6">
+                                <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 200, width: 200).WithFullUrl()" alt="barcode" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                Produced by KandoBay
+                                <span class="brand-text">
+                                    Buy/Sell tickets @@ kandobay.com.au
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="event-barcode">
-                    <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 162, width: 162).WithFullUrl()" alt="barcode" />
-                </div>
             </div>
         </div>
-                    }
+                    } @*end of for each ticket*@
 
 
 
-</body>
+                </body>
 
-</html>
+            </html>

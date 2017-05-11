@@ -638,6 +638,8 @@
     <Content Include="Scripts\app\events\organisers\manage-notifications.js" />
     <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
     <Content Include="Scripts\app\events\organisers\organiser-service.js" />
+    <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.html" />
+    <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.html" />
     <Content Include="Scripts\app\events\event.service.js" />

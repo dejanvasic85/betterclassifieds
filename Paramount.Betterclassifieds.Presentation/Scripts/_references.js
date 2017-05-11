@@ -43,6 +43,7 @@
 /// <reference path="app/events/organisers/manage-organisers.js" />
 /// <reference path="app/events/organisers/organiser-service.js" />
 /// <reference path="app/events/ticketeditor/ticket-editor.js" />
+/// <reference path="app/events/ticketpurchasewarning/ticket-purchase-warning.js" />
 /// <reference path="app/events/ticketselection/find-tickets.js" />
 /// <reference path="app/events/ticketselection/ticket-options.js" />
 /// <reference path="app/events/vieweventad.ui.js" />

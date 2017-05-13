@@ -393,13 +393,13 @@ namespace Paramount.Betterclassifieds.Business.Events
                 paymentSummary.EventOrganiserFeesTotalFeesAmount = totalFees;
             }
 
-            return paymentSummary;  
+            return paymentSummary;
         }
-        
+
         public bool AreBookingsPresentForEvent(int? eventId)
         {
             Guard.NotNull(eventId);
-            
+
             return _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault(),
                 activeOnly: true, includeTickets: false)
                 .Any();
@@ -475,8 +475,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             if (originalEventDetails == null || onlineAd == null)
                 throw new ArgumentException("Cannot find required event to update", "eventId");
 #if !DEBUG
-            if (IsEventEditable(eventId))
-            {
+            
                 // Only the following details will allowed to be changed if the event has started
                 originalEventDetails.Location = location;
 
@@ -514,11 +513,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
 
                 onlineAd.Heading = title; // This is used for ticketing so cannot change!
-            }
-            else
-            {
-                _logService.Info("Event will be partially updated as it's in a not-modifiable state.");
-            }
+            
 #endif
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
@@ -641,6 +636,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             _eventRepository.UpdateEvent(eventModel);
         }
-        
+
     }
 }

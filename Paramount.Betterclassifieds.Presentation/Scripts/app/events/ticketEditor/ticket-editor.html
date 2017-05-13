@@ -91,15 +91,15 @@
 
     </div>
 
-    <div class="row top-buffer-20" data-bind="visible: displayGuestPurchasesWarning">
+    <div class="row top-buffer-20" data-bind="visible: displayGuestPurchasesWarning() === true && displayNotificationProgress() === false ">
         <div class="col-md-12">
-            <ticket-purchase-warning params="soldQty: soldQty, save: saveAndSendNotifications, saveWithoutNotifications: saveWithoutSendingNotifications"></ticket-purchase-warning>
+            <ticket-purchase-warning params="save: saveAndSendNotifications, saveWithoutNotifications: saveWithoutSendingNotifications"></ticket-purchase-warning>
         </div>
     </div>
 
     <div class="row top-buffer-20" data-bind="visible: displayNotificationProgress">
         <div class="col-md-12">
-            <progress-bar params="howMany: guestsAffected, processed: guestsNotified"></progress-bar>
+            <progress-bar params="message: 'Sending emails, please wait...', howMany: guestsAffected, processed: guestsNotified"></progress-bar>
         </div>
     </div>
 

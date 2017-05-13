@@ -8,14 +8,17 @@
         var me = this,
             adService = options.adDesignService,
             imageService = options.imageService,
+            eventService = new $paramount.EventService(),
             MAX_TITLE_CHARS = 100;
 
+        me.adId = ko.observable(data.adId);
         me.eventId = ko.observable(data.eventId);
-        me.canEdit = ko.observable(data.canEdit);
+        me.hasBookings = ko.observable(data.hasBookings);
         me.title = ko.observable(data.title);
         me.titleRemaining = ko.computed(function () {
-            if (me.title() === null)
+            if (me.title() === null) {
                 return 100;
+            }
             return MAX_TITLE_CHARS - me.title().length;
         });
         me.description = ko.observable(data.description);
@@ -46,7 +49,7 @@
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
         me.displayGuests = ko.observable(data.displayGuests);
-        
+
         /*
          * Address properties
          */
@@ -75,25 +78,63 @@
         /*
          * Submit changes
          */
-        me.submitChanges = function (element, event) {
 
-            var $btn = $(event.target);
-
+        me.saveEventDetails = function (element, event, sendNotifications) {
             if (!$paramount.checkValidity(me)) {
                 return Promise.resolve();
             }
 
-            $btn.loadBtn();
-            return adService.updateEventDetails(ko.toJS(me));
+            var $btn = $(event.target);
+            if (!sendNotifications) {
+                $btn.loadBtn();
+            }
+
+            return adService.updateEventDetails(ko.toJS(me))
+                .then(function (res) {
+                    if (res.errors || res.nextUrl) {
+                        return null;
+                    };
+
+                    if (!sendNotifications) {
+                        toastr.success('Details updated successfully');
+                        $btn.resetBtn();
+                    }
+                    return res;
+
+                });
         }
 
-        me.submitChangesAndNotify = function(element, event) {
-            me.submitChanges(element, event).then(function(res) {
-                if (!res.errors) {
-                    toastr.success('Details updated successfully');
-                    $(event.target).resetBtn();
-                }
-            });
+        me.startEmailSending = ko.observable(false);
+        me.guestsAffected = ko.observable();
+        me.guestsNotified = ko.observable();
+
+        me.saveEventDetailsAndNotify = function (element, event) {
+            me.saveEventDetails(element, event, true)
+                .then(function () {
+                    return eventService.getGuests(me.eventId());
+                })
+                .then(function (res) {
+                    if (res.errors) {
+                        throw new Error(res.errors[0]);
+                    }
+
+                    return res;
+                })
+                .then(function (guests) {
+                    me.startEmailSending(true);
+                    me.guestsAffected(guests.length);
+                    me.guestsNotified(1);
+
+                    var emailFuncs = eventService.createGuestEmailSendPromises(me.adId(), guests);
+
+                    return $paramount.processPromises(emailFuncs, function () {
+                        me.guestsNotified(me.guestsNotified() + 1);
+                    }).then(function () {
+                        me.startEmailSending(false);
+                        toastr.success('Done! The guests should receive an email with updated ticket information.');
+                    });
+
+                });
         }
 
     };

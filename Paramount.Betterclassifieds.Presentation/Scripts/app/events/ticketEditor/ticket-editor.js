@@ -156,7 +156,7 @@
                         var emailFuncs = _.map(guests, function (g) {
                             return function () {
                                 return new Promise(function (resendResolve) {
-                                    adDesignService.resendGuestEmail(g.ticketNumber)
+                                    eventService.resendGuestEmail(g.ticketNumber)
                                         .then(function (res) {
                                             resendResolve(res);
                                         });

@@ -1,5 +1,12 @@
 Here's a list of the latest changes:
 
+**3.26.0**
+
+- [Allow event editing and resending tickets to guests for changes](https://trello.com/c/Zv2uHzz1/595-allow-event-details-editing-but-display-button-to-resend-tickets-if-applicable)
+
+**3.25.0**
+
+- [Event organiser notifications for ticket purchases](https://trello.com/c/puP8oeGG/202-event-organiser-notifications-for-ticket-purchases)
 
 **3.24.1**
 

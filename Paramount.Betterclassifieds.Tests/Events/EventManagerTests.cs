@@ -520,17 +520,17 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void IsEventEditable_NoBookings_CanEdit()
+        public void AreBookingsPresentForEvent_NoBookings_CanEdit()
         {
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
                 It.IsAny<bool>(), false), new List<EventBooking>());
 
             var manager = BuildTargetObject();
-            Assert.That(manager.IsEventEditable(10), Is.True);
+            Assert.That(manager.AreBookingsPresentForEvent(10), Is.False);
         }
 
         [Test]
-        public void IsEventEditable_HasOneBooking_CannotEdit()
+        public void AreBookingsPresentForEvent_HasOneBooking_CannotEdit()
         {
             var booking = new EventBookingMockBuilder().Build();
 
@@ -538,7 +538,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 It.IsAny<bool>(), false), new List<EventBooking> { booking });
 
             var manager = BuildTargetObject();
-            Assert.That(manager.IsEventEditable(10), Is.False);
+            Assert.That(manager.AreBookingsPresentForEvent(10), Is.True);
         }
 
         [Test]

@@ -387,7 +387,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new EventViewModel
             {
-                CanEdit = _eventManager.IsEventEditable(eventDetails.EventId),
+                AdId = id,
+                HasBookings = _eventManager.AreBookingsPresentForEvent(eventDetails.EventId),
                 EventId = eventDetails.EventId.GetValueOrDefault(),
                 Title = adDetails.Heading,
                 Description = adText.HtmlText, // Serve back html for editing

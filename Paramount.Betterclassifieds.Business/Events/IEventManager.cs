@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields);
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
         EventPaymentSummary BuildPaymentSummary(int? eventId);
-        bool IsEventEditable(int? eventId);
+        bool AreBookingsPresentForEvent(int? eventId);
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
         EventInvitation GetEventInvitation(long eventInvitationId);

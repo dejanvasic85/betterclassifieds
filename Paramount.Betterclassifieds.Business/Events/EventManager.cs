@@ -393,16 +393,16 @@ namespace Paramount.Betterclassifieds.Business.Events
                 paymentSummary.EventOrganiserFeesTotalFeesAmount = totalFees;
             }
 
-            return paymentSummary;
+            return paymentSummary;  
         }
-
-        /// <summary>
-        /// Returns true if no tickets have been booked
-        /// </summary>
-        public bool IsEventEditable(int? eventId)
+        
+        public bool AreBookingsPresentForEvent(int? eventId)
         {
             Guard.NotNull(eventId);
-            return !_eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault()).Any();
+            
+            return _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault(),
+                activeOnly: true, includeTickets: false)
+                .Any();
         }
 
         public void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount)

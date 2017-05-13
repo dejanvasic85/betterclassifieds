@@ -1,19 +1,24 @@
 ﻿<div class="alert alert-warning">
-    At least <span data-bind="text: soldQty"></span> guest(s) purchased this ticket. What would you like to do?
-    <div>
-        <button class="btn btn-success" data-loading-text="Sending..." data-bind="click: save">
-            Save &amp; Resend Tickets
-        </button> &nbsp;
 
-        <button class="btn btn-default ko-load" data-bind="click: saveWithoutNotifications">
-            Save. Don't Notify
-        </button>
+    <i class="fa fa-hand-pointer-o"></i> Tickets have already been purchased! What would you like to do?
+    
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-success btn-block" data-loading-text="Sending..." data-bind="click: save">
+                Save &amp; Resend Tickets
+            </button> &nbsp;
+        </div>
+
+        <div class="col-xs-6">
+            <button class="btn btn-default btn-block" data-bind="click: saveWithoutNotifications">
+                Save. Don't Notify
+            </button>
+        </div>
 
     </div>
 
-    <p data-bind="visible: soldQty() > 5">
-        Note: Resending tickets may take a while.<br />
-        Please don't close the browser until finished. This message
-        will disappear once everything has been processed.
-    </p>
+    <div class="top-buffer-10 small">
+        Note: Resending tickets may take a while.<br/>
+        Please don't close the browser until finished.
+    </div>
 </div>

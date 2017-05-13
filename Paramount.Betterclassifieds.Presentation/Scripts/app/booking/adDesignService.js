@@ -111,13 +111,7 @@
         $.extend(me.model, data);
         return $paramount.httpPost(me.baseUrl + 'remove-guest', me.model);
     }
-    
-
-    AdDesignService.prototype.resendGuestEmail = function (eventBookingTicketId) {
-        $.extend(me.model, { eventBookingTicketId: eventBookingTicketId });
-        return $paramount.httpPost(me.baseUrl + 'resend-guest-email', me.model);
-    }
-
+  
     AdDesignService.prototype.getCurrentEventDetails = function () {
         var url = me.baseUrl + 'GetEventDetails';
 

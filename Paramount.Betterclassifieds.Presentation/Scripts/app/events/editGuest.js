@@ -4,7 +4,8 @@
     function EditGuest(data) {
 
         var me = this,
-            adDesignService = new $p.AdDesignService(data.adId);
+            adDesignService = new $p.AdDesignService(data.adId),
+            eventService = new $p.EventService();
 
         me.eventId = ko.observable();
         me.eventBookingTicketId = ko.observable();
@@ -81,7 +82,7 @@
             var $btn = $(event.target);
             $btn.button('loading');
 
-            adDesignService.resendGuestEmail(me.eventBookingTicketId())
+            eventService.resendGuestEmail(me.eventBookingTicketId())
                 .success(function() {
                     notifier.success('Email has been sent successfully.');
                 });

@@ -24,13 +24,6 @@
     </h2>
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-info" data-bind="visible: canEdit() === false">
-                Please Note : Some details cannot be updated due to bookings being made for this event.
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-offset-9 col-sm-offset-8 col-sm-4 col-md-3">
             <a class="btn btn-default btn-block js-load" href="@Url.EventDashboard(@adId)">
                 <i class="fa fa-arrow-circle-left"></i> Back to Dashboard
@@ -48,7 +41,7 @@
             <div class="form-group-lg" data-bind="validationElement: title">
                 <label for="Title" class="control-label">Event Name *</label>
                 <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title"
-                       data-bind="value: title, valueUpdate: 'keyup', enable: canEdit"
+                       data-bind="value: title, valueUpdate: 'keyup'"
                        maxlength="100" />
 
                 <span class="help-block">
@@ -124,11 +117,11 @@
         <div class="col-xs-12">
             <div class="form-group-lg" data-bind="validationElement: location">
                 <label class="control-label">Address *</label>
-                <input type="text" class="form-control"
+                @*<input type="text" class="form-control"
                        id="Location" name="Location"
-                       placeholder="Type address, and google should find it!" 
+                       placeholder="Type address, and google should find it!"
                        maxlength="200"
-                       data-bind="googleMap: location, mapElement : '#LocationMap', enable: canEdit" />
+                       data-bind="googleMap: location, mapElement : '#LocationMap'" />*@
                 <span class="help-block">
                     Please ensure that your address is displayed on the map before submitting.
                 </span>
@@ -139,7 +132,7 @@
 
         @*Div to display the map using google maps*@
         <div class="col-xs-12">
-            <div class="well" style="min-height: 200px" id="LocationMap"></div>
+            @*<div class="well" style="min-height: 200px" id="LocationMap"></div>*@
         </div>
 
         @*Location (venue) floor map*@
@@ -195,7 +188,7 @@
                 <input type="text" class="form-control"
                        id="EventStartDate"
                        name="EventStartDate"
-                       data-bind="datetime: eventStartDate, enable: canEdit" />
+                       data-bind="datetime: eventStartDate" />
             </div>
 
         </div>
@@ -207,7 +200,7 @@
                 <input type="text" class="form-control"
                        id="EventEndDate"
                        name="EventEndDate"
-                       data-bind="datetime: eventEndDate, enable: canEdit" />
+                       data-bind="datetime: eventEndDate" />
             </div>
         </div>
 
@@ -263,19 +256,35 @@
     </div>
 
 
-    <div class="row">
+    <div class="row top-buffer-20">
         <div class="col-xs-12">
             <div id="serverValidation" style="display: none">
                 <div class="alert alert-danger"></div>
             </div>
         </div>
+    </div>
 
-        <div class="col-xs-12 text-right">
-            <button type="submit" class="btn btn-primary ko-load" data-bind="click: submitChangesAndNotify">
+
+    <div class="row top-buffer-10" data-bind="visible: startEmailSending">
+        <div class="col-md-12">
+            <progress-bar params="message: 'Sending emails, please wait...', howMany: guestsAffected, processed: guestsNotified"></progress-bar>
+        </div>
+    </div>
+
+    <div class="row top-buffer-10">
+
+        <div class="col-sm-offset-8 col-sm-4 top-buffer-10" data-bind="visible: hasBookings() === false">
+            <button type="submit" class="btn btn-success btn-block ko-load" data-bind="click: saveEventDetails">
                 <i class="fa fa-arrow-circle-up"></i> Update
             </button>
         </div>
+
+        <div class="col-xs-12" data-bind="visible: hasBookings() === true && startEmailSending() === false"">
+            <ticket-purchase-warning params="save: saveEventDetailsAndNotify, saveWithoutNotifications: saveEventDetails, blockOn: startEmailSending"></ticket-purchase-warning>
+        </div>
+
     </div>
+
 
 </div>
 

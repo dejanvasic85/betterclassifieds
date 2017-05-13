@@ -5,7 +5,7 @@
         this.baseUrl = baseUrl || $paramount.baseUrl;
     }
 
-    EventService.prototype.getEvent = function(eventId) {
+    EventService.prototype.getEvent = function (eventId) {
         return $paramount.httpGet(this.baseUrl + 'api/events/' + eventId);
     }
 
@@ -41,12 +41,12 @@
         return $paramount.httpGet(url);
     }
 
-    EventService.prototype.getTicketsForEvent = function(eventId) {
+    EventService.prototype.getTicketsForEvent = function (eventId) {
         var url = this.baseUrl + 'api/events/' + eventId + '/tickets';
         return $paramount.httpGet(url);
     }
 
-    EventService.prototype.getTicketsForGroup = function(eventId, eventGroupId) {
+    EventService.prototype.getTicketsForGroup = function (eventId, eventGroupId) {
         var url = this.baseUrl + 'api/events/' + eventId + '/groups/' + eventGroupId + '/tickets';
         return $paramount.httpGet(url);
     }
@@ -69,10 +69,35 @@
         return $paramount.httpPost(this.baseUrl + 'event/assign-group', data);
     }
 
-    EventService.prototype.calculateBuyerPriceWithTxnFee = function(price, eventTicketFee, eventTicketFeeCents) {
+    EventService.prototype.calculateBuyerPriceWithTxnFee = function (price, eventTicketFee, eventTicketFeeCents) {
         var percentage = ((eventTicketFee / 100) + 1);
         var amount = (percentage * price) + (eventTicketFeeCents / 100);
         return $paramount.formatCurrency(amount);
+    }
+
+    EventService.prototype.resendGuestEmail = function (adId, eventBookingTicketId) {
+        return $paramount.httpPost(this.baseUrl + 'EditAd/resend-guest-email', {
+            id: adId,
+            eventBookingTicketId: eventBookingTicketId
+        });
+    }
+
+    EventService.prototype.createGuestEmailSendPromises = function (id, guests) {
+        var me = this;
+        var emailFuncs = _.map(guests, function (g) {
+            return function () {
+                return new Promise(function (resendResolve) {
+                    
+                    me.resendGuestEmail(id, g.ticketNumber)
+                        .then(function (res) {
+                            resendResolve(res);
+                        });
+
+                });
+            }
+        });
+
+        return emailFuncs;
     }
 
     $paramount.EventService = EventService;

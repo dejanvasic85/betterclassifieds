@@ -3,6 +3,7 @@
     ko.components.register('progress-bar', {
         viewModel: function(params) {
 
+            this.message = params.message;
             this.percentComplete = ko.computed(function() {
                 
                 // We expect that params contains observable values

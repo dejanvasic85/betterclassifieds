@@ -9,12 +9,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventViewModel()
         {
             TicketingEnabled = true;
-            CanEdit = true;
+            HasBookings = true;
         }
+
+        public int AdId { get; set; }
 
         public int EventId { get; set; }
 
-        public bool CanEdit { get; set; }
+        public bool HasBookings { get; set; }
 
         [Required, MaxLength(100)]
         public string Title { get; set; }

@@ -4,14 +4,15 @@
 
         viewModel: function (params) {
 
-            this.soldQty = params.soldQty;
             this.save = params.save;
             this.saveWithoutNotifications = params.saveWithoutNotifications;
+            this.blockOn = params.blockOn;
+
             
         },
 
 
-        template: { path: $p.baseUrl + '/Scripts/app/events/ticketPurchaseWarning/ticket-purchase-warning.html' }
+        template: { path: $p.baseUrl + 'Scripts/app/events/ticketPurchaseWarning/ticket-purchase-warning.html' }
     });
 
 })(jQuery, ko, $paramount);

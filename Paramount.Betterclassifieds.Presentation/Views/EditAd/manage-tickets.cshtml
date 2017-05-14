@@ -42,7 +42,7 @@
         </div>
 
     </div>
-    
+
     <div class="row bounceIn top-buffer-20" data-bind="visible: isCreateEnabled">
         <div class="col-md-offset-2 col-md-8 well" id="createTicketForm">
             <ticket-editor data-bind="visible: isCreateEnabled" params="{adId: @Model.Id, eventId: @Model.EventId, onSave : ticketSaved}"></ticket-editor>
@@ -73,6 +73,10 @@
 
                 <div class="top-buffer-20">
                     @*All Tickets*@
+                    <div data-bind="visible: tickets().length === 0" class="alert alert-info-alt">
+                        Nothing to see :( <br/>Click "Add Ticket" to get started.
+                    </div>
+
                     <div class="row" data-bind="visible: tickets().length > 0">
                         <div class="col-xs-12">
                             <h3>Tickets</h3>

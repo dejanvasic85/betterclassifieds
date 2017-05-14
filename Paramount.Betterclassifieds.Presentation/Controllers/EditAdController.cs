@@ -591,6 +591,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // Json
         [HttpPost, ActionName("resend-guest-email")]
+        [Route("event-dashboard/{id}/resend-email/{eventBookingTicketId}")]
         public ActionResult ResendGuestEmail(int id, int eventBookingTicketId)
         {
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);

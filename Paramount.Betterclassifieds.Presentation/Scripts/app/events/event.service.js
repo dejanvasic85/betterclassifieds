@@ -76,10 +76,7 @@
     }
 
     EventService.prototype.resendGuestEmail = function (adId, eventBookingTicketId) {
-        return $paramount.httpPost(this.baseUrl + 'EditAd/resend-guest-email', {
-            id: adId,
-            eventBookingTicketId: eventBookingTicketId
-        });
+        return $paramount.httpPost(this.baseUrl + 'event-dashboard/' + adId + '/resend-email/' + eventBookingTicketId);
     }
 
     EventService.prototype.createGuestEmailSendPromises = function (id, guests) {
@@ -87,7 +84,7 @@
         var emailFuncs = _.map(guests, function (g) {
             return function () {
                 return new Promise(function (resendResolve) {
-                    
+
                     me.resendGuestEmail(id, g.ticketNumber)
                         .then(function (res) {
                             resendResolve(res);

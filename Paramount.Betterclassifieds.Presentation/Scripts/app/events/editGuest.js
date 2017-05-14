@@ -7,6 +7,7 @@
             adDesignService = new $p.AdDesignService(data.adId),
             eventService = new $p.EventService();
 
+        me.adId = ko.observable();
         me.eventId = ko.observable();
         me.eventBookingTicketId = ko.observable();
         me.eventBookingId = ko.observable();
@@ -82,7 +83,7 @@
             var $btn = $(event.target);
             $btn.button('loading');
 
-            eventService.resendGuestEmail(me.eventBookingTicketId())
+            eventService.resendGuestEmail(me.adId(), me.eventBookingTicketId())
                 .success(function() {
                     notifier.success('Email has been sent successfully.');
                 });
@@ -96,6 +97,7 @@
 
     EditGuest.prototype.bind = function (data) {
         var me = this;
+        me.adId(data.adId);
         me.eventId(data.eventId);
         me.eventBookingTicketId(data.eventBookingTicketId);
         me.eventBookingId(data.eventBookingId);

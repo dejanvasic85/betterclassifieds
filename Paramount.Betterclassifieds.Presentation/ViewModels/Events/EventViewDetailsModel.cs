@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         }
 
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, IEnumerable<EventGuestDetails> guestList)
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, string[] guestList)
         {
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
@@ -57,13 +57,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Where(t => t.IsActive).Any();
 
             // Build the guest list
-            var guests = guestList.ToList();
-            TotalGuests = guests.Count;
-            Guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(guests
-                .Where(g => g.IsPublic)
-                .OrderByDescending(g => g.TicketNumber)
-                .Take(6).
-                ToList());
+            TotalGuests = guestList.Length;
+            Guests = guestList.Take(6).ToList(); 
         }
 
         public DateTime EventEndDate { get; set; }
@@ -101,15 +96,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public bool TicketingEnabled { get; set; }
 
-        public List<EventGuestListViewModel> Guests { get; set; }
+        public List<string> Guests { get; set; }
         public bool DisplayGuests { get; set; }
         public int TotalGuests { get; set; }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration
-                .CreateMap<EventGuestDetails, EventGuestListViewModel>();
-
             configuration
                 .CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
 

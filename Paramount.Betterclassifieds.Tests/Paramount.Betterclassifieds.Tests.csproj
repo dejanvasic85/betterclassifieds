@@ -147,6 +147,7 @@
     <Compile Include="Events\EventAccessTests.cs" />
     <Compile Include="Events\EventBarcodeManagerTests.cs" />
     <Compile Include="Events\EventBookingFactoryTests.cs" />
+    <Compile Include="Events\EventGuestServiceTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
     <Compile Include="Events\EventManagerTests_CreateEventBooking.cs">
       <DependentUpon>EventManagerTests.cs</DependentUpon>

@@ -601,6 +601,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IMailService> _mailService;
         private Mock<IBookingManager> _bookingManager;
         private Mock<IEventOrganiserService> _eventOrganiserService;
+        private Mock<IEventGuestService> _eventGuestService;
 
         [SetUp]
         public void SetupController()
@@ -635,6 +636,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _ticketRequestValidator = CreateMockOf<ITicketRequestValidator>();
             _logService = CreateMockOf<ILogService>();
             _eventOrganiserService = CreateMockOf<IEventOrganiserService>();
+            _eventGuestService = CreateMockOf<IEventGuestService>();
         }
     }
 }

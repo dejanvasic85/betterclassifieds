@@ -44,11 +44,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
-            var guestList = _eventManager.BuildGuestList(eventModel.EventId);
+            var guestList = _eventGuestService.GetPublicGuestNames(eventModel.EventId);
+
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
 
             var eventViewModel = new EventViewDetailsModel(_httpContext,
-                Url, onlineAdModel, eventModel, _clientConfig, guestList);
+                Url, onlineAdModel, eventModel, _clientConfig, guestList.Select(g => g.GuestName).ToArray());
 
             return View(eventViewModel);
         }
@@ -338,7 +339,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         /*
         *   The following endpoints are great for debugging purposes only. 
         *   The cshtml files are used for templates only for producing PDFs
-        */ 
+        */
 
         public ActionResult Tickets(int id)
         {
@@ -465,8 +466,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ITicketRequestValidator _ticketRequestValidator;
         private readonly ILogService _logService;
         private readonly IEventOrganiserService _eventOrganiserService;
+        private readonly IEventGuestService _eventGuestService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService, IEventOrganiserService eventOrganiserService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService, IEventOrganiserService eventOrganiserService, IEventGuestService eventGuestService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -483,11 +485,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _ticketRequestValidator = ticketRequestValidator;
             _logService = logService;
             _eventOrganiserService = eventOrganiserService;
+            _eventGuestService = eventGuestService;
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(templatingService.Init(this))
                 .WithMailService(mailService.Initialise(this));
-            
-
         }
     }
 }

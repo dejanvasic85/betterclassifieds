@@ -66,6 +66,7 @@
                     new SessionLifetimeManager<Business.Events.EventBookingContext>())
                 .RegisterType<ITicketRequestValidator, TicketRequestValidator>()
                 .RegisterType<IEventOrganiserService, EventOrganiserService>()
+                .RegisterType<IEventGuestService, EventGuestService>()
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

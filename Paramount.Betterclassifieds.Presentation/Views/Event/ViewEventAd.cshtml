@@ -96,7 +96,7 @@
                         <div class="col-sm-2 col-xs-4 guest">
                             <span>
                                 <i class="fa fa-user"></i><br/>
-                                @guest.GuestFullName
+                                @guest
                             </span>
                         </div>
                     }
@@ -231,7 +231,7 @@
             </div>
 
             <div class="modal-body">
-                <view-guests params="{eventId: @Model.EventId}"></view-guests>
+                <view-public-guests params="{eventId: @Model.EventId}"></view-public-guests>
             </div>
 
             <div class="modal-footer text-right">

@@ -48,6 +48,7 @@
 /// <reference path="app/events/ticketselection/ticket-options.js" />
 /// <reference path="app/events/vieweventad.ui.js" />
 /// <reference path="app/events/viewguests/view-guests.js" />
+/// <reference path="app/events/viewguests/view-public-guests.js" />
 /// <reference path="app/listings/Find.min.js" />
 /// <reference path="app/locations/location.service.js" />
 /// <reference path="app/pagination/pagination.js" />

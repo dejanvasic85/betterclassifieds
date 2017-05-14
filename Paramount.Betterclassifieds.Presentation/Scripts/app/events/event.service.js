@@ -56,6 +56,11 @@
         return $paramount.httpGet(url);
     }
 
+    EventService.prototype.getGuestNames = function (eventId) {
+        var url = this.baseUrl + 'api/events/' + eventId + '/guest-names';
+        return $paramount.httpGet(url);
+    }
+
     EventService.prototype.getGuestsForTicket = function (eventId, eventTicketId) {
         var url = this.baseUrl + 'api/events/' + eventId + '/ticket/' + eventTicketId + '/guests';
         return $paramount.httpGet(url);

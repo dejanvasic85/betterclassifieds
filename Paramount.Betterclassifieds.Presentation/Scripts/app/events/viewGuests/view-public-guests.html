@@ -1,0 +1,24 @@
+﻿<div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label>Search:</label>
+                <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa " />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div data-bind="foreach: guestsFiltered" class="list-group guest-list">
+                <button class="list-group-item">
+                    <span data-bind="text: groupName, visible: groupName !== null"></span>
+                    <span data-bind="text: guestName"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

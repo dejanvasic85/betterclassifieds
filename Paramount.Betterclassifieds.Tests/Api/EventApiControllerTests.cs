@@ -17,6 +17,20 @@ namespace Paramount.Betterclassifieds.Tests.Api
     [TestFixture]
     public class EventApiControllerTests : TestContext<EventApiController>
     {
+        private Mock<IEventManager> _mockEventManager;
+        private Mock<ISearchService> _mockSearchService;
+        private Mock<IUserManager> _mockUserManager;
+        private Mock<IEventGuestService> _mockEventGuestService;
+
+        [SetUp]
+        public void SetupDependencies()
+        {
+            _mockEventManager = CreateMockOf<IEventManager>();
+            _mockSearchService = CreateMockOf<ISearchService>();
+            _mockUserManager = CreateMockOf<IUserManager>();
+            _mockEventGuestService = CreateMockOf<IEventGuestService>();
+        }
+
         [Test]
         public void GetAllEvents_ReturnsOk()
         {
@@ -69,9 +83,9 @@ namespace Paramount.Betterclassifieds.Tests.Api
         [Test]
         public void GetEvent_NoEvent_Returns_404()
         {
-            
+
             _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), null);
-            
+
             var controller = BuildTargetObject();
             var events = controller.GetEvent(123);
 
@@ -228,18 +242,26 @@ namespace Paramount.Betterclassifieds.Tests.Api
             results.IsTypeOf<NotFoundResult>();
         }
 
-        private Mock<IEventManager> _mockEventManager;
-
-        private Mock<ISearchService> _mockSearchService;
-
-        private Mock<IUserManager> _mockUserManager;
-
-        [SetUp]
-        public void SetupDependencies()
+        [Test]
+        public void GetGuestNames_ReturnsList()
         {
-            _mockEventManager = CreateMockOf<IEventManager>();
-            _mockSearchService = CreateMockOf<ISearchService>();
-            _mockUserManager = CreateMockOf<IUserManager>();
+            var mockEventId = 10;
+            _mockEventGuestService.SetupWithVerification(call => call.GetPublicGuestNames(mockEventId),
+                new List<EventGuestPublicView>
+                {
+                    new EventGuestPublicView("Cosmo Kramer", "Group 1")
+                });
+
+            var controller = BuildTargetObject();
+            var result = controller.GetGuestNames(mockEventId);
+            var okResult = result.IsTypeOf<OkNegotiatedContentResult<IEnumerable<GuestViewContract>>>();
+            var expected = okResult.Content.Single();
+
+            expected.GuestName.IsEqualTo("Cosmo Kramer");
+            expected.GroupName.IsEqualTo("Group 1");
+
         }
+
+
     }
 }

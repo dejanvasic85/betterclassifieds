@@ -1,9 +1,14 @@
 Here's a list of the latest changes:
 
+**3.26.1**
+
+- Fix - Broke the address editing when updating event details
+
 **3.26.0**
 
 - [Allow event editing and resending tickets to guests for changes](https://trello.com/c/Zv2uHzz1/595-allow-event-details-editing-but-display-button-to-resend-tickets-if-applicable)
 - [We will no longer be displaying full names of people in public as it is Personal Identifiable Information](https://trello.com/c/ohxAz51V/613-do-not-display-pii-personal-identifiable-information-for-the-guests)
+- [Better design for the ticket print](https://trello.com/c/fGjNniRM/616-improve-the-ticket-design-for-printing)
 
 **3.25.0**
 

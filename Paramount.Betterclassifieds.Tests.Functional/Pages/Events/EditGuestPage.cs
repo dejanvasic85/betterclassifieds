@@ -74,9 +74,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public string GetToastSuccessMsg()
         {
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
-            var el = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("toast-success")));
-            return el.Text;
+            return _webDriver.GetToastSuccessMsgWhenVisible();
         }
 
         public EditGuestPage ResentTicket()

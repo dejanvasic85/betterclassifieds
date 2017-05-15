@@ -75,5 +75,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             Thread.Sleep(150);
             return element;
         }
+
+        public static string GetToastSuccessMsgWhenVisible(this IWebDriver driver)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            var el = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("toast-success")));
+            return el.Text;
+        }
     }
 }

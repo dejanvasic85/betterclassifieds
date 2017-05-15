@@ -34,6 +34,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithAvailableQuantity(quantity)
                 .WithField(fieldName, false)
                 .Save();
+
+            page.WaitForSuccessMessage();
         }
 
         [When(@"I edit the ticket ""(.*)""")]

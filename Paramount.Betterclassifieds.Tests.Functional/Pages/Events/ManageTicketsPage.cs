@@ -109,5 +109,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             editBtn.Click();
             return this;
         }
+
+        public string WaitForSuccessMessage()
+        {
+            return _webDriver.GetToastSuccessMsgWhenVisible();
+        }
     }
 }

@@ -84,3 +84,14 @@ Scenario: Resend tickets to a guest
 	And I go to edit the guest "guestone@email.com" from the dashboard
 	And I choose to resend ticket for the guest
 	Then the ticket should be sent successfully
+
+@EventDetails
+Scenario: Edit existing ad details
+	Given I am logged in as "bdduser" with password "password123"
+	And an event ad titled "Event for editing" exists
+	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And a guest name "Guest One" and email "guestone@email.com" with a "General Admission" ticket to "Ticket Resend feature event"
+	When I go to the event dashboard for the current ad
+	And I go to edit event details
+	| Title                 | Description                                           |
+	| Updated event details | This is really cool and should be sent to fake emails |

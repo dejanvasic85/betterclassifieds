@@ -34,12 +34,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "totalSoldQty")]
         public IWebElement TotalSoldQtyStat { get; set; }
 
+        [FindsBy(How = How.Id, Using = "edit-event-details")]
+        public IWebElement EditEventDetailsButton { get; set; }
+
+
+        public EventDashboardPage EditEventDetails()
+        {
+            EditEventDetailsButton.Click();
+            return this;
+        }
 
         public EventDashboardPage ManageGroups()
         {
             ManageGroupsButton.Click();
             return this;
         }
+
 
         public EventDashboardPage ManageTickets()
         {
@@ -67,5 +77,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
             return pageHeading.Text.Replace(" - Event Dashboard", string.Empty);
         }
+
+       
     }
 }

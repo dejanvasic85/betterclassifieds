@@ -284,6 +284,40 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Edit existing ad details")]
+        [NUnit.Framework.CategoryAttribute("EventDetails")]
+        public virtual void EditExistingAdDetails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit existing ad details", new string[] {
+                        "EventDetails"});
+#line 89
+this.ScenarioSetup(scenarioInfo);
+#line 90
+ testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 91
+ testRunner.And("an event ad titled \"Event for editing\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 92
+ testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 93
+ testRunner.And("a guest name \"Guest One\" and email \"guestone@email.com\" with a \"General Admission" +
+                    "\" ticket to \"Ticket Resend feature event\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 94
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Description"});
+            table1.AddRow(new string[] {
+                        "Updated event details",
+                        "This is really cool and should be sent to fake emails"});
+#line 95
+ testRunner.And("I go to edit event details", ((string)(null)), table1, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

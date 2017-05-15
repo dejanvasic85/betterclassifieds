@@ -279,6 +279,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 eventAdContext.EventId).EditGuest(guestEmail);
         }
 
+        [When(@"I go to edit event details")]
+        public void WhenIGoToEditEventDetails(Table table)
+        {
+            var title = table.Rows.First().Values.ElementAt(0);
+            var description = table.Rows.First().Values.ElementAt(1);
+
+            var eventAdContext = _contextData.Get();
+
+            _pageBrowser.Init<EventDashboardPage>(eventAdContext.AdId)
+                .EditEventDetails();
+
+            _pageBrowser.Init<EventEditDetailsPage>(eventAdContext.AdId)
+                .WithTitle(title)
+                .WithDescription(description)
+                .SaveAndSendNotifications();
+        }
+
+
         [When(@"I update the guest name to ""(.*)"" and email to ""(.*)""")]
         public void WhenIUpdateTheGuestNameToAndEmailTo(string newGuestName, string newGuestEmail)
         {
@@ -350,7 +368,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var page = _pageBrowser.Init<EditGuestPage>(ensureUrl: false);
             page.ResentTicket();
         }
-        
+
         [Then(@"the ticket should be sent successfully")]
         public void ThenTicketShouldBeSentSuccessfullyInTicketEditingScreen()
         {

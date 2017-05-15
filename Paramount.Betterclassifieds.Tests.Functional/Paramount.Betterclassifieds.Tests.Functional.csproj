@@ -118,6 +118,7 @@
     <Compile Include="Mocks\Models\EventBookingData.cs" />
     <Compile Include="Mocks\Models\EventBookingTicketData.cs" />
     <Compile Include="Pages\Events\EventDashboardSubPage.cs" />
+    <Compile Include="Pages\Events\EventEditDetailsPage.cs" />
     <Compile Include="Pages\Events\MakeTicketPaymentPage.cs" />
     <Compile Include="Features\ChangePassword.feature.cs">
       <AutoGen>True</AutoGen>

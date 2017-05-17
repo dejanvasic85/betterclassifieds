@@ -27,5 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestFullName { get; set; }
         public string BarcodeImageDocumentId { get; set; }
         public string GuestEmail { get; set; }
+        public string BrandName { get; set; }
+        public string BrandUrl { get; set; }
     }
 }

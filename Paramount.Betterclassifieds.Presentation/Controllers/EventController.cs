@@ -344,7 +344,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Tickets(int id)
         {
             var builder = _eventBookingManager.WithEventBooking(id);
-
             var viewModels = builder.CreateEventTicketPrintViewModelsForBooking();
             return View("~/Views/Templates/Tickets.cshtml", viewModels.ToList());
 

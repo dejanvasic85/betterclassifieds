@@ -39,6 +39,7 @@ execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '95030094838561
 execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'True', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'True', @Force = 1
 execute temp_createAppSetting @Key = 'Email.FromAddress', @Setting = 'SriLankanEvents <no-reply@srilankanevents.com.au>', @Force=1
+execute temp_createAppSetting @Key = 'PublisherHomeUrl', @Setting = 'www.srilankanevents.com.au', @Force=1
 
 drop procedure temp_createAppSetting
 

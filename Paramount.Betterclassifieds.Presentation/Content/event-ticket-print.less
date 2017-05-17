@@ -4,17 +4,25 @@
     padding: 0;
 }
 
+.top-buffer-10 {
+    margin-top: 10px;
+}
+
+.top-buffer-20 {
+    margin-top: 20px;
+}
+
 .ticket-container:nth-child(2n) {
     page-break-after: always;
 }
 
 .ticket-container {
     margin-top: 20px;
-    height: 500px;
+    height: 520px;
     border-bottom: 1px dashed;
     width: 100%;
 
-    .brand-text{
+    .brand-text {
         font-size: 0.8em;
     }
 
@@ -24,7 +32,7 @@
             font-size: 1.1em;
             margin-left: 15px;
             width: 670px;
-           
+
             .event-title {
                 border-top: 1px solid #eee;
                 border-bottom: 1px solid #eee;
@@ -43,24 +51,12 @@
                 }
             }
 
-            .event-details {
-
+            .event-details{
                 label {
-                    margin-bottom: 0px;
-                    display:block;
-                }
-
-                span {
-                    &.detail {
-                    }
+                    display: block;
+                    margin-top: 5px;
                 }
             }
-        }
-
-        .event-barcode {
-            /*position: absolute;
-            right: 0%;
-            top: 20%;*/
         }
     }
 }

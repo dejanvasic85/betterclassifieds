@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 
@@ -12,6 +13,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             AdSearchResult adDetails,
             EventModel eventDetails,
             EventBookingTicket ticket,
+            string brandName,
+            string brandUrl,
             IEnumerable<EventGroup> groupsForEvent)
         {
             var group = groupsForEvent.SingleOrDefault(g => g.EventGroupId == ticket.EventGroupId);
@@ -29,7 +32,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 GroupName = group.With(g => g.GroupName),
                 GuestFullName = ticket.GuestFullName,
                 GuestEmail = ticket.GuestEmail,
-                BarcodeImageDocumentId = ticket.BarcodeImageDocumentId.GetValueOrDefault().ToString()
+                BarcodeImageDocumentId = ticket.BarcodeImageDocumentId.GetValueOrDefault().ToString(),
+                BrandName = brandName,
+                BrandUrl = brandUrl
+
             };
         }
     }

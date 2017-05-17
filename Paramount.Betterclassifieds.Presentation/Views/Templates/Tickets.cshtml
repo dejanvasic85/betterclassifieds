@@ -13,7 +13,7 @@
     <title>TicketPrint</title>
     <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.6.min.css")" media="all" />
     <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/event-ticket-print.min.css")" media="all" />
-    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.4.0.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.6.1.css")" media="all" />
 </head>
 <body>
 
@@ -92,26 +92,21 @@
 
                         </div>
 
-                        <div class="row">
-                            <hr />
-                            @if (tick.EventPhoto.HasValue())
-                            {
-                                <div class="col-xs-6">
-                                    <img class="thumbnail" src="@Url.Image(tick.EventPhoto, height: 200, width: 300).WithFullUrl()" />
-
-                                </div>
-                            }
-
-                            <div class="col-xs-6">
-                                <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 200, width: 200).WithFullUrl()" alt="barcode" />
+                        <div class="row top-buffer-20">
+                            <div class="col-xs-12 text-center">
+                                
+                                    <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 200, width: 200).WithFullUrl()" alt="barcode" />
+                                
                             </div>
+                            <hr/>
+                           
                         </div>
 
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                Produced by KandoBay
+                                Produced by @tick.BrandName
                                 <span class="brand-text">
-                                    Buy/Sell tickets @@ kandobay.com.au
+                                    Buy/Sell tickets @@ @tick.BrandUrl
                                 </span>
                             </div>
                         </div>

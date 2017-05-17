@@ -178,13 +178,20 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket)
         {
             var viewModelFactory = new EventTicketPrintViewModelFactory();
-            return viewModelFactory.Create(Ad.Value, EventDetails.Value, ticket, EventGroups.Value);
+            return viewModelFactory.Create(Ad.Value, 
+                EventDetails.Value, 
+                ticket, 
+                _clientConfig.ClientName,
+                _clientConfig.PublisherHomeUrl,
+                EventGroups.Value);
         }
 
         public IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking()
         {
             var viewModelFactory = new EventTicketPrintViewModelFactory();
-            return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
+            return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(
+                Ad.Value, EventDetails.Value, t, _clientConfig.ClientName,
+                _clientConfig.PublisherHomeUrl, EventGroups.Value));
         }
 
         public IEventBookingManager SendOrganisersNotification()

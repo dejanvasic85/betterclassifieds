@@ -467,7 +467,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText,
             DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude,
             decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate,
-            string floorPlanDocumentId, string locationFloorPlanFilename, Address address)
+            string floorPlanDocumentId, string locationFloorPlanFilename, Address address, string venueName)
         {
             var originalEventDetails = _eventRepository.GetEventDetails(eventId);
             var onlineAd = _bookingManager.GetOnlineAd(adId);
@@ -512,15 +512,17 @@ namespace Paramount.Betterclassifieds.Business.Events
                     _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
                 }
 
-                onlineAd.Heading = title; // This is used for ticketing so cannot change!
+                
             
 #endif
+            onlineAd.Heading = title; 
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;
             onlineAd.ContactPhone = organiserPhone;
             originalEventDetails.LocationFloorPlanDocumentId = floorPlanDocumentId;
             originalEventDetails.LocationFloorPlanFilename = locationFloorPlanFilename;
+            originalEventDetails.VenueName = venueName;
 
             _bookingManager.UpdateOnlineAd(adId, onlineAd);
             _eventRepository.UpdateEvent(originalEventDetails);

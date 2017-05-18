@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.26.3**
+
+- Fix - The venue name was being updated while updating event details.
+
 **3.26.1**
 
 - Fix - Broke the address editing when updating event details

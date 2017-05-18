@@ -437,7 +437,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     StreetName = viewModel.StreetName,
                     StreetNumber = viewModel.StreetNumber,
                     Suburb = viewModel.Suburb
-                });
+                }, viewModel.VenueName);
 
             return Json(true);
         }

@@ -41,6 +41,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public IDbSet<Address> Addresses { get; set; }
         public IDbSet<EventGroup> EventGroups { get; set; }
         public IDbSet<EventOrganiser> EventOrganisers { get; set; }
+        public IDbSet<EventSeatBooking> EventSeats { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -57,6 +58,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             modelBuilder.Configurations.Add(new EventInvitationConfiguration());
             modelBuilder.Configurations.Add(new EventGroupConfiguration());
             modelBuilder.Configurations.Add(new EventOrganiserConfiguration());
+            modelBuilder.Configurations.Add(new EventSeatBookingConfiguration());
         }
     }
 }

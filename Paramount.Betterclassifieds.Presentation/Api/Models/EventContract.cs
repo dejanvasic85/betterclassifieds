@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 
-namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
+namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class EventContract
     {

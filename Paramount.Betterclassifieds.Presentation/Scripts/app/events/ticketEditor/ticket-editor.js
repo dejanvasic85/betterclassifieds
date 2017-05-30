@@ -107,6 +107,14 @@
                         if (me.onSave) {
                             me.onSave(newTicket);
                         }
+
+                        // Clear the current data
+                        me.ticketName(null);
+                        me.price(null);
+                        me.eventTicketFields.removeAll();
+                        me.availableQuantity(null);
+                        me.isActive(true);
+                        me.remainingQuantity(null);
                     });
                 }
 
@@ -176,6 +184,6 @@
                 });
             }
         },
-        template: { path: $p.baseUrl + '/Scripts/app/events/ticketEditor/ticket-editor.html' }
+        template: { path: $p.baseUrl + 'Scripts/app/events/ticketEditor/ticket-editor.html' }
     });
 })(ko, $paramount, toastr);

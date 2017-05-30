@@ -21,8 +21,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
+        public string ColourCode { get; set; }
         public IList<EventTicketReservation> EventTicketReservations { get; set; }
         public IList<EventBookingTicket> EventBookingTickets { get; set; }
         public IList<EventTicketField> EventTicketFields { get; set; }
+        public IList<EventSeatBooking> EventSeats { get; set; }
     }
 }

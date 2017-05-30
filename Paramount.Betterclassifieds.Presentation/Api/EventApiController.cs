@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Monads;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Api.Models.Events;
+using Paramount.Betterclassifieds.Presentation.Api.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.Api
 {
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
 
             if (onlineAdModel.HasNotStarted() && !isCurrentUserTheOwner)
                 return NotFound();
-            
+
             var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address);
             var contract = new EventContractFactory().FromModel(searchResult);
             return Ok(contract);
@@ -135,6 +135,14 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         {
             var guests = _eventGuestService.GetPublicGuestNames(id);
             return Ok(new GuestContractFactory().FromEventPublicGuestDetails(guests));
+        }
+
+        [Route("{id:int}/seating")]
+        public IHttpActionResult GetEventSeating(int id)
+        {
+            var seats = _eventManager.GetEventSeats(id);
+
+            return Ok(seats);
         }
     }
 }

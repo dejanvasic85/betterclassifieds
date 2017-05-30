@@ -2,7 +2,7 @@
  * ViewEventAd.cshtml - ui hooks
  */
 (function ($, ko, $paramount) {
-    
+
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.eventView = {
         init: function (options) {
@@ -15,6 +15,11 @@
                 var guestsDialogInterface = document.getElementById('guestsDialog');
                 if (guestsDialogInterface) {
                     ko.applyBindings({}, guestsDialogInterface);
+                }
+
+                var ticketSeatingInterface = document.getElementById('ticketSeating');
+                if (ticketSeatingInterface) {
+                    ko.applyBindings({}, ticketSeatingInterface);
                 }
 
                 if (options.floorPlanDocumentId === '') {

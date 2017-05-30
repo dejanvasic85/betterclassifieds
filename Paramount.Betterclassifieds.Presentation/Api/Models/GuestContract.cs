@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Events;
 
-namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
+namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class GuestContract
     {

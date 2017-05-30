@@ -219,12 +219,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
+    <Compile Include="Api\Models\EventSeatBookingContract.cs" />
     <Compile Include="Api\HealthController.cs" />
     <Compile Include="Api\Models\AddressContract.cs" />
-    <Compile Include="Api\Models\Events\EventContract.cs" />
-    <Compile Include="Api\Models\Events\EventGroupContract.cs" />
-    <Compile Include="Api\Models\Events\EventTicketContract.cs" />
-    <Compile Include="Api\Models\Events\GuestContract.cs" />
+    <Compile Include="Api\Models\EventContract.cs" />
+    <Compile Include="Api\Models\EventGroupContract.cs" />
+    <Compile Include="Api\Models\EventTicketContract.cs" />
+    <Compile Include="Api\Models\GuestContract.cs" />
+    <Compile Include="Api\Models\EventRowContract.cs" />
+    <Compile Include="Api\Models\EventVenueContract.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />
@@ -514,6 +517,9 @@
     <Content Include="Content\KandoBay\kando.nav.min.css">
       <DependentUpon>kando.nav.css</DependentUpon>
     </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="Content\SriLankanEvents\ico\favicon.ico" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
@@ -537,9 +543,6 @@
     </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
-    </Content>
-    <Content Include="Content\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\images\hero-bg.JPG" />
     <Content Include="Content\SriLankanEvents\img\hero.jpg" />
@@ -580,9 +583,6 @@
     <Content Include="Scripts\app-global\social.js" />
     <Content Include="Scripts\app\account\editAd.js" />
     <Content Include="Scripts\app\account\login.js" />
-    <Content Include="Content\site.css.map">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <Content Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="App_Code\Boot.cshtml" />
@@ -638,6 +638,8 @@
     <Content Include="Scripts\app\events\organisers\manage-notifications.js" />
     <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
     <Content Include="Scripts\app\events\organisers\organiser-service.js" />
+    <Content Include="Scripts\app\events\seatSelector\seatSelector.html" />
+    <Content Include="Scripts\app\events\seatSelector\seatSelector.js" />
     <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.html" />
     <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
@@ -671,6 +673,7 @@
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkAdNotifier.model.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />
+    <Content Include="Scripts\app\venues\venueService.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
     <Content Include="Scripts\vendor\bluebird.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker-4.7.14.js" />

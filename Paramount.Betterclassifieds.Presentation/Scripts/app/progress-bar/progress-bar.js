@@ -15,7 +15,7 @@
             });
 
         },
-        template: { path: $p.baseUrl + '/Scripts/app/progress-bar/progress-bar.html' }
+        template: { path: $p.baseUrl + 'Scripts/app/progress-bar/progress-bar.html' }
     });
 
 

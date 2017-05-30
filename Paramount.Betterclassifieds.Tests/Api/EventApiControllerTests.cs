@@ -9,7 +9,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Api;
-using Paramount.Betterclassifieds.Presentation.Api.Models.Events;
+using Paramount.Betterclassifieds.Presentation.Api.Models;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Api

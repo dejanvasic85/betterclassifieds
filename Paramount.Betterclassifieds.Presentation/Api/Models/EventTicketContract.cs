@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Events;
 
-namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
+namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class EventTicketContract
     {
@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
+        public string ColourCode { get; set; }
     }
 
     public class EventTicketContractFactory : IMappingBehaviour

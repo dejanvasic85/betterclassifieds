@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -6,8 +7,6 @@ namespace Paramount.Betterclassifieds.Presentation
     {
         public static void Register(HttpConfiguration config)
         {
-            // TODO: Add any additional configuration code.
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -20,10 +19,9 @@ namespace Paramount.Betterclassifieds.Presentation
             // WebAPI when dealing with JSON & JavaScript!
             // Setup json serialization to serialize classes to camel (std. Json format)
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            formatter.SerializerSettings.ContractResolver =
-                new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-
+            formatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            formatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            formatter.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
         }
-
     }
 }

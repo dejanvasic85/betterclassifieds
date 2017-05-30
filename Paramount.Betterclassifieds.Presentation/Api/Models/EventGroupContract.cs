@@ -2,7 +2,7 @@ using System;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Events;
 
-namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
+namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class EventGroupContract
     {

@@ -1,0 +1,24 @@
+﻿.seat-selector .ticket-summary {
+  padding: 5px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.seat-selector .ticket-summary span {
+  height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
+.seat-selector .ticket-summary .ticket-legend {
+  width: 20px;
+  height: 20px;
+  border-radius: 10%;
+  background-color: #eee;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+.seat-selector .ticket-summary .ticket-name {
+  display: inline-block;
+  vertical-align: middle;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXRTZWxlY3Rvci5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBRUk7RUFDSSxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxxQkFBQTs7QUFMUixjQUVJLGdCQUtJO0VBQ0ksWUFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7O0FBVlosY0FFSSxnQkFXSTtFQUNJLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTtFQUNBLHFCQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTs7QUFwQlosY0FFSSxnQkFxQkk7RUFDSSxxQkFBQTtFQUNBLHNCQUFBIiwiZmlsZSI6InVuZGVmaW5lZCJ9 */

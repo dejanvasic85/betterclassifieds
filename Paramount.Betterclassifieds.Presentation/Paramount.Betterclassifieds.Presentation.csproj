@@ -638,8 +638,14 @@
     <Content Include="Scripts\app\events\organisers\manage-notifications.js" />
     <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
     <Content Include="Scripts\app\events\organisers\organiser-service.js" />
+    <Content Include="Scripts\app\events\seatSelector\seatSelector.css">
+      <DependentUpon>seatSelector.less</DependentUpon>
+    </Content>
     <Content Include="Scripts\app\events\seatSelector\seatSelector.html" />
     <Content Include="Scripts\app\events\seatSelector\seatSelector.js" />
+    <Content Include="Scripts\app\events\seatSelector\seatSelector.min.css">
+      <DependentUpon>seatSelector.css</DependentUpon>
+    </Content>
     <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.html" />
     <Content Include="Scripts\app\events\ticketPurchaseWarning\ticket-purchase-warning.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
@@ -923,6 +929,7 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
     <Content Include="Scripts\app\userNetwork\userNetwork.model.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\app\events\seatSelector\seatSelector.less" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />

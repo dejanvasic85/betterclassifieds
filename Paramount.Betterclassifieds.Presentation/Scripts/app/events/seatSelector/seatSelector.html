@@ -1,16 +1,26 @@
-﻿<div class="seat-selector">
-    <h4>
-        Available Tickets:
-    </h4>
-    <div>
+﻿<div class="seat-selector container">
 
-    </div>
-
-    <div data-bind="foreach: tickets">
-        <div class="legend">
-            <span data-bind="text: ticketName"></span>
-            <span data-bind="text: price"></span>
+    <div class="row">
+        <div class="col-xs-12"></div>
+        <!-- ko foreach: tickets-->
+        <div class="col-xs-12">
+            <div class="ticket-summary">
+                <span></span>
+                <div class="ticket-legend" data-bind="style: style"></div>
+                <div class="ticket-name" data-bind="text: ticketNameAndPrice"></div>
+            </div>
         </div>
+        <!-- /ko -->
     </div>
+    
+    <!-- ko foreach: rows-->
+    <div class="row">
+        <div class="col-xs-1" data-bind="text: rowName"></div>
+        <div class="col-xs-11" data-bind="foreach: seats">
+            <span data-bind="text: seatNumber"></span>
+        </div>
+        
+    </div>
+    <!-- /ko -->
 
 </div>

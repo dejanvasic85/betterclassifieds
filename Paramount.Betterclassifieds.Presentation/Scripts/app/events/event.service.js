@@ -103,7 +103,7 @@
     }
 
     EventService.prototype.getEventSeating = function (id) {
-        return $paramount.httpGet(this.baseUrl + 'api/events/' + id + '/venue/seating');
+        return $paramount.httpGet(this.baseUrl + 'api/events/' + id + '/seating');
     }
 
     $paramount.EventService = EventService;

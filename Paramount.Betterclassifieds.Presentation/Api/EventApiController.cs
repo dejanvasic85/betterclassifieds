@@ -143,9 +143,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         public IHttpActionResult GetEventSeating(int id)
         {
             var eventDetails = _eventManager.GetEventDetails(id);
-            var tickets = eventDetails.Tickets;
+            var tickets = eventDetails.Tickets.Where(t => t.IsActive);
             var seats = _eventSeatingService.GetSeatsForEvent(id);
-            
+
             var factory = new EventSeatingContractFactory();
 
             return Ok(factory.FromModels(eventDetails, tickets, seats));

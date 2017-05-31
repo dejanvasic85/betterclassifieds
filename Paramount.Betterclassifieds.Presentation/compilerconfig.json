@@ -34,5 +34,9 @@
   {
     "outputFile": "Content/Beat/beat.css",
     "inputFile": "Content/Beat/beat.less"
+  },
+  {
+    "outputFile": "Scripts/app/events/seatSelector/seatSelector.css",
+    "inputFile": "Scripts/app/events/seatSelector/seatSelector.less"
   }
 ]

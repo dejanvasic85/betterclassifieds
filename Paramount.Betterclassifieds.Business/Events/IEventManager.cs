@@ -16,7 +16,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, bool isPublic, IEnumerable<EventBookingTicketField> fields, Func<string, string> barcodeUrlCreator);
         EventBookingTicket CancelEventBookingTicket(int eventBookingTicketId);
-        IEnumerable<EventSeatBooking> GetEventSeats(int eventId);
 
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);

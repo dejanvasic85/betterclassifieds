@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public EventSeatBookingConfiguration()
         {
             ToTable("EventSeatBooking");
-            HasKey(prop => prop.EventSeatId);
+            HasKey(prop => prop.EventSeatBookingId);
             HasRequired(prop => prop.EventTicket).WithMany(t => t.EventSeats).HasForeignKey(k => k.EventTicketId);
         }
     }

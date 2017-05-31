@@ -60,6 +60,7 @@
                 .RegisterType(typeof(ICategoryAdAuthoriser), typeof(EventAccess), CategoryAdType.Event)
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
+                .RegisterType<IEventSeatingService, EventSeatingService>()
                 .RegisterType<IEventBarcodeValidator, EventBarcodeValidator>()
                 .RegisterType<IBarcodeGenerator, BarcodeGenerator>()
                 .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(

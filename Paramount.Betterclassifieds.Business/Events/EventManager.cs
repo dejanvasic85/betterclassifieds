@@ -150,12 +150,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             return eventBookingTicket;
         }
-
-        public IEnumerable<EventSeatBooking> GetEventSeats(int eventId)
-        {
-            return _eventRepository.GetEventSeats(eventId);
-        }
-
+        
         public int GetRemainingTicketCount(int? ticketId)
         {
             Guard.NotNull(ticketId);

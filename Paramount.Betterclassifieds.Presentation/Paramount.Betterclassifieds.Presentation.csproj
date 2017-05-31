@@ -224,10 +224,10 @@
     <Compile Include="Api\Models\AddressContract.cs" />
     <Compile Include="Api\Models\EventContract.cs" />
     <Compile Include="Api\Models\EventGroupContract.cs" />
+    <Compile Include="Api\Models\EventSeatingContract.cs" />
     <Compile Include="Api\Models\EventTicketContract.cs" />
     <Compile Include="Api\Models\GuestContract.cs" />
     <Compile Include="Api\Models\EventRowContract.cs" />
-    <Compile Include="Api\Models\EventVenueContract.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />

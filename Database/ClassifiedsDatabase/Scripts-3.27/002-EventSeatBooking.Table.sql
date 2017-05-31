@@ -11,10 +11,11 @@ CREATE TABLE [dbo].[EventSeatBooking](
 	[EventSeatBookingId] [bigint] IDENTITY(1,1) NOT NULL,
 	[EventTicketId] [int] NOT NULL,
 	[EventBookingTicketId] [int] NULL,
+	[RowNumber] varchar(50) NULL,
+	[RowOrder] int NULL,
 	[SeatNumber] [varchar](50) NOT NULL,
-	[NotAvailableToPublic] [bit] NULL,
-	[BookedDate] [datetime] NULL,
-	[BookedDateUtc] [datetime] NULL
+	[SeatOrder] [int] NOT NULL,
+	[NotAvailableToPublic] [bit] NULL
 	CONSTRAINT [PK_EventSeatBooking] PRIMARY KEY CLUSTERED 
 (
 	[EventSeatBookingId] ASC

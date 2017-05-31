@@ -291,7 +291,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventSeats.Where(s => s.EventTicket.EventId == eventId).ToList();
+                return context.EventSeats
+                    .Include(s => s.EventTicket).Where(s => s.EventTicket.EventId == eventId).ToList();
             }
         }
 

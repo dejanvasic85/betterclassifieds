@@ -1,17 +1,39 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Api.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+using Paramount.Betterclassifieds.Business.Events;
+
+namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class EventRowContract
     {
-        public static EventRowContract New(string rowId, params EventSeatBookingContract[] seats)
+        public string RowName { get; set; }
+        public EventSeatBookingContract[] Seats { get; set; }
+    }
+
+    public class EventRowContractFactory
+    {
+        private readonly EventSeatBookingContractFactory _seatFactory;
+
+        public EventRowContractFactory(EventSeatBookingContractFactory seatFactory)
         {
-            return new EventRowContract
-            {
-                RowId = rowId,
-                Seats = seats
-            };
+            _seatFactory = seatFactory;
         }
 
-        public string RowId { get; set; }
-        public EventSeatBookingContract[] Seats { get; set; }
+        public EventRowContractFactory()
+            : this(new EventSeatBookingContractFactory())
+        {
+        }
+
+        public IEnumerable<EventRowContract> FromModels(IEnumerable<IGrouping<string, EventSeatBooking>> seatsGroupedByRow)
+        {
+            foreach (var grouping in seatsGroupedByRow)
+            {
+                yield return new EventRowContract
+                {
+                    RowName = grouping.Key,
+                    Seats = grouping.Select(s => _seatFactory.FromModel(s)).ToArray()
+                };
+            }
+        }
     }
 }

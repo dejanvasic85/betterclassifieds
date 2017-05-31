@@ -8,28 +8,20 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
     public class EventSeatBookingContract
     {
-        public string Id { get; set; }
-        public string ColourCode { get; set; }
-        public string SeatingCategoryName { get; set; }
-        public bool NotAvailableToPublic { get; set; }
-        public DateTime BookedDate { get; set; }
-        public DateTime BookedDateUtc { get; set; }
+        public string EventSeatId { get; set; }
+        public string SeatNumber { get; set; }
+        public bool Available => true; // Todo
         public int? EventTicketId { get; set; }
         public EventTicketContract EventTicket { get; set; }
     }
 
-    public class EventSeatContractFactory : IMappingBehaviour
+    public class EventSeatBookingContractFactory : IMappingBehaviour
     {
         public EventSeatBookingContract FromModel(EventSeatBooking seatBooking)
         {
             return this.Map<EventSeatBooking, EventSeatBookingContract>(seatBooking);
         }
-
-        public IEnumerable<EventSeatBookingContract> FromModels(IEnumerable<EventSeatBooking> seats)
-        {
-            return seats.Select(FromModel);
-        }
-
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventSeatBooking, EventSeatBookingContract>();

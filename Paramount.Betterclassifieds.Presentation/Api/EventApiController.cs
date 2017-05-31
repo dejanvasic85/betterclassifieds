@@ -16,13 +16,15 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
         private readonly IEventGuestService _eventGuestService;
+        private readonly IEventSeatingService _eventSeatingService;
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService)
+        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
             _eventGuestService = eventGuestService;
+            _eventSeatingService = eventSeatingService;
         }
 
         [Route("")]
@@ -140,9 +142,13 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}/seating")]
         public IHttpActionResult GetEventSeating(int id)
         {
-            var seats = _eventManager.GetEventSeats(id);
+            var eventDetails = _eventManager.GetEventDetails(id);
+            var tickets = eventDetails.Tickets;
+            var seats = _eventSeatingService.GetSeatsForEvent(id);
+            
+            var factory = new EventSeatingContractFactory();
 
-            return Ok(seats);
+            return Ok(factory.FromModels(eventDetails, tickets, seats));
         }
     }
 }

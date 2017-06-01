@@ -17,20 +17,29 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         private EventRowContractFactory _rowFactory;
 
         public EventSeatingContractFactory()
+            : this(new EventTicketContractFactory(), new EventRowContractFactory())
         {
-            _ticketFactory = new EventTicketContractFactory();
-            _rowFactory = new EventRowContractFactory();
         }
 
-        public EventSeatingContract FromModels(EventModel eventDetails, IEnumerable<EventTicket> tickets, IEnumerable<EventSeatBooking> seats)
+        public EventSeatingContractFactory(EventTicketContractFactory ticketContractFactory,
+            EventRowContractFactory rowContractFactory)
+        {
+            _ticketFactory = ticketContractFactory;
+            _rowFactory = rowContractFactory;
+        }
+
+        public EventSeatingContract FromModels(EventModel eventDetails, IEnumerable<EventTicket> tickets,
+            IEnumerable<EventSeatBooking> seats)
         {
             var seatsGroupedByRow = seats.GroupBy(s => s.RowNumber);
 
+            var rowContracts = _rowFactory.FromModels(seatsGroupedByRow).ToList();
+            
             return new EventSeatingContract
             {
                 VenueName = eventDetails.VenueName,
                 Tickets = tickets.Select(t => _ticketFactory.FromModel(t)),
-                Rows = _rowFactory.FromModels(seatsGroupedByRow)
+                Rows = rowContracts
             };
         }
     }

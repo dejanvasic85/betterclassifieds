@@ -163,6 +163,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public IEnumerable<EventTicketReservation> GetCurrentReservationsForEvent(int eventId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventTicketReservations
+                    .Where(r => r.ExpiryDateUtc > DateTime.UtcNow)
+                    .ToList();
+            }
+        }
+
         public IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId)
         {
             using (var context = _dbContextFactory.CreateEventContext())

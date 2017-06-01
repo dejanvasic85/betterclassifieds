@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -18,7 +19,15 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId)
         {
-            return _repository.GetEventSeats(eventId);
+            var reservations = _repository.GetCurrentReservationsForEvent(eventId).Where(r => r.Status == EventTicketReservationStatus.Reserved);
+            var seats = _repository.GetEventSeats(eventId).ToDictionary(s => s.SeatNumber);
+
+            foreach (var reservation in reservations)
+            {
+                seats[reservation.SeatNumber].ReservationExpiryUtc = reservation.ExpiryDateUtc;
+            }
+
+            return seats.Values;
         }
 
         public void BookSeat(int eventId, string seatNumber, int eventBookingId)

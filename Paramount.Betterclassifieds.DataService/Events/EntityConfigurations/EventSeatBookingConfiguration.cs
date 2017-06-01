@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             ToTable("EventSeatBooking");
             HasKey(prop => prop.EventSeatBookingId);
             HasRequired(prop => prop.EventTicket).WithMany(t => t.EventSeats).HasForeignKey(k => k.EventTicketId);
+            Ignore(prop => prop.ReservationExpiryUtc);
         }
     }
 }

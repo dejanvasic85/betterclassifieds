@@ -61,7 +61,7 @@
                 });
             });
 
-            // Todo - support different type of layouts?
+            // Todo - support different type of layouts? how ???
             _.each(seatingResponse.rows, function (r) {
                 me.rows.push(new Row(r));
             });

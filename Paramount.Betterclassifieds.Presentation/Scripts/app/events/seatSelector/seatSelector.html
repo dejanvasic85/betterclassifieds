@@ -31,20 +31,23 @@
                 </div>
             </div>
         </div>
-        <!-- ko foreach: rows-->
-        <div class="row">
-            <div class="col-xs-1 row-col text-center" data-bind="text: rowName"></div>
-            <div class="col-xs-11 seats-col" data-bind="foreach: seats">
-                
-                <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style">
-                    <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
-                    <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
-                    <i class="fa fa-times" data-bind="visible: available() === false"></i>
-                </div>
 
+        <div>
+            <!-- ko foreach: rows-->
+            <div class="seats-row">
+                <div class="seats-col" data-bind="foreach: seats">
+                    <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style">
+                        <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
+                        <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
+                        <i class="fa fa-times" data-bind="visible: available() === false"></i>
+                    </div>
+
+                </div>
             </div>
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
+
+
     </div>
 
 </div>

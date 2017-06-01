@@ -75,6 +75,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.27\003-Event.IsSeatedEvent.sql" />
     <EmbeddedResource Include="Scripts-3.27\002-EventSeatBooking.Table.sql" />
     <EmbeddedResource Include="Scripts-3.27\001-EventTicket.ColourCode.sql" />
     <EmbeddedResource Include="Scripts-3.25\001-EventOrganiser.Subscriptions.sql" />

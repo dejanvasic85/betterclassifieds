@@ -55,10 +55,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
             TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any(t => t.IsActive);
+            IsSeatedEvent = eventModel.IsSeatedEvent.GetValueOrDefault();
 
             // Build the guest list
             TotalGuests = guestList.Length;
-            Guests = guestList.Take(6).ToList(); 
+            Guests = guestList.Take(6).ToList();
         }
 
         public DateTime EventEndDate { get; set; }
@@ -99,6 +100,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public List<string> Guests { get; set; }
         public bool DisplayGuests { get; set; }
         public int TotalGuests { get; set; }
+        public bool IsSeatedEvent { get; set; }
+
+        public bool DisplayTicketing => !this.IsSeatedEvent && this.TicketingEnabled;
+
+        public bool DisplaySeating => this.IsSeatedEvent;
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

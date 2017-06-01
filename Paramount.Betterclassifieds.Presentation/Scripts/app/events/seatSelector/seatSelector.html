@@ -6,7 +6,9 @@
         <div class="col-xs-12">
             <div class="ticket-summary">
                 <span></span>
-                <div class="ticket-legend" data-bind="style: style"></div>
+                <div class="ticket-legend" data-bind="style: style">
+                    <i class="fa fa-ticket"></i>
+                </div>
                 <div class="ticket-name" data-bind="text: ticketNameAndPrice"></div>
             </div>
         </div>
@@ -14,9 +16,9 @@
     </div>
     
     <!-- ko foreach: rows-->
-    <div class="row">
+    <div class="row venue-layout">
         <div class="col-xs-1" data-bind="text: rowName"></div>
-        <div class="col-xs-11" data-bind="foreach: seats">
+        <div class="col-xs-11 seats-row" data-bind="foreach: seats">
             <span data-bind="text: seatNumber"></span>
         </div>
         

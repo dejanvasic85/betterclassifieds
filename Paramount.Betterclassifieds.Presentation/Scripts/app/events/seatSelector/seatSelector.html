@@ -1,9 +1,17 @@
 ﻿<div class="seat-selector container">
 
     <div class="row">
-        <div class="col-xs-12"></div>
+        <div class="col-sm-4">
+            <div class="ticket-summary">
+                <span></span>
+                <div class="ticket-legend">
+                    <i class="fa fa-times"></i>
+                </div>
+                <div class="ticket-name">Sold / Not Available</div>
+            </div>
+        </div>
         <!-- ko foreach: tickets-->
-        <div class="col-xs-12">
+        <div class="col-sm-4">
             <div class="ticket-summary">
                 <span></span>
                 <div class="ticket-legend" data-bind="style: style">
@@ -14,15 +22,33 @@
         </div>
         <!-- /ko -->
     </div>
-    
-    <!-- ko foreach: rows-->
-    <div class="row venue-layout">
-        <div class="col-xs-1" data-bind="text: rowName"></div>
-        <div class="col-xs-11 seats-row" data-bind="foreach: seats">
-            <span data-bind="text: seatNumber"></span>
+
+    <div class="container venue-layout">
+        <div class="row">
+            <div class="col-xs-1 text-center">
+                Row
+            </div>
+            <div class="col-xs-11 text-center">
+                <div class="well well-lg">
+                    <h2>Stage</h2>
+                </div>
+            </div>
         </div>
-        
+        <!-- ko foreach: rows-->
+        <div class="row">
+            <div class="col-xs-1 row-col text-center" data-bind="text: rowName"></div>
+            <div class="col-xs-11 seats-col" data-bind="foreach: seats">
+                
+                <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style">
+                    <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
+                    <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
+                    <i class="fa fa-times" data-bind="visible: available() === false"></i>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /ko -->
     </div>
-    <!-- /ko -->
 
 </div>

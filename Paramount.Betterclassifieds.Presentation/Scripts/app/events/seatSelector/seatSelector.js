@@ -8,13 +8,13 @@
         me.selected = ko.observable(data.selected || false);
         me.ticket = ko.observable(new $p.models.EventTicket(data.eventTicket));
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
-
     }
 
     function Row(data) {
         var me = this;
         me.rowName = ko.observable(data.rowName);
         me.seats = ko.observableArray();
+
         for (var i = 0; i < data.seats.length; i++) {
             me.seats.push(new Seat(data.seats[i], me));
         }
@@ -25,6 +25,26 @@
         me.eventId = ko.observable(params.eventId);
         me.tickets = ko.observableArray();
         me.rows = ko.observableArray();
+        me.selectedSeats = ko.observableArray();
+
+        me.selectSeat = function (seat) {
+            if (seat.available() === false) {
+                return;
+            }
+
+            // Toggle
+            if (_.includes(me.selectedSeats(), seat)) {
+                me.selectedSeats.remove(seat);
+            } else {
+                me.selectedSeats.push(seat);
+            }
+
+            seat.selected(!seat.selected());
+        }
+
+        me.bookSeats = function () {
+            // Todo - post to the book tickets endpoint
+        }
 
         // Load the venue details
         eventService.getEventSeating(params.eventId).then(loadSeating);
@@ -47,9 +67,7 @@
             });
         }
 
-        me.bookSeats = function () {
-
-        }
+        
     }
 
     ko.components.register('seat-selector', {

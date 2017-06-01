@@ -1,4 +1,9 @@
-﻿.seat-selector {
+﻿@seatHeightWidth: 30px;
+@seatLineHeight: 28px;
+@disabled: #eee;
+@selected: #19b174;
+
+.seat-selector {
 
     .ticket-summary {
         padding: 5px;
@@ -12,16 +17,17 @@
         }
 
         .ticket-legend {
-            width: 30px;
-            height: 30px;
+            width: @seatHeightWidth;
+            height: @seatHeightWidth;
             border-radius: 10%;
-            background-color: #eee;
+            background-color: @disabled;
             display: inline-block;
             text-align: center;
             vertical-align: middle;
 
             i {
                 margin: auto;
+                line-height: @seatLineHeight;
             }
         }
 
@@ -32,11 +38,32 @@
     }
 
     .venue-layout {
-        .seats-row {
+        border: 1px solid #eee;
+        margin-top: 20px;
+
+        .row-col {
+            padding: 10px 0;
+        }
+
+        .seats-col {
             text-align: center;
+            padding: 5px 0;
 
-            .seat{
+            .seat {
+                border: 1px solid @disabled;
+                height: 50px;
+                width: 50px;
+                border-radius: 10px;
+                margin: auto;
+                display: inline-block;
+                text-align: center;
+                padding: 15px 0;
+                cursor: pointer;
+                background-color: @disabled;
 
+                &.selected {
+                    border: 2px solid @selected;
+                }
             }
         }
     }

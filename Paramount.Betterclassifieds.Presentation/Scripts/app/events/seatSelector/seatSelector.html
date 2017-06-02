@@ -50,4 +50,42 @@
 
     </div>
 
+
+    <div class="selected-items top-buffer-20" data-bind="visible: selectedSeats().length > 0">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Selected Items:</h3>
+
+                <div class="list-group" data-bind="foreach: selectedSeats">
+                    <div class="list-group-item" data-bind="style: style">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <i class="fa fa-ticket"></i>
+                                <span data-bind="text: ticketName"></span>
+                                <span class="label label-info" data-bind="text: seatNumber"></span>
+                                <span class="label label-default" data-bind="text: price"></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-default" data-bind="click: $parent.removeTicket">
+                                    <i class="fa fa-times"></i> Remove 
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-3 col-md-offset-9">
+                <button class="btn btn-primary btn-block">Proceed with selection</button>
+            </div>
+        </div>
+
+
+    </div>
+
 </div>

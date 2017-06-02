@@ -6,7 +6,8 @@
         me.seatNumber = ko.observable(data.seatNumber);
         me.available = ko.observable(data.available || false);
         me.selected = ko.observable(data.selected || false);
-        me.ticket = ko.observable(new $p.models.EventTicket(data.eventTicket));
+        me.ticketName = ko.observable(data.eventTicket.ticketName);
+        me.price = $p.formatCurrency(data.eventTicket.price);
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
     }
 
@@ -42,6 +43,11 @@
             seat.selected(!seat.selected());
         }
 
+        me.removeTicket = function (seat) {
+            me.selectedSeats.remove(seat);
+            seat.selected(false);
+        }
+
         me.bookSeats = function () {
             // Todo - post to the book tickets endpoint
         }
@@ -50,8 +56,6 @@
         eventService.getEventSeating(params.eventId).then(loadSeating);
 
         function loadSeating(seatingResponse) {
-
-            console.log(seatingResponse);
 
             _.each(seatingResponse.tickets, function (t) {
                 me.tickets.push({
@@ -67,7 +71,7 @@
             });
         }
 
-        
+
     }
 
     ko.components.register('seat-selector', {

@@ -8,6 +8,7 @@
         me.selected = ko.observable(data.selected || false);
         me.ticketName = data.eventTicket.ticketName;
         me.price = $p.formatCurrency(data.eventTicket.price);
+        me.ticket = new $p.models.EventTicket(data.eventTicket);
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
     }
 
@@ -33,7 +34,6 @@
                 return;
             }
 
-            // Toggle
             if (_.includes(me.selectedSeats(), seat)) {
                 me.selectedSeats.remove(seat);
             } else {
@@ -48,11 +48,25 @@
             seat.selected(false);
         }
 
-        me.bookSeats = function () {
-            // Todo - post to the book tickets endpoint
+        me.bookSeats = function (model, event) {
+            if (me.selectedSeats().length > 0) {
+                var tickets = [];
+                _.each(me.selectedSeats(), function (s) {
+                    var ticketData = ko.toJS(s.ticket);
+                    ticketData.seatNumber = s.seatNumber();
+                    ticketData.selectedQuantity = 1;
+                    tickets.push(ticketData);
+                });
+
+                var order = {
+                    eventId: me.eventId(),
+                    tickets: tickets
+                }
+
+                eventService.startTicketOrder(order);
+            }
         }
 
-        // Load the venue details
         eventService.getEventSeating(params.eventId).then(loadSeating);
 
         function loadSeating(seatingResponse) {
@@ -70,8 +84,6 @@
                 me.rows.push(new Row(r));
             });
         }
-
-
     }
 
     ko.components.register('seat-selector', {

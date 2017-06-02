@@ -20,5 +20,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [Required]
         public int SelectedQuantity { get; set; }
         public int? EventGroupId { get; set; }
+        public string SeatNumber { get; set; }
     }
 }

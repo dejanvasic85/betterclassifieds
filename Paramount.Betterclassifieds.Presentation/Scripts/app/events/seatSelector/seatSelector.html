@@ -11,7 +11,7 @@
             </div>
         </div>
         <!-- ko foreach: tickets-->
-        <div class="col-sm-4"> 
+        <div class="col-sm-4">
             <div class="ticket-summary">
                 <span></span>
                 <div class="ticket-legend" data-bind="style: style">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <button class="btn btn-default" data-bind="click: $parent.removeTicket">
-                                    <i class="fa fa-times"></i> Remove 
+                                    <i class="fa fa-times"></i> Remove
                                 </button>
                             </div>
                         </div>
@@ -81,7 +81,10 @@
 
         <div class="row">
             <div class="col-xs-12 col-md-3 col-md-offset-9">
-                <button class="btn btn-primary btn-block">Proceed with selection</button>
+                <button class="btn btn-success btn-block js-load" data-bind="click: bookSeats">
+                    Proceed
+                    <i class="fa fa-arrow-circle-right"></i>
+                </button>
             </div>
         </div>
 

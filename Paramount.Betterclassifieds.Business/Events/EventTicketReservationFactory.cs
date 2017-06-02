@@ -5,8 +5,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public interface IEventTicketReservationFactory
     {
-        IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId);
-        EventTicketReservation CreateReservation(string sessionId, int? eventGroupId, EventTicket eventTicket);
+        IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber);
+        EventTicketReservation CreateReservation(string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket);
         EventTicketReservation CreateFreeReservation(string sessionId, int? eventGroupId, EventTicket eventTicket);
     }
 
@@ -25,19 +25,19 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventManager = eventManager;
         }
 
-        public IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId)
+        public IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId, includeReservations: true);
 
             for (int i = 0; i < quantity; i++)
             {
-                var reservation = CreateReservation(sessionId, eventGroupId, eventTicket);
+                var reservation = CreateReservation(sessionId, eventGroupId, seatNumber, eventTicket);
 
                 yield return reservation;
             }
         }
 
-        public EventTicketReservation CreateReservation( string sessionId, int? eventGroupId, EventTicket eventTicket)
+        public EventTicketReservation CreateReservation( string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket)
         {
             var calculator = new TicketFeeCalculator(_clientConfig);
             var ticketPrice = calculator.GetTotalTicketPrice(eventTicket);
@@ -46,7 +46,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             var reservation = Create(sessionId, eventGroupId, eventTicket);
             reservation.Price = ticketPrice.OriginalPrice;
             reservation.TransactionFee = eventDetails.IncludeTransactionFee.GetValueOrDefault() ? ticketPrice.Fee : 0;
-            
+            reservation.SeatNumber = seatNumber;
+
             return reservation;
         }
 

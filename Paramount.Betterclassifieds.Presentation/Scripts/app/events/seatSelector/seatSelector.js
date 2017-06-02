@@ -6,7 +6,7 @@
         me.seatNumber = ko.observable(data.seatNumber);
         me.available = ko.observable(data.available || false);
         me.selected = ko.observable(data.selected || false);
-        me.ticketName = ko.observable(data.eventTicket.ticketName);
+        me.ticketName = data.eventTicket.ticketName;
         me.price = $p.formatCurrency(data.eventTicket.price);
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
     }

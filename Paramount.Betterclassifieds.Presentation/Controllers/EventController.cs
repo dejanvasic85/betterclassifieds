@@ -47,9 +47,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var guestList = _eventGuestService.GetPublicGuestNames(eventModel.EventId);
 
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
-
+            
             var eventViewModel = new EventViewDetailsModel(_httpContext,
-                Url, onlineAdModel, eventModel, _clientConfig, guestList.Select(g => g.GuestName).ToArray());
+                Url, onlineAdModel, eventModel, _clientConfig, guestList.Select(g => g.GuestName).ToArray(),
+                _eventBookingContext.OrderRequestId);
 
             return View(eventViewModel);
         }
@@ -87,8 +88,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventBookingContext.Clear();
             _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
-
+            
             var sessionId = _httpContext.With(s => s.Session).SessionID;
+            _eventBookingContext.OrderRequestId = sessionId;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
             {

@@ -102,8 +102,14 @@
         return emailFuncs;
     }
 
-    EventService.prototype.getEventSeating = function (id) {
-        return $paramount.httpGet(this.baseUrl + 'api/events/' + id + '/seating');
+    EventService.prototype.getEventSeating = function (id, orderRequestId) {
+        var uri = this.baseUrl + 'api/events/' + id + '/seating';
+
+        if (orderRequestId && orderRequestId.length > 0) {
+            uri += "/" + orderRequestId;
+        }
+        
+        return $paramount.httpGet(uri);
     }
 
     $paramount.EventService = EventService;

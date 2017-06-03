@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public interface IEventSeatingService
     {
-        IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string sessionId);
+        IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string requestId);
     }
 
     public class EventSeatingService : IEventSeatingService
@@ -17,11 +17,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             _repository = repository;
         }
 
-        public IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string sessionId)
+        public IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string requestId)
         {
             var reservations = _repository.GetCurrentReservationsForEvent(eventId)
                 .Where(r => r.Status == EventTicketReservationStatus.Reserved)
-                .Where(r => r.SessionId != sessionId);
+                .Where(r => r.SessionId != requestId);
 
             var seats = _repository.GetEventSeats(eventId).ToDictionary(s => s.SeatNumber);
 

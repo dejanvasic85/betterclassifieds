@@ -137,7 +137,7 @@
 
                 @if (Model.DisplaySeating)
                 {
-                    <seat-selector params="eventId: @Model.EventId"></seat-selector>
+                    <seat-selector params="eventId: @Model.EventId, orderRequestId: '@Model.OrderRequestId'"></seat-selector>
                 }
             </div>
 

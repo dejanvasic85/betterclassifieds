@@ -67,7 +67,7 @@
             }
         }
 
-        eventService.getEventSeating(params.eventId).then(loadSeating);
+        eventService.getEventSeating(params.eventId, params.orderRequestId).then(loadSeating);
 
         function loadSeating(seatingResponse) {
 

@@ -20,7 +20,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         }
 
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, string[] guestList)
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, 
+            AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, 
+            string[] guestList, string orderRequestId)
         {
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
@@ -60,6 +62,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             // Build the guest list
             TotalGuests = guestList.Length;
             Guests = guestList.Take(6).ToList();
+
+            OrderRequestId = orderRequestId;
         }
 
         public DateTime EventEndDate { get; set; }
@@ -105,6 +109,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool DisplayTicketing => !this.IsSeatedEvent && this.TicketingEnabled;
 
         public bool DisplaySeating => this.IsSeatedEvent;
+
+        public string OrderRequestId { get; set; }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

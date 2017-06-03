@@ -9,6 +9,7 @@
         long? EventInvitationId { get; set; }
         bool EventBookingComplete { get; set; }
         string EventUrl { get; set; }
+        string OrderRequestId { get; set; }
         void Clear();
     }
 
@@ -24,6 +25,7 @@
         public long? EventInvitationId { get; set; }
         public bool EventBookingComplete { get; set; }
         public string EventUrl { get; set; }
+        public string OrderRequestId { get; set; } // Previously known as sessionId
 
         public void Clear()
         {
@@ -32,7 +34,8 @@
             EventBookingPaymentReference = null;
             EventBookingComplete = false;
             Purchaser = null;
-            EventInvitationId = null; 
+            EventInvitationId = null;
+            OrderRequestId = null;
         }
     }
 }

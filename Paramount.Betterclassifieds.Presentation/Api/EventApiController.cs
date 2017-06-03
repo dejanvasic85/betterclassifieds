@@ -19,16 +19,14 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly IUserManager _userManager;
         private readonly IEventGuestService _eventGuestService;
         private readonly IEventSeatingService _eventSeatingService;
-        private readonly HttpContextBase _httpContextBase; // Todo - remove this dependency
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, HttpContextBase httpContextBase)
+        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
             _eventGuestService = eventGuestService;
             _eventSeatingService = eventSeatingService;
-            _httpContextBase = httpContextBase;
         }
 
         [Route("")]
@@ -146,15 +144,20 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}/seating")]
         public IHttpActionResult GetEventSeating(int id)
         {
+            return GetEventSeatingForRequest(id, string.Empty);
+        }
+
+        [Route("{id:int}/seating/{requestId}")]
+        public IHttpActionResult GetEventSeatingForRequest(int id, string requestId)
+        {
             var eventDetails = _eventManager.GetEventDetails(id);
             if (!eventDetails.IsSeatedEvent.GetValueOrDefault())
             {
                 return Ok(new EventSeatingContract { VenueName = eventDetails.VenueName });
             }
-
-            var sessionId = _httpContextBase.With(h => h.Session).With(s => s.SessionID);
+            
             var tickets = eventDetails.Tickets.Where(t => t.IsActive);
-            var seats = _eventSeatingService.GetSeatsForEvent(id, sessionId);
+            var seats = _eventSeatingService.GetSeatsForEvent(id, requestId);
 
             var factory = new EventSeatingContractFactory();
 

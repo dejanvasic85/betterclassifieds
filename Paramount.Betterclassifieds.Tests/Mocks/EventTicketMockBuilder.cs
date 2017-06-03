@@ -5,6 +5,7 @@
         public EventTicketMockBuilder Default()
         {
             return WithEventId(123)
+                .WithIsActive(true)
                 .WithEventTicketId(1000)
                 .WithPrice(10)
                 .WithAvailableQuantity(100)

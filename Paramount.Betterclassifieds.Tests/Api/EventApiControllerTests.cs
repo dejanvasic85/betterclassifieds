@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         private Mock<ISearchService> _mockSearchService;
         private Mock<IUserManager> _mockUserManager;
         private Mock<IEventGuestService> _mockEventGuestService;
+        private Mock<IEventSeatingService> _mockEventSeatingService;
 
         [SetUp]
         public void SetupDependencies()
@@ -29,6 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockSearchService = CreateMockOf<ISearchService>();
             _mockUserManager = CreateMockOf<IUserManager>();
             _mockEventGuestService = CreateMockOf<IEventGuestService>();
+            _mockEventSeatingService = CreateMockOf<IEventSeatingService>();
         }
 
         [Test]
@@ -262,6 +264,59 @@ namespace Paramount.Betterclassifieds.Tests.Api
 
         }
 
+        [Test]
+        public void GetEventSeatingForRequest_EventHasNoSeating_ReturnsEmptyList()
+        {
+            var eventId = 1;
+            var mockEvent = new EventModelMockBuilder()
+                .WithIsSeatedEvent(false)
+                .WithVenueName("Venue Gala").Default().Build();
 
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(eventId), mockEvent);
+
+            var result = BuildTargetObject().GetEventSeatingForRequest(eventId, string.Empty);
+
+            var eventSeating = result.IsTypeOf<OkNegotiatedContentResult<EventSeatingContract>>();
+
+            eventSeating.Content.IsNotNull();
+            eventSeating.Content.VenueName.IsEqualTo("Venue Gala");
+        }
+
+        [Test]
+        [Ignore]
+        public void GetEventSeatingForRequest_HasSeating_ReturnsList()
+        {
+            var eventId = 1;
+            var requestId = "requestId";
+
+            var mockTicket = new EventTicketMockBuilder().Default().Build();
+
+            var mockEvent = new EventModelMockBuilder()
+                .WithIsSeatedEvent(true)
+                .WithVenueName("Venue Gala")
+                .WithTickets(new [] {mockTicket})
+                .Default()
+                .Build();
+
+            var mockEventSeatBooking = new EventSeatBookingMockBuilder()
+                .WithRowNumber("A")
+                .WithSeatNumber("A1")
+                .WithEventTicketId(mockTicket.EventTicketId)
+                .Build();
+
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(eventId), mockEvent);
+            _mockEventSeatingService.SetupWithVerification(call => call.GetSeatsForEvent(
+                It.Is<int>(e => e == eventId),
+                It.Is<string>(r => r == requestId)), result: new [] {mockEventSeatBooking});
+
+            var result = BuildTargetObject().GetEventSeatingForRequest(eventId, requestId);
+
+            var eventSeating = result.IsTypeOf<OkNegotiatedContentResult<EventSeatingContract>>();
+
+            eventSeating.Content.IsNotNull();
+            eventSeating.Content.VenueName.IsEqualTo("Venue Gala");
+            eventSeating.Content.Rows.ElementAt(0).RowName.IsEqualTo("A");
+            eventSeating.Content.Rows.ElementAt(0).Seats.Single().SeatNumber.IsEqualTo("A1");
+        }
     }
 }

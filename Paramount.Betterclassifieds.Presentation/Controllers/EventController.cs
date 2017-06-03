@@ -82,7 +82,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
             {
-                ModelState.AddModelError("Tickets", "The requested ticket quantity is no longer available. Please reload the page and try again.");
+                ModelState.AddModelError("Tickets", "The requested ticket(s) are longer available. Please reload the page and try again.");
                 return JsonModelErrors();
             }
 

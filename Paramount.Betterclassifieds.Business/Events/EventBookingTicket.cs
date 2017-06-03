@@ -33,5 +33,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public Guid? BarcodeImageDocumentId { get; set; }
         public Guid? TicketDocumentId { get; set; }
         public bool IsPublic { get; set; }
+        public string SeatNumber { get; set; }
     }
 }

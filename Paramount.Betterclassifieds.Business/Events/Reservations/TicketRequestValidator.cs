@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
             var ticketRequests = CreateTicketRequests(requests).ToArray();
 
             return groupRequests.All(groupRule.IsSatisfiedBy) && ticketRequests.All(t => ticketRule.IsSatisfiedBy(t));
-        }
+        }   
 
         private IEnumerable<GroupRequest> CreateGroupRequests(IEnumerable<TicketReservationRequest> requests)
         {

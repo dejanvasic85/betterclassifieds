@@ -50,7 +50,7 @@
 
         @*Tickets and form*@
         <div class="row">
-            <div class="col-sm-8 book-tickets-form">
+            <div class="col-sm-12 book-tickets-form">
 
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
@@ -67,46 +67,56 @@
 
                     <div class="event-ticket">
                         <div class="row">
-                            @{
-                                var detailClass = Model.EventPhoto.HasValue() ? "col-xs-10" : "col-xs-12";
-                            }
-                            @if (Model.EventPhoto.HasValue())
-                            {
-                                <div class="col-xs-2">
-                                    <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)" />
-                                </div>
-                            }
-                            <div class="@detailClass">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h3>@Model.Title</h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <label class="ticket-label">
-                                            <i class="fa fa-ticket"></i> Ticket
-                                        </label>
-                                        <span data-bind="text: ticketTypeAndPrice"></span>
-                                    </div>
-
-                                    <div class="col-xs-12" data-bind="visible: eventGroupName() !== undefined">
-                                        <label class="ticket-label">
-                                            <i class="fa fa-users"></i> Group
-                                        </label>
-                                        <span data-bind="text: eventGroupName"></span>
-                                    </div>
-
-                                    <div class="col-xs-12">
-                                        <label class="ticket-label">
-                                            <i class="fa fa-map-marker"></i> Address
-                                        </label>
-                                        <span>@Model.Location</span>
-                                    </div>
-                                </div>
+                            <div class="col-xs-12">
+                                <h3>@Model.Title</h3>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <label class="ticket-label">
+                                    <i class="fa fa-ticket"></i> Ticket
+                                </label>
+                            </div>
+                            <div class="col-xs-9 col-md-8">
+                                <span data-bind="text: ticketTypeAndPrice"></span>
+                            </div>
+                        </div>
+
+                        <div class="row" data-bind="visible: seatNumber() !== undefined">
+                            <div class="col-xs-3 col-md-2">
+                                <label class="ticket-label">
+                                    <i class="fa fa-user"></i> Seat
+                                    <span class="hidden-xs">Number</span>
+                                </label>
+                            </div>
+                            <div class="col-xs-9 col-md-8">
+                                <span data-bind="text: seatNumber"></span>
+                            </div>
+                        </div>
+
+                        <div class="row" data-bind="visible: eventGroupName() !== undefined">
+                            <div class="col-xs-3 col-md-2">
+                                <label class="ticket-label">
+                                    <i class="fa fa-users"></i> Group
+                                </label>
+                            </div>
+                            <div class="col-xs-9 col-md-8">
+                                <span data-bind="text: eventGroupName"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <label class="ticket-label">
+                                    <i class="fa fa-map-marker"></i> Address
+                                </label>
+                            </div>
+                            <div class="col-xs-9 col-md-8">
+                                <span>@Model.Location</span>
+                            </div>
+                        </div>
+
+                        <div class="row top-buffer-10">
                             <div class="col-sm-6">
                                 <div class="control-group" data-bind="validationElement: guestFullName">
                                     <label class="control-label">Guest Full Name</label> *
@@ -151,12 +161,6 @@
 
             </div>
 
-            <div class="col-sm-4 hidden-xs">
-                <div class="bs-callout bs-callout-info">
-                    <h4><i class="fa fa-list-alt"></i>&nbsp; @Model.Title</h4>
-                </div>
-                <p>@Html.Raw(Model.Description)</p>
-            </div>
         </div>
 
 

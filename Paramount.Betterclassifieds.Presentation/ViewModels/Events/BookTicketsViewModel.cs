@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             Description = AdText.FromHtmlEncoded(onlineAdModel.HtmlText).HtmlTextEncoded;
             CategoryAdType = onlineAdModel.CategoryAdType;
             EventPhoto = onlineAdModel.PrimaryImage;
-            Location = eventDetails.Location;
+            Location = eventDetails.LocationWithoutAustralia;
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
             SendEmailToGuests = true;

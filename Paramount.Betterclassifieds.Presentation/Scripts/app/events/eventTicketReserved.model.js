@@ -18,6 +18,7 @@
         me.eventGroupName = ko.observable();
         me.isPublic = ko.observable();
         me.displayGuests = ko.observable();
+        me.seatNumber = ko.observable();
 
         /*
          * Computed functions
@@ -69,6 +70,7 @@
         }
         me.isPublic(data.isPublic);
         me.displayGuests(data.displayGuests);
+        me.seatNumber(data.seatNumber);
         
         /*
         * Fetch the fields required for each ticket (if any)

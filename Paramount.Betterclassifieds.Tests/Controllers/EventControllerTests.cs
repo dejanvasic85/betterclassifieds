@@ -205,6 +205,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             // arrange service calls
+            _httpContext.SetupWithVerification(call => call.Session.SessionID, "ABC");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
             _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<TicketReservationRequest[]>()), result: false);

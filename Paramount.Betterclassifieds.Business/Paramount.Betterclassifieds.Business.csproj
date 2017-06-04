@@ -86,6 +86,8 @@
     <Compile Include="Events\Organisers\IEventOrganiserService.cs" />
     <Compile Include="Events\Reservations\GroupQuantityRequestRule.cs" />
     <Compile Include="Events\Reservations\GroupRequest.cs" />
+    <Compile Include="Events\Reservations\SeatAvailabilityRule.cs" />
+    <Compile Include="Events\Reservations\SeatRequest.cs" />
     <Compile Include="Events\Reservations\TicketQuantityRequest.cs" />
     <Compile Include="Events\Reservations\TicketQuantityRequestRule.cs" />
     <Compile Include="Events\Reservations\TicketRequestValidator.cs" />

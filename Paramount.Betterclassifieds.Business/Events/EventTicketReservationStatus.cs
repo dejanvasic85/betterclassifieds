@@ -5,6 +5,7 @@
         Reserved,
         Cancelled,
         SoldOut,
-        RequestTooLarge
+        RequestTooLarge,
+        InvalidRequest
     }
 }

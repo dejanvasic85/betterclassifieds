@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? ReservationExpiryUtc { get; set; }
         
 
-        public bool IsReserved()
+        private bool IsReserved()
         {
             return ReservationExpiryUtc.HasValue;
         }
@@ -27,12 +27,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             return !IsReserved() && IsAvailableToPublic() && !IsBooked();
         }
 
-        public bool IsAvailableToPublic()
+        private bool IsAvailableToPublic()
         {
             return !NotAvailableToPublic.GetValueOrDefault();
         }
 
-        public bool IsBooked()
+        private bool IsBooked()
         {
             return EventBookingTicketId.HasValue;
         }

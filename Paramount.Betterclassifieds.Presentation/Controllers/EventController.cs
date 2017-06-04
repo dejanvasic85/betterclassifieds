@@ -60,7 +60,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var tickets = reserveTicketsViewModel.Tickets;
             var eventId = reserveTicketsViewModel.EventId;
-
+            
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
@@ -80,7 +80,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return JsonModelErrors();
             }
 
-            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
+            var orderRequestId = _httpContext.With(s => s.Session).SessionID;
+            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity, orderRequestId, t.SeatNumber)).ToArray()))
             {
                 ModelState.AddModelError("Tickets", "The requested ticket(s) are longer available. Please reload the page and try again.");
                 return JsonModelErrors();
@@ -89,20 +90,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.Clear();
             _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
             
-            var sessionId = _httpContext.With(s => s.Session).SessionID;
-            _eventBookingContext.OrderRequestId = sessionId;
+            _eventBookingContext.OrderRequestId = orderRequestId;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
             {
                 reservations.AddRange(_eventTicketReservationFactory.CreateReservations(
                     t.EventTicketId.GetValueOrDefault(),
                     t.SelectedQuantity,
-                    sessionId,
+                    orderRequestId,
                     t.EventGroupId,
                     t.SeatNumber));
             }
 
-            _eventManager.ReserveTickets(sessionId, reservations);
+            _eventManager.ReserveTickets(orderRequestId, reservations);
             return Json(new { NextUrl = Url.EventBookTickets().Build() });
         }
 

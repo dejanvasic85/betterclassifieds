@@ -306,6 +306,22 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public IEnumerable<EventSeatBooking> GetEventSeatsForTicket(int eventTicketId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventSeats.Where(s => s.EventTicketId == eventTicketId).ToList();
+            }
+        }
+
+        public EventSeatBooking GetEventSeatByTicketAndSeatNumber(int eventTicketId, string seatNumber)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventSeats.SingleOrDefault(s=> s.EventTicketId == eventTicketId && s.SeatNumber == seatNumber); 
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())

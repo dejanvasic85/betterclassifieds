@@ -100,7 +100,50 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.EventBookingTickets.Count.IsEqualTo(1);
             result.EventBookingTickets.Single().BarcodeImageDocumentId.IsNotNull();
         }
-        
+
+        [Test]
+        public void CreateEventBooking_WithReservations_AndSeatNumber_CreatesBooking()
+        {
+            // arrange
+            var mockUser = new ApplicationUserMockBuilder().Build();
+            var mockTicket = new EventTicketMockBuilder().WithEventTicketId(1000).Default().Build();
+
+            var mockReservations = new List<EventTicketReservation>
+            {
+                new EventTicketReservation
+                {
+                    Quantity = 1,
+                    EventTicketId = 1000,
+                    GuestEmail = "foo@bar.com",
+                    GuestFullName = "Foo Bar" ,
+                    Status = EventTicketReservationStatus.Reserved,
+                    SeatNumber = "123"
+                }
+            };
+
+            _dateServiceMock.SetupNow().SetupNowUtc();
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), mockTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            _barcodeGenerator.SetupWithVerification(call => call.CreateQr(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), result: new byte[0]);
+            _eventBarcodeValidator.SetupWithVerification(call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "111-222-333");
+            _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
+            _eventSeatingService.SetupWithVerification(call => call.BookSeat(
+                It.Is<int>(t => t == 1000),
+                It.IsAny<int>(),
+                It.Is<string>(s => s == "123")));
+
+            // act
+            var manager = BuildTargetObject();
+
+            var result = manager.CreateEventBooking(10, mockUser, mockReservations, barcode => $"http://localhost/barcode/{barcode}");
+
+            result.IsNotNull();
+            result.EventBookingTickets.Count.IsEqualTo(1);
+            result.EventBookingTickets.Single().BarcodeImageDocumentId.IsNotNull();
+        }
+
         [Test]
         public void CreateEventBooking_WithEventId_AsZero_ThrowsArgException()
         {

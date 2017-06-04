@@ -154,7 +154,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonModelErrors(); ;
+                return JsonModelErrors();
             }
 
             var applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);

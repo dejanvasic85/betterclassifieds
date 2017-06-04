@@ -10,6 +10,12 @@
         me.price = $p.formatCurrency(data.eventTicket.price);
         me.ticket = new $p.models.EventTicket(data.eventTicket);
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
+        me.tooltip = ko.computed(function() {
+            if (me.available() === true) {
+                return me.seatNumber();
+            }
+            return 'Unavailable - ' + me.seatNumber();
+        });
     }
 
     function Row(data) {

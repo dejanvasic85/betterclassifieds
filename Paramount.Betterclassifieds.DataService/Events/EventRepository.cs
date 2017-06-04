@@ -314,6 +314,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventSeatBooking GetEventSeat(int eventTicketId, string seatNumber)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventSeats.SingleOrDefault(s => s.EventTicketId == eventTicketId && s.SeatNumber == seatNumber);
+            }
+        }
+
         public EventSeatBooking GetEventSeatByTicketAndSeatNumber(int eventTicketId, string seatNumber)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -538,6 +546,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventOrganisers.Attach(eventOrganiser);
                 context.Entry(eventOrganiser).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventSeat(EventSeatBooking eventSeat)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventSeats.Attach(eventSeat);
+                context.Entry(eventSeat).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

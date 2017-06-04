@@ -8,16 +8,18 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string orderRequestId);
         IEnumerable<EventSeatBooking> GetSeatsForTicket(EventTicket eventTicket, string orderRequestId);
-        void BookSeat(int eventId, int eventBookingTicketId, string seatNumber);
+        void BookSeat(int eventTicketId, int eventBookingTicketId, string seatNumber);
     }
 
     public class EventSeatingService : IEventSeatingService
     {
         private readonly IEventRepository _repository;
+        private readonly ILogService _logService;
 
-        public EventSeatingService(IEventRepository repository)
+        public EventSeatingService(IEventRepository repository, ILogService logService)
         {
             _repository = repository;
+            _logService = logService;
         }
 
         public IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string orderRequestId)
@@ -32,9 +34,15 @@ namespace Paramount.Betterclassifieds.Business.Events
                 () => _repository.GetEventSeatsForTicket(eventTicket.EventTicketId.GetValueOrDefault()));
         }
 
-        public void BookSeat(int eventId, int eventBookingTicketId, string seatNumber)
+        public void BookSeat(int eventTicketId, int eventBookingTicketId, string seatNumber)
         {
-            throw new NotImplementedException();
+            _logService.Info($"Booking seat [{seatNumber}] for eventTicketId [{eventTicketId}] eventBookingTicketID [{eventBookingTicketId}]");
+
+            var eventSeat = _repository.GetEventSeat(eventTicketId, seatNumber);
+
+            eventSeat.EventBookingTicketId = eventBookingTicketId;
+
+            _repository.UpdateEventSeat(eventSeat);
         }
 
         private IEnumerable<EventSeatBooking> SeatFetchMediator(int eventId, string orderRequestId, Func<IEnumerable<EventSeatBooking>> fetcher)

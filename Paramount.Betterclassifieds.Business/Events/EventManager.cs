@@ -213,10 +213,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                     CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
                     _logService.Info($"EventBooking created successfully. EventBookingId {eventBooking.EventBookingId}");
 
-                    //if (ticket.SeatNumber.HasValue())
-                    //{
-                    //    _eventSeatingService.BookSeat(eventId, ticket.EventBookingId, ticket.SeatNumber);
-                    //}
+                    if (ticket.SeatNumber.HasValue())
+                    {
+                        _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
+                    }
                 }
                 catch (Exception ex)
                 {

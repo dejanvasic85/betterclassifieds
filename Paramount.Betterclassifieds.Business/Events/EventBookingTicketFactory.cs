@@ -38,6 +38,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     GuestFullName = reservation.GuestFullName,
                     EventGroupId = reservation.EventGroupId,
                     IsPublic = reservation.IsPublic,
+                    SeatNumber = reservation.SeatNumber,
                     TicketFieldValues = reservation?.TicketFields?
                         .Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue })?
                         .ToList()
@@ -64,6 +65,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TicketName = currentTicket.TicketName,
                 TotalPrice = currentTicket.TotalPrice,
                 TransactionFee = currentTicket.TransactionFee,
+                SeatNumber = currentTicket.SeatNumber,
 
                 // New 
                 GuestEmail = guestEmail,

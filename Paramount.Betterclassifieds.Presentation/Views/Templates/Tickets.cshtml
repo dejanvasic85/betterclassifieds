@@ -57,6 +57,17 @@
                                     <span class="detail">@tick.GroupName</span>
                                 </div>
                             }
+                            
+                            @if (tick.SeatNumber.HasValue())
+                            {
+                                <div class="col-xs-6">
+                                    <label>
+                                        <i class="fa fa-list-ol"></i> Seat No:
+                                    </label>
+                                    <span class="detail">@tick.SeatNumber</span>
+                                </div>
+                            }
+
 
                             <div class="col-xs-6">
 

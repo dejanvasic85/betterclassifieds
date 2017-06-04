@@ -29,5 +29,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestEmail { get; set; }
         public string BrandName { get; set; }
         public string BrandUrl { get; set; }
+        public string SeatNumber { get; set; }
     }
 }

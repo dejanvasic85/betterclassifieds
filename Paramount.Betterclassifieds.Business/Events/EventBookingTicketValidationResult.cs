@@ -45,8 +45,14 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public static EventBookingTicketValidationResult Success(EventModel eventModel, EventBookingTicket eventBookingTicket)
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Success, 
-                $"SUCCESS: Customer name [{eventBookingTicket.GuestFullName}] - Ticket [{eventBookingTicket.TicketName}]");
+            var msg = $"SUCCESS: Customer name [{eventBookingTicket.GuestFullName}] - Ticket [{eventBookingTicket.TicketName}]";
+
+            if (eventBookingTicket.SeatNumber.HasValue())
+            {
+                msg += $" - Seat [{eventBookingTicket.SeatNumber}]";
+            }
+
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Success, msg);
         }
     }
 }

@@ -4,13 +4,13 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
 {
     public class SeatRequest
     {
-        public SeatRequest(string desiredSeatNumber, IEnumerable<EventSeatBooking> reservedSeats)
+        public SeatRequest(string desiredSeatNumber, IEnumerable<EventSeatBooking> seatsForDesiredTicketType)
         {
             DesiredSeatNumber = desiredSeatNumber;
-            ReservedSeats = reservedSeats;
+            SeatsForDesiredTicketType = seatsForDesiredTicketType;
         }
 
         public string DesiredSeatNumber { get; }
-        public IEnumerable<EventSeatBooking> ReservedSeats { get; }
+        public IEnumerable<EventSeatBooking> SeatsForDesiredTicketType { get; }
     }
 }

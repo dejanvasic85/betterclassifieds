@@ -6,7 +6,10 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
     {
         public RuleResult<EventTicketReservationStatus> IsSatisfiedBy(SeatRequest target)
         {
-            var seat = target.ReservedSeats.FirstOrDefault(s => s.SeatNumber == target.DesiredSeatNumber);
+            Guard.NotNull(target);
+            Guard.NotNullIn(target.DesiredSeatNumber, target.DesiredSeatNumber);
+
+            var seat = target.SeatsForDesiredTicketType.FirstOrDefault(s => s.SeatNumber == target.DesiredSeatNumber);
             var ruleResult = new RuleResult<EventTicketReservationStatus>();
 
             if (seat == null)
@@ -15,7 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
                 ruleResult.Result = EventTicketReservationStatus.InvalidRequest;
                 return ruleResult;
             }
-            
+
 
             if (seat.IsAvailable())
             {

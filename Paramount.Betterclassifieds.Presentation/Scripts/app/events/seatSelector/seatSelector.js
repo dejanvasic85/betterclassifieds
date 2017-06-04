@@ -49,6 +49,9 @@
         }
 
         me.bookSeats = function (model, event) {
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
             if (me.selectedSeats().length > 0) {
                 var tickets = [];
                 _.each(me.selectedSeats(), function (s) {

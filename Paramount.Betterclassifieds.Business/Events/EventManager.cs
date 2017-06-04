@@ -21,8 +21,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IEventBarcodeValidator _eventBarcodeValidator;
         private readonly IBarcodeGenerator _barcodeGenerator;
         private readonly ILogService _logService;
+        private readonly IEventSeatingService _eventSeatingService;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeValidator eventBarcodeValidator, IBarcodeGenerator barcodeGenerator, ILogService logService)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeValidator eventBarcodeValidator, IBarcodeGenerator barcodeGenerator, ILogService logService, IEventSeatingService eventSeatingService)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -34,6 +35,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventBarcodeValidator = eventBarcodeValidator;
             _barcodeGenerator = barcodeGenerator;
             _logService = logService;
+            _eventSeatingService = eventSeatingService;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -98,8 +100,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             // Now we have the id so we need to generate the barcode
             CreateTicketBarcodeAndUpdate(eventBooking, newEventBookingTicket, barcodeUrlCreator);
-
-
+            
             // We always mark the existing event booking ticket as inactive and simply create a new one
             // But we also need to reset the cost of the ticket!
             eventBookingTicket.IsActive = false;
@@ -210,10 +211,16 @@ namespace Paramount.Betterclassifieds.Business.Events
                 {
                     _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
                     CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
+                    _logService.Info($"EventBooking created successfully. EventBookingId {eventBooking.EventBookingId}");
+
+                    //if (ticket.SeatNumber.HasValue())
+                    //{
+                    //    _eventSeatingService.BookSeat(eventId, ticket.EventBookingId, ticket.SeatNumber);
+                    //}
                 }
                 catch (Exception ex)
                 {
-                    _logService.Error("Unable to generate barcode for ticket " + ticket.EventBookingTicketId, ex);
+                    _logService.Error("Unable to create ticket and generate barcode " + ticket.EventBookingTicketId, ex);
                     throw;
                 }
             });

@@ -8,6 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string orderRequestId);
         IEnumerable<EventSeatBooking> GetSeatsForTicket(EventTicket eventTicket, string orderRequestId);
+        void BookSeat(int eventId, int eventBookingTicketId, string seatNumber);
     }
 
     public class EventSeatingService : IEventSeatingService
@@ -29,6 +30,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             return SeatFetchMediator(eventTicket.EventId.GetValueOrDefault(), orderRequestId,
                 () => _repository.GetEventSeatsForTicket(eventTicket.EventTicketId.GetValueOrDefault()));
+        }
+
+        public void BookSeat(int eventId, int eventBookingTicketId, string seatNumber)
+        {
+            throw new NotImplementedException();
         }
 
         private IEnumerable<EventSeatBooking> SeatFetchMediator(int eventId, string orderRequestId, Func<IEnumerable<EventSeatBooking>> fetcher)

@@ -40,6 +40,11 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             var eventSeat = _repository.GetEventSeat(eventTicketId, seatNumber);
 
+            if (eventSeat == null)
+            {
+                throw new NullReferenceException($"Event seat cannot be found for ticket id [{eventTicketId}] seat Number [{seatNumber}]");
+            }
+
             eventSeat.EventBookingTicketId = eventBookingTicketId;
 
             _repository.UpdateEventSeat(eventSeat);

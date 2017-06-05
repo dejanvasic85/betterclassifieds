@@ -1,4 +1,4 @@
-﻿(function ($, ko, $p, eventService) {
+﻿(function ($, ko, $p, eventService, notifier) {
 
     function Seat(data) {
         var me = this;
@@ -43,6 +43,12 @@
             if (_.includes(me.selectedSeats(), seat)) {
                 me.selectedSeats.remove(seat);
             } else {
+
+                if (me.selectedSeats().length >= params.maxSeats) {
+                    notifier.info('You have reached your maximum selection of ' + params.maxSeats + ' seats.');
+                    return;
+                }
+
                 me.selectedSeats.push(seat);
             }
 
@@ -102,4 +108,4 @@
         }
     });
 
-})(jQuery, ko, $paramount, new $paramount.EventService());
+})(jQuery, ko, $paramount, new $paramount.EventService(), toastr);

@@ -13,8 +13,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
         private Mock<IEventRepository> _mockEventRepository;
         private Mock<ILogService> _mockLogService;
-
-
+        
         [SetUp]
         public void SetupDependencies()
         {

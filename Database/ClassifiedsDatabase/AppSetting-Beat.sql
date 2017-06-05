@@ -34,7 +34,7 @@ execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '14318316251331
 execute temp_createAppSetting @Key = 'Security.EnableRegistrationEmailVerification', @Setting = 'false', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'Beat', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
-execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
+execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '3.4', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'IsPrintEnabled', @Setting = 'False', @Force = 1

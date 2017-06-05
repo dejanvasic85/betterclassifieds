@@ -31,8 +31,8 @@ execute temp_createAppSetting @Key = 'ClientAddress', @Setting = '47 Coven,Avenu
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.827868,145.258419', @Force = 1
 execute temp_createAppSetting @Key = 'Security.EnableRegistrationEmailVerification', @Setting = 'false', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
-execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '20'
-execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '20', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
+execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '10', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.1', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927115555890', @Force = 1

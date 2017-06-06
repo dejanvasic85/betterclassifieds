@@ -103,6 +103,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithPastClosedDate()
                 .Build();
 
+            // arrange services
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
 
             var controller = BuildController();
@@ -126,7 +128,38 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithGroupsRequired(true)
                 .Build();
 
+            // arrange service calls
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
+
+            var controller = BuildController();
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
+
+            // act
+            var result = controller.ReserveTickets(vm);
+
+            // assert
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
+        public void ReserveTickets_Post_EventRequiresGroups_TooManyRequests_ReturnsJsonError()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2, EventGroupId = 100},
+                new EventTicketRequestViewModel {TicketName = "Tick3", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2, EventGroupId = 100},
+            };
+
+            var mockEventModel = new EventModelMockBuilder()
+                .WithGroupsRequired(true)
+                .Build();
+
+            // arrange service calls
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 2);
 
             var controller = BuildController();
             var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
@@ -164,6 +197,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             // arrange service calls
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
@@ -205,6 +239,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             // arrange service calls
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "ABC");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));

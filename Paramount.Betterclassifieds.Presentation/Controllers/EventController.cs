@@ -67,6 +67,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return JsonModelErrors(); 
             }
 
+            if (tickets.Count >= _clientConfig.EventMaxTicketsPerBooking)
+            {
+                ModelState.AddModelError("Tickets", $"A maximum of ${_clientConfig.EventMaxTicketsPerBooking} can be booked at a time.");
+                return JsonModelErrors();
+            }
+
             var eventModel = _eventManager.GetEventDetails(eventId);
             if (eventModel.IsClosed)
             {

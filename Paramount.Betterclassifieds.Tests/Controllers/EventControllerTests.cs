@@ -154,10 +154,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 new EventTicketRequestViewModel {TicketName = "Tick3", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2, EventGroupId = 100},
             };
 
-            var mockEventModel = new EventModelMockBuilder()
-                .WithGroupsRequired(true)
-                .Build();
-
             // arrange service calls
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 2);
 

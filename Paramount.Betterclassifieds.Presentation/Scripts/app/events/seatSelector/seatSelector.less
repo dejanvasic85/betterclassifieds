@@ -49,12 +49,16 @@
         .seat-layout {
             overflow-x: scroll;
             max-height: 500px;
+            text-align: center;
 
             .seats-row {
                 white-space: nowrap;
 
+                .row-name-col {
+                    margin-top: 10px;
+                }
+
                 .seats-col {
-                    text-align: center;
                     padding: 5px 0;
 
                     .seat {
@@ -65,7 +69,7 @@
                         margin: auto;
                         display: inline-block;
                         text-align: center;
-                        padding: 4px 0;
+                        padding: 2px 0;
                         cursor: pointer;
                         background-color: @disabled;
 

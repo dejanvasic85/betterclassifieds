@@ -46,31 +46,40 @@
             padding: 10px 0;
         }
 
-        .seats-col {
-            text-align: center;
-            padding: 5px 0;
+        .seat-layout {
+            overflow-x: scroll;
+            max-height: 500px;
 
-            .seat {
-                border: 2px solid @disabled;
-                height: @seatHeightWidth;
-                width: @seatHeightWidth;
-                border-radius: 10%;
-                margin: auto;
-                display: inline-block;
-                text-align: center;
-                padding: 4px 0;
-                cursor: pointer;
-                background-color: @disabled;
+            .seats-row {
+                white-space: nowrap;
 
-                &.selected {
-                    border: 2px solid @selected;
+                .seats-col {
+                    text-align: center;
+                    padding: 5px 0;
+
+                    .seat {
+                        border: 2px solid @disabled;
+                        height: @seatHeightWidth;
+                        width: @seatHeightWidth;
+                        border-radius: 10%;
+                        margin: auto;
+                        display: inline-block;
+                        text-align: center;
+                        padding: 4px 0;
+                        cursor: pointer;
+                        background-color: @disabled;
+
+                        &.selected {
+                            border: 2px solid @selected;
+                        }
+                    }
                 }
             }
         }
     }
 
     .selected-items {
-        .ticket-info{
+        .ticket-info {
             font-size: 1.3em;
             padding-top: 5px;
         }

@@ -1,5 +1,5 @@
 ﻿(function ($, ko, $p, eventService, notifier) {
-
+        
     function Seat(data) {
         var me = this;
         me.id = ko.observable(data.id);
@@ -80,6 +80,12 @@
 
                 eventService.startTicketOrder(order);
             }
+        }
+
+        me.seatsRenderComplete = function () {
+            var myDiv = $(".seat-layout");
+            var scrollto = myDiv.offset().left + (myDiv.width() / 2);
+            myDiv.animate({ scrollLeft: scrollto });
         }
 
         eventService.getEventSeating(params.eventId, params.orderRequestId).then(loadSeating);

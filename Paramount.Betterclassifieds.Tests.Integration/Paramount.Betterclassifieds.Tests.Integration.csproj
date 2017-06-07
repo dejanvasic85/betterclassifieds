@@ -75,6 +75,7 @@
     <Compile Include="DocumentRepositoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="MailGunIntegrationTest.cs" />
+    <Compile Include="SeatCreator.cs" />
     <Compile Include="StripeIntegrationTests.cs" />
     <Compile Include="SearchServiceIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

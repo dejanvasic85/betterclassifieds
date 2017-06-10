@@ -35,20 +35,20 @@
         <div class="seat-container">
             <div class="seat-layout" data-bind="foreach: {data: rows}">
                 <div class="seats-row">
-                    <div class="col-xs-11">
-                        <div class="seats-col" data-bind="foreach: seats">
-                            <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
-                                <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
-                                <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
-                                <i class="fa fa-times" data-bind="visible: available() === false"></i>
-                            </div>
-
+                    <div class="seats-col">
+                        <span data-bind="text: rowName"></span>
+                        <!-- ko foreach: seats -->
+                        <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
+                            <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
+                            <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
+                            <i class="fa fa-times" data-bind="visible: available() === false"></i>
                         </div>
+                        <!-- /ko -->
+                        <span data-bind="text: rowName"></span>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
 

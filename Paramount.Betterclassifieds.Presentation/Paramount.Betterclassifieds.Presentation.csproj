@@ -548,7 +548,6 @@
     <Content Include="Content\SriLankanEvents\img\hero.jpg" />
     <Content Include="Content\SriLankanEvents\img\logo-nav.png" />
     <Content Include="Content\SriLankanEvents\img\logo.png" />
-    <Content Include="Content\SriLankanEvents\img\logo-nav-1.png" />
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
     </Content>

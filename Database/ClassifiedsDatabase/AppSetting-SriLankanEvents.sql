@@ -35,7 +35,7 @@ execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Set
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.1', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
-execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '950300948385613', @Force = 1
+execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1271926712886709', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'False', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'True', @Force = 1
 execute temp_createAppSetting @Key = 'Email.FromAddress', @Setting = 'SriLankanEvents <no-reply@srilankanevents.com.au>', @Force=1

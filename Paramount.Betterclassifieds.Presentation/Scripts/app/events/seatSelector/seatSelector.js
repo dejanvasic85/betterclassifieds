@@ -34,6 +34,7 @@
         me.tickets = ko.observableArray();
         me.rows = ko.observableArray();
         me.selectedSeats = ko.observableArray();
+        me.loading = ko.observable(true);
 
         me.selectSeat = function (seat) {
             if (seat.available() === false) {
@@ -82,12 +83,10 @@
             }
         }
 
-        me.seatsRenderComplete = function () {
-            var myDiv = $(".seat-layout");
-            var scrollto = myDiv.offset().left + (myDiv.width() / 2);
-            myDiv.animate({ scrollLeft: scrollto });
+        me.seatsRenderComplete = function () {            
+            me.loading(false);
         }
-
+        
         eventService.getEventSeating(params.eventId, params.orderRequestId).then(loadSeating);
 
         function loadSeating(seatingResponse) {

@@ -1,5 +1,7 @@
 ﻿<div class="seat-selector container">
 
+    <div class="loading-overlay" data-bind="visible: loading"></div>
+
     <div class="row">
         <div class="col-sm-4">
             <div class="ticket-summary">
@@ -33,7 +35,7 @@
         </div>
 
         <div class="seat-container">
-            <div class="seat-layout" data-bind="foreach: {data: rows}">
+            <div class="seat-layout" data-bind="foreach: {data: rows, afterRender: seatsRenderComplete}">
                 <div class="seats-row">
                     <div class="seats-col">
                         <span data-bind="text: rowName"></span>

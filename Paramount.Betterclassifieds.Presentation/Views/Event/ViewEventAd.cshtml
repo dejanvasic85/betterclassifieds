@@ -74,7 +74,10 @@
 
             @if (Model.EventPhoto.HasValue())
             {
-                <div class="event-photo" style="background-image:url('@Url.Image(Model.EventPhoto, 400, 1020)')"></div>
+                @*<div class="event-photo" style="background-image:url('@Url.Image(Model.EventPhoto, 400, 1020)')"></div>*@
+                <div>
+                    <img src="@Url.ImageOriginal(Model.EventPhoto)" class="img-responsive img-rounded" style="margin: auto" />
+                </div>
             }
             <h3 class="page-header">
                 <i class="fa fa-paperclip"></i> Event Details

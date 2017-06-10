@@ -9,6 +9,7 @@ Here's a list of the latest changes:
 - [Fix - The LogEntries for all the brands](https://trello.com/c/lBjX2BAr/630-fix-the-logentries-configuration-for-themusic-and-sri-lankan-events)
 - [Fix - The facebook link for SriLankanEvents should be working now](https://trello.com/c/lBjX2BAr/630-fix-the-logentries-configuration-for-themusic-and-sri-lankan-events)
 - [Fix - Home page latest items tiles should now be an even height](https://trello.com/c/vkYRIqGi/637-home-page-tiles-should-align)
+- [Fix - The full size image on the event page should load fully now](https://trello.com/c/kH65QUKn/633-load-full-size-image-on-the-event-page-it-doesnt-look-good-with-the-a4-flyers-at-the-moment)
 
 **3.26.3**
 

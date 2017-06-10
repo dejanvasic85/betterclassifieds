@@ -551,12 +551,12 @@
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
     </Content>
-    <Content Include="Content\SriLankanEvents\Lanka.min.css">
-      <DependentUpon>Lanka.css</DependentUpon>
-    </Content>
     <Content Include="Content\Beat\img\hero-bg.jpg" />
     <Content Include="Content\Beat\img\logo.png" />
     <Content Include="Content\Beat\img\beat_favicon.ico" />
+    <Content Include="Content\SriLankanEvents\Lanka.min.css">
+      <DependentUpon>Lanka.css</DependentUpon>
+    </Content>
     <Content Include="Content\TheMusic\img\hero-bg.jpg" />
     <Content Include="Content\TheMusic\img\logo.png" />
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />

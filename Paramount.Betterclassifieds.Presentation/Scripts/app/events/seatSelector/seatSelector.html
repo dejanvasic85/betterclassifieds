@@ -32,26 +32,22 @@
             </div>
         </div>
 
-        <div class="seat-layout" data-bind="foreach: {data: rows}">
-            <div class="seats-row row">
-                <div class="col-xs-1 row-name-col" data-bind="text: rowName">
+        <div class="seat-container">
+            <div class="seat-layout" data-bind="foreach: {data: rows}">
+                <div class="seats-row">
+                    <div class="col-xs-11">
+                        <div class="seats-col" data-bind="foreach: seats">
+                            <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
+                                <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
+                                <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
+                                <i class="fa fa-times" data-bind="visible: available() === false"></i>
+                            </div>
 
-                </div>
-                <div class="col-xs-11">
-                    <div class="seats-col" data-bind="foreach: seats">
-                        <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
-                            <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
-                            <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
-                            <i class="fa fa-times" data-bind="visible: available() === false"></i>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-            <!-- /ko -->
         </div>
-
 
     </div>
 

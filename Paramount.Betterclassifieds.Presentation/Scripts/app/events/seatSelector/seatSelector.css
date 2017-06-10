@@ -30,24 +30,22 @@
   margin-top: 20px;
   padding: 20px;
 }
-.seat-selector .venue-layout .row-col {
-  padding: 10px 0;
-}
-.seat-selector .venue-layout .seat-layout {
-  overflow-x: scroll;
+.seat-selector .venue-layout .seat-container {
+  overflow-x: auto;
   max-height: 500px;
-  text-align: center;
-}
-.seat-selector .venue-layout .seat-layout .seats-row {
   white-space: nowrap;
 }
-.seat-selector .venue-layout .seat-layout .seats-row .row-name-col {
-  margin-top: 10px;
+.seat-selector .venue-layout .seat-container .seat-layout {
+  display: table;
 }
-.seat-selector .venue-layout .seat-layout .seats-row .seats-col {
+.seat-selector .venue-layout .seat-container .seat-layout .seats-row {
+  margin-top: 10px;
+  text-align: center;
+}
+.seat-selector .venue-layout .seat-container .seat-layout .seats-row .seats-col {
   padding: 5px 0;
 }
-.seat-selector .venue-layout .seat-layout .seats-row .seats-col .seat {
+.seat-selector .venue-layout .seat-container .seat-layout .seats-row .seats-col .seat {
   border: 2px solid #eee;
   height: 30px;
   width: 30px;
@@ -59,11 +57,11 @@
   cursor: pointer;
   background-color: #eee;
 }
-.seat-selector .venue-layout .seat-layout .seats-row .seats-col .seat.selected {
+.seat-selector .venue-layout .seat-container .seat-layout .seats-row .seats-col .seat.selected {
   border: 2px solid #19b174;
 }
 .seat-selector .selected-items .ticket-info {
   font-size: 1.3em;
   padding-top: 5px;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXRTZWxlY3Rvci5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUtBLGNBRUk7RUFDSSxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxxQkFBQTs7QUFMUixjQUVJLGdCQUtJO0VBQ0ksWUFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7O0FBVlosY0FFSSxnQkFXSTtFQUNJLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTtFQUNBLHFCQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTs7QUFwQlosY0FFSSxnQkFXSSxlQVNJO0VBQ0ksWUFBQTtFQUNBLGlCQUFBOztBQXhCaEIsY0FFSSxnQkEwQkk7RUFDSSxxQkFBQTtFQUNBLHNCQUFBOztBQTlCWixjQWtDSTtFQUNJLHNCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxhQUFBOztBQXJDUixjQWtDSSxjQUtJO0VBQ0ksZUFBQTs7QUF4Q1osY0FrQ0ksY0FTSTtFQUNJLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTs7QUE5Q1osY0FrQ0ksY0FTSSxhQUtJO0VBQ0ksbUJBQUE7O0FBakRoQixjQWtDSSxjQVNJLGFBS0ksV0FHSTtFQUNJLGdCQUFBOztBQXBEcEIsY0FrQ0ksY0FTSSxhQUtJLFdBT0k7RUFDSSxjQUFBOztBQXhEcEIsY0FrQ0ksY0FTSSxhQUtJLFdBT0ksV0FHSTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsY0FBQTtFQUNBLGVBQUE7RUFDQSxzQkFBQTs7QUFFQSxjQXBDcEIsY0FTSSxhQUtJLFdBT0ksV0FHSSxNQVlLO0VBQ0cseUJBQUE7O0FBdkU1QixjQStFSSxnQkFDSTtFQUNJLGdCQUFBO0VBQ0EsZ0JBQUEiLCJmaWxlIjoidW5kZWZpbmVkIn0= */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXRTZWxlY3Rvci5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUtBLGNBRUk7RUFDSSxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxxQkFBQTs7QUFMUixjQUVJLGdCQUtJO0VBQ0ksWUFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7O0FBVlosY0FFSSxnQkFXSTtFQUNJLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTtFQUNBLHFCQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTs7QUFwQlosY0FFSSxnQkFXSSxlQVNJO0VBQ0ksWUFBQTtFQUNBLGlCQUFBOztBQXhCaEIsY0FFSSxnQkEwQkk7RUFDSSxxQkFBQTtFQUNBLHNCQUFBOztBQTlCWixjQWtDSTtFQUNJLHNCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxhQUFBOztBQXJDUixjQWtDSSxjQUtJO0VBQ0ksZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLG1CQUFBOztBQTFDWixjQWtDSSxjQUtJLGdCQUtJO0VBQ0ksY0FBQTs7QUE3Q2hCLGNBa0NJLGNBS0ksZ0JBS0ksYUFHSTtFQUNJLGdCQUFBO0VBQ0Esa0JBQUE7O0FBakRwQixjQWtDSSxjQUtJLGdCQUtJLGFBR0ksV0FJSTtFQUNJLGNBQUE7O0FBcER4QixjQWtDSSxjQUtJLGdCQUtJLGFBR0ksV0FJSSxXQUdJO0VBQ0ksc0JBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0Esa0JBQUE7RUFDQSxjQUFBO0VBQ0EsZUFBQTtFQUNBLHNCQUFBOztBQUVBLGNBaEN4QixjQUtJLGdCQUtJLGFBR0ksV0FJSSxXQUdJLE1BWUs7RUFDRyx5QkFBQTs7QUFuRWhDLGNBNEVJLGdCQUNJO0VBQ0ksZ0JBQUE7RUFDQSxnQkFBQSIsImZpbGUiOiJ1bmRlZmluZWQifQ== */

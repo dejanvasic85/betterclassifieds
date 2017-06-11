@@ -17,7 +17,7 @@
         return moment(date).format($paramount.jsToServerDateFormat);
     }
 
-    $paramount.dateFromServer = function(date) {
+    $paramount.dateFromServer = function (date) {
         ///<summary>Returns a moment date object after being parsed from the server</summary>
         if (!date) {
             return null;
@@ -26,7 +26,7 @@
         return moment(date, $paramount.jsToServerDateFormat);
     }
 
-    $paramount.dateToDisplay = function(date) {
+    $paramount.dateToDisplay = function (date) {
         if (!date) {
             return '';
         }
@@ -174,7 +174,7 @@
      */
     $paramount.checkValidity = function () {
         var result = true;
-        for (var i = 0; i < arguments.length ; i++) {
+        for (var i = 0; i < arguments.length; i++) {
             var obj = arguments[i];
 
             if (obj.constructor === Array) {
@@ -223,6 +223,10 @@
             return false;
         }
         return true;
+    }
+
+    $paramount.isNullOrUndefined = function (arg) {
+        return $paramount.notNullOrUndefined(arg) === false;
     }
 
     $paramount.ko = {

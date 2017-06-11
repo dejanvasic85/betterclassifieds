@@ -76,7 +76,7 @@
                 </div>
 
                 @*Seat Number*@
-                <div class="form-group">
+                <div class="form-group" data-bind="visible: isSeatedEvent">
                     <label class="control-label">Seat Number</label>
                     <input type="text" data-bind="typeahead: seats, value: seatNumber, onItemSelected: seatSelected" class="form-control" autocomplete="off" />
                     <p class="help-block">

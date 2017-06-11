@@ -97,29 +97,6 @@
         }
     }
 
-    AddGuest.prototype.submitGuest = function (element, event) {
-        var me = this;
-        if (!$p.checkValidity(me) || !$p.checkValidity(me.ticketFields())) {
-            return;
-        }
-
-        if (me.isSeatedEvent() === true && me.seatNumber() === null || me.seatNumber() === undefined) {
-            me.guestAddWarning('Please ensure seat is selected');
-            return;
-        }
-
-        var $btn = $(event.target);
-        $btn.button('loading');
-
-        var objToSend = this.toModel(me);
-
-        var service = new $p.AdDesignService(me.id());
-        service.addGuest(objToSend).then(function () {
-            $btn.button('reset');
-            me.saved(true);
-        });
-    }
-
     AddGuest.prototype.toModel = function (vm) {
         // maps to AddEventGuestViewModel
         return {
@@ -167,6 +144,32 @@
         this.guestAddWarning('');
         this.saved(false);
         $('html, body').animate({ scrollTop: $('.add-guest-view').offset().top }, 1000);
+    }
+
+    /*
+    *   Submit 
+    */
+    AddGuest.prototype.submitGuest = function (element, event) {
+        var me = this;
+        if (!$p.checkValidity(me) || !$p.checkValidity(me.ticketFields())) {
+            return;
+        }
+
+        if (me.isSeatedEvent() === true && $p.isNullOrUndefined(me.seatNumber())) {
+            me.guestAddWarning('Please ensure seat is selected');
+            return;
+        }
+
+        var $btn = $(event.target);
+        $btn.button('loading');
+
+        var objToSend = this.toModel(me);
+
+        var service = new $p.AdDesignService(me.id());
+        service.addGuest(objToSend).then(function () {
+            $btn.button('reset');
+            me.saved(true);
+        });
     }
 
     $p.models = $p.models || {};

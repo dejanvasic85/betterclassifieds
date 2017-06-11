@@ -27,6 +27,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             CurrentGroupId = eventBookingTicket.EventGroupId;
             TicketName = eventTicket.TicketName;
             TicketPrice = eventTicket.Price;
+            TicketPurchasePrice = eventBookingTicket.TotalPrice;
+
             DisplayGuests = eventModel.DisplayGuests;
             IsPublic = eventBookingTicket.IsPublic;
 
@@ -96,6 +98,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string TicketName { get; set; }
         public decimal TicketPrice { get; set; }
+        public decimal TicketPurchasePrice { get; set; }
         public DateTime TicketPurchaseDate { get; set; }
 
         public bool SendTransferEmail { get; set; }

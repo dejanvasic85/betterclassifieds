@@ -35,15 +35,16 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             sheet.Cells[1, 2].Value = "Ticket Name";
             sheet.Cells[1, 3].Value = "Guest Email";
             sheet.Cells[1, 4].Value = "Guest Full Name";
-            sheet.Cells[1, 5].Value = "Group";
-            sheet.Cells[1, 6].Value = "Ticket Price";
-            sheet.Cells[1, 7].Value = "Booking Date";
-            sheet.Cells[1, 8].Value = "Booking Time";
+            sheet.Cells[1, 5].Value = "Seat";
+            sheet.Cells[1, 6].Value = "Group";
+            sheet.Cells[1, 7].Value = "Ticket Price";
+            sheet.Cells[1, 8].Value = "Booking Date";
+            sheet.Cells[1, 9].Value = "Booking Time";
 
             for (int i = 0; i < _eventTicketFields.Length; i++)
             {
                 var field = _eventTicketFields[i];
-                sheet.Cells[1, i + 9].Value = field.FieldName;
+                sheet.Cells[1, i + 10].Value = field.FieldName;
             }
 
             // Data rows
@@ -54,10 +55,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 sheet.Cells[dataRowIndex, 2].Value = guest.TicketName;
                 sheet.Cells[dataRowIndex, 3].Value = guest.GuestEmail;
                 sheet.Cells[dataRowIndex, 4].Value = guest.GuestFullName;
-                sheet.Cells[dataRowIndex, 5].Value = guest.GroupName;
-                sheet.Cells[dataRowIndex, 6].Value = guest.TicketTotalPrice;
-                sheet.Cells[dataRowIndex, 7].Value = guest.DateOfBooking.ToString("dd/MM/yyyy");
-                sheet.Cells[dataRowIndex, 8].Value = guest.DateOfBooking.ToString("HH:mm");
+                sheet.Cells[dataRowIndex, 5].Value = guest.SeatNumber;
+                sheet.Cells[dataRowIndex, 6].Value = guest.GroupName;
+                sheet.Cells[dataRowIndex, 7].Value = guest.TicketTotalPrice;
+                sheet.Cells[dataRowIndex, 8].Value = guest.DateOfBooking.ToString("dd/MM/yyyy");
+                sheet.Cells[dataRowIndex, 9].Value = guest.DateOfBooking.ToString("HH:mm");
 
 
                 // Print out the dynamic field (values)
@@ -66,7 +68,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                     var field = _eventTicketFields[i];
                     var guestField = guest.DynamicFields.FirstOrDefault(f => f.FieldName.Equals(field.FieldName, StringComparison.OrdinalIgnoreCase));
                     if (guestField != null)
-                        sheet.Cells[dataRowIndex, i + 9].Value = guestField.FieldValue;
+                        sheet.Cells[dataRowIndex, i + 10].Value = guestField.FieldValue;
                 }
                 dataRowIndex++;
             }

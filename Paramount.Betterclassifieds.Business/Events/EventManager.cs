@@ -373,7 +373,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 IsPublic = t.IsPublic,
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
                 DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault(),
-                GroupName = groups.SingleOrDefault(g => g.EventGroupId == t.EventGroupId)?.GroupName
+                GroupName = groups.SingleOrDefault(g => g.EventGroupId == t.EventGroupId)?.GroupName,
+                SeatNumber = t.SeatNumber
             });
         }
 

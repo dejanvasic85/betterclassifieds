@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public string GetHeader(EventGuestListViewModel guest)
         {
-            var builder = new StringBuilder($"Ticket Number,Ticket Name,Guest Email,Guest Full Name,Group,Ticket Price,Booking Date, Booking Time");
+            var builder = new StringBuilder($"Ticket Number,Ticket Name,Guest Email,Guest Full Name,Seat,Group,Ticket Price,Booking Date,Booking Time");
             
             foreach (var field in _fields)
             {
@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public string GetCsvLine(EventGuestListViewModel guest)
         {
-            var builder = new StringBuilder($"{guest.TicketNumber},{guest.TicketName},{guest.GuestEmail},{guest.GuestFullName},{guest.GroupName},{guest.TicketTotalPrice},{guest.DateOfBooking.ToString("dd/MM/yyyy")},{guest.DateOfBooking.ToString("HH:mm")}");
+            var builder = new StringBuilder($"{guest.TicketNumber},{guest.TicketName},{guest.GuestEmail},{guest.GuestFullName},{guest.SeatNumber},{guest.GroupName},{guest.TicketTotalPrice},{guest.DateOfBooking.ToString("dd/MM/yyyy")},{guest.DateOfBooking.ToString("HH:mm")}");
             
             foreach (var field in _fields)
             {

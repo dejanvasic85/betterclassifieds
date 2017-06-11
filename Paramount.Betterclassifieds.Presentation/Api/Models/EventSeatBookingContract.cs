@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Api.Models
@@ -25,7 +22,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventSeatBooking, EventSeatBookingContract>()
-                .ForMember(m => m.Available, options => options.MapFrom(src => src.IsAvailable()));
+                .ForMember(m => m.Available, options => options.MapFrom(src => src.IsAvailable()))
+                .ForMember(m => m.EventSeatId, options => options.MapFrom(src => src.EventSeatBookingId));
 
             configuration.CreateMap<EventTicket, EventTicketContract>();
         }

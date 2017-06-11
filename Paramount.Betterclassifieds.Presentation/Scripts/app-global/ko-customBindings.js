@@ -121,7 +121,9 @@
         }
     }
     
-
+    /*
+    *   Bounce in animation
+    */
     ko.bindingHandlers.bounceInDown = {
         init: function (element, valueAccessor) {
             var value = valueAccessor();
@@ -183,5 +185,36 @@
             }
         }
     };
+
+    /*
+    *   Type Ahead - https://github.com/bassjobsen/Bootstrap-3-Typeahead
+    */
+    ko.bindingHandlers.typeahead = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var $element = $(element);
+            var allBindings = allBindingsAccessor();
+            var source = ko.utils.unwrapObservable(valueAccessor());
+            var items = ko.utils.unwrapObservable(allBindings.items) || 8;
+
+            var valueChange = function (item) {
+                if (allBindings.onItemSelected) {
+                    allBindings.onItemSelected(item);
+                }
+                return item;
+            };
+
+            var options = {
+                source: source,
+                items: items,
+                updater: valueChange
+            };
+
+            $element
+                .attr('autocomplete', 'off')
+                .typeahead(options);
+        }
+    };
+
     ko.validation.makeBindingHandlerValidatable('datetime');
+    
 })(ko, jQuery);

@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TicketName = eventTicket.TicketName;
             TicketPrice = eventTicket.Price;
             TicketPurchasePrice = eventBookingTicket.TotalPrice;
+            SeatNumber = eventBookingTicket.SeatNumber;
 
             DisplayGuests = eventModel.DisplayGuests;
             IsPublic = eventBookingTicket.IsPublic;
@@ -61,6 +62,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 }).ToList();
             }
         }
+
+        public string SeatNumber { get; set; }
 
         public bool DisplayGuests { get; set; }
 

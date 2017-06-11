@@ -456,6 +456,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 Id = id,
                 EventId = eventId,
+                IsSeatedEvent = eventModel.IsSeatedEvent.GetValueOrDefault(),
                 DisplayGuests = eventModel.DisplayGuests,
                 EventTickets = this.MapList<EventTicket, EventTicketViewModel>(eventModel.Tickets.Where(t => t.RemainingQuantity > 0).ToList()),
                 TicketFields = eventModel
@@ -486,6 +487,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
             reservation.IsPublic = viewModel.IsPublic;
+            reservation.SeatNumber = viewModel.SeatNumber;
             reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());

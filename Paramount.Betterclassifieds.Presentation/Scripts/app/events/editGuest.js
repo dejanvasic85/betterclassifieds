@@ -21,6 +21,7 @@
         me.currentGroupId = ko.observable();
         me.displayGuests = ko.observable(); // High level setting
         me.isPublic = ko.observable();
+        me.seatNumber = ko.observable();
         me.sendTransferEmail = ko.observable(true);
         me.sendEmailToGuestAboutRemoval = ko.observable(false);
         me.isEmailDifferent = ko.computed(function () {
@@ -108,6 +109,7 @@
         me.currentGroupId(data.currentGroupId);
         me.displayGuests(data.displayGuests);
         me.isPublic(data.isPublic);
+        me.seatNumber(data.seatNumber);
 
         _.each(data.fields, function (f) {
             me.fields.push(new $p.models.DynamicFieldValue(f));

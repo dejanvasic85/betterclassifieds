@@ -4,6 +4,7 @@ Here's a list of the latest changes:
 
 - [Feature - We have seating!](https://trello.com/c/A04yyUW7/617-seat-and-ticket-selection-for-event)
 - [Feature - Set specific seats as not available with a simple DB flag](https://trello.com/c/LiNtAMnR/623-blocked-seating-by-developer)
+- [Feature - Add guest 'offline' with a seat number](https://trello.com/c/omppRjXh/636-add-guest-with-a-seat-number)
 - [Tech - Adjust the deployment target for SriLankanEvents production server](https://trello.com/c/9Fk6hTZn/624-change-the-production-destination-server-for-sri-lankan-events-brand)
 - [Change - Adding new sri lankan events logo](https://trello.com/c/cll2zDHv/629-update-the-sri-lankan-events-logo)
 - [Fix - The LogEntries for all the brands](https://trello.com/c/lBjX2BAr/630-fix-the-logentries-configuration-for-themusic-and-sri-lankan-events)

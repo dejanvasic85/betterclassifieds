@@ -16,6 +16,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public bool IsPublic { get; set; }
 
+        [RequiredIf("IsSeatedEvent", true, ValidationMessage = "Seat is required for a seated event")]
+        public string SeatNumber { get; set; }
+
         [EmailAddress]
         [MaxLength(100)]
         public string GuestEmail { get; set; }
@@ -44,7 +47,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         }
 
         public bool DisplayGuests { get; set; }
-        
+        public bool IsSeatedEvent { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();

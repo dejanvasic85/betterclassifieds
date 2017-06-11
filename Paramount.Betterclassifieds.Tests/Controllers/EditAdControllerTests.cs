@@ -243,6 +243,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockTicket = new EventTicketMockBuilder().Default().Build();
             var mockEvent = new EventModelMockBuilder().Default()
                 .WithTickets(new[] { mockTicket })
+                .WithIsSeatedEvent(true)
                 .Build();
             var mockAd = new AdSearchResultMockBuilder().Default().Build();
 
@@ -260,6 +261,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             vm.EventId.IsEqualTo(mockEvent.EventId);
             vm.Id.IsEqualTo(123);
             vm.EventTickets.Count.IsEqualTo(1);
+            vm.IsSeatedEvent.IsEqualTo(true);
         }
 
         [Test]

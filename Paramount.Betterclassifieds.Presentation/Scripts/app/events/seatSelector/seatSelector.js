@@ -1,5 +1,5 @@
 ﻿(function ($, ko, $p, eventService, notifier) {
-        
+
     function Seat(data) {
         var me = this;
         me.id = ko.observable(data.id);
@@ -10,7 +10,7 @@
         me.price = $p.formatCurrency(data.eventTicket.price);
         me.ticket = new $p.models.EventTicket(data.eventTicket);
         me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
-        me.tooltip = ko.computed(function() {
+        me.tooltip = ko.computed(function () {
             if (me.available() === true) {
                 return me.seatNumber();
             }
@@ -35,6 +35,28 @@
         me.rows = ko.observableArray();
         me.selectedSeats = ko.observableArray();
         me.loading = ko.observable(true);
+
+        me.openingDate = ko.observable();
+        me.ticketingNotOpened = ko.observable(false);
+        me.ticketingClosed = ko.observable(false);
+        me.ticketingOpened = ko.observable(false);
+
+        if (params.openingDate) {
+            var opening = moment.utc(params.openingDate).local();
+            me.openingDate(opening);
+            me.ticketingNotOpened(opening.isAfter(moment()));
+        }
+
+        if (params.closingDate) {
+            var closing = moment.utc(params.closingDate).local();
+            me.ticketingClosed(closing.isBefore(moment()));
+        }
+
+        if (params.eventEndDate) {
+            me.ticketingClosed(moment.utc(params.eventEndDate).local().isBefore(moment()));
+        }
+
+        me.ticketingOpened(!me.ticketingNotOpened() && !me.ticketingClosed());
 
         me.selectSeat = function (seat) {
             if (seat.available() === false) {
@@ -83,27 +105,32 @@
             }
         }
 
-        me.seatsRenderComplete = function () {            
+        me.seatsRenderComplete = function () {
             me.loading(false);
         }
-        
-        eventService.getEventSeating(params.eventId, params.orderRequestId).then(loadSeating);
 
-        function loadSeating(seatingResponse) {
+        // Load the seating
+        if (me.ticketingOpened()) {
 
-            _.each(seatingResponse.tickets, function (t) {
-                me.tickets.push({
-                    ticketNameAndPrice: t.ticketName + ' ' + $p.formatCurrency(t.price),
-                    soldOut: t.remainingQuantity <= 0,
-                    style: { 'background-color': t.colourCode }
+            eventService.getEventSeating(params.eventId, params.orderRequestId).then(loadSeating);
+
+            function loadSeating(seatingResponse) {
+
+                _.each(seatingResponse.tickets, function (t) {
+                    me.tickets.push({
+                        ticketNameAndPrice: t.ticketName + ' ' + $p.formatCurrency(t.price),
+                        soldOut: t.remainingQuantity <= 0,
+                        style: { 'background-color': t.colourCode }
+                    });
                 });
-            });
 
-            // Todo - support different type of layouts? how ???
-            _.each(seatingResponse.rows, function (r) {
-                me.rows.push(new Row(r));
-            });
+                // Todo - support different type of layouts? how ???
+                _.each(seatingResponse.rows, function (r) {
+                    me.rows.push(new Row(r));
+                });
+            }
         }
+
     }
 
     ko.components.register('seat-selector', {

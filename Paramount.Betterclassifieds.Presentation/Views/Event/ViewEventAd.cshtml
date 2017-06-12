@@ -141,7 +141,7 @@
                     </h3>
 
 
-                    <seat-selector params="eventId: @Model.EventId, orderRequestId: '@Model.OrderRequestId', maxSeats : @Model.MaxTicketsPerBooking"></seat-selector>
+                    <seat-selector params="eventId: @Model.EventId, eventEndDate: '@Model.EventEndDateUtcIso', openingDate: '@Model.OpeningDateUtcIso', closingDate: '@Model.ClosingDateUtcIso', orderRequestId: '@Model.OrderRequestId', maxSeats : @Model.MaxTicketsPerBooking"></seat-selector>
 
                 </div>
             }

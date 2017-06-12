@@ -1,94 +1,108 @@
-﻿<div class="seat-selector container">
-
-    <div class="loading-overlay" data-bind="visible: loading"></div>
+﻿<div class="seat-selector">
 
     <div class="row">
-        <div class="col-sm-4">
-            <div class="ticket-summary">
-                <span></span>
-                <div class="ticket-legend">
-                    <i class="fa fa-times"></i>
-                </div>
-                <div class="ticket-name">Sold / Not Available</div>
+        <div class="col-xs-12">
+            <div data-bind="visible: ticketingNotOpened" class="alert alert-info">
+                Ticketing will open <span data-bind="text: $paramount.dateToDisplay(openingDate())"></span>
+            </div>
+
+            <div data-bind="visible: ticketingClosed" class="alert alert-warning">
+                Ticketing has been closed for this event.
             </div>
         </div>
-        <!-- ko foreach: tickets-->
-        <div class="col-sm-4">
-            <div class="ticket-summary">
-                <span></span>
-                <div class="ticket-legend" data-bind="style: style">
-                    <i class="fa fa-ticket"></i>
-                </div>
-                <div class="ticket-name" data-bind="text: ticketNameAndPrice"></div>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 
-    <div class="container venue-layout">
+    <div data-bind="visible: ticketingOpened">
+        <span data-bind="visible: loading"> Loading...</span>
+        <div class="loading-overlay" data-bind="visible: loading"></div>
+
         <div class="row">
-            <div class="col-xs-12 text-center">
-                <div class="well well-sm">
-                    <h4>Stage</h4>
+            <div class="col-sm-4">
+                <div class="ticket-summary">
+                    <span></span>
+                    <div class="ticket-legend">
+                        <i class="fa fa-times"></i>
+                    </div>
+                    <div class="ticket-name">Sold / Not Available</div>
                 </div>
             </div>
+            <!-- ko foreach: tickets-->
+            <div class="col-sm-4">
+                <div class="ticket-summary">
+                    <span></span>
+                    <div class="ticket-legend" data-bind="style: style">
+                        <i class="fa fa-ticket"></i>
+                    </div>
+                    <div class="ticket-name" data-bind="text: ticketNameAndPrice"></div>
+                </div>
+            </div>
+            <!-- /ko -->
         </div>
 
-        <div class="seat-container">
-            <div class="seat-layout" data-bind="foreach: {data: rows, afterRender: seatsRenderComplete}">
-                <div class="seats-row">
-                    <div class="seats-col">
-                        <span data-bind="text: rowName"></span>
-                        <!-- ko foreach: seats -->
-                        <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
-                            <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
-                            <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
-                            <i class="fa fa-times" data-bind="visible: available() === false"></i>
-                        </div>
-                        <!-- /ko -->
-                        <span data-bind="text: rowName"></span>
+        <div class="container venue-layout">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div class="well well-sm">
+                        <h4>Stage</h4>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-
-    <div class="selected-items top-buffer-20" data-bind="visible: selectedSeats().length > 0">
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>Selected Items:</h3>
-                <div class="list-group" data-bind="foreach: selectedSeats">
-                    <div class="list-group-item" data-bind="style: style">
-                        <div class="row">
-                            <div class="col-sm-8 ticket-info">
-                                <i class="fa fa-ticket"></i>
-                                <span data-bind="text: ticketName"></span>
-                                <span class="label label-info" data-bind="text: seatNumber"></span>
-                                <span class="label label-default" data-bind="text: price"></span>
+            <div class="seat-container">
+                <div class="seat-layout" data-bind="foreach: {data: rows, afterRender: seatsRenderComplete}">
+                    <div class="seats-row">
+                        <div class="seats-col">
+                            <span data-bind="text: rowName"></span>
+                            <!-- ko foreach: seats -->
+                            <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
+                                <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
+                                <i class="glyphicon glyphicon-unchecked" data-bind="visible: !selected() && available()"></i>
+                                <i class="fa fa-times" data-bind="visible: available() === false"></i>
                             </div>
-                            <div class="col-xs-2">
-                                <button class="btn btn-default" data-bind="click: $parent.removeTicket">
-                                    <i class="fa fa-times"></i> <span class="hidden-xs">Remove</span>
-                                </button>
-                            </div>
+                            <!-- /ko -->
+                            <span data-bind="text: rowName"></span>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-3 col-md-offset-9">
-                <button class="btn btn-success btn-block" data-loading-text="Reserving..." data-bind="click: bookSeats">
-                    Reserve Seats
-                    <i class="fa fa-arrow-circle-right"></i>
-                </button>
+        <div class="selected-items top-buffer-20" data-bind="visible: selectedSeats().length > 0">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Selected Items:</h3>
+                    <div class="list-group" data-bind="foreach: selectedSeats">
+                        <div class="list-group-item" data-bind="style: style">
+                            <div class="row">
+                                <div class="col-sm-8 ticket-info">
+                                    <i class="fa fa-ticket"></i>
+                                    <span data-bind="text: ticketName"></span>
+                                    <span class="label label-info" data-bind="text: seatNumber"></span>
+                                    <span class="label label-default" data-bind="text: price"></span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <button class="btn btn-default" data-bind="click: $parent.removeTicket">
+                                        <i class="fa fa-times"></i> <span class="hidden-xs">Remove</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-3 col-md-offset-9">
+                    <button class="btn btn-success btn-block" data-loading-text="Reserving..." data-bind="click: bookSeats">
+                        Reserve Seats
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+
+
         </div>
-
-
     </div>
 
 </div>

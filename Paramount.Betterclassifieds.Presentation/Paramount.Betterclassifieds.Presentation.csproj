@@ -908,7 +908,7 @@
     </Content>
     <Content Include="Scripts\vendor\lodash.js" />
     <Content Include="Scripts\vendor\mobile-detect.js" />
-    <Content Include="Scripts\vendor\moment-2.8.2.js" />
+    <Content Include="Scripts\vendor\moment-2.18.1.js" />
     <Content Include="Scripts\app\booking\adDesignService.js" />
     <Content Include="Scripts\app-global\categoryService.js" />
     <Content Include="Scripts\paramount-googleTacking.js" />

@@ -49,6 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
             EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
             EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
+            EventEndDateUtcIso = eventModel.EventEndDateUtc.ToIsoDateString();
             DisplayGuests = eventModel.DisplayGuests;
 
             FacebookAppId = clientConfig.FacebookAppId;
@@ -58,6 +59,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
             TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any(t => t.IsActive);
             IsSeatedEvent = eventModel.IsSeatedEvent.GetValueOrDefault();
+            OpeningDateUtcIso = eventModel.OpeningDateUtc.ToIsoDateString();
+            ClosingDateUtcIso = eventModel.ClosingDateUtc.ToIsoDateString();
 
             // Build the guest list
             TotalGuests = guestList.Length;
@@ -67,9 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         }
 
         public DateTime EventEndDate { get; set; }
-
         public DateTime EventStartDate { get; set; }
-
         public int AdId { get; set; }
         public int EventId { get; set; }
         public string Title { get; set; }
@@ -82,6 +83,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventStartTime { get; set; }
         public string EventEndDateDisplay { get; set; }
         public string EventEndTime { get; set; }
+        public string EventEndDateUtcIso { get; set; } // Iso format
         public string OrganiserName { get; set; }
         public string OrganiserPhone { get; set; }
         public int Views { get; set; }
@@ -98,19 +100,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventUrl { get; set; }
         public string SocialShareText { get; set; }
         public string LocationFriendlyName { get; set; }
-
         public bool TicketingEnabled { get; set; }
-
         public List<string> Guests { get; set; }
         public bool DisplayGuests { get; set; }
         public int TotalGuests { get; set; }
         public bool IsSeatedEvent { get; set; }
-
         public bool DisplayTicketing => !this.IsSeatedEvent && this.TicketingEnabled;
-
         public bool DisplaySeating => this.IsSeatedEvent;
-
         public string OrderRequestId { get; set; }
+        public string OpeningDateUtcIso { get; set; }
+        public string ClosingDateUtcIso { get; set; }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

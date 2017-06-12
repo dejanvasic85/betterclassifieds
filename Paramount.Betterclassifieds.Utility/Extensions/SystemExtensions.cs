@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Paramount
@@ -21,6 +22,27 @@ namespace Paramount
                 }
                 return ms.ToArray();
             }
+        }
+
+        public static string ToIsoDateString(this DateTime dateTime)
+        {
+            return $"{dateTime:s}";
+        }
+
+        public static string ToIsoDateString(this DateTime? dateTime)
+        {
+            return dateTime?.ToIsoDateString();
+        }
+
+
+        public static string ToUtcIsoDateString(this DateTime dateTime)
+        {
+            return string.Concat(dateTime.ToUniversalTime().ToString("s"), "Z");
+        }
+
+        public static string ToUtcIsoDateString(this DateTime? dateTime)
+        {
+            return dateTime?.ToUtcIsoDateString();
         }
     }
 }

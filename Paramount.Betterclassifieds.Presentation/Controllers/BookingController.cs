@@ -387,6 +387,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                         bookingCart.Event.EventEndDateUtc = bookingCart.Event.EventEndDate.Value.AddSeconds(-totalOffset);
                 }
             }
+
+#else
+            bookingCart.Event.TimeZoneName = "Australian Eastern Standard Time";
+            bookingCart.Event.TimeZoneUtcOffsetSeconds = 36000;
 #endif
             _cartRepository.Save(bookingCart);
 

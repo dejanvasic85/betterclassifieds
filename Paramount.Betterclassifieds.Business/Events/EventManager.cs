@@ -519,8 +519,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                 {
                     _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
                 }
-
-                
             
 #endif
             onlineAd.Heading = title; 

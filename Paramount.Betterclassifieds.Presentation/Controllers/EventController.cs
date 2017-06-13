@@ -200,6 +200,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.EventTicketingMakePayment().Build() });
         }
 
+        [HttpPost, EnsurePaymentNotInProgress, Authorize]
+        [Route("event/{eventId}/promo")]
+        public ActionResult ApplyPromoCode(int eventId, string promoCode)
+        {
+            return Json(new
+            {
+                DiscountPercent = 10
+            });
+        }
+
+
         [HttpGet, EventBookingRequired]
         public ActionResult CancelEventBooking()
         {

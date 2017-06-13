@@ -45,17 +45,3 @@
            data-val-email="Email is not a valid address" />
     <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
 </div>
-
-@if (!User.Identity.IsAuthenticated)
-{
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" data-bind="value: password" id="password" name="password"
-               data-val="true"
-               data-val-required="Password is required" />
-        <span class="field-validation-valid help-block" data-valmsg-for="password" data-valmsg-replace="true"></span>
-        <span class="help-block">
-            Allows your to come back and manage your payments and bookings. Existing user? Just use your existing password.
-        </span>
-    </div>
-}

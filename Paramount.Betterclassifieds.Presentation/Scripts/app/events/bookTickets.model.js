@@ -1,5 +1,5 @@
 ﻿(function ($, $paramount, ko) {
-    
+
     function BookTickets(data, eventService) {
         var me = this;
 
@@ -30,7 +30,26 @@
         me.password = ko.observable();
         me.invalidCredentials = ko.observable(false);
         me.serverError = ko.observable(false);
-        me.showPassword = ko.observable(data.isUserLoggedIn === false);
+        me.promoCode = ko.observable();
+        me.applyPromoCode = function (model, event) {
+            if (!me.promoCode()) {
+                return;
+            }
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+            eventService.applyPromoCode(me.eventId(), me.promoCode())
+                .then(function (r) {
+                    if (r.errors) {
+                        return;
+                    }
+
+                    console.log('all ok', r);
+                })
+                .always(function () {
+                    $btn.resetBtn();
+                });
+        }
 
         // Tickets
         me.reservations = ko.observableArray();

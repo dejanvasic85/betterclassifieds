@@ -24,6 +24,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public PaymentType PaymentMethod { get; set; }
         public string PaymentReference { get; set; }
         public EventBookingStatus Status { get; set; }
+        public string PromoCode { get; set; }
+        public decimal? DiscountPercent { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
 

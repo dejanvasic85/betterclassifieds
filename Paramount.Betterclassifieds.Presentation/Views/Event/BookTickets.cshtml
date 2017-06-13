@@ -156,6 +156,8 @@
                     </span>
                 </div>
 
+                <div class="top-buffer-40"></div>
+
                 @*User Details*@
                 @Html.Partial("_UserEventBookingDetails")
 
@@ -183,13 +185,27 @@
                 <div class="alert alert-danger"></div>
             </div>
 
-            <div class="col-xs-12 col-sm-8 book-tickets-form">
+            <div class="col-xs-12 col-sm-8 book-tickets-form top-buffer-20">
                 <div class="alert alert-warning" data-bind="visible: requiresPayment">
                     By proceeding to payment, you agree to the <a href="@Url.Terms()">
                         terms and
                         conditions
                     </a> and are committed to purchase the tickets.
                 </div>
+
+                @if (Model.HasPromoCodes)
+                {
+                    <div class="alert alert-info">
+                        <label class="control-label">Promo Code:</label>
+                        <div class="input-group">
+                            <input type="text" id="promoCode" class="form-control" data-bind="value: promoCode"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-bind="click: applyPromoCode" data-loading-text="applying...">Apply!</button>
+                            </span>
+                        </div>
+                    </div>
+
+                }
 
                 <table class="table table-hover">
                     <thead>

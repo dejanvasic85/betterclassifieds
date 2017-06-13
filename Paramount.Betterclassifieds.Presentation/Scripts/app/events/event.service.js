@@ -17,6 +17,10 @@
         return $paramount.httpPost(this.baseUrl + 'event/bookTickets', ticketBookingDetails);
     }
 
+    EventService.prototype.applyPromoCode = function (eventId, promoCode) {
+        return $paramount.httpPost(this.baseUrl + 'event/' + eventId + '/promo/', { promoCode: promoCode });
+    }
+    
     EventService.prototype.updateTicket = function (ticketDetails) {
         return $paramount.httpPost(this.baseUrl + 'editAd/eventTicketUpdate', {
             id: ticketDetails.adId, eventTicketViewModel: ticketDetails
@@ -83,7 +87,7 @@
     EventService.prototype.resendGuestEmail = function (adId, eventBookingTicketId) {
         return $paramount.httpPost(this.baseUrl + 'event-dashboard/' + adId + '/resend-email/' + eventBookingTicketId);
     }
-
+    
     EventService.prototype.createGuestEmailSendPromises = function (id, guests) {
         var me = this;
         var emailFuncs = _.map(guests, function (g) {
@@ -108,7 +112,7 @@
         if (orderRequestId && orderRequestId.length > 0) {
             uri += "/" + orderRequestId;
         }
-        
+
         return $paramount.httpGet(uri);
     }
 

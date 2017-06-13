@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TotalFees = ticketReservations.Sum(r => r.TransactionFee.GetValueOrDefault());
             IncludeTransactionFee = eventDetails.IncludeTransactionFee;
             DisplayGuests = eventDetails.DisplayGuests;
+            HasPromoCodes = true; // Todo - map to actual value instead of hard coding to true
 
             if (applicationUser != null)
             {
@@ -86,5 +87,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal TotalCostWithoutFees { get; set; }
 
         public string BrandName { get; set; }
+        public bool HasPromoCodes { get; set; }
     }
 }

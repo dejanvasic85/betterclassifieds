@@ -31,6 +31,8 @@
         me.invalidCredentials = ko.observable(false);
         me.serverError = ko.observable(false);
         me.promoCode = ko.observable();
+        me.promoCodeApplied = ko.observable(0);
+        me.promoCodeDiscount = ko.observable();
         me.applyPromoCode = function (model, event) {
             if (!me.promoCode()) {
                 return;
@@ -44,7 +46,13 @@
                         return;
                     }
 
-                    console.log('all ok', r);
+                    if (r.discountPercent && r.discountPercent > 0 && data.totalCostCents > 0) {
+                        var discountedTotal = data.totalCostCents * (r.discountPercent / 100);
+                        me.discountedTotal(discountedTotal);
+                        me.promoCodeApplied(true);
+                        me.promoCodeDiscount(r.discountPercent);
+
+                    }
                 })
                 .always(function () {
                     $btn.resetBtn();

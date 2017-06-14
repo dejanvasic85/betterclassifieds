@@ -27,12 +27,15 @@
         me.phone = ko.observable(data.phone);
         me.postCode = ko.observable(data.postCode);
         me.email = ko.observable(data.email);
-        me.password = ko.observable();
-        me.invalidCredentials = ko.observable(false);
+        
         me.serverError = ko.observable(false);
+
         me.promoCode = ko.observable();
         me.promoCodeApplied = ko.observable(0);
-        me.promoCodeDiscount = ko.observable();
+        me.promoDiscountPercent = ko.observable();
+        me.promoDiscountAmount = ko.observable();
+        me.promoNotAvailable = ko.observable();
+
         me.applyPromoCode = function (model, event) {
             if (!me.promoCode()) {
                 return;
@@ -46,18 +49,36 @@
                         return;
                     }
 
-                    if (r.discountPercent && r.discountPercent > 0 && data.totalCostCents > 0) {
-                        var discountedTotal = data.totalCostCents * (r.discountPercent / 100);
-                        me.discountedTotal(discountedTotal);
-                        me.promoCodeApplied(true);
-                        me.promoCodeDiscount(r.discountPercent);
+                    if (r.notAvailable === true) {
+                        me.promoNotAvailable(true);
+                        return;
+                    }
 
+                    if (r.discountPercent && r.discountPercent > 0 && data.totalCostCents > 0) {
+                        me.promoCodeApplied(true);
+                        me.promoDiscountPercent(r.discountPercent);
+
+                        // Todo - adjust the total cost
                     }
                 })
                 .always(function () {
                     $btn.resetBtn();
                 });
         }
+
+        me.computedTotalCost = ko.computed(function () {
+
+            var totalCents = data.totalCostCents;
+
+            if (me.promoDiscountPercent() && me.promoDiscountPercent() > 0) {
+                var discountAmount = totalCents * (me.promoDiscountPercent() / 100);
+                me.promoDiscountAmount(discountAmount / 100);
+                totalCents = totalCents - (discountAmount);
+            }
+
+            var t = totalCents / 100;
+            return t;
+        });
 
         // Tickets
         me.reservations = ko.observableArray();
@@ -130,27 +151,19 @@
             };
 
             var $form = $('#bookTicketsForm');
-            var $btn = $('#bookTicketsView button');
+            var $btn = $('#proceedToPaymentBtn');
 
             if ($form.valid() === true) {
                 $btn.loadBtn();
-
-                // Reset all the errors
-                me.invalidCredentials(false);
-
+                
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
                     .then(function (resp) {
                         if (resp.nextUrl) {
                             return;
                         }
-                        resetButton();
-                    })
-                    .fail(resetButton);
-
-                function resetButton() {
-                    $btn.resetBtn();
-                }
+                        $btn.resetBtn();
+                    });
             }
         }
 

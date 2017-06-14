@@ -204,8 +204,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("event/{eventId}/promo")]
         public ActionResult ApplyPromoCode(int eventId, string promoCode)
         {
+            if (promoCode == "boom")
+            {
+                return Json(new
+                {
+                    NotAvailable = true
+                });
+            }
+
             return Json(new
             {
+                NotAvailable = false,
                 DiscountPercent = 10
             });
         }

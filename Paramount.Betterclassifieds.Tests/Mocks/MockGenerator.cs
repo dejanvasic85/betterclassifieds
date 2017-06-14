@@ -767,6 +767,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.IsPublic = val);
 		}
+		public EventBookingTicketMockBuilder WithSeatNumber(String val)
+		{ 
+			return WithBuildStep(p => p.SeatNumber = val);
+		}
 	}
 
 	internal partial class EventBookingTicketFieldMockBuilder : MockBuilder<EventBookingTicketFieldMockBuilder, EventBookingTicketField>
@@ -1018,6 +1022,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithIsPublic(Boolean val)
 		{ 
 			return WithBuildStep(p => p.IsPublic = val);
+		}
+		public EventGuestDetailsMockBuilder WithSeatNumber(String val)
+		{ 
+			return WithBuildStep(p => p.SeatNumber = val);
 		}
 	}
 

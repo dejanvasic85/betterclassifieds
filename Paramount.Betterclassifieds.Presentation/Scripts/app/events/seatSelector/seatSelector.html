@@ -74,13 +74,13 @@
                     <div class="list-group" data-bind="foreach: selectedSeats">
                         <div class="list-group-item" data-bind="style: style">
                             <div class="row">
-                                <div class="col-sm-8 ticket-info">
+                                <div class="col-xs-10 ticket-info">
                                     <i class="fa fa-ticket"></i>
                                     <span data-bind="text: ticketName"></span>
                                     <span class="label label-info" data-bind="text: seatNumber"></span>
                                     <span class="label label-default" data-bind="text: price"></span>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-2 text-right">
                                     <button class="btn btn-default" data-bind="click: $parent.removeTicket">
                                         <i class="fa fa-times"></i> <span class="hidden-xs">Remove</span>
                                     </button>

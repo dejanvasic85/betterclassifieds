@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     .Include(e => e.Tickets)
                     .Include(e => e.Address)
                     .Include(e => e.EventOrganisers)
+                    .Include(e => e.PromoCodes)
                     .SingleOrDefault(e => e.EventId == eventId);
 
                 if (eventModel == null)
@@ -322,11 +323,28 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventPromoCode GetEventPromoCode(int eventId, string promoCode)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.PromoCodes.SingleOrDefault(p => p.EventId == eventId 
+                    && p.PromoCode.Equals(promoCode, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        public IEnumerable<EventPromoCode> GetEventPromoCodes(int eventId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.PromoCodes.Where(p=> p.EventId == eventId).ToList();
+            }
+        }
+
         public EventSeatBooking GetEventSeatByTicketAndSeatNumber(int eventTicketId, string seatNumber)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventSeats.SingleOrDefault(s=> s.EventTicketId == eventTicketId && s.SeatNumber == seatNumber); 
+                return context.EventSeats.SingleOrDefault(s => s.EventTicketId == eventTicketId && s.SeatNumber == seatNumber);
             }
         }
 

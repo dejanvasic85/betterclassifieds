@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.Tests
             WithEventStartDate(DateTime.Now.AddDays(29));
             WithEventEndDate(DateTime.Now.AddDays(30));
             WithOnlineAdId(321);
+            WithPromoCode("promo-123");
 
             return this;
         }
@@ -46,6 +47,24 @@ namespace Paramount.Betterclassifieds.Tests
             {
                 organiser
             });
+            return this;
+        }
+
+        public EventModelMockBuilder WithPromoCode(string promoCode)
+        {
+            this.WithPromoCodes(new List<EventPromoCode>
+            {
+                new EventPromoCode
+                {
+                    PromoCode = promoCode
+                }
+            });
+            return this;
+        }
+
+        public EventModelMockBuilder WithPromoCode(EventPromoCode promoCode)
+        {
+            this.WithPromoCodes(new List<EventPromoCode>() { promoCode });
             return this;
         }
     }

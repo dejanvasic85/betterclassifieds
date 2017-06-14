@@ -7,4 +7,12 @@
             : base(msg)
         { }
     }
+
+    public class OperationOnDisabledValueException : Exception
+    {
+        public OperationOnDisabledValueException(string msg) : base(msg)
+        {
+
+        }
+    }
 }

@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var guestList = _eventGuestService.GetPublicGuestNames(eventModel.EventId);
 
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
-            
+
             var eventViewModel = new EventViewDetailsModel(_httpContext,
                 Url, onlineAdModel, eventModel, _clientConfig, guestList.Select(g => g.GuestName).ToArray(),
                 _eventBookingContext.OrderRequestId);
@@ -60,11 +60,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var tickets = reserveTicketsViewModel.Tickets;
             var eventId = reserveTicketsViewModel.EventId;
-            
+
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
-                return JsonModelErrors(); 
+                return JsonModelErrors();
             }
 
             if (tickets.Count >= _clientConfig.EventMaxTicketsPerBooking)
@@ -95,7 +95,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventBookingContext.Clear();
             _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
-            
+
             _eventBookingContext.OrderRequestId = orderRequestId;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
@@ -202,9 +202,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost, EnsurePaymentNotInProgress, Authorize]
         [Route("event/{eventId}/promo")]
-        public ActionResult ApplyPromoCode(int eventId, string promoCode)
+        public ActionResult GetPromoCode(int eventId, string promoCode)
         {
-            if (promoCode == "boom")
+            var promo = _eventPromoService.GetEventPromoCode(eventId, promoCode);
+
+            if (promo == null)
             {
                 return Json(new
                 {
@@ -215,7 +217,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new
             {
                 NotAvailable = false,
-                DiscountPercent = 10
+                promo.DiscountPercent
             });
         }
 
@@ -495,8 +497,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ILogService _logService;
         private readonly IEventOrganiserService _eventOrganiserService;
         private readonly IEventGuestService _eventGuestService;
+        private readonly IEventPromoService _eventPromoService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService, IEventOrganiserService eventOrganiserService, IEventGuestService eventGuestService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventBookingManager eventBookingManager, ITicketRequestValidator ticketRequestValidator, ILogService logService, IMailService mailService, IEventOrganiserService eventOrganiserService, IEventGuestService eventGuestService, IEventPromoService eventPromoService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -514,6 +517,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _logService = logService;
             _eventOrganiserService = eventOrganiserService;
             _eventGuestService = eventGuestService;
+            _eventPromoService = eventPromoService;
             _eventBookingManager = eventBookingManager
                 .WithTemplateService(templatingService.Init(this))
                 .WithMailService(mailService.Initialise(this));

@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             Tickets = new List<EventTicket>();
             EventBookings = new List<EventBooking>();
+            PromoCodes = new List<EventPromoCode>();
             Address = new Address();
             IncludeTransactionFee = true;
         }
@@ -29,6 +30,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IList<EventTicket> Tickets { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
         public IList<EventOrganiser> EventOrganisers { get; set; }
+        public IList<EventPromoCode> PromoCodes { get; set; }
 
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }

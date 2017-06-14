@@ -62,27 +62,30 @@
     <Compile Include="Csv\CsvGenerator.cs" />
     <Compile Include="Csv\GenericCsvLineProvider.cs" />
     <Compile Include="Csv\ICsvLineProvider.cs" />
-    <Compile Include="Events\EventAccess.cs" />
-    <Compile Include="Events\EventAuthorisationException.cs" />
+    <Compile Include="Events\Discount.cs" />
+    <Compile Include="Events\Security\EventAccess.cs" />
+    <Compile Include="Events\Security\EventAuthorisationException.cs" />
     <Compile Include="Events\EventGuestService.cs" />
-    <Compile Include="Events\EventOrganiser.cs" />
+    <Compile Include="Events\Organisers\EventOrganiser.cs" />
     <Compile Include="Events\EventBarcodeManager.cs" />
-    <Compile Include="Events\EventBookingFactory.cs" />
-    <Compile Include="Events\EventBookingTicketValidation.cs" />
-    <Compile Include="Events\EventBookingTicketValidationResult.cs" />
-    <Compile Include="Events\EventBookingTicketValidationType.cs" />
+    <Compile Include="Events\Booking\EventBookingFactory.cs" />
+    <Compile Include="Events\Booking\EventBookingTicketValidation.cs" />
+    <Compile Include="Events\Booking\EventBookingTicketValidationResult.cs" />
+    <Compile Include="Events\Booking\EventBookingTicketValidationType.cs" />
     <Compile Include="Events\EventGroup.cs" />
-    <Compile Include="Events\EventPaymentRequest.cs" />
-    <Compile Include="Events\EventPaymentRequestFactory.cs" />
-    <Compile Include="Events\EventPaymentRequestStatus.cs" />
-    <Compile Include="Events\EventPaymentSummary.cs" />
+    <Compile Include="Events\Booking\EventPaymentRequest.cs" />
+    <Compile Include="Events\Booking\EventPaymentRequestFactory.cs" />
+    <Compile Include="Events\Booking\EventPaymentRequestStatus.cs" />
+    <Compile Include="Events\Booking\EventPaymentSummary.cs" />
     <Compile Include="Events\EventInvitation.cs" />
-    <Compile Include="Events\EventSeatBooking.cs" />
+    <Compile Include="Events\PromoCodes\EventPromoCode.cs" />
+    <Compile Include="Events\Booking\EventSeatBooking.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
-    <Compile Include="Events\EventTicketReservationStatus.cs" />
+    <Compile Include="Events\Reservations\EventTicketReservationStatus.cs" />
     <Compile Include="Events\IEventBarcodeValidator.cs" />
     <Compile Include="Events\IEventGuestService.cs" />
     <Compile Include="Events\EventSeatingService.cs" />
+    <Compile Include="Events\PromoCodes\EventPromoService.cs" />
     <Compile Include="Events\Organisers\IEventOrganiserService.cs" />
     <Compile Include="Events\Reservations\GroupQuantityRequestRule.cs" />
     <Compile Include="Events\Reservations\GroupRequest.cs" />
@@ -94,19 +97,19 @@
     <Compile Include="Events\Reservations\TicketReservationRequest.cs" />
     <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventManager.cs" />
-    <Compile Include="Events\EventBookingContext.cs" />
-    <Compile Include="Events\EventBookingStatus.cs" />
-    <Compile Include="Events\EventBookingTicket.cs" />
-    <Compile Include="Events\EventBookingTicketFactory.cs" />
+    <Compile Include="Events\Booking\EventBookingContext.cs" />
+    <Compile Include="Events\Booking\EventBookingStatus.cs" />
+    <Compile Include="Events\Booking\EventBookingTicket.cs" />
+    <Compile Include="Events\Booking\EventBookingTicketFactory.cs" />
     <Compile Include="Events\EventGuestDetails.cs" />
     <Compile Include="Events\EventTicket.cs" />
-    <Compile Include="Events\EventBooking.cs" />
+    <Compile Include="Events\Booking\EventBooking.cs" />
     <Compile Include="Events\EventTicketField.cs" />
-    <Compile Include="Events\EventBookingTicketField.cs" />
-    <Compile Include="Events\EventTicketReservation.cs" />
+    <Compile Include="Events\Booking\EventBookingTicketField.cs" />
+    <Compile Include="Events\Reservations\EventTicketReservation.cs" />
     <Compile Include="Events\EventManager.cs" />
-    <Compile Include="Events\EventTicketReservationFactory.cs" />
-    <Compile Include="Events\RemainingTicketsWithRequestInfo.cs" />
+    <Compile Include="Events\Reservations\EventTicketReservationFactory.cs" />
+    <Compile Include="Events\Booking\RemainingTicketsWithRequestInfo.cs" />
     <Compile Include="Events\TicketPrice.cs" />
     <Compile Include="IBarcodeGenerator.cs" />
     <Compile Include="IBusinessRule.cs" />
@@ -214,6 +217,7 @@
       <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

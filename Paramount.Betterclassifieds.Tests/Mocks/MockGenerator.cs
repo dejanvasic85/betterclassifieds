@@ -567,6 +567,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventOrganisers = val);
 		}
+		public EventModelMockBuilder WithPromoCodes(IList<EventPromoCode> val)
+		{ 
+			return WithBuildStep(p => p.PromoCodes = val);
+		}
 		public EventModelMockBuilder WithLocationFloorPlanDocumentId(String val)
 		{ 
 			return WithBuildStep(p => p.LocationFloorPlanDocumentId = val);
@@ -767,6 +771,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.IsPublic = val);
 		}
+		public EventBookingTicketMockBuilder WithSeatNumber(String val)
+		{ 
+			return WithBuildStep(p => p.SeatNumber = val);
+		}
 	}
 
 	internal partial class EventBookingTicketFieldMockBuilder : MockBuilder<EventBookingTicketFieldMockBuilder, EventBookingTicketField>
@@ -862,6 +870,14 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingMockBuilder WithStatus(EventBookingStatus val)
 		{ 
 			return WithBuildStep(p => p.Status = val);
+		}
+		public EventBookingMockBuilder WithPromoCode(String val)
+		{ 
+			return WithBuildStep(p => p.PromoCode = val);
+		}
+		public EventBookingMockBuilder WithDiscountPercent(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.DiscountPercent = val);
 		}
 		public EventBookingMockBuilder WithCreatedDateTime(DateTime? val)
 		{ 
@@ -1018,6 +1034,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithIsPublic(Boolean val)
 		{ 
 			return WithBuildStep(p => p.IsPublic = val);
+		}
+		public EventGuestDetailsMockBuilder WithSeatNumber(String val)
+		{ 
+			return WithBuildStep(p => p.SeatNumber = val);
 		}
 	}
 
@@ -1286,6 +1306,42 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventSeatBookingMockBuilder WithReservationExpiryUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.ReservationExpiryUtc = val);
+		}
+	}
+
+	internal partial class EventPromoCodeMockBuilder : MockBuilder<EventPromoCodeMockBuilder, EventPromoCode>
+	{	
+		public EventPromoCodeMockBuilder WithEventPromoCodeId(Int64 val)
+		{ 
+			return WithBuildStep(p => p.EventPromoCodeId = val);
+		}
+		public EventPromoCodeMockBuilder WithEventId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventPromoCodeMockBuilder WithEvent(EventModel val)
+		{ 
+			return WithBuildStep(p => p.Event = val);
+		}
+		public EventPromoCodeMockBuilder WithPromoCode(String val)
+		{ 
+			return WithBuildStep(p => p.PromoCode = val);
+		}
+		public EventPromoCodeMockBuilder WithDiscountPercent(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.DiscountPercent = val);
+		}
+		public EventPromoCodeMockBuilder WithIsDisabled(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.IsDisabled = val);
+		}
+		public EventPromoCodeMockBuilder WithCreatedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDate = val);
+		}
+		public EventPromoCodeMockBuilder WithCreatedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateUtc = val);
 		}
 	}
 }

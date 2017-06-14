@@ -68,6 +68,7 @@
                 .RegisterType<ITicketRequestValidator, TicketRequestValidator>()
                 .RegisterType<IEventOrganiserService, EventOrganiserService>()
                 .RegisterType<IEventGuestService, EventGuestService>()
+                .RegisterType<IEventPromoService, EventPromoService>()
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

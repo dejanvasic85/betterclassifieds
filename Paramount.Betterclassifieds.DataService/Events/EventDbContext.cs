@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
-using System.Threading.Tasks;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -42,6 +40,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public IDbSet<EventGroup> EventGroups { get; set; }
         public IDbSet<EventOrganiser> EventOrganisers { get; set; }
         public IDbSet<EventSeatBooking> EventSeats { get; set; }
+        public IDbSet<EventPromoCode> PromoCodes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,6 +58,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             modelBuilder.Configurations.Add(new EventGroupConfiguration());
             modelBuilder.Configurations.Add(new EventOrganiserConfiguration());
             modelBuilder.Configurations.Add(new EventSeatBookingConfiguration());
+            modelBuilder.Configurations.Add(new EventPromoCodeConfiguration());
         }
     }
 }

@@ -175,11 +175,6 @@
             </div>
 
 
-            <div class="col-xs-12 col-sm-8" data-bind="visible: invalidCredentials">
-                <div class="alert alert-danger">
-                    It appears that the email and password combination are not correct.
-                </div>
-            </div>
 
             <div class="col-xs-12 col-sm-8 no-display" id="serverValidation">
                 <div class="alert alert-danger"></div>
@@ -208,7 +203,7 @@
                         </p>
                     </div>
                     
-                    <div class="alert alert-danger" data-bind="visible: promoNotAvailable">
+                    <div class="alert alert-danger" data-bind="visible: promoNotAvailable() && !promoCodeApplied()">
                         Sorry. That code cannot be found or has been exhausted.
                     </div>
 

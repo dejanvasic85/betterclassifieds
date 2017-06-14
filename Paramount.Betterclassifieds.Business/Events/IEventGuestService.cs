@@ -8,5 +8,4 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventGuestPublicView> GetPublicGuestNames(int? eventId);
         IEnumerable<EventGuestPublicView> GetFirstNames(IEnumerable<EventGuestDetails> guests);
     }
-
 }

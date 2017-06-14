@@ -30,6 +30,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventSeatBooking> GetEventSeats(int eventId);
         IEnumerable<EventSeatBooking> GetEventSeatsForTicket(int eventTicketId);
         EventSeatBooking GetEventSeat(int eventTicketId, string seatNumber);
+        EventPromoCode GetEventPromoCode(int eventId, string promoCode);
+        IEnumerable<EventPromoCode> GetEventPromoCodes(int eventId);
 
         void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void CreateBooking(EventBooking eventBooking);
@@ -40,7 +42,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CreateEventInvitation(EventInvitation eventInvitation);
         void CreateEventGroup(EventGroup eventGroup, IEnumerable<int> tickets);
         void CreateEventOrganiser(EventOrganiser eventOrganiser);
-
+        
         void UpdateEvent(EventModel eventModel);
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void UpdateEventBooking(EventBooking eventBooking);

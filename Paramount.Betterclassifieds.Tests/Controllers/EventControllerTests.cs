@@ -296,6 +296,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var model = result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
             model.BrandName.IsEqualTo("HelloBrand");
             model.TotalCostCents.IsEqualTo(1050);
+            model.HasPromoCodes.IsTrue();
         }
 
         [Test]
@@ -613,8 +614,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Todo - Assert the url
         }
         
-
-
         private Mock<HttpContextBase> _httpContext;
         private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;
@@ -635,6 +634,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IBookingManager> _bookingManager;
         private Mock<IEventOrganiserService> _eventOrganiserService;
         private Mock<IEventGuestService> _eventGuestService;
+        private Mock<IEventPromoService> _eventPromoService;
+
 
         [SetUp]
         public void SetupController()
@@ -670,6 +671,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _logService = CreateMockOf<ILogService>();
             _eventOrganiserService = CreateMockOf<IEventOrganiserService>();
             _eventGuestService = CreateMockOf<IEventGuestService>();
+            _eventPromoService = CreateMockOf<IEventPromoService>();
         }
     }
 }

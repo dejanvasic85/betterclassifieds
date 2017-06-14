@@ -100,7 +100,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             // Now we have the id so we need to generate the barcode
             CreateTicketBarcodeAndUpdate(eventBooking, newEventBookingTicket, barcodeUrlCreator);
-            
+
             // We always mark the existing event booking ticket as inactive and simply create a new one
             // But we also need to reset the cost of the ticket!
             eventBookingTicket.IsActive = false;
@@ -151,7 +151,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             return eventBookingTicket;
         }
-        
+
         public int GetRemainingTicketCount(int? ticketId)
         {
             Guard.NotNull(ticketId);
@@ -212,11 +212,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                     _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
                     CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
                     _logService.Info($"EventBooking created successfully. EventBookingId {eventBooking.EventBookingId}");
-
-                    if (ticket.SeatNumber.HasValue())
-                    {
-                        _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -239,7 +234,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void ActivateBooking(int? eventBookingId, long? eventInvitationId)
         {
             Guard.NotNull(eventBookingId);
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false, includeTickets: true);
             eventBooking.Status = EventBookingStatus.Active;
             _eventRepository.UpdateEventBooking(eventBooking);
 
@@ -255,6 +250,20 @@ namespace Paramount.Betterclassifieds.Business.Events
                 invitation.ConfirmedDateUtc = _dateService.UtcNow;
                 _eventRepository.UpdateEventInvitation(invitation);
             }
+
+            Parallel.ForEach(eventBooking.EventBookingTickets.Where(t => t.SeatNumber.HasValue()), ticket =>
+            {
+                try
+                {
+                    _logService.Info($"Setting eventBookingId {eventBookingId} for seat number {ticket.SeatNumber}");
+                    _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
+                }
+                catch (Exception ex)
+                {
+                    _logService.Error("There was a problem associating seat number with event booking id.", ex);
+                    throw;
+                }
+            });
         }
 
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
@@ -521,7 +530,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             
 #endif
-            onlineAd.Heading = title; 
+            onlineAd.Heading = title;
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;

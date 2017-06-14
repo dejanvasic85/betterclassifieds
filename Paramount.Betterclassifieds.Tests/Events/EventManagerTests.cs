@@ -542,13 +542,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void EventBookingPaymentCompleted_NullEventBookingId_ThrowsArgException()
+        public void ActivateBooking_NullEventBookingId_ThrowsArgException()
         {
             Assert.Throws<ArgumentNullException>(() => BuildTargetObject().ActivateBooking(null, It.IsAny<long>()));
         }
 
         [Test]
-        public void EventBookingPaymentCompleted_WithInvitation_StatusBecomesActive()
+        public void ActivateBooking_WithInvitation_StatusBecomesActive()
         {
             var eventBooking = new EventBookingMockBuilder().Default()
                 .WithStatus(EventBookingStatus.PaymentPending)
@@ -569,6 +569,32 @@ namespace Paramount.Betterclassifieds.Tests.Events
             eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
             eventInvitation.ConfirmedDate.IsNotNull();
             eventInvitation.ConfirmedDateUtc.IsNotNull();
+        }
+
+        [Test]
+        public void ActivateBooking_WithSeats_StatusBecomesActive()
+        {
+            var mockTicket = new EventBookingTicketMockBuilder().Default()
+                .WithEventTicketId(988)
+                .WithEventBookingTicketId(1998).WithSeatNumber("A1").Build();
+
+            var eventBooking = new EventBookingMockBuilder().Default()
+                .WithEventBookingTickets(new[] { mockTicket })
+                .WithStatus(EventBookingStatus.PaymentPending)
+                .Build();
+
+            // Calls
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(),
+                It.IsAny<bool>(), It.IsAny<bool>()), eventBooking);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));
+            _eventSeatingService.SetupWithVerification(call => call.BookSeat(
+                It.Is<int>(t => t == mockTicket.EventTicketId),
+                It.Is<int>(t => t == 1998),
+                It.Is<string>(s => s == "A1")));
+
+
+            BuildTargetObject().ActivateBooking(100, null);
+            eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
         }
 
         [Test]

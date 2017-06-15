@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Events.Booking;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -16,10 +17,13 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public EventBooking Create(int eventId,
+            EventPromoCode eventPromo,
             ApplicationUser applicationUser,
             IEnumerable<EventTicketReservation> currentReservations)
         {
             var reservations = currentReservations.ToList();
+            var bookingCost = new EventTicketReservationCalculator(reservations, eventPromo).Calculate();
+
             var eventBooking = new EventBooking
             {
                 EventId = eventId,
@@ -30,24 +34,23 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Email = applicationUser.Email,
                 Phone = applicationUser.Phone,
                 PostCode = applicationUser.Postcode,
-                UserId = applicationUser.Username,               
+                UserId = applicationUser.Username,
+                PromoCode = eventPromo?.PromoCode,
+                DiscountPercent = eventPromo?.DiscountPercent,
+                DiscountAmount = bookingCost.Discount.DiscountValue,
+                Cost = bookingCost.Cost,
+                TransactionFee = bookingCost.TransactionFee,
+                TotalCost = bookingCost.TotalCost,
+                Status = bookingCost.TotalCost > 0
+                    ? EventBookingStatus.PaymentPending
+                    : EventBookingStatus.Active
             };
 
             // Add the ticket bookings
             var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService);
             eventBooking.EventBookingTickets.AddRange(
                 reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, _dateService.Now, _dateService.UtcNow)));
-
-            // Calculate the total
-            eventBooking.Cost = reservations.Sum(r => r.Price.GetValueOrDefault());
-            eventBooking.TransactionFee = reservations.Sum(r => r.TransactionFee.GetValueOrDefault());
-            eventBooking.TotalCost = eventBooking.Cost + eventBooking.TransactionFee;
-
-            // Ensure the status is payment pending if there's a total cost larger than zero
-            eventBooking.Status = eventBooking.TotalCost > 0
-                ? EventBookingStatus.PaymentPending
-                : EventBookingStatus.Active;
-
+            
             return eventBooking;
         }
     }

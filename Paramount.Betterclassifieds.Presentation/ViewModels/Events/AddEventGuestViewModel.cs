@@ -14,6 +14,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [MaxLength(100)]
         public string GuestFullName { get; set; }
 
+        public string PromoCode { get; set; }
+
         public bool IsPublic { get; set; }
 
         [RequiredIf("IsSeatedEvent", true, ValidationMessage = "Seat is required for a seated event")]

@@ -193,7 +193,7 @@
                     <div class="alert alert-info" data-bind="visible: !promoCodeApplied()">
                         <label class="control-label">Promo Code:</label>
                         <div class="input-group">
-                            <input type="text" id="promoCode" class="form-control" data-bind="value: promoCode"/>
+                            <input type="text" id="promoCode" class="form-control" data-bind="value: promoCode" autocomplete="off"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-bind="click: applyPromoCode" data-loading-text="applying...">Apply!</button>
                             </span>

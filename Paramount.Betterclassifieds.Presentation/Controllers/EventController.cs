@@ -184,7 +184,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Process the booking here!
-            var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.GetValueOrDefault(), applicationUser, currentReservations, barcode => Url.ValidateBarcode(barcode).WithFullUrl());
+            var eventBooking = _eventManager.CreateEventBooking(
+                bookTicketsViewModel.EventId.GetValueOrDefault(), 
+                bookTicketsViewModel.PromoCode,
+                applicationUser, 
+                currentReservations, 
+                barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
             // Set the event id and booking id in the session for the consecutive calls
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();

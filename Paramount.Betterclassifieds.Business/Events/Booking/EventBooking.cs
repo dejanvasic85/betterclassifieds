@@ -26,6 +26,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventBookingStatus Status { get; set; }
         public string PromoCode { get; set; }
         public decimal? DiscountPercent { get; set; }
+        public decimal? DiscountAmount { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
 
@@ -58,6 +59,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public decimal Cost { get; set; }
         public decimal TransactionFee { get; set; }
+       
 
         public string GetFullName()
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
@@ -26,6 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var result = factory.Create(
                 eventId,
+                null,
                 applicationUser,
                 eventTicketReservations);
 
@@ -48,6 +48,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.PostCode, Is.EqualTo(applicationUser.Postcode));
 
         }
+        
 
         [Test]
         public void Create_WithReservations_ReturnsNew_EventBooking_WithTicketsAndCost()
@@ -79,17 +80,21 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var result = factory.Create(
                 eventId,
+                new EventPromoCode{ PromoCode = "promo123", DiscountPercent = 30}, 
                 applicationUser,
                 eventTicketReservations);
 
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventBookingTickets, Is.Not.Null);
             Assert.That(result.EventBookingTickets.Count, Is.EqualTo(4));   // Two reservations * Two Qty
-            Assert.That(result.TotalCost, Is.EqualTo(24));                  // Two reservations * Price of 10 + $2 txnfee
+            Assert.That(result.TotalCost, Is.EqualTo(16.8));                  // Two reservations * Price of 10 + $2 txnfee
             Assert.That(result.TransactionFee, Is.EqualTo(4));
             Assert.That(result.Cost, Is.EqualTo(20));
             Assert.That(result.Status, Is.EqualTo(EventBookingStatus.PaymentPending));
-            
+            Assert.That(result.PromoCode, Is.EqualTo("promo123"));
+            Assert.That(result.DiscountPercent, Is.EqualTo(30));
+            Assert.That(result.DiscountAmount, Is.EqualTo(7.2));
         }
+
     }
 }

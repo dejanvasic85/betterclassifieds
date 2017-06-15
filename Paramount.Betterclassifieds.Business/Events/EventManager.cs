@@ -22,8 +22,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IBarcodeGenerator _barcodeGenerator;
         private readonly ILogService _logService;
         private readonly IEventSeatingService _eventSeatingService;
+        private readonly IEventPromoService _promoService;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeValidator eventBarcodeValidator, IBarcodeGenerator barcodeGenerator, ILogService logService, IEventSeatingService eventSeatingService)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeValidator eventBarcodeValidator, IBarcodeGenerator barcodeGenerator, ILogService logService, IEventSeatingService eventSeatingService, IEventPromoService promoService)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -36,6 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _barcodeGenerator = barcodeGenerator;
             _logService = logService;
             _eventSeatingService = eventSeatingService;
+            _promoService = promoService;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -193,12 +195,20 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
-        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator)
+        public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator)
         {
             Guard.NotDefaultValue(eventId);
             Guard.NotNull(applicationUser);
 
-            var eventBooking = new EventBookingFactory(_eventRepository, _dateService).Create(eventId, applicationUser, currentReservations);
+            EventPromoCode eventPromo = null;
+            if (promoCode.HasValue())
+            {
+                eventPromo = _promoService.GetEventPromoCode(eventId, promoCode);
+            }
+
+            var eventBooking = new EventBookingFactory(_eventRepository, _dateService)
+                .Create(eventId, eventPromo, applicationUser, currentReservations);
+
             _eventRepository.CreateBooking(eventBooking);
             _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
 

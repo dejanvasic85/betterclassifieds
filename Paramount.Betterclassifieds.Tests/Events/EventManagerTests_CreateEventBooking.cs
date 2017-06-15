@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var manager = BuildTargetObject();
-            var result = manager.CreateEventBooking(10, mockUser, new List<EventTicketReservation>(), null);
+            var result = manager.CreateEventBooking(10, string.Empty, mockUser, new List<EventTicketReservation>(), null);
 
             // assert
             result.IsNotNull();
@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // act
             var manager = BuildTargetObject();
 
-            Assert.Throws<NullReferenceException>(() => manager.CreateEventBooking(10, mockUser, mockReservations, null));
+            Assert.Throws<NullReferenceException>(() => manager.CreateEventBooking(10, string.Empty, mockUser, mockReservations, null));
 
         }
 
@@ -92,7 +92,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // act
             var manager = BuildTargetObject();
 
-            var result = manager.CreateEventBooking(10, mockUser, mockReservations, barcode => $"http://localhost/barcode/{barcode}");
+            var result = manager.CreateEventBooking(10, string.Empty, mockUser, mockReservations, barcode => $"http://localhost/barcode/{barcode}");
 
             result.IsNotNull();
             result.EventBookingTickets.Count.IsEqualTo(1);
@@ -104,6 +104,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventBooking(
                 eventId: 0,
+                promoCode: string.Empty,
                 applicationUser: new ApplicationUserMockBuilder().Build(),
                 currentReservations: new List<EventTicketReservation>(),
                 barcodeUrlCreator: It.IsAny<Func<string, string>>()));
@@ -113,7 +114,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void CreateEventBooking_WithUser_AsNull_ThrowsArgException()
         {
             Assert.Throws<ArgumentNullException>(() => BuildTargetObject().CreateEventBooking(
-                eventId: 10,
+                eventId: 10, 
+                promoCode: string.Empty,
                 applicationUser: null,
                 currentReservations: new List<EventTicketReservation>(),
                 barcodeUrlCreator: It.IsAny<Func<string, string>>()));

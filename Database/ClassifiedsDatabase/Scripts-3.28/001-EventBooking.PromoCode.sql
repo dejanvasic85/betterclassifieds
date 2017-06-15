@@ -21,3 +21,15 @@ BEGIN
 END
 
 GO
+
+IF NOT EXISTS(SELECT 1 FROM sys.columns 
+          WHERE Name = N'DiscountAmount'
+          AND Object_ID = Object_ID(N'dbo.EventBooking'))
+BEGIN
+    ALTER TABLE dbo.[EventBooking]
+	ADD DiscountAmount MONEY NULL
+
+	
+END
+
+GO

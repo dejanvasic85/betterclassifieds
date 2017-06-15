@@ -494,6 +494,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.CreateEventBooking(
                 viewModel.EventId.GetValueOrDefault(),
+                viewModel.PromoCode,
                 currentUser,
                 new[] { reservation },
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());

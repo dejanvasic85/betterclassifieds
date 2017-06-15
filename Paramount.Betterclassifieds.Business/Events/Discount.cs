@@ -24,5 +24,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             DiscountValue = discount * amount;
             AmountAfterDiscount = amount - DiscountValue;
         }
+
+        public static implicit operator decimal(Discount d)
+        {
+            return d.AmountAfterDiscount;
+        }
+
+        public static Discount MinValue => new Discount(0, 0);
     }
 }

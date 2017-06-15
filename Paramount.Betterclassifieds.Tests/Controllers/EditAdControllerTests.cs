@@ -274,6 +274,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEventTicketReservation = new EventTicketReservationMockBuilder().Build();
             var mockEventBooking = new EventBookingMockBuilder().Default().Build();
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockPromoCode = "promo123";
 
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
@@ -282,6 +283,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 mockEventTicketReservation);
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
+                It.Is<string>(p => p == mockPromoCode), 
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>(),
                 It.IsAny<Func<string, string>>()), mockEventBooking);
@@ -302,6 +304,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockRequest = new AddEventGuestViewModel
             {
                 EventId = mockEvent.EventId,
+                PromoCode = mockPromoCode,
                 SelectedTicket = new EventTicketViewModel { EventTicketId = mockEventTicket.EventTicketId },
                 TicketFields = new List<EventTicketFieldViewModel>
                 {

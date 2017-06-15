@@ -305,9 +305,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockEventBooking = new EventBookingMockBuilder().WithEventBookingId(1).WithStatus(EventBookingStatus.Active).Build();
-            var mockBookTicketsRequestViewModel = new BookTicketsRequestViewModel
+            var mockViewModel = new BookTicketsRequestViewModel
             {
                 EventId = mockEvent.EventId,
+                PromoCode = "promo123",
                 Reservations = new List<EventTicketReservedViewModel>
                 {
                     new EventTicketReservedViewModel
@@ -333,7 +334,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.Is<string>(p => p == mockViewModel.PromoCode), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
@@ -343,7 +344,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // act
             var controller = BuildController(mockUser: _mockUser);
-            var result = controller.BookTickets(mockBookTicketsRequestViewModel);
+            var result = controller.BookTickets(mockViewModel);
 
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
@@ -389,7 +390,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
@@ -432,7 +433,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 })
                 .WithEventId(eventMock.EventId.GetValueOrDefault())
                 .Build();
-            
+
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
@@ -588,7 +589,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 Recipient = "foo@bar.com",
                 Token = Guid.NewGuid().ToString()
             };
-            
+
             var mockEvent = new EventModelMockBuilder().Default()
                 .WithEventId(mockRequest.EventId).Build();
 
@@ -608,12 +609,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = controller.AcceptInvite(mockRequest);
 
             // Assert
-            var vm= result.ViewResultModelIsTypeOf<AcceptOrganiserInviteViewModel>();
+            var vm = result.ViewResultModelIsTypeOf<AcceptOrganiserInviteViewModel>();
             vm.IsSuccessful.IsTrue();
             vm.EventName.IsEqualTo(mockSearchResult.AdSearchResult.Heading);
             // Todo - Assert the url
         }
-        
+
         private Mock<HttpContextBase> _httpContext;
         private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;

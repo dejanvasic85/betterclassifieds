@@ -1,3 +1,5 @@
+using System;
+
 namespace Paramount.Betterclassifieds.Business.Events
 {
     public class TicketPrice
@@ -8,14 +10,23 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public TicketPrice(decimal originalPrice, decimal priceIncludingFee, decimal fee)
+            : this(originalPrice, priceIncludingFee, fee, decimal.MinValue, decimal.MinValue)
+        {
+        }
+
+        public TicketPrice(decimal originalPrice, decimal priceIncludingFee, decimal fee, decimal discountPercent, decimal discountAmount)
         {
             OriginalPrice = originalPrice;
             PriceIncludingFee = priceIncludingFee;
             Fee = fee;
+            DiscountPercent = discountPercent;
+            DiscountAmount = discountAmount;
         }
 
-        public decimal OriginalPrice { get; private set; }
-        public decimal PriceIncludingFee { get; private set; }
-        public decimal Fee { get; private set; }
+        public decimal OriginalPrice { get; }
+        public decimal PriceIncludingFee { get; }
+        public decimal Fee { get; }
+        public decimal DiscountPercent { get; }
+        public decimal DiscountAmount { get; }
     }
 }

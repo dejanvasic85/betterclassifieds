@@ -27,7 +27,29 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.PriceIncludingFee, Is.EqualTo(expectedPriceIncFee));
             Assert.That(result.OriginalPrice, Is.EqualTo(mockTicketPrice));
         }
-        
+
+        [Test]
+        public void GetTotalTicketPrice_WithDiscount()
+        {
+            var clientConfig = new Mock<IClientConfig>();
+            clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns(0);
+            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(0);
+
+            var eventPromo = new EventPromoCode
+            {
+                DiscountPercent = 20
+            };
+            var price = 100;
+
+            var calculator = new TicketFeeCalculator(clientConfig.Object);
+            var result = calculator.GetTotalTicketPrice(100, eventPromo);
+
+            result.OriginalPrice.IsEqualTo(100);
+            result.PriceIncludingFee.IsEqualTo(80);
+            result.DiscountPercent.IsEqualTo(20);
+            result.DiscountAmount.IsEqualTo(20);
+        }
+
         [Test]
         public void GetOrganiserOwedAmount_ReturnsAmount()
         {

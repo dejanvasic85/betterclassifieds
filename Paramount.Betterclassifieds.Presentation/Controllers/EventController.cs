@@ -209,7 +209,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("event/{eventId}/promo")]
         public ActionResult GetPromoCode(int eventId, string promoCode)
         {
-            var promo = _eventPromoService.GetEventPromoCode(eventId, promoCode);
+            var promo = _eventPromoService.GetEventPromoCode(eventId, promoCode.ToUpper().Trim());
 
             if (promo == null)
             {

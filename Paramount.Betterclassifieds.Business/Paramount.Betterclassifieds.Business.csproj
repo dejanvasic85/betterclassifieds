@@ -62,9 +62,6 @@
     <Compile Include="Csv\CsvGenerator.cs" />
     <Compile Include="Csv\GenericCsvLineProvider.cs" />
     <Compile Include="Csv\ICsvLineProvider.cs" />
-    <Compile Include="Events\Booking\EventTicketReservationCalculator.cs" />
-    <Compile Include="Events\Booking\TicketBookingCost.cs" />
-    <Compile Include="Events\Discount.cs" />
     <Compile Include="Events\Security\EventAccess.cs" />
     <Compile Include="Events\Security\EventAuthorisationException.cs" />
     <Compile Include="Events\EventGuestService.cs" />
@@ -97,7 +94,7 @@
     <Compile Include="Events\Reservations\TicketQuantityRequestRule.cs" />
     <Compile Include="Events\Reservations\TicketRequestValidator.cs" />
     <Compile Include="Events\Reservations\TicketReservationRequest.cs" />
-    <Compile Include="Events\TicketFeeCalculator.cs" />
+    <Compile Include="Events\Booking\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\Booking\EventBookingContext.cs" />
     <Compile Include="Events\Booking\EventBookingStatus.cs" />

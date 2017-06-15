@@ -94,7 +94,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             var eventBooking = _eventRepository.GetEventBooking(eventBookingTicket.EventBookingId);
 
-            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService)
+            var feeCalculator = new TicketFeeCalculator(_clientConfig);
+            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService, feeCalculator)
                 .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, isPublic, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
             // Save the new ticket
@@ -206,7 +207,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventPromo = _promoService.GetEventPromoCode(eventId, promoCode);
             }
 
-            var eventBooking = new EventBookingFactory(_eventRepository, _dateService)
+            var feeCalculator = new TicketFeeCalculator(_clientConfig);
+            var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator)
                 .Create(eventId, eventPromo, applicationUser, currentReservations);
 
             _eventRepository.CreateBooking(eventBooking);

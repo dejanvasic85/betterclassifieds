@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -18,10 +19,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
             var mockRepository = new Mock<IEventRepository>();
             var mockDateService = new Mock<IDateService>();
+            var clientConfig = new Mock<IClientConfig>();
+            clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns(2);
+            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(30);
+            var feeCalculator = new TicketFeeCalculator(clientConfig.Object);
             mockDateService.SetupNow().SetupNowUtc();
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
 
             var result = factory.Create(
                 eventId,
@@ -74,9 +79,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockDateService = new Mock<IDateService>();
             mockDateService.SetupNow().SetupNowUtc();
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var clientConfig = new Mock<IClientConfig>();
+            clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns(2);
+            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(30);
+            var feeCalculator = new TicketFeeCalculator(clientConfig.Object);
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
 
             var result = factory.Create(
                 eventId,
@@ -87,13 +96,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventBookingTickets, Is.Not.Null);
             Assert.That(result.EventBookingTickets.Count, Is.EqualTo(4));   // Two reservations * Two Qty
-            Assert.That(result.TotalCost, Is.EqualTo(16.8));                  // Two reservations * Price of 10 + $2 txnfee
-            Assert.That(result.TransactionFee, Is.EqualTo(4));
+            Assert.That(result.TotalCost, Is.EqualTo(14.58));                  // Two reservations * Price of 10 + $2 txnfee
+            Assert.That(result.TransactionFee, Is.EqualTo(0.58));
             Assert.That(result.Cost, Is.EqualTo(20));
             Assert.That(result.Status, Is.EqualTo(EventBookingStatus.PaymentPending));
             Assert.That(result.PromoCode, Is.EqualTo("promo123"));
             Assert.That(result.DiscountPercent, Is.EqualTo(30));
-            Assert.That(result.DiscountAmount, Is.EqualTo(7.2));
+            Assert.That(result.DiscountAmount, Is.EqualTo(6));
         }
 
     }

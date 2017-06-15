@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Business.Events.Booking;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -9,11 +7,13 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         private readonly IEventRepository _eventRepository;
         private readonly IDateService _dateService;
+        private readonly TicketFeeCalculator _ticketFeeCalculator;
 
-        public EventBookingFactory(IEventRepository eventRepository, IDateService dateService)
+        public EventBookingFactory(IEventRepository eventRepository, IDateService dateService, TicketFeeCalculator ticketFeeCalculator)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
+            _ticketFeeCalculator = ticketFeeCalculator;
         }
 
         public EventBooking Create(int eventId,
@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             IEnumerable<EventTicketReservation> currentReservations)
         {
             var reservations = currentReservations.ToList();
-            var bookingCost = new EventTicketReservationCalculator(reservations, eventPromo).Calculate();
+            var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations.Sum(r => r.Price).GetValueOrDefault(), eventPromo);
 
             var eventBooking = new EventBooking
             {
@@ -37,17 +37,17 @@ namespace Paramount.Betterclassifieds.Business.Events
                 UserId = applicationUser.Username,
                 PromoCode = eventPromo?.PromoCode,
                 DiscountPercent = eventPromo?.DiscountPercent,
-                DiscountAmount = bookingCost.Discount.DiscountValue,
-                Cost = bookingCost.Cost,
-                TransactionFee = bookingCost.TransactionFee,
-                TotalCost = bookingCost.TotalCost,
-                Status = bookingCost.TotalCost > 0
+                DiscountAmount = bookingCost.DiscountAmount,
+                Cost = bookingCost.OriginalPrice,
+                TransactionFee = bookingCost.Fee,
+                TotalCost = bookingCost.PriceIncludingFee,
+                Status = bookingCost.PriceIncludingFee > 0
                     ? EventBookingStatus.PaymentPending
                     : EventBookingStatus.Active
             };
 
             // Add the ticket bookings
-            var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService);
+            var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService, _ticketFeeCalculator);
             eventBooking.EventBookingTickets.AddRange(
                 reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, eventPromo, _dateService.Now, _dateService.UtcNow)));
             

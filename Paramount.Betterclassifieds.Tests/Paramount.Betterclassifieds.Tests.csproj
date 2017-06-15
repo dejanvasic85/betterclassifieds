@@ -154,7 +154,7 @@
     </Compile>
     <Compile Include="Events\EventOrganiserServiceTests.cs" />
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
-    <Compile Include="Events\EventPromoCodeTests.cs" />
+    <Compile Include="Events\EventBookingTicketFactoryTests.cs" />
     <Compile Include="Events\EventSeatingServiceTests.cs" />
     <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\GroupQuantityRequestRuleTests.cs" />

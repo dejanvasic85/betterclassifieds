@@ -1039,6 +1039,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<IBarcodeGenerator> _barcodeGenerator;
         private Mock<ILogService> _logService;
         private Mock<IEventSeatingService> _eventSeatingService;
+        private Mock<IEventPromoService> _promoService;
 
 
         [SetUp]
@@ -1055,6 +1056,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _barcodeGenerator = CreateMockOf<IBarcodeGenerator>();
             _logService = CreateMockOf<ILogService>().SetupAllCalls();
             _eventSeatingService = CreateMockOf<IEventSeatingService>();
+            _promoService = CreateMockOf<IEventPromoService>();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventTicket EventTicket { get; set; }
         public string TicketName { get; set; }
         public decimal? Price { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? DiscountPercent { get; set; }
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
         public DateTime? CreatedDateTime { get; set; }

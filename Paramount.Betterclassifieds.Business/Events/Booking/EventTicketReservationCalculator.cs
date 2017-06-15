@@ -8,6 +8,13 @@ namespace Paramount.Betterclassifieds.Business.Events.Booking
         public IEnumerable<EventTicketReservation> Reservations { get; }
         public EventPromoCode EventPromoCode { get; }
 
+        public EventTicketReservationCalculator(EventTicketReservation reservation, EventPromoCode eventPromo)
+        {
+            Guard.NotNull(reservation);
+
+            Reservations = new List<EventTicketReservation>{reservation};
+            EventPromoCode = eventPromo;
+        }
 
         public EventTicketReservationCalculator(IEnumerable<EventTicketReservation> reserations, EventPromoCode promoCode)
         {

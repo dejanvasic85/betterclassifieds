@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Events.Booking;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -16,12 +17,13 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation,
-            DateTime createdDate, DateTime createdDateUtc)
+            EventPromoCode eventPromo, DateTime createdDate, DateTime createdDateUtc)
         {
             if (!reservation.EventTicketId.HasValue)
                 throw new ArgumentNullException(nameof(reservation), "EventTicketId cannot be null in the reservation");
 
             var eventTicket = _eventRepository.GetEventTicketDetails(reservation.EventTicketId.GetValueOrDefault());
+            var cost = new EventTicketReservationCalculator(reservation, eventPromo).Calculate();
 
             for (int i = 0; i < reservation.Quantity; i++)
             {
@@ -31,9 +33,11 @@ namespace Paramount.Betterclassifieds.Business.Events
                     TicketName = eventTicket.TicketName,
                     CreatedDateTime = createdDate,
                     CreatedDateTimeUtc = createdDateUtc,
-                    Price = reservation.Price,
-                    TransactionFee = reservation.TransactionFee,
-                    TotalPrice = reservation.TotalPriceWithTxnFee,
+                    Price = cost.Cost,
+                    TransactionFee = cost.TransactionFee,
+                    DiscountPercent = cost.Discount.DiscountPercent,
+                    DiscountAmount = cost.Discount.DiscountValue,
+                    TotalPrice = cost.TotalCost,
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,
                     EventGroupId = reservation.EventGroupId,
@@ -63,6 +67,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 CreatedDateTimeUtc = _dateService.UtcNow,
                 Price = currentTicket.Price,
                 TicketName = currentTicket.TicketName,
+                DiscountAmount = currentTicket.DiscountAmount,
+                DiscountPercent = currentTicket.DiscountPercent,
                 TotalPrice = currentTicket.TotalPrice,
                 TransactionFee = currentTicket.TransactionFee,
                 SeatNumber = currentTicket.SeatNumber,

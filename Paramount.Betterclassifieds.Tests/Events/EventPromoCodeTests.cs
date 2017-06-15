@@ -8,10 +8,19 @@ namespace Paramount.Betterclassifieds.Tests.Events
     public class EventTicketReservationCalculatorTests
     {
         [Test]
-        public void ApplyDiscountFor_IsDisabled_ThrowsException()
+        public void Calculate()
         {
-         
+         Assert.Fail("Todo");
         }
+    }
 
+    [TestFixture]
+    public class EventBookingTicketFactoryTests
+    {
+        [Test]
+        public void Create()
+        {
+            Assert.Fail("Todo");
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Add the ticket bookings
             var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService);
             eventBooking.EventBookingTickets.AddRange(
-                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, _dateService.Now, _dateService.UtcNow)));
+                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, eventPromo, _dateService.Now, _dateService.UtcNow)));
             
             return eventBooking;
         }

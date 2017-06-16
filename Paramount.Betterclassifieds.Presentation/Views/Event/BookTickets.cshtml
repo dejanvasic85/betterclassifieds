@@ -229,7 +229,7 @@
                     <tbody>
                         <tr>
                             <td class="tst-totalTicketCost">
-                                <span data-bind="text: $paramount.formatCurrency(price()), css : {'strike': promoDiscountPercent() > 0 }"></span>
+                                <span data-bind="text: $paramount.formatCurrency(price()), css : {'strikethrough': promoDiscountPercent() > 0 }"></span>
                                 <span data-bind="text: $paramount.formatCurrency(priceAfterDiscount()), visible: promoDiscountPercent() > 0"></span>
                             </td>
                             <td class="tst-totalFees" data-bind="text: $paramount.formatCurrency(fee())"></td>

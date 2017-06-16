@@ -22,9 +22,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             RecipientAddress = applicationUser.FullAddress;
             RecipientPhoneNumber = applicationUser.Phone;
 
+            DiscountAmount = eventBooking.DiscountAmount;
             Fees = eventBooking.TransactionFee;
             Total = eventBooking.TotalCost;
             PaymentReference = eventBooking.PaymentReference;
+            TotalWithoutDiscount = eventBooking.EventBookingTickets.Sum(b => b.Price.GetValueOrDefault());
+            PromoCode = eventBooking.PromoCode;
 
             LineItems = eventBooking.EventBookingTickets.Select(b => new InvoiceItemViewModel
             {
@@ -34,7 +37,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 ItemTotal = b.Price.GetValueOrDefault()
             }).ToArray();
         }
-        
+
+        public decimal TotalWithoutDiscount { get; set; }
+
+        public decimal? DiscountAmount { get; set; }
+
         public string BusinessName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string BusinessAddress { get; set; }
@@ -46,5 +53,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal Total { get; set; }
         public decimal Fees { get; set; }
         public string PaymentReference { get; set; }
+        public string PromoCode { get; set; }
     }
 }

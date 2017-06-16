@@ -7,6 +7,7 @@ Here's a list of the latest changes:
 - [Feature - Add guest 'offline' with a seat number](https://trello.com/c/omppRjXh/636-add-guest-with-a-seat-number)
 - [Feature - Seat number is now included in the guest list report](https://trello.com/c/Y10qtgad/638-guest-report-with-seat-number)
 - [Feature - Ticketing should not be displayed until the opening date. And should also respect closing and end dates](https://trello.com/c/o7VIunti/639-the-seating-should-not-be-displayed-until-the-ticketing-opening-date-is-reached)
+- [Feature - Add promotional code during checkout](https://trello.com/c/lLoXG0af/619-promo-code-during-checkout)
 - [Tech - Adjust the deployment target for SriLankanEvents production server](https://trello.com/c/9Fk6hTZn/624-change-the-production-destination-server-for-sri-lankan-events-brand)
 - [Change - Adding new sri lankan events logo](https://trello.com/c/cll2zDHv/629-update-the-sri-lankan-events-logo)
 - [Fix - The LogEntries for all the brands](https://trello.com/c/lBjX2BAr/630-fix-the-logentries-configuration-for-themusic-and-sri-lankan-events)

@@ -62,6 +62,7 @@
     <Compile Include="Csv\CsvGenerator.cs" />
     <Compile Include="Csv\GenericCsvLineProvider.cs" />
     <Compile Include="Csv\ICsvLineProvider.cs" />
+    <Compile Include="Events\ITicketPriceInfo.cs" />
     <Compile Include="Events\Security\EventAccess.cs" />
     <Compile Include="Events\Security\EventAuthorisationException.cs" />
     <Compile Include="Events\EventGuestService.cs" />

@@ -224,7 +224,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
             var ticketFeeCalculator = new TicketFeeCalculator(_clientConfig);
-            var totalCost = ticketFeeCalculator.GetTotalTicketPrice(currentReservations.Sum(r => r.Price).GetValueOrDefault(), eventPromoCode);
+            var totalCost = ticketFeeCalculator.GetTotalTicketPrice(currentReservations, eventPromoCode);
 
             _eventBookingContext.AppliedPromoCode = promoCode;
 

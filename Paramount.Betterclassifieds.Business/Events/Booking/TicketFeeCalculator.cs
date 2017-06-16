@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -16,6 +18,16 @@ namespace Paramount.Betterclassifieds.Business.Events
             return GetTotalTicketPrice(originalTicketPrice, null);
         }
 
+        public TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, EventPromoCode eventPromoCode)
+        {
+            if (data == null)
+                return TicketPrice.MinValue;
+
+            var combinedPrice = data.Sum(r => r.Price.GetValueOrDefault());
+
+            return GetTotalTicketPrice(combinedPrice, eventPromoCode);
+        }
+
         public TicketPrice GetTotalTicketPrice(EventTicket ticket)
         {
             Guard.NotNull(ticket);
@@ -26,7 +38,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             if (originalTicketPrice <= 0)
             {
-                return new TicketPrice();
+                return TicketPrice.MinValue;
             }
 
             decimal discountPercent = 0;

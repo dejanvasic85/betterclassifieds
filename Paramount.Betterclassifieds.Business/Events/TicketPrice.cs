@@ -4,17 +4,14 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class TicketPrice
     {
-        public TicketPrice()
-        {
-            // All the decimals should obtain the zero default values
-        }
+        private TicketPrice() { }
 
         public TicketPrice(decimal originalPrice, decimal total, decimal fee)
             : this(originalPrice, total, fee, decimal.MinValue, decimal.MinValue, originalPrice)
         {
         }
 
-        public TicketPrice(decimal originalPrice, decimal total, decimal fee, 
+        public TicketPrice(decimal originalPrice, decimal total, decimal fee,
             decimal discountPercent, decimal discountAmount, decimal priceAfterDiscount)
         {
             OriginalPrice = originalPrice;
@@ -31,5 +28,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal DiscountPercent { get; }
         public decimal DiscountAmount { get; }
         public decimal PriceAfterDiscount { get; }
+
+        public static TicketPrice MinValue => new TicketPrice();
     }
 }

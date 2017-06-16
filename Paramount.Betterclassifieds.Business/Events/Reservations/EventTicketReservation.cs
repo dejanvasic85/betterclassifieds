@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public class EventTicketReservation
+    public class EventTicketReservation : ITicketPriceInfo
     {
         public EventTicketReservation()
         {
@@ -43,5 +43,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public int? EventGroupId { get; set; }
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }
+        
     }
 }

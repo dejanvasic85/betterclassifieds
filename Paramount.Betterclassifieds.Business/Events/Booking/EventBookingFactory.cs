@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             IEnumerable<EventTicketReservation> currentReservations)
         {
             var reservations = currentReservations.ToList();
-            var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations.Sum(r => r.Price).GetValueOrDefault(), eventPromo);
+            var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations, eventPromo);
 
             var eventBooking = new EventBooking
             {

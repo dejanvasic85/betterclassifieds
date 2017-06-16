@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public class EventBookingTicket
+    public class EventBookingTicket : ITicketPriceInfo
     {
         public EventBookingTicket()
         {

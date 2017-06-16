@@ -120,7 +120,14 @@
                     <li class="list-group-item">Purchase Price : <strong>@Model.TicketPurchasePrice.ToString("C")</strong></li>
                     <li class="list-group-item">Purchase Date : <strong>@Model.TicketPurchaseDate.ToString("dd-MMM-yyyy hh:mm tt")</strong></li>
                     <li class="list-group-item">Booking Number: <strong>@Model.EventBookingId</strong></li>
-                    <li class="list-group-item">Seat Number: <strong>@Model.SeatNumber</strong></li>
+                    @if (Model.SeatNumber.HasValue()) { 
+                        <li class="list-group-item">Seat Number: <strong>@Model.SeatNumber</strong></li>
+                    }
+                    
+                    @if (Model.PromoCode.HasValue())
+                    {
+                        <li class="list-group-item">Promo Code: <strong>@Model.PromoCode</strong></li>
+                    }
                 </ul>
             </div>
 

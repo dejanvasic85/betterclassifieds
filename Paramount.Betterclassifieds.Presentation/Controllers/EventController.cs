@@ -213,7 +213,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("event/{eventId}/promo")]
         public ActionResult ApplyPromoCode(int eventId, string promoCode)
         {
-            var eventPromoCode = _eventPromoService.GetEventPromoCode(eventId, promoCode.ToUpper().Trim());
+            promoCode = promoCode.ToUpper().Trim();
+            var eventPromoCode = _eventPromoService.GetEventPromoCode(eventId, promoCode);
             if (eventPromoCode == null)
             {
                 return Json(new
@@ -283,7 +284,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, EventBookingRequired, RequireHttps, Authorize]
-        public ViewResult MakePayment(int? status) 
+        public ViewResult MakePayment(int? status)
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var viewModel = new MakePaymentViewModel

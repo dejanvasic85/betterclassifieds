@@ -135,8 +135,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
             }
 
+            var calculator = new TicketFeeCalculator(_clientConfig);
+            var combinedTicketsPrice = ticketReservations.Sum(t => t.Price.GetValueOrDefault());
+            var fee = calculator.GetTotalTicketPrice(combinedTicketsPrice);
+
             var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig,
-                applicationUser, ticketReservations, userNetwork)
+                applicationUser, ticketReservations, userNetwork, fee)
             {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
             };
@@ -185,10 +189,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Process the booking here!
             var eventBooking = _eventManager.CreateEventBooking(
-                bookTicketsViewModel.EventId.GetValueOrDefault(), 
-                bookTicketsViewModel.PromoCode,
-                applicationUser, 
-                currentReservations, 
+                bookTicketsViewModel.EventId.GetValueOrDefault(),
+                _eventBookingContext.AppliedPromoCode,
+                applicationUser,
+                currentReservations,
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
             // Set the event id and booking id in the session for the consecutive calls
@@ -207,11 +211,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost, EnsurePaymentNotInProgress, Authorize]
         [Route("event/{eventId}/promo")]
-        public ActionResult GetPromoCode(int eventId, string promoCode)
+        public ActionResult ApplyPromoCode(int eventId, string promoCode)
         {
-            var promo = _eventPromoService.GetEventPromoCode(eventId, promoCode.ToUpper().Trim());
-
-            if (promo == null)
+            var eventPromoCode = _eventPromoService.GetEventPromoCode(eventId, promoCode.ToUpper().Trim());
+            if (eventPromoCode == null)
             {
                 return Json(new
                 {
@@ -219,13 +222,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 });
             }
 
+            var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
+            var ticketFeeCalculator = new TicketFeeCalculator(_clientConfig);
+            var totalCost = ticketFeeCalculator.GetTotalTicketPrice(currentReservations.Sum(r => r.Price).GetValueOrDefault(), eventPromoCode);
+
+            _eventBookingContext.AppliedPromoCode = promoCode;
+
             return Json(new
             {
                 NotAvailable = false,
-                promo.DiscountPercent
+                eventPromoCode.DiscountPercent,
+                totalCost.DiscountAmount,
+                totalCost.Fee,
+                priceAfterDiscount = totalCost.PriceAfterDiscount,
+                totalPrice = totalCost.Total
             });
         }
-
 
         [HttpGet, EventBookingRequired]
         public ActionResult CancelEventBooking()
@@ -271,19 +283,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, EventBookingRequired, RequireHttps, Authorize]
-        public ViewResult MakePayment(int? status)
+        public ViewResult MakePayment(int? status) 
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var viewModel = new MakePaymentViewModel
             {
                 TotalCost = eventBooking.TotalCost,
-                TotalCostWithoutFees = eventBooking.Cost,
+                TotalCostIncludingDiscount = eventBooking.CostAfterDiscount,
                 TotalFees = eventBooking.TransactionFee,
                 EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList()),
                 StripePublishableKey = _appConfig.StripePublishableKey,
                 EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
                 EnableCreditCardPayments = _clientConfig.EnableCreditCardPayments,
-                PaymentFailedMessage = ResponseFriendlyMessage.Get(status)
+                PaymentFailedMessage = ResponseFriendlyMessage.Get(status),
+                PromoDiscountApplied = eventBooking.PromoCode.HasValue(),
+                PromoDiscountAmount = eventBooking.DiscountAmount
             };
 
             return View(viewModel);

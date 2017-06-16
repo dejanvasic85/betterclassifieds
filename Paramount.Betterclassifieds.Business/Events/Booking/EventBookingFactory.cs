@@ -40,8 +40,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 DiscountAmount = bookingCost.DiscountAmount,
                 Cost = bookingCost.OriginalPrice,
                 TransactionFee = bookingCost.Fee,
-                TotalCost = bookingCost.PriceIncludingFee,
-                Status = bookingCost.PriceIncludingFee > 0
+                TotalCost = bookingCost.Total,
+                Status = bookingCost.Total > 0
                     ? EventBookingStatus.PaymentPending
                     : EventBookingStatus.Active
             };

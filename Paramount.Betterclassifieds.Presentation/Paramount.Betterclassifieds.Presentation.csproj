@@ -517,9 +517,6 @@
     <Content Include="Content\KandoBay\kando.nav.min.css">
       <DependentUpon>kando.nav.css</DependentUpon>
     </Content>
-    <Content Include="Content\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <Content Include="Content\SriLankanEvents\ico\favicon.ico" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />

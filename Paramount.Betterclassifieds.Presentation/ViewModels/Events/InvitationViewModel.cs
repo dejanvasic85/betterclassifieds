@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                     AvailableQuantity = t.AvailableQuantity,
                     EventTicketId = t.EventTicketId,
                     Price = _eventModel.IncludeTransactionFee.GetValueOrDefault()
-                        ? new TicketFeeCalculator(_clientConfig).GetTotalTicketPrice(t).PriceIncludingFee
+                        ? new TicketFeeCalculator(_clientConfig).GetTotalTicketPrice(t).Total
                         : t.Price,
                     RemainingQuantity = t.RemainingQuantity,
                     TicketName = t.TicketName

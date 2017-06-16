@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var priceAfterDiscount = (originalTicketPrice - discountAmount);
             var fee = (priceAfterDiscount * GetEventTicketFeePercentage()) + GetEventTicketFeeCents();
             var priceIncludingFee = priceAfterDiscount + fee;
-            return new TicketPrice(originalTicketPrice, priceIncludingFee, fee, discountPercent, discountAmount);
+            return new TicketPrice(originalTicketPrice, priceIncludingFee, fee, discountPercent, discountAmount, priceAfterDiscount);
         }
         
         public decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTicketSales)

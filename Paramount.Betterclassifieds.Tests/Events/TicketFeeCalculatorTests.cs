@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Fee, Is.EqualTo(expectedFee));
-            Assert.That(result.PriceIncludingFee, Is.EqualTo(expectedPriceIncFee));
+            Assert.That(result.Total, Is.EqualTo(expectedPriceIncFee));
             Assert.That(result.OriginalPrice, Is.EqualTo(mockTicketPrice));
         }
 
@@ -45,9 +45,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = calculator.GetTotalTicketPrice(100, eventPromo);
 
             result.OriginalPrice.IsEqualTo(100);
-            result.PriceIncludingFee.IsEqualTo(80);
+            result.Total.IsEqualTo(80);
             result.DiscountPercent.IsEqualTo(20);
             result.DiscountAmount.IsEqualTo(20);
+            result.PriceAfterDiscount.IsEqualTo(80);
         }
 
         [Test]

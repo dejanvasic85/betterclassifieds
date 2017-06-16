@@ -42,6 +42,9 @@
 .button-options .btn-default.active {
   background-color: #c1e2b3;
 }
+.strike {
+  text-decoration: line-through;
+}
 .bs-callout {
   padding: 10px;
   padding-left: 20px;

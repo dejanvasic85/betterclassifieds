@@ -41,11 +41,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var calculator = new TicketFeeCalculator(_clientConfig);
             var ticketPrice = calculator.GetTotalTicketPrice(eventTicket);
-            var eventDetails = _eventRepository.GetEventDetails(eventTicket.EventId.GetValueOrDefault());
 
             var reservation = Create(sessionId, eventGroupId, eventTicket);
             reservation.Price = ticketPrice.OriginalPrice;
-            reservation.TransactionFee = eventDetails.IncludeTransactionFee.GetValueOrDefault() ? ticketPrice.Fee : 0;
             reservation.SeatNumber = seatNumber;
 
             return reservation;

@@ -10,6 +10,7 @@
         bool EventBookingComplete { get; set; }
         string EventUrl { get; set; }
         string OrderRequestId { get; set; }
+        string AppliedPromoCode { get; set; }
         void Clear();
     }
 
@@ -26,6 +27,7 @@
         public bool EventBookingComplete { get; set; }
         public string EventUrl { get; set; }
         public string OrderRequestId { get; set; } // Previously known as sessionId
+        public string AppliedPromoCode { get; set; }
 
         public void Clear()
         {

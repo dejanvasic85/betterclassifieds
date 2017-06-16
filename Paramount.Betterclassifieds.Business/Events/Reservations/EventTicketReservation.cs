@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         // Only because of entity framework
         public virtual string StatusAsString
         {
-            get { return Status.ToString(); }
+            get => Status.ToString();
             set
             {
                 EventTicketReservationStatus status;

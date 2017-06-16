@@ -62,21 +62,29 @@
 
         </div>
 
+       
+
         <div class="col-xs-12">
+            @if (Model.PromoDiscountApplied)
+            {
+                <div class="alert alert-success">
+                    A promotional discount of @Model.PromoDiscountAmount.GetValueOrDefault().ToString("C") was applied.
+                </div>
+            }
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Tickets Total</th>
-                        <th>Transaction Fee</th>
-                        <th>Sub Total</th>
-                    </tr>
+                <tr>
+                    <th>Tickets Total</th>
+                    <th>Transaction Fee</th>
+                    <th>Sub Total</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>@Model.TotalCostWithoutFees.ToString("C")</td>
-                        <td>@Model.TotalFees.ToString("C")</td>
-                        <td><h4>@Model.TotalCost.ToString("C")</h4></td>
-                    </tr>
+                <tr>
+                    <td>@Model.TotalCostIncludingDiscount.ToString("C")</td>
+                    <td>@Model.TotalFees.ToString("C")</td>
+                    <td><h4>@Model.TotalCost.ToString("C")</h4></td>
+                </tr>
                 </tbody>
             </table>
         </div>

@@ -71,5 +71,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             // We are taking an assumption here that we only deal with currencies with 2 decimal places :(
             return (int)(TotalCost*100);
         }
+
+        public decimal CostAfterDiscount => Cost - DiscountAmount.GetValueOrDefault();
     }
 }

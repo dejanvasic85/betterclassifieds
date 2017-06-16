@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     TransactionFee = cost.Fee,
                     DiscountPercent = cost.DiscountPercent,
                     DiscountAmount = cost.DiscountAmount,
-                    TotalPrice = cost.PriceIncludingFee,
+                    TotalPrice = cost.Total,
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,
                     EventGroupId = reservation.EventGroupId,

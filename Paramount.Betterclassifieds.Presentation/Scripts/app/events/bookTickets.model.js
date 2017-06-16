@@ -14,11 +14,6 @@
         });
         me.canContinue = ko.observable(data.successfulReservationCount > 0);
         me.notAllRequestsAreFulfilled = ko.observable(data.reservations.length !== data.successfulReservationCount);
-
-        var requiresPayment = _.some(data.reservations, function (r) {
-            return r.price > 0;
-        });
-        me.requiresPayment = ko.observable(requiresPayment);
         me.displayGuests = ko.observable(data.displayGuests);
 
         // User details
@@ -27,15 +22,14 @@
         me.phone = ko.observable(data.phone);
         me.postCode = ko.observable(data.postCode);
         me.email = ko.observable(data.email);
-        
-        me.serverError = ko.observable(false);
 
+        // Promo code
         me.promoCode = ko.observable();
         me.promoCodeApplied = ko.observable(0);
         me.promoDiscountPercent = ko.observable();
         me.promoDiscountAmount = ko.observable();
         me.promoNotAvailable = ko.observable();
-
+        
         me.applyPromoCode = function (model, event) {
             if (!me.promoCode()) {
                 return;
@@ -54,30 +48,26 @@
                         return;
                     }
 
-                    if (r.discountPercent && r.discountPercent > 0 && data.totalCostCents > 0) {
-                        me.promoCodeApplied(true);
-                        me.promoDiscountPercent(r.discountPercent);
+                    me.promoCodeApplied(true);
+                    me.promoDiscountPercent(r.discountPercent);
+                    me.promoDiscountAmount(r.discountAmount);
+                    me.priceAfterDiscount(r.priceAfterDiscount);
+                    me.fee(r.fee);
+                    me.totalPrice(r.totalPrice);
 
-                        // Todo - adjust the total cost
-                    }
                 })
                 .always(function () {
                     $btn.resetBtn();
                 });
         }
 
-        me.computedTotalCost = ko.computed(function () {
-
-            var totalCents = data.totalCostCents;
-
-            if (me.promoDiscountPercent() && me.promoDiscountPercent() > 0) {
-                var discountAmount = totalCents * (me.promoDiscountPercent() / 100);
-                me.promoDiscountAmount(discountAmount / 100);
-                totalCents = totalCents - (discountAmount);
-            }
-
-            var t = totalCents / 100;
-            return t;
+        // Pricing
+        me.price = ko.observable(data.totalCostWithoutFees);
+        me.priceAfterDiscount = ko.observable();
+        me.fee = ko.observable(data.totalFees);
+        me.totalPrice = ko.observable(data.totalCost);
+        me.requiresPayment = ko.computed(function() {
+            return me.totalPrice() > 0;
         });
 
         // Tickets

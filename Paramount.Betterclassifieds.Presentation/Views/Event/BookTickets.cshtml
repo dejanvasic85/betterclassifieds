@@ -193,7 +193,7 @@
                     <div class="alert alert-info" data-bind="visible: !promoCodeApplied()">
                         <label class="control-label">Promo Code:</label>
                         <div class="input-group">
-                            <input type="text" id="promoCode" class="form-control" data-bind="value: promoCode" autocomplete="off"/>
+                            <input type="text" id="promoCode" class="form-control" data-bind="value: promoCode" autocomplete="off" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-bind="click: applyPromoCode" data-loading-text="applying...">Apply!</button>
                             </span>
@@ -202,7 +202,7 @@
                             Do you have a promo code? Enter it here to reveal any potential discount.
                         </p>
                     </div>
-                    
+
                     <div class="alert alert-danger" data-bind="visible: promoNotAvailable() && !promoCodeApplied()">
                         Sorry. That code cannot be found or has been exhausted.
                     </div>
@@ -210,12 +210,14 @@
                     <div class="alert alert-success" data-bind="visible: promoCodeApplied">
                         Your promo code has been applied.
                         <div data-bind="visible: promoDiscountPercent() > 0">
-                            A discount of <strong><span data-bind="text: $paramount.formatCurrency( promoDiscountAmount() )"></span> 
-                            (<span data-bind="text: promoDiscountPercent"></span>%)</strong> was applied to the total price.
+                            A discount of <strong>
+                                <span data-bind="text: $paramount.formatCurrency( promoDiscountAmount() )"></span>
+                                (<span data-bind="text: promoDiscountPercent"></span>%)
+                            </strong> was applied.
                         </div>
                     </div>
                 }
-
+             
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -226,10 +228,14 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="tst-totalTicketCost">@Model.TotalCostWithoutFees.ToString("C")</td>
-                            <td class="tst-totalFees">@Model.TotalFees.ToString("C")</td>
-                            <td class="tst-subTotal"><h4 data-bind="text: $paramount.formatCurrency( computedTotalCost() )"></h4>
-                                <span data-bind="visible: promoDiscountPercent() > 0">(after discount)</span></td>
+                            <td class="tst-totalTicketCost">
+                                <span data-bind="text: $paramount.formatCurrency(price()), css : {'strike': promoDiscountPercent() > 0 }"></span>
+                                <span data-bind="text: $paramount.formatCurrency(priceAfterDiscount()), visible: promoDiscountPercent() > 0"></span>
+                            </td>
+                            <td class="tst-totalFees" data-bind="text: $paramount.formatCurrency(fee())"></td>
+                            <td class="tst-subTotal">
+                                <h4 data-bind="text: $paramount.formatCurrency( totalPrice() )"></h4>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

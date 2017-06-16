@@ -9,24 +9,27 @@ namespace Paramount.Betterclassifieds.Business.Events
             // All the decimals should obtain the zero default values
         }
 
-        public TicketPrice(decimal originalPrice, decimal priceIncludingFee, decimal fee)
-            : this(originalPrice, priceIncludingFee, fee, decimal.MinValue, decimal.MinValue)
+        public TicketPrice(decimal originalPrice, decimal total, decimal fee)
+            : this(originalPrice, total, fee, decimal.MinValue, decimal.MinValue, originalPrice)
         {
         }
 
-        public TicketPrice(decimal originalPrice, decimal priceIncludingFee, decimal fee, decimal discountPercent, decimal discountAmount)
+        public TicketPrice(decimal originalPrice, decimal total, decimal fee, 
+            decimal discountPercent, decimal discountAmount, decimal priceAfterDiscount)
         {
             OriginalPrice = originalPrice;
-            PriceIncludingFee = priceIncludingFee;
+            Total = total;
             Fee = fee;
             DiscountPercent = discountPercent;
             DiscountAmount = discountAmount;
+            PriceAfterDiscount = priceAfterDiscount;
         }
 
         public decimal OriginalPrice { get; }
-        public decimal PriceIncludingFee { get; }
+        public decimal Total { get; }
         public decimal Fee { get; }
         public decimal DiscountPercent { get; }
         public decimal DiscountAmount { get; }
+        public decimal PriceAfterDiscount { get; }
     }
 }

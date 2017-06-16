@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public BookTicketsViewModel(AdSearchResult onlineAdModel, EventModel eventDetails, IClientConfig clientConfig,
             IApplicationConfig appConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations,
-            UserNetworkModel userNetwork)
+            UserNetworkModel userNetwork, TicketPrice ticketPrice)
         {
             EventId = eventDetails.EventId;
             TotelReservationExpiryMinutes = clientConfig.EventTicketReservationExpiryMinutes;
@@ -29,9 +29,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
             SendEmailToGuests = true;
-            TotalCostWithoutFees = ticketReservations.Sum(r => r.Price.GetValueOrDefault());
-            TotalCost = ticketReservations.Sum(r => r.TotalPriceWithTxnFee);
-            TotalFees = ticketReservations.Sum(r => r.TransactionFee.GetValueOrDefault());
+            TotalCostWithoutFees = ticketPrice.OriginalPrice;
+            TotalCost = ticketPrice.Total;
+            TotalFees = ticketPrice.Fee;
             IncludeTransactionFee = eventDetails.IncludeTransactionFee;
             DisplayGuests = eventDetails.DisplayGuests;
             HasPromoCodes = eventDetails.PromoCodes.Any();

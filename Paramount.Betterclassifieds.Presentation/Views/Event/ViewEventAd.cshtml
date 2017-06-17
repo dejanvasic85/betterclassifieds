@@ -86,6 +86,19 @@
                 @Html.Raw(Model.HtmlText)
             </div>
 
+            @if (Model.DisplaySeating)
+            {
+                <div id="ticketSeating" class="full-width">
+                    <h3 class="page-header">
+                        <i class="fa fa-ticket"></i> Tickets
+                    </h3>
+
+
+                    <seat-selector params="eventId: @Model.EventId, eventEndDate: '@Model.EventEndDateUtcIso', openingDate: '@Model.OpeningDateUtcIso', closingDate: '@Model.ClosingDateUtcIso', orderRequestId: '@Model.OrderRequestId', maxSeats : @Model.MaxTicketsPerBooking"></seat-selector>
+
+                </div>
+            }
+
             @*Who's coming*@
             @if (Model.DisplayGuests && Model.Guests.Count > 0)
             {
@@ -132,20 +145,6 @@
                     </div>
                 </div>
             </div>
-
-            @if (Model.DisplaySeating)
-            {
-                <div id="ticketSeating" class="full-width">
-                    <h3 class="page-header">
-                        <i class="fa fa-ticket"></i> Tickets
-                    </h3>
-
-
-                    <seat-selector params="eventId: @Model.EventId, eventEndDate: '@Model.EventEndDateUtcIso', openingDate: '@Model.OpeningDateUtcIso', closingDate: '@Model.ClosingDateUtcIso', orderRequestId: '@Model.OrderRequestId', maxSeats : @Model.MaxTicketsPerBooking"></seat-selector>
-
-                </div>
-            }
-
 
             <div class="row top-buffer-20">
                 <div class="col-xs-12 col-md-6">

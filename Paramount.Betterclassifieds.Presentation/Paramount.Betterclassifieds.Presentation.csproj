@@ -517,6 +517,9 @@
     <Content Include="Content\KandoBay\kando.nav.min.css">
       <DependentUpon>kando.nav.css</DependentUpon>
     </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="Content\SriLankanEvents\ico\favicon.ico" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
@@ -662,10 +665,10 @@
     <Content Include="Scripts\app\events\manage-tickets.model.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.html" />
-    <Content Include="Scripts\app\events\viewGuests\view-public-guests.html" />
-    <Content Include="Scripts\app\events\viewGuests\view-public-guests.js" />
-    <Content Include="Scripts\app\events\viewGuests\view-guests.html" />
-    <Content Include="Scripts\app\events\viewGuests\view-guests.js" />
+    <Content Include="Scripts\app\events\viewGuests\viewPublicGuests.html" />
+    <Content Include="Scripts\app\events\viewGuests\viewPublicGuests.js" />
+    <Content Include="Scripts\app\events\viewGuests\viewGuests.html" />
+    <Content Include="Scripts\app\events\viewGuests\viewGuests.js" />
     <Content Include="Scripts\app\pagination\pagination.html" />
     <Content Include="Scripts\app\pagination\pagination.js" />
     <Content Include="Scripts\app\progress-bar\progress-bar.html" />
@@ -927,6 +930,7 @@
     <Content Include="Scripts\app\userNetwork\userNetwork.model.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\app\events\seatSelector\seatSelector.less" />
+    <Content Include="Scripts\app\events\viewGuests\viewGuests.css" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />

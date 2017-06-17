@@ -204,7 +204,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             EventPromoCode eventPromo = null;
             if (promoCode.HasValue())
             {
-                eventPromo = _promoService.GetEventPromoCode(eventId, promoCode);
+                // Try fetch or set default
+                eventPromo = _promoService.GetEventPromoCode(eventId, promoCode) ?? new EventPromoCode { PromoCode = promoCode };
             }
 
             var feeCalculator = new TicketFeeCalculator(_clientConfig);

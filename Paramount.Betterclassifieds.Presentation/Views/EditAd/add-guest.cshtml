@@ -83,6 +83,14 @@
                         Start typing a seat number.
                     </p>
                 </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Promo Code</label>
+                    <input type="text" data-bind="value: promoCode" autocomplete="off" class="form-control"/>
+                    <p class="help-block">
+                        Promo code here is used for reporting purposes only.
+                    </p>
+                </div>
 
                 @*Ticket*@
                 <div class="form-group" data-bind="visible: selectedTicket() !== undefined">
@@ -119,7 +127,7 @@
                 <div class="control-group">
                     <label class="control-label">Send Email with Tickets</label>
                     <div>
-                        <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-on="Send Email" data-off="Don't Email" data-onstyle="success" />
+                        <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-on="Send Email" data-off="Don't Email" data-onstyle="info" />
                     </div>
                 </div>
 
@@ -128,8 +136,8 @@
                 </div>
 
                 <div class="text-right" data-bind="visible: !saved()">
-                    <button id="btnAddGuest" class="btn btn-success" data-bind="click: submitGuest" data-loading-text="Please Wait...">
-                        Submit <i class="fa fa-save"></i>
+                    <button id="btnAddGuest" class="btn btn-success btn-lg" data-bind="click: submitGuest" data-loading-text="Please Wait...">
+                        Add Guest
                     </button>
                 </div>
 

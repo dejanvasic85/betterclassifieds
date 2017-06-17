@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         [RequiredIf("IsSeatedEvent", true, ValidationMessage = "Seat is required for a seated event")]
         public string SeatNumber { get; set; }
-
+        
         [EmailAddress]
         [MaxLength(100)]
         public string GuestEmail { get; set; }

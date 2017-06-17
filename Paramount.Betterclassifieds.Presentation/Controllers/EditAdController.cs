@@ -494,12 +494,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.CreateEventBooking(
                 viewModel.EventId.GetValueOrDefault(),
-                viewModel.PromoCode,
+                viewModel.PromoCode.Trim().ToUpper(),
                 currentUser,
                 new[] { reservation },
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
+            _eventManager.ActivateBooking(eventBooking.EventBookingId, null);
 
             if (viewModel.SendEmailToGuest)
             {

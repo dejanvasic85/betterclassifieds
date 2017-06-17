@@ -4,7 +4,7 @@
 
     ko.components.register('view-public-guests', {
         template: {
-            path: $paramount.baseUrl + 'Scripts/app/events/viewGuests/view-public-guests.html'
+            path: $paramount.baseUrl + 'Scripts/app/events/viewGuests/viewPublicGuests.html'
         },
         viewModel: function (params) {
             var me = this;

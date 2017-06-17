@@ -11,6 +11,7 @@
         this.sendEmailToGuest = ko.observable(true);
         this.tickets = ko.observableArray();
         this.ticketFields = ko.observableArray();
+        this.promoCode = ko.observable();
         this.saved = ko.observable();
         this.selectedGroup = ko.observable();
         this.displayGuests = ko.observable();
@@ -108,7 +109,8 @@
             seatNumber: vm.seatNumber(),
             sendEmailToGuest: vm.sendEmailToGuest(),
             selectedTicket: ko.toJS(vm.selectedTicket()),
-            selectedGroup: ko.toJS(vm.selectedGroup)
+            selectedGroup: ko.toJS(vm.selectedGroup),
+            promoCode : vm.promoCode()
         }
     }
 
@@ -136,6 +138,7 @@
         this.selectedTicket(null);
         this.selectedGroup(null);
         this.seatNumber(null);
+        this.promoCode(null);
 
         _.each(this.ticketFields(), function (tf) {
             tf.fieldValue(null);

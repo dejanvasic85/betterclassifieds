@@ -49,6 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .Include("~/Content/site-bs-override.css")
                 .IncludeDirectory("~/Content/components", "*.css")
                 .Include("~/Scripts/app/events/seatSelector/seatSelector.css")
+                .Include("~/Scripts/app/events/viewGuests/viewGuests.css")
             );
 
             bundles.Add(new Bundle("~/Content/Kandobay/styles")

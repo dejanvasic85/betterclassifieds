@@ -20,6 +20,7 @@
         this.eventGroups = ko.observableArray();
         this.seats = ko.observableArray();
         this.guestAddWarning = ko.observable('');
+        this.showSeatWarning = ko.observable(false);
         this.validator = ko.validatedObservable({
             guestFullName: this.guestFullName.extend({ required: true }),
             guestEmail: this.guestEmail.extend({ required: true, email: true })
@@ -29,12 +30,12 @@
 
         var me = this;
         me.seatSelected = function (seatNumber) {
-            me.guestAddWarning('');
+            me.showSeatWarning(false);
             var seat = _.find(me.cachedEventSeating, function (s) {
                 return s.seatNumber === seatNumber;
             });
             if (seat.available === false) {
-                me.guestAddWarning('The selected seat is not available.');
+                me.showSeatWarning(true);
                 me.seatNumber(null);
                 me.selectedTicket(null);
             } else {
@@ -132,21 +133,9 @@
         });
     }
 
-    AddGuest.prototype.addAnother = function (element, event) {
-        this.guestFullName(null);
-        this.guestEmail(null);
-        this.selectedTicket(null);
-        this.selectedGroup(null);
-        this.seatNumber(null);
-        this.promoCode(null);
-
-        _.each(this.ticketFields(), function (tf) {
-            tf.fieldValue(null);
-        });
-        // Reset all warnings
-        this.guestAddWarning('');
-        this.saved(false);
-        $('html, body').animate({ scrollTop: $('.add-guest-view').offset().top }, 1000);
+    AddGuest.prototype.addAnother = function (mode, event) {
+        $(event.target).loadBtn();
+        location.reload();
     }
 
     /*

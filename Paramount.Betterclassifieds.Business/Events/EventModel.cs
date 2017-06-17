@@ -61,5 +61,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public bool DisplayGuests { get; set; }
         public bool? IsSeatedEvent { get; set; }
+        
     }
 }

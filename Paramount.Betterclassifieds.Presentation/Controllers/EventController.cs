@@ -137,10 +137,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var calculator = new TicketFeeCalculator(_clientConfig);
             var combinedTicketsPrice = ticketReservations.Sum(t => t.Price.GetValueOrDefault());
-            var fee = calculator.GetTotalTicketPrice(combinedTicketsPrice);
+            var ticketPrice = calculator.GetTotalTicketPrice(combinedTicketsPrice);
 
             var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig,
-                applicationUser, ticketReservations, userNetwork, fee)
+                applicationUser, ticketReservations, userNetwork, ticketPrice)
             {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
             };

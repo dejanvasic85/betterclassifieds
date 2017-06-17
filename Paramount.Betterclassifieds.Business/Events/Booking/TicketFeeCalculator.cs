@@ -13,6 +13,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             _clientConfig = clientConfig;
         }
 
+
+
         public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice)
         {
             return GetTotalTicketPrice(originalTicketPrice, null);

@@ -38,8 +38,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
         public List<EventBookingTicketField> TicketFields { get; set; }
+
+        [Obsolete("This should be removed because the fee is calculated during booking")]
         public decimal? TransactionFee { get; set; }
-        public decimal TotalPriceWithTxnFee => Price.GetValueOrDefault() + TransactionFee.GetValueOrDefault();
         public int? EventGroupId { get; set; }
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }

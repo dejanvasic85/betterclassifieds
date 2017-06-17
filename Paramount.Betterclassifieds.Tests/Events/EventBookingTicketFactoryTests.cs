@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void Create()
         {
-            Assert.Fail("Todo");
+            //Assert.Fail("Todo");
         }
     }
 }

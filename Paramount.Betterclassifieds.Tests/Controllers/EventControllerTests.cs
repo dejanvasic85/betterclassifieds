@@ -269,7 +269,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Arrange
             var mockReservations = new List<EventTicketReservation>
             {
-                new EventTicketReservation {EventTicket = new EventTicket {EventId = 10}, Price = 10, TransactionFee = (decimal)0.5}
+                new EventTicketReservation {EventTicket = new EventTicket {EventId = 10}, Price = 10}
             };
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockAd = new AdSearchResultMockBuilder().Default().Build();
@@ -285,6 +285,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _searchService.SetupWithVerification(call => call.GetByAdOnlineId(It.Is<int>(p => p == mockEvent.OnlineAdId)), mockAd);
             _userManager.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
             _clientConfig.SetupWithVerification(call => call.EventTicketReservationExpiryMinutes, 10);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2.1M);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 30);
             _appConfig.SetupWithVerification(call => call.Brand, "HelloBrand");
             _eventBookingContext.SetupWithVerification(call => call.EventInvitationId, null);
 
@@ -295,7 +297,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             var model = result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
             model.BrandName.IsEqualTo("HelloBrand");
-            model.TotalCostCents.IsEqualTo(1050);
+            model.TotalCostCents.IsEqualTo(1051);
+            model.TotalCost.IsEqualTo(10.51M);
+            model.TotalFees.IsEqualTo(0.51M);
             model.HasPromoCodes.IsTrue();
         }
 
@@ -336,10 +340,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
+            _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
-
+            
 
             // act
             var controller = BuildController(mockUser: _mockUser);
@@ -392,6 +397,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
+            _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());

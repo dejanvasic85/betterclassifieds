@@ -283,7 +283,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 mockEventTicketReservation);
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
-                It.Is<string>(p => p == mockPromoCode), 
+                It.Is<string>(p => p == mockPromoCode.Trim().ToUpper()), 
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>(),
                 It.IsAny<Func<string, string>>()), mockEventBooking);
@@ -294,6 +294,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             
             _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
                 It.IsAny<IList<EventBookingTicket>>()));
+
+            _eventManagerMock.SetupWithVerification(
+                call => call.ActivateBooking(It.Is<int>(b => b == mockEventBooking.EventBookingId), It.IsAny<int?>()));
 
             _eventBookingManager
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventBookingManager.Object)

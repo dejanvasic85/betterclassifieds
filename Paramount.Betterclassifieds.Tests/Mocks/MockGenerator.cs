@@ -707,6 +707,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.Price = val);
 		}
+		public EventBookingTicketMockBuilder WithDiscountAmount(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.DiscountAmount = val);
+		}
+		public EventBookingTicketMockBuilder WithDiscountPercent(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.DiscountPercent = val);
+		}
 		public EventBookingTicketMockBuilder WithGuestFullName(String val)
 		{ 
 			return WithBuildStep(p => p.GuestFullName = val);
@@ -879,6 +887,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.DiscountPercent = val);
 		}
+		public EventBookingMockBuilder WithDiscountAmount(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.DiscountAmount = val);
+		}
 		public EventBookingMockBuilder WithCreatedDateTime(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.CreatedDateTime = val);
@@ -1038,6 +1050,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithSeatNumber(String val)
 		{ 
 			return WithBuildStep(p => p.SeatNumber = val);
+		}
+		public EventGuestDetailsMockBuilder WithPromoCode(String val)
+		{ 
+			return WithBuildStep(p => p.PromoCode = val);
 		}
 	}
 

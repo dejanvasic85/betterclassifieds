@@ -67,13 +67,13 @@ namespace Paramount.Betterclassifieds.Business.Events
             return new TicketPrice(originalTicketPrice, priceIncludingFee, fee, discountPercent, discountAmount, priceAfterDiscount);
         }
         
-        public decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTicketSales)
+        public decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTransactions)
         {
             if (totalTicketSaleAmount == 0)
                 return 0;
 
             var totalFees = totalTicketSaleAmount * GetEventTicketFeePercentage();
-            totalFees += totalTicketSales * GetEventTicketFeeCents();
+            totalFees += totalTransactions * GetEventTicketFeeCents();
             return totalFees;
         }
 

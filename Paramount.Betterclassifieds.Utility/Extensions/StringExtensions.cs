@@ -238,5 +238,25 @@ namespace Paramount
 
             return parsed;
         }
+
+        public static string TryTrim(this string val)
+        {
+            if (val == null)
+            {
+                return string.Empty;
+            }
+
+            return val.Trim();
+        }
+
+        public static string TryToUpper(this string val)
+        {
+            if (val == null)
+            {
+                return string.Empty;
+            }
+
+            return val.ToUpper();
+        }
     }
 }

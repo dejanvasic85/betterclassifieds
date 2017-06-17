@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public DateTime DateOfBooking { get; set; }
         public string GroupName { get; set; }
         public string SeatNumber { get; set; }
+        public string PromoCode { get; set; }
     }
 }

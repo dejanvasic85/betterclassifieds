@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GroupName { get; set; }
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }
+        public string PromoCode { get; set; }
     }
 
     public class EventGuestPublicView

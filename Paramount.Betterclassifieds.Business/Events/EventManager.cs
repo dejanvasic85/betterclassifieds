@@ -395,7 +395,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
                 DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault(),
                 GroupName = groups.SingleOrDefault(g => g.EventGroupId == t.EventGroupId)?.GroupName,
-                SeatNumber = t.SeatNumber
+                SeatNumber = t.SeatNumber,
+                PromoCode = t.EventBooking?.PromoCode
             });
         }
 

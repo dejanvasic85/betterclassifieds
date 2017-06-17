@@ -202,6 +202,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 var id = eventId.GetValueOrDefault();
                 var query = context.EventBookingTickets
                     .Include(t => t.TicketFieldValues)
+                    .Include(t => t.EventBooking)
                     .Where(t => t.EventBooking.EventId == id)
                     .Where(t => t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
                     .Where(t => t.IsActive)
@@ -327,7 +328,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.PromoCodes.SingleOrDefault(p => p.EventId == eventId 
+                return context.PromoCodes.SingleOrDefault(p => p.EventId == eventId
                     && p.PromoCode.Equals(promoCode, StringComparison.OrdinalIgnoreCase));
             }
         }
@@ -336,7 +337,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.PromoCodes.Where(p=> p.EventId == eventId).ToList();
+                return context.PromoCodes.Where(p => p.EventId == eventId).ToList();
             }
         }
 

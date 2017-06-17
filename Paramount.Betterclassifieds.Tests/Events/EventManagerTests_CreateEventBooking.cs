@@ -17,10 +17,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var mockUser = new ApplicationUserMockBuilder().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
 
             _dateServiceMock.SetupNow().SetupNowUtc();
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
             _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
             var manager = BuildTargetObject();
@@ -36,6 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // arrange
             var mockUser = new ApplicationUserMockBuilder().Build();
             var mockTicket = new EventTicketMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
 
             var mockReservations = new List<EventTicketReservation>
             {
@@ -53,6 +56,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), mockTicket);
             _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
             var manager = BuildTargetObject();
@@ -67,6 +71,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // arrange
             var mockUser = new ApplicationUserMockBuilder().Build();
             var mockTicket = new EventTicketMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
 
             var mockReservations = new List<EventTicketReservation>
             {
@@ -88,6 +93,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _barcodeGenerator.SetupWithVerification(call => call.CreateQr(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), result: new byte[0]);
             _eventBarcodeValidator.SetupWithVerification(call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "111-222-333");
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
             var manager = BuildTargetObject();

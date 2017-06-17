@@ -5,8 +5,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public interface IEventTicketReservationFactory
     {
-        IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber);
-        EventTicketReservation CreateReservation(string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket);
+        IEnumerable<EventTicketReservation> CreateReservations(EventModel eventModel, int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber);
+        EventTicketReservation CreateReservation(EventModel eventModel, string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket);
         EventTicketReservation CreateFreeReservation(string sessionId, int? eventGroupId, EventTicket eventTicket);
     }
 
@@ -25,22 +25,22 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventManager = eventManager;
         }
 
-        public IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber)
+        public IEnumerable<EventTicketReservation> CreateReservations(EventModel eventModel, int eventTicketId, int quantity, string sessionId, int? eventGroupId, string seatNumber)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId, includeReservations: true);
 
             for (int i = 0; i < quantity; i++)
             {
-                var reservation = CreateReservation(sessionId, eventGroupId, seatNumber, eventTicket);
+                var reservation = CreateReservation(eventModel, sessionId, eventGroupId, seatNumber, eventTicket);
 
                 yield return reservation;
             }
         }
 
-        public EventTicketReservation CreateReservation( string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket)
+        public EventTicketReservation CreateReservation(EventModel eventModel, string sessionId, int? eventGroupId, string seatNumber, EventTicket eventTicket)
         {
             var calculator = new TicketFeeCalculator(_clientConfig);
-            var ticketPrice = calculator.GetTotalTicketPrice(eventTicket);
+            var ticketPrice = calculator.GetTotalTicketPrice(eventTicket, eventModel.IncludeTransactionFee.GetValueOrDefault());
 
             var reservation = Create(sessionId, eventGroupId, eventTicket);
             reservation.Price = ticketPrice.OriginalPrice;

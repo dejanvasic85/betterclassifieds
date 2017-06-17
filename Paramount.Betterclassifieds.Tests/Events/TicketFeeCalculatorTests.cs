@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(mockFeeCents);
 
             var calculator = new TicketFeeCalculator(clientConfig.Object);
-            var result = calculator.GetTotalTicketPrice(eventTicketMock);
+            var result = calculator.GetTotalTicketPrice(eventTicketMock, true);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Fee, Is.EqualTo(expectedFee));
@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var price = 100;
 
             var calculator = new TicketFeeCalculator(clientConfig.Object);
-            var result = calculator.GetTotalTicketPrice(100, eventPromo);
+            var result = calculator.GetTotalTicketPrice(100, eventPromo, true);
 
             result.OriginalPrice.IsEqualTo(100);
             result.Total.IsEqualTo(80);

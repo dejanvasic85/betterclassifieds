@@ -208,9 +208,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventPromo = _promoService.GetEventPromoCode(eventId, promoCode) ?? new EventPromoCode { PromoCode = promoCode };
             }
 
+            var eventModel = _eventRepository.GetEventDetails(eventId);
             var feeCalculator = new TicketFeeCalculator(_clientConfig);
             var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator)
-                .Create(eventId, eventPromo, applicationUser, currentReservations);
+                .Create(eventModel, eventPromo, applicationUser, currentReservations);
 
             _eventRepository.CreateBooking(eventBooking);
             _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);

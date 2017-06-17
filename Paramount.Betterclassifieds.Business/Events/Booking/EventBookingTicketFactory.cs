@@ -17,14 +17,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             _ticketFeeCalculator = ticketFeeCalculator;
         }
 
-        public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation,
+        public IEnumerable<EventBookingTicket> CreateFromReservation(EventModel eventModel, EventTicketReservation reservation,
             EventPromoCode eventPromo, DateTime createdDate, DateTime createdDateUtc)
         {
             if (!reservation.EventTicketId.HasValue)
                 throw new ArgumentNullException(nameof(reservation), "EventTicketId cannot be null in the reservation");
 
             var eventTicket = _eventRepository.GetEventTicketDetails(reservation.EventTicketId.GetValueOrDefault());
-            var cost = _ticketFeeCalculator.GetTotalTicketPrice(reservation.Price.GetValueOrDefault(), eventPromo);
+            var cost = _ticketFeeCalculator.GetTotalTicketPrice(reservation.Price.GetValueOrDefault(), 
+                eventPromo, eventModel.IncludeTransactionFee.GetValueOrDefault());
 
             for (int i = 0; i < reservation.Quantity; i++)
             {

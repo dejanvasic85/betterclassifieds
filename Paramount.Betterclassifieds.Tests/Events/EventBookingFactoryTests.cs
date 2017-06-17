@@ -24,12 +24,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
             clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(30);
             var feeCalculator = new TicketFeeCalculator(clientConfig.Object);
             mockDateService.SetupNow().SetupNowUtc();
+            var mockEvent = new EventModelMockBuilder().WithEventId(10).WithIncludeTransactionFee(true).Build();
 
             // act
             var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
 
             var result = factory.Create(
-                eventId,
+                mockEvent,
                 null,
                 applicationUser,
                 eventTicketReservations);
@@ -70,6 +71,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockRepository = new Mock<IEventRepository>();
             var mockEventTicket = new EventTicketMockBuilder().WithEventTicketId(1).WithTicketName("ticket-123").Build();
             mockRepository.Setup(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>())).Returns(mockEventTicket);
+            var mockEvent = new EventModelMockBuilder().Default().Build();
 
             var eventTicketReservations = new List<EventTicketReservation>
             {
@@ -88,7 +90,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
 
             var result = factory.Create(
-                eventId,
+                mockEvent,
                 new EventPromoCode{ PromoCode = "promo123", DiscountPercent = 30}, 
                 applicationUser,
                 eventTicketReservations);

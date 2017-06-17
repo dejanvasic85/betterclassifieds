@@ -62,14 +62,13 @@ Scenario: View event ad with transaction fee should increase the price of ticket
 	And with a ticket option "VIP" for "10" dollars each and "100" available
 	And with a ticket option "Free entry" for "0" dollars each and "100" available
 	When I navigate to "/Event/the-opera/adId"
-	# We are now showing the transaction fee on the next page
 	Then the ticket "General Admission" price should be "$5.00"
 	And the ticket "VIP" price should be "$10.00" 
 	And the ticket "Free entry" price should be "Free"	
 	When I select "1" "General Admission" tickets
 	When I select "1" "VIP" tickets
 	And proceed to order the tickets
-	Then the booking page should display total tickets "15.00" total fees "0.92" and sub total "15.92"
+	Then the booking page should display total tickets "15.00" total fees "0.61" and sub total "15.62"
 
 
 @DoesNotIncludeTransactionFee

@@ -101,6 +101,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             foreach (var t in tickets)
             {
                 reservations.AddRange(_eventTicketReservationFactory.CreateReservations(
+                    eventModel,
                     t.EventTicketId.GetValueOrDefault(),
                     t.SelectedQuantity,
                     orderRequestId,
@@ -136,8 +137,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var calculator = new TicketFeeCalculator(_clientConfig);
-            var combinedTicketsPrice = ticketReservations.Sum(t => t.Price.GetValueOrDefault());
-            var ticketPrice = calculator.GetTotalTicketPrice(combinedTicketsPrice);
+            var ticketPrice = calculator.GetTotalTicketPrice(ticketReservations, eventDetails.IncludeTransactionFee.GetValueOrDefault());
 
             var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig,
                 applicationUser, ticketReservations, userNetwork, ticketPrice)
@@ -223,9 +223,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 });
             }
 
+            var eventModel = _eventManager.GetEventDetails(eventId);
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
             var ticketFeeCalculator = new TicketFeeCalculator(_clientConfig);
-            var totalCost = ticketFeeCalculator.GetTotalTicketPrice(currentReservations, eventPromoCode);
+            var totalCost = ticketFeeCalculator.GetTotalTicketPrice(currentReservations, eventPromoCode, eventModel.IncludeTransactionFee.GetValueOrDefault());
 
             _eventBookingContext.AppliedPromoCode = promoCode;
 

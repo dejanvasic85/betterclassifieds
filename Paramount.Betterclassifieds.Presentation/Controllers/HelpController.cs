@@ -32,9 +32,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EventTicketFeeCents = _clientConfig.EventTicketFeeCents,
             };
 
-            vm.Example1Fee = ticketCalculator.GetTotalTicketPrice(vm.Example1TicketPrice).Fee;
-            vm.Example2Fee = ticketCalculator.GetTotalTicketPrice(vm.Example2TicketPrice).Fee;
-            vm.Example3Fee = ticketCalculator.GetTotalTicketPrice(vm.Example3TicketPrice).Fee;
+            vm.Example1Fee = ticketCalculator.GetTotalTicketPrice(vm.Example1TicketPrice, includeFee: true).Fee;
+            vm.Example2Fee = ticketCalculator.GetTotalTicketPrice(vm.Example2TicketPrice, includeFee: true).Fee;
+            vm.Example3Fee = ticketCalculator.GetTotalTicketPrice(vm.Example3TicketPrice, includeFee: true).Fee;
 
             vm.ExampleTotalTicketSales = 100;
             vm.ExampleTotalTicketQuantitySold = 10;

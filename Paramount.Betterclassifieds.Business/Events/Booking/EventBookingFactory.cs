@@ -16,17 +16,17 @@ namespace Paramount.Betterclassifieds.Business.Events
             _ticketFeeCalculator = ticketFeeCalculator;
         }
 
-        public EventBooking Create(int eventId,
+        public EventBooking Create(EventModel eventModel,
             EventPromoCode eventPromo,
             ApplicationUser applicationUser,
             IEnumerable<EventTicketReservation> currentReservations)
         {
             var reservations = currentReservations.ToList();
-            var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations, eventPromo);
+            var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations, eventPromo, eventModel.IncludeTransactionFee.GetValueOrDefault());
 
             var eventBooking = new EventBooking
             {
-                EventId = eventId,
+                EventId = eventModel.EventId.GetValueOrDefault(),
                 CreatedDateTimeUtc = _dateService.Now,
                 CreatedDateTime = _dateService.UtcNow,
                 FirstName = applicationUser.FirstName,
@@ -49,8 +49,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Add the ticket bookings
             var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService, _ticketFeeCalculator);
             eventBooking.EventBookingTickets.AddRange(
-                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, eventPromo, _dateService.Now, _dateService.UtcNow)));
-            
+                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(eventModel, r, eventPromo, _dateService.Now, _dateService.UtcNow)));
+
             return eventBooking;
         }
     }

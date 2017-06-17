@@ -12,31 +12,34 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             _clientConfig = clientConfig;
         }
-
-
-
-        public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice)
+        
+        public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice, bool includeFee)
         {
-            return GetTotalTicketPrice(originalTicketPrice, null);
+            return GetTotalTicketPrice(originalTicketPrice, null, includeFee);
         }
 
-        public TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, EventPromoCode eventPromoCode)
+        public TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, bool includeFee)
+        {
+            return GetTotalTicketPrice(data, null, includeFee);
+        }
+
+        public TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, EventPromoCode eventPromoCode, bool includeFee)
         {
             if (data == null)
                 return TicketPrice.MinValue;
 
             var combinedPrice = data.Sum(r => r.Price.GetValueOrDefault());
 
-            return GetTotalTicketPrice(combinedPrice, eventPromoCode);
+            return GetTotalTicketPrice(combinedPrice, eventPromoCode, includeFee);
         }
 
-        public TicketPrice GetTotalTicketPrice(EventTicket ticket)
+        public TicketPrice GetTotalTicketPrice(EventTicket ticket, bool includeFee)
         {
             Guard.NotNull(ticket);
-            return GetTotalTicketPrice(ticket.Price, null);
+            return GetTotalTicketPrice(ticket.Price, null, includeFee);
         }
         
-        public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice, EventPromoCode eventPromoCode)
+        public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice, EventPromoCode eventPromoCode, bool includeFee)
         {
             if (originalTicketPrice <= 0)
             {
@@ -51,8 +54,16 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             var discountAmount = originalTicketPrice * (discountPercent / 100);
             var priceAfterDiscount = (originalTicketPrice - discountAmount);
-            var fee = (priceAfterDiscount * GetEventTicketFeePercentage()) + GetEventTicketFeeCents();
-            var priceIncludingFee = priceAfterDiscount + fee;
+
+            decimal fee = 0;
+            decimal priceIncludingFee = priceAfterDiscount;
+
+            if (includeFee)
+            {
+                fee = (priceAfterDiscount * GetEventTicketFeePercentage()) + GetEventTicketFeeCents();
+                priceIncludingFee = priceAfterDiscount + fee;
+            }
+            
             return new TicketPrice(originalTicketPrice, priceIncludingFee, fee, discountPercent, discountAmount, priceAfterDiscount);
         }
         

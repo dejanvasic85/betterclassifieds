@@ -5,10 +5,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
     [TestFixture]
     public class EventBookingTicketFactoryTests
     {
+
+
         [Test]
-        public void Create()
+        public void CreateFromExisting_Clones_AndReturnsNew()
         {
-            //Assert.Fail("Todo");
+            
         }
     }
 }

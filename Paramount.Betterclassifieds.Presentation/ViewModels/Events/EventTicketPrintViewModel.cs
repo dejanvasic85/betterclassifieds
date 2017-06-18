@@ -18,9 +18,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             get
             {
                 if (Price == 0)
-                    return TicketName;
+                    return $"TicketName - No {TicketNumber}";
 
-                return $"{TicketName} {Price:C}";
+                return $"{TicketName} {Price:C} - No {TicketNumber}";
             }
         }
 
@@ -30,5 +30,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string BrandName { get; set; }
         public string BrandUrl { get; set; }
         public string SeatNumber { get; set; }
+        public string OrganiserName { get; set; }
     }
 }

@@ -157,6 +157,7 @@
     <Compile Include="Events\EventBookingTicketFactoryTests.cs" />
     <Compile Include="Events\EventSeatingServiceTests.cs" />
     <Compile Include="Events\EventTicketFactoryTest.cs" />
+    <Compile Include="Events\EventTicketPrintViewModelFactoryTests.cs" />
     <Compile Include="Events\GroupQuantityRequestRuleTests.cs" />
     <Compile Include="Events\SeatAvailabilityRuleTests.cs" />
     <Compile Include="Events\TicketFeeCalculatorTests.cs" />

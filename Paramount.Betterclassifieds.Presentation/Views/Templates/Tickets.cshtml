@@ -34,9 +34,9 @@
                     <div class="event-info">
                         
 
-                        <div class="event-title">
+                        <div class="event-title text-center">
                             <h3 class="@ticketNameClass">
-                                @tick.EventName
+                                <strong>TICKET</strong> @tick.EventName - @tick.StartDateTime
                             </h3>
                         </div>
 
@@ -56,11 +56,6 @@
                                                 @tick.TickTypeAndPrice
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td><i class="fa fa-clock-o"></i></td>
-                                            <td>When:</td>
-                                            <td>@tick.StartDateTime</td>
-                                        </tr>
                                         @if (tick.GroupName.HasValue())
                                         {
                                             <tr>
@@ -78,16 +73,21 @@
                                                 <td>@tick.SeatNumber</td>
                                             </tr>
                                         }
-
+                                       
+                                        <tr>
+                                            <td><i class="fa fa-user"></i></td>
+                                            <td>Guest:</td>
+                                            <td>@tick.GuestFullName &lt;@tick.GuestEmail&gt; </td>
+                                        </tr>
                                         <tr>
                                             <td><i class="fa fa-map-marker"></i></td>
                                             <td>Location:</td>
                                             <td>@tick.Location</td>
                                         </tr>
                                         <tr>
-                                            <td><i class="fa fa-user"></i></td>
-                                            <td>Guest:</td>
-                                            <td>@tick.GuestFullName &lt;@tick.GuestEmail&gt; </td>
+                                            <td><i class="fa fa-arrow-circle-right"></i></td>
+                                            <td>Presented By:</td>
+                                            <td>@tick.OrganiserName</td>
                                         </tr>
                                     </table>
                                 </div>

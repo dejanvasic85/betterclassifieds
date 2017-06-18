@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 
@@ -17,16 +16,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             string brandUrl,
             IEnumerable<EventGroup> groupsForEvent)
         {
-            var group = groupsForEvent.SingleOrDefault(g => g.EventGroupId == ticket.EventGroupId);
+            var group = groupsForEvent?.SingleOrDefault(g => g.EventGroupId == ticket.EventGroupId);
 
             return new EventTicketPrintViewModel
             {
                 TicketName = ticket.TicketName,
-                TicketNumber = ticket.EventTicketId.ToString(),
+                TicketNumber = ticket.EventBookingTicketId.ToString(),
                 EventPhoto = adDetails.PrimaryImage,
-                EventName = adDetails.Heading,
+                EventName = adDetails.Heading.TruncateOnWordBoundary(40),
                 Location = eventDetails.VenueNameAndLocation,
-                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy HH:mm"),
+                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dddd d MMM h:mmtt"),
                 Price = ticket.TotalPrice,
                 ContactNumber = adDetails.ContactPhone,
                 GroupName = group.With(g => g.GroupName),
@@ -34,8 +33,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 GuestEmail = ticket.GuestEmail,
                 BarcodeImageDocumentId = ticket.BarcodeImageDocumentId.GetValueOrDefault().ToString(),
                 BrandName = brandName,
-                BrandUrl = brandUrl
-
+                BrandUrl = brandUrl,
+                SeatNumber = ticket.SeatNumber,
+                OrganiserName = adDetails.ContactName
             };
         }
     }

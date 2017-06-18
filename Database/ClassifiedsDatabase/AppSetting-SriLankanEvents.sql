@@ -1,4 +1,4 @@
-
+  
 /*
  * App Settings
  */ 
@@ -33,7 +33,7 @@ execute temp_createAppSetting @Key = 'Security.EnableRegistrationEmailVerificati
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'Sri Lankan Events', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '10'
-execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.1', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '1.9', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1271926712886709', @Force = 1
 execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'False', @Force = 1

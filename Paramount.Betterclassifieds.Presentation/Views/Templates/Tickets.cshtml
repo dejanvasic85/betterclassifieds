@@ -1,135 +1,132 @@
 ﻿@using Paramount
 @model List<EventTicketPrintViewModel>
 
-@{
-    Layout = null;
-}
+    @{
+        Layout = null;
+    }
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>TicketPrint</title>
-    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.6.min.css")" media="all" />
-    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/event-ticket-print.min.css")" media="all" />
-    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.6.1.css")" media="all" />
-</head>
-<body>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>TicketPrint</title>
+        <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.6.min.css")" media="all" />
+        <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/event-ticket-print.min.css")" media="all" />
+        <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.6.1.css")" media="all" />
+    </head>
+    <body>
 
-    @foreach (var tick in Model)
-    {
-        <div class="ticket-container">
-            <div class="ticket">
+        @foreach (var tick in Model)
+        {
+            <div class="ticket-container">
+                <div class="ticket">
 
-                @{
-                    var ticketNameClass = string.Empty;
-                    var eventNameLength = tick.EventName.Length;
-                    if (eventNameLength > 55)
-                    {
-                        ticketNameClass = "smaller";
+                    @{
+                        var ticketNameClass = string.Empty;
+                        var eventNameLength = tick.EventName.Length;
+                        if (eventNameLength > 55)
+                        {
+                            ticketNameClass = "smaller";
+                        }
                     }
-                }
 
-                <div class="event-info">
-                    <div class="event-title">
-                        <h2 class="@ticketNameClass">
-                            @tick.EventName
-                        </h2>
+                    <div class="event-info">
+                        
+
+                        <div class="event-title">
+                            <h3 class="@ticketNameClass">
+                                @tick.EventName
+                            </h3>
+                        </div>
+
+                        <div class="event-details container-fluid">
+                            <div class="row">
+
+                                <div class="col-xs-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-ticket"></i>
+                                            </td>
+                                            <td>
+                                                Ticket Type:
+                                            </td>
+                                            <td>
+                                                @tick.TickTypeAndPrice
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-clock-o"></i></td>
+                                            <td>When:</td>
+                                            <td>@tick.StartDateTime</td>
+                                        </tr>
+                                        @if (tick.GroupName.HasValue())
+                                        {
+                                            <tr>
+                                                <td><i class="fa fa-list-ol"></i></td>
+                                                <td>Group:</td>
+                                                <td>@tick.GroupName</td>
+                                            </tr>
+                                        }
+
+                                        @if (tick.SeatNumber.HasValue())
+                                        {
+                                            <tr>
+                                                <td><i class="fa fa-list-ol"></i></td>
+                                                <td>Seat No:</td>
+                                                <td>@tick.SeatNumber</td>
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <td><i class="fa fa-map-marker"></i></td>
+                                            <td>Location:</td>
+                                            <td>@tick.Location</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-user"></i></td>
+                                            <td>Guest:</td>
+                                            <td>@tick.GuestFullName &lt;@tick.GuestEmail&gt; </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+
+                                    <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 200, width: 200).WithFullUrl()" alt="barcode"/>
+
+                                </div>
+                                <hr/>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    Produced by @tick.BrandName
+                                    <span class="brand-text">
+                                        @@ @tick.BrandUrl
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ticket-img">
+                            <img class="img-responsive" src="@Url.ContentForBrand("/img/ticket.jpg")" />
+                        </div>
+
                     </div>
 
-                    <div class="event-details container-fluid">
-                        <div class="row">
-
-                            <div class="col-xs-6">
-                                <label>
-                                    <i class="fa fa-ticket"></i> Ticket Type:
-                                </label>
-                                <span class="detail"> @tick.TickTypeAndPrice</span>
-                            </div>
-
-                            @if (tick.GroupName.HasValue())
-                            {
-                                <div class="col-xs-6">
-                                    <label>
-                                        <i class="fa fa-list-ol"></i> Group:
-                                    </label>
-                                    <span class="detail">@tick.GroupName</span>
-                                </div>
-                            }
-                            
-                            @if (tick.SeatNumber.HasValue())
-                            {
-                                <div class="col-xs-6">
-                                    <label>
-                                        <i class="fa fa-list-ol"></i> Seat No:
-                                    </label>
-                                    <span class="detail">@tick.SeatNumber</span>
-                                </div>
-                            }
-
-
-                            <div class="col-xs-6">
-
-                                <label>
-                                    <i class="fa fa-map-marker"></i> Location:
-                                </label>
-                                <span class="detail">@tick.Location</span>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <label>
-                                    <i class="fa fa-clock-o"></i> When:
-                                </label>
-                                <span class="detail">@tick.StartDateTime</span>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <label>
-                                    <i class="fa fa-clock-o"></i> Guest Name:
-                                </label>
-                                <span class="detail">@tick.GuestFullName</span>, @tick.GuestEmail
-                            </div>
-
-                            <div class="col-xs-6">
-                                @if (tick.ContactNumber.HasValue())
-                                {
-                                    <label>
-                                        <i class="fa fa-phone"></i> Contact
-                                    </label>
-                                    <span class="detail">@tick.ContactNumber</span>
-                                }
-                            </div>
-
-                        </div>
-
-                        <div class="row top-buffer-20">
-                            <div class="col-xs-12 text-center">
-                                
-                                    <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 200, width: 200).WithFullUrl()" alt="barcode" />
-                                
-                            </div>
-                            <hr/>
-                           
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12 text-center">
-                                Produced by @tick.BrandName
-                                <span class="brand-text">
-                                    Buy/Sell tickets @@ @tick.BrandUrl
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
             </div>
-        </div>
-                    } @*end of for each ticket*@
+                        } @*end of for each ticket*@
 
 
 
-                </body>
+                    </body>
 
-            </html>
+                </html>

@@ -49,7 +49,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <form action="@Url.Action("Find", "Listings")">
                         <div class="input-group input-group-lg">
-                            <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="I am after...">
+                            <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="e.g. dinner dance ...">
                             <div class="input-group-btn input-group-lg">
                                 <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
@@ -78,6 +78,18 @@
         </div>
     </main>
 }
+
+<article>
+    <div class="text-center">
+        <h1>Why Sri Lankan Events?</h1>
+        <p>
+            Guaranteed the most competitive price in the ticketing market.
+            <a href="@Url.EventPricing()">Learn More <i class="fa fa-arrow-right"></i></a>
+        </p>
+        <p>No hassles. Everything is online, no need to call anyone...</p>
+        <p>It's for our people made by our people in Australia.</p>
+    </div>
+</article>
 
 @if (Model.AdSummaryList.Count > 0)
 {

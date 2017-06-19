@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.28.1**
+
+- [Feature - Add pay reference to the stripe checkout for easier reconciliation](https://trello.com/c/hieOJIen/646-stripe-description-our-ref-should-include-the-brand-eg-kandobay-along-with-the-booking-id-helps-with-reconciliation)
+
 **3.28.0**
 
 - [Feature - We have seating!](https://trello.com/c/A04yyUW7/617-seat-and-ticket-selection-for-event)

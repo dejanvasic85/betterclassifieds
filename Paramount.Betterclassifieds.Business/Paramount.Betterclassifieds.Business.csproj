@@ -137,7 +137,6 @@
     <Compile Include="Payment\CreditCardPaymentRequest.cs" />
     <Compile Include="Payment\ResponseType.cs" />
     <Compile Include="Payment\CreditCardResponse.cs" />
-    <Compile Include="Payment\TransactionTypeName.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineChargeItem.cs" />

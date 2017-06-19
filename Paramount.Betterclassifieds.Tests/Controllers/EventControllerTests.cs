@@ -476,6 +476,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventBookingId(1000)
                 .Build();
 
+            _clientConfig.SetupWithVerification(call => call.ClientName, "Brand123");
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
             _eventBookingContext.SetupWithVerification(call => call.EventInvitationId, 123);
@@ -488,7 +489,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 "user123",
                 100,
                 "1000",
-                TransactionTypeName.EventBookingTickets), result: willPaymentComplete);
+                It.Is<string>(str => str == "Brand123-1000")), result: willPaymentComplete);
 
             // act
             var controller = BuildController();
@@ -509,11 +510,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventBookingId(1000)
                 .Build();
 
+            _clientConfig.SetupWithVerification(call => call.ClientName, "ClientBoom");
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
 
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
-
 
             _paymentService.SetupWithVerification(call => call.CompletePayment(
                 "ref123",
@@ -521,7 +522,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 "user123",
                 100,
                 "1000",
-                TransactionTypeName.EventBookingTickets), result: willPaymentComplete);
+                It.Is<string>(str => str == "ClientBoom-1000")), result: willPaymentComplete);
 
             // act
             var controller = BuildController();

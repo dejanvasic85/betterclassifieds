@@ -332,7 +332,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Call paypal to let them know we completed our end
 
             var isComplete = _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
-                eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
+                eventBooking.UserId, eventBooking.TotalCost, 
+                eventBooking.EventBookingId.ToString(), 
+                $"{_clientConfig.ClientName}-{eventBooking.EventBookingId}");
 
             if (!isComplete)
             {
@@ -358,7 +360,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var response = _creditCardService.CompletePayment(new StripeChargeRequest
             {
                 AmountInCents = eventBooking.TotalCostInCents(),
-                Description = TransactionTypeName.EventBookingTickets,
+                Description = $"{_clientConfig.ClientName}-{eventBooking.EventBookingId}",
                 StripeEmail = stripePayment.StripeEmail,
                 StripeToken = stripePayment.StripeToken,
                 UserId = currentUser.Username

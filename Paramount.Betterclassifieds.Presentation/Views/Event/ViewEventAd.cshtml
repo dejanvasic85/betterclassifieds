@@ -8,36 +8,56 @@
 <div class="event-details">
     <div class="event-title">
         <div class="container">
-            <h1>
-                @Model.Title
-            </h1>
-            <p class="details"><i class="fa fa-calendar-check-o"></i> @Model.EventStartDateDisplay at @Model.EventStartTime.</p>
-            <p><i class="fa fa-map-marker"></i> @Model.LocationFriendlyName</p>
-            <p class="details floor-plan">
-                <i class="fa fa-map"></i>
-                <a data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
-                    View Floor Plan / Seating
-                </a>
-            </p>
+            
+            <div class="row">
+                
+                <div class="col-md-8">
+                    <h1>
+                        @Model.Title
+                    </h1>
+                    <p class="details"><i class="fa fa-calendar-check-o"></i> @Model.EventStartDateDisplay at @Model.EventStartTime.
+                    </p>
+                    <p><i class="fa fa-map-marker"></i> @Model.LocationFriendlyName</p>
+                    <p class="details floor-plan">
+                        <i class="fa fa-map"></i>
+                        <a data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
+                            View Floor Plan / Seating
+                        </a>
+                    </p>
+                    <p>
+                        @if (Model.IsSeatedEvent)
+                        {
+                            <a class="btn btn-default btn-warning" href="#ticketSeating">Get Tickets</a>
+                        }
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="pull-right social-share">
+                        <div id="fb-root"></div>
 
-            <div class="pull-right social-share">
-                <div id="fb-root"></div>
+                        @*Facebook*@
+                        <a id="shareOnFacebook" class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
 
-                @*Facebook*@
-                <a id="shareOnFacebook" class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
+                        @*Twitter*@
+                        <a class="btn btn-default btn-lg" href="http://twitter.com/intent/tweet?text=@Model.SocialShareText&url=@Model.EventUrl" onclick="window.open(this.href, 'sharetwitter', 'toolbar=0,status=0,width=480,height=360');return false;" target="_blank"><i class="fa fa-twitter"></i></a>
 
-                @*Twitter*@
-                <a class="btn btn-default btn-lg" href="http://twitter.com/intent/tweet?text=@Model.SocialShareText&url=@Model.EventUrl" onclick="window.open(this.href,'sharetwitter','toolbar=0,status=0,width=480,height=360');return false;" target="_blank"><i class="fa fa-twitter"></i></a>
+                        @*Google Plus*@
+                        <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
 
-                @*Google Plus*@
-                <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+                        @*Linked in*@
+                        <a class="btn btn-default btn-lg" href="https://www.linkedin.com/cws/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-linkedin"></i></a>
 
-                @*Linked in*@
-                <a class="btn btn-default btn-lg" href="https://www.linkedin.com/cws/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-linkedin"></i></a>
+                        @*Email*@
+                        <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Body=@Model.SocialShareText" target="_blank"><i class="fa fa-envelope"></i></a>
+                    </div>
 
-                @*Email*@
-                <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Body=@Model.SocialShareText" target="_blank"><i class="fa fa-envelope"></i></a>
+                </div>
+
             </div>
+            
+           
+
+           
         </div>
     </div>
 

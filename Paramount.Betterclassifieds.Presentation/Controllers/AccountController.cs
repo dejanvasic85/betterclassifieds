@@ -189,7 +189,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (user == null)
             {
-                return Json(new { Error = "The provided email is not valid or does not exist." });
+                ModelState.AddModelError("Email", "The provided email does not exist or is invalid");
+                return JsonModelErrors();
             }
 
             var password = _authManager.SetRandomPassword(user.Email);

@@ -52,7 +52,7 @@
                 <div class="seat-layout" data-bind="foreach: {data: rows, afterRender: seatsRenderComplete}">
                     <div class="seats-row">
                         <div class="seats-col">
-                            <span data-bind="text: rowName"></span>
+                            <span data-bind="text: rowName" class="left-row-name"></span>
                             <!-- ko foreach: seats -->
                             <div class="seat" data-bind="click: $parents[1].selectSeat, css : { 'not-available' : available() === false, 'selected' : selected}, style : style, attr: {'title' : tooltip}">
                                 <i class="glyphicon glyphicon-check" data-bind="visible: selected()"></i>
@@ -60,7 +60,7 @@
                                 <i class="fa fa-times" data-bind="visible: available() === false"></i>
                             </div>
                             <!-- /ko -->
-                            <span data-bind="text: rowName"></span>
+                            <span data-bind="text: rowName" class="right-row-name"></span>
                         </div>
                     </div>
                 </div>

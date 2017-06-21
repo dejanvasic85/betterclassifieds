@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = calculator.GetTotalTicketPrice(100, eventPromo, true);
 
             result.OriginalPrice.IsEqualTo(100);
-            result.Total.IsEqualTo(80);
+            result.Total.IsEqualTo(80.5M);
             result.DiscountPercent.IsEqualTo(20);
             result.DiscountAmount.IsEqualTo(20);
             result.PriceAfterDiscount.IsEqualTo(80);

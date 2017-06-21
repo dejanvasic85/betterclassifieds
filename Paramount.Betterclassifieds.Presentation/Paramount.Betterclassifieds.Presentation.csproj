@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\EventOrganiserController.cs" />
+    <Compile Include="Controllers\EventPromoController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
@@ -348,6 +349,8 @@
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="Services\EventBookingManager.cs" />
+    <Compile Include="ViewModels\Events\EventPromoViewModel.cs" />
+    <Compile Include="ViewModels\Converter\IsoDateConverter.cs" />
     <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
@@ -647,6 +650,9 @@
     <Content Include="Scripts\app\events\organisers\manage-notifications.js" />
     <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
     <Content Include="Scripts\app\events\organisers\organiser-service.js" />
+    <Content Include="Scripts\app\events\promoCodes\eventPromoCode.js" />
+    <Content Include="Scripts\app\events\promoCodes\managePromoCodes.js" />
+    <Content Include="Scripts\app\events\promoCodes\promoCodeService.js" />
     <Content Include="Scripts\app\events\seatSelector\seatSelector.css">
       <DependentUpon>seatSelector.less</DependentUpon>
     </Content>
@@ -1097,6 +1103,7 @@
     <Content Include="Views\Email\_EmailFooter.Beat.cshtml" />
     <Content Include="Views\Email\EventOrganiserTicketsSold.cshtml" />
     <Content Include="Views\EventOrganiser\manage-notifications.cshtml" />
+    <Content Include="Views\EventPromo\manage-promo-codes.cshtml" />
     <Content Include="Views\Shared\_HeadScripts.cshtml" />
   </ItemGroup>
   <ItemGroup>

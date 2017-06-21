@@ -225,6 +225,12 @@ namespace Paramount.Betterclassifieds.Business.Events
                 {
                     _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
                     CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
+
+                    if (eventBooking.Status == EventBookingStatus.Active && ticket.SeatNumber.HasValue())
+                    {
+                        AssignBookingTicketToSeat(eventBooking.EventBookingId, ticket);
+                    }
+
                     _logService.Info($"EventBooking created successfully. EventBookingId {eventBooking.EventBookingId}");
                 }
                 catch (Exception ex)
@@ -235,6 +241,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             });
 
             return eventBooking;
+        }
+
+        private void AssignBookingTicketToSeat(int eventBookingId, EventBookingTicket ticket)
+        {
+            _logService.Info($"Setting eventBookingId {eventBookingId} for seat number {ticket.SeatNumber}");
+            _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
         }
 
         public void CancelEventBooking(int? eventBookingId)
@@ -269,8 +281,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             {
                 try
                 {
-                    _logService.Info($"Setting eventBookingId {eventBookingId} for seat number {ticket.SeatNumber}");
-                    _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
+                    AssignBookingTicketToSeat(eventBooking.EventBookingId, ticket);
                 }
                 catch (Exception ex)
                 {
@@ -279,7 +290,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             });
         }
-
+        
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
         {
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);

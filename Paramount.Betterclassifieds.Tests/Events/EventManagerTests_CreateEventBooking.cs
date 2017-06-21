@@ -81,6 +81,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                     EventTicketId = 1,
                     GuestEmail = "foo@bar.com",
                     GuestFullName = "Foo Bar" ,
+                    SeatNumber = "seat-123",
                     Status = EventTicketReservationStatus.Reserved
                 }
             };
@@ -94,6 +95,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventBarcodeValidator.SetupWithVerification(call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "111-222-333");
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _eventSeatingService.SetupWithVerification(call => call.BookSeat(
+                It.Is<int>(t => t == mockTicket.EventTicketId),
+                It.IsAny<int>(),
+                It.Is<string>(s => s == "seat-123")));
 
             // act
             var manager = BuildTargetObject();

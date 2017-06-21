@@ -58,7 +58,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             decimal fee = 0;
             decimal priceIncludingFee = priceAfterDiscount;
 
-            if (includeFee)
+            if (includeFee && priceAfterDiscount > 0)
             {
                 fee = (priceAfterDiscount * GetEventTicketFeePercentage()) + GetEventTicketFeeCents();
                 priceIncludingFee = priceAfterDiscount + fee;

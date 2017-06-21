@@ -38,6 +38,8 @@
             Purchaser = null;
             EventInvitationId = null;
             OrderRequestId = null;
+            AppliedPromoCode = null;
+            EventUrl = null;
         }
     }
 }

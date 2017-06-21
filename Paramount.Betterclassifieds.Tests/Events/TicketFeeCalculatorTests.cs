@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             var clientConfig = new Mock<IClientConfig>();
             clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns(0);
-            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(0);
+            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(50);
 
             var eventPromo = new EventPromoCode
             {
@@ -49,6 +49,30 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.DiscountPercent.IsEqualTo(20);
             result.DiscountAmount.IsEqualTo(20);
             result.PriceAfterDiscount.IsEqualTo(80);
+        }
+
+        [Test]
+        public void GetTotalTicketPrice_WithFullPriceDiscount_ExpectsNoFee()
+        {
+            var clientConfig = new Mock<IClientConfig>();
+            clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns(5);
+            clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(30);
+
+            var eventPromo = new EventPromoCode
+            {
+                DiscountPercent = 100
+            };
+            var price = 100;
+
+            var calculator = new TicketFeeCalculator(clientConfig.Object);
+            var result = calculator.GetTotalTicketPrice(100, eventPromo, true);
+
+            result.OriginalPrice.IsEqualTo(100);
+            result.Total.IsEqualTo(0);
+            result.DiscountPercent.IsEqualTo(100);
+            result.DiscountAmount.IsEqualTo(100);
+            result.PriceAfterDiscount.IsEqualTo(0);
+            result.Fee.IsEqualTo(0);
         }
 
         [Test]

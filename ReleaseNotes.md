@@ -1,6 +1,10 @@
 Here's a list of the latest changes:
 
-**3.28.2**
+**3.28.4**
+
+- Fix - Removing the guest was not de-allocating the seat
+
+**3.28.3**
 
 - Fix - The seat was not booked properly when 100 percent discount was applied.
 - Fix - The calculation of the 100 percent discount was still adding cents!

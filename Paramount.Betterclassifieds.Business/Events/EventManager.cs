@@ -152,6 +152,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             ticket.RemainingQuantity = ticket.RemainingQuantity + 1;
             _eventRepository.UpdateEventTicket(ticket);
 
+            // Un-Allocate the seat if it's a seated event
+            if (eventBookingTicket.SeatNumber.HasValue())
+            {
+                _eventSeatingService.RemoveSeatBooking(eventBookingTicket);
+            }
+
             return eventBookingTicket;
         }
 

@@ -40,7 +40,10 @@ namespace Paramount.Betterclassifieds.Business.Events
             _logService.Info($"Booking seat [{seatNumber}] for eventTicketId [{eventTicketId}] eventBookingTicketID [{eventBookingTicketId}]");
 
             var eventSeat = GetEventSeat(eventTicketId, seatNumber);
-
+            if (eventSeat.EventBookingTicketId.HasValue)
+            {
+                _logService.Warn($"The event seat {seatNumber} has alright been assigned to eventBookingTicketId {eventSeat.EventBookingTicketId}");
+            }
             eventSeat.EventBookingTicketId = eventBookingTicketId;
 
             _repository.UpdateEventSeat(eventSeat);

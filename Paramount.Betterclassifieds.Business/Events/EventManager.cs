@@ -101,6 +101,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Save the new ticket
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
 
+            if (eventBookingTicket.SeatNumber.HasValue())
+            {
+                // Update the seat number
+                _eventSeatingService.BookSeat(eventBookingTicket.EventTicketId, eventBookingTicket.EventBookingTicketId, eventBookingTicket.SeatNumber);
+            }
+
             // Now we have the id so we need to generate the barcode
             CreateTicketBarcodeAndUpdate(eventBooking, newEventBookingTicket, barcodeUrlCreator);
 
@@ -296,7 +302,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             });
         }
-        
+
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
         {
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);

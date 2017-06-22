@@ -174,7 +174,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockBookingBuilder = new EventBookingMockBuilder().Default();
 
             var mockBooking = mockBookingBuilder
-                .WithEventBookingTickets(new []
+                .WithEventBookingTickets(new[]
                 {
                     new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
                     new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build()
@@ -182,7 +182,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithCost(30)
                 .WithDiscountAmount(10)
                 .Build();
-            
+
             var mockBookingTwo = mockBookingBuilder.WithEventBookingTickets(new[]
                 {
                     new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
@@ -882,6 +882,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockEventBookingTicket = new EventBookingTicketMockBuilder()
                 .Default()
                 .WithFields(fieldMockBuilder.Build())
+                .WithEventTicketId(555)
+                .WithEventBookingTicketId(666)
+                .WithSeatNumber("seat123")
                 .Build();
 
             var mockEventBooking = new EventBookingMockBuilder().Default().Build();
@@ -903,6 +906,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventBarcodeValidator.SetupWithVerification(
                 call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "barcode123");
+
+            _eventSeatingService.SetupWithVerification(
+                call => call.BookSeat(
+                    It.Is<int>(t => t == 555),
+                    It.Is<int>(t => t == 666),
+                    It.Is<string>(s => s == "seat123")));
 
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
 

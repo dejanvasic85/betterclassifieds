@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.28.4**
 
 - Fix - Removing the guest was not de-allocating the seat
+- Fix - Updating the guest was not re-allocating the seat
 
 **3.28.3**
 
@@ -17,7 +18,7 @@ Here's a list of the latest changes:
 
 - [Feature - Add pay reference to the stripe checkout for easier reconciliation](https://trello.com/c/hieOJIen/646-stripe-description-our-ref-should-include-the-brand-eg-kandobay-along-with-the-booking-id-helps-with-reconciliation)
 
-**3.28.0**
+**3.28.0 - Seating**
 
 - [Feature - We have seating!](https://trello.com/c/A04yyUW7/617-seat-and-ticket-selection-for-event)
 - [Feature - Set specific seats as not available with a simple DB flag](https://trello.com/c/LiNtAMnR/623-blocked-seating-by-developer)

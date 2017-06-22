@@ -185,5 +185,45 @@ namespace Paramount.Betterclassifieds.Tests.Events
             reservedSeat.SeatNumber.IsEqualTo("Seat-1");
             reservedSeat.ReservationExpiryUtc.IsNotNull();
         }
+
+        [Test]
+        public void RemoveSeatBooking_NoSeat_ThrowsNullException()
+        {
+            _mockEventRepository.SetupWithVerification(call => call.GetEventSeat(
+                It.IsAny<int>(),
+                It.IsAny<string>()), null);
+
+            var bookingTicket = new EventBookingTicketMockBuilder()
+                .WithSeatNumber("1")
+                .Default()
+                .Build();
+
+            var manager = BuildTargetObject();
+            Assert.Throws<NullReferenceException>(() => manager.RemoveSeatBooking(bookingTicket));
+        }
+
+        [Test]
+        public void RemoveSeatBooking_UpdatesSeat()
+        {
+            var eventSeatBooking = new EventSeatBookingMockBuilder()
+                .WithSeatNumber("A1")
+                .WithEventBookingTicketId(1)
+                .Build();
+
+            var eventBookingTicket = new EventBookingTicketMockBuilder()
+                .WithEventBookingTicketId(1)
+                .WithSeatNumber("A1")
+                .Default()
+                .Build();
+
+            _mockEventRepository.SetupWithVerification(call => call.GetEventSeat(
+                It.IsAny<int>(),
+                It.IsAny<string>()), eventSeatBooking);
+
+            _mockEventRepository.SetupWithVerification(call => call.UpdateEventSeat(
+                It.Is<EventSeatBooking>(b => b == eventSeatBooking)));
+
+            BuildTargetObject().RemoveSeatBooking(eventBookingTicket);
+        }
     }
 }

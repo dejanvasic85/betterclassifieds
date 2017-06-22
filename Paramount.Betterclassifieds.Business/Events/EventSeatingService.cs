@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventSeatBooking> GetSeatsForEvent(int eventId, string orderRequestId);
         IEnumerable<EventSeatBooking> GetSeatsForTicket(EventTicket eventTicket, string orderRequestId);
         void BookSeat(int eventTicketId, int eventBookingTicketId, string seatNumber);
+        void RemoveSeatBooking(EventBookingTicket eventBookingTicket);
     }
 
     public class EventSeatingService : IEventSeatingService
@@ -38,6 +39,26 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             _logService.Info($"Booking seat [{seatNumber}] for eventTicketId [{eventTicketId}] eventBookingTicketID [{eventBookingTicketId}]");
 
+            var eventSeat = GetEventSeat(eventTicketId, seatNumber);
+
+            eventSeat.EventBookingTicketId = eventBookingTicketId;
+
+            _repository.UpdateEventSeat(eventSeat);
+        }
+
+        public void RemoveSeatBooking(EventBookingTicket eventBookingTicket)
+        {
+            Guard.NotNull(eventBookingTicket);
+            Guard.NotNullOrEmpty(eventBookingTicket.SeatNumber);
+
+            var eventSeat = GetEventSeat(eventBookingTicket.EventTicketId, eventBookingTicket.SeatNumber);
+
+            eventSeat.EventBookingTicketId = null;
+            _repository.UpdateEventSeat(eventSeat);
+        }
+
+        private EventSeatBooking GetEventSeat(int eventTicketId, string seatNumber)
+        {
             var eventSeat = _repository.GetEventSeat(eventTicketId, seatNumber);
 
             if (eventSeat == null)
@@ -45,9 +66,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 throw new NullReferenceException($"Event seat cannot be found for ticket id [{eventTicketId}] seat Number [{seatNumber}]");
             }
 
-            eventSeat.EventBookingTicketId = eventBookingTicketId;
-
-            _repository.UpdateEventSeat(eventSeat);
+            return eventSeat;
         }
 
         private IEnumerable<EventSeatBooking> SeatFetchMediator(int eventId, string orderRequestId, Func<IEnumerable<EventSeatBooking>> fetcher)

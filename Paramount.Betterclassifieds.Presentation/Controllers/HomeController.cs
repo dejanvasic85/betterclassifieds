@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _searchService = searchService;
             _clientConfig = clientConfig;
             _sitemapProvider = sitemapFactory;
-            _mailService = mailService;
+            _mailService = mailService.Initialise(this);
         }
 
         public ActionResult Index()

@@ -103,6 +103,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void SetupDependencies()
         {
             _mailService = CreateMockOf<IMailService>();
+            _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
             _mockClientConfig = CreateMockOf<IClientConfig>();
             _mockSearchService = CreateMockOf<ISearchService>();
             _mockSitemapFactory = CreateMockOf<ISitemapFactory>();

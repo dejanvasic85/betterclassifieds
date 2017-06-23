@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.28.5**
 
 - Fix - The server side validation on max selected reservations was incorrect
+- Fix - The contact us form on the general site was not working because the mail service wasn't initialised.
 
 **3.28.4**
 

@@ -90,6 +90,24 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
+        public void ReserveTickets_Post_TooManySelected_ReturnsModelError()
+        {
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 2);
+
+            var controller = BuildController();
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel(),
+                new EventTicketRequestViewModel(),
+                new EventTicketRequestViewModel()
+            }};
+
+            var result = controller.ReserveTickets(vm);
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
         public void ReserveTickets_Post_EventIsClosed_ReturnsModelError()
         {
             // arrange

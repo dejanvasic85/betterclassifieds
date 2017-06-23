@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.28.5**
+
+- Fix - The server side validation on max selected reservations was incorrect
+
 **3.28.4**
 
 - Fix - Removing the guest was not de-allocating the seat

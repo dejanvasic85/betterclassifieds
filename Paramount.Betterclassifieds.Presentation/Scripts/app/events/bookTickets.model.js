@@ -29,7 +29,7 @@
         me.promoDiscountPercent = ko.observable();
         me.promoDiscountAmount = ko.observable();
         me.promoNotAvailable = ko.observable();
-        
+
         me.applyPromoCode = function (model, event) {
             if (!me.promoCode()) {
                 return;
@@ -66,7 +66,7 @@
         me.priceAfterDiscount = ko.observable();
         me.fee = ko.observable(data.totalFees);
         me.totalPrice = ko.observable(data.totalCost);
-        me.requiresPayment = ko.computed(function() {
+        me.requiresPayment = ko.computed(function () {
             return me.totalPrice() > 0;
         });
 
@@ -78,23 +78,33 @@
                 if (data.email) {
                     reservationData.guestEmail = data.email;
                 }
-
-                var name = '';
-                if (data.firstName) {
-                    name = data.firstName;
-                }
-
-                if (data.lastName) {
-                    name = name + ' ' + data.lastName;
-                }
-
-                reservationData.guestFullName = name;
+                reservationData.guestFullName = getFullName(data);
             }
 
             reservationData.getGroupsPromise = groupsPromise;
             reservationData.displayGuests = me.displayGuests();
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
+
+        me.useLoginDetailsForAllTickets = function () {
+            _.each(me.reservations(), function (r) {
+                r.guestEmail(data.email);
+                r.guestFullName(getFullName(data));
+            });
+            toastr.info('All tickets details have been prefilled.');
+        }
+
+        function getFullName(data) {
+            var name = '';
+            if (data.firstName) {
+                name = data.firstName;
+            }
+
+            if (data.lastName) {
+                name = name + ' ' + data.lastName;
+            }
+            return name;
+        }
 
         // Timer
         if (data.outOfTime !== true && data.successfulReservationCount > 0) {
@@ -145,7 +155,7 @@
 
             if ($form.valid() === true) {
                 $btn.loadBtn();
-                
+
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
                     .then(function (resp) {

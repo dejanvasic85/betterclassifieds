@@ -1091,6 +1091,7 @@
     <Content Include="Views\Email\_EmailFooter.Beat.cshtml" />
     <Content Include="Views\Email\EventOrganiserTicketsSold.cshtml" />
     <Content Include="Views\EventOrganiser\manage-notifications.cshtml" />
+    <Content Include="Views\Shared\_HeadScripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

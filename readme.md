@@ -67,3 +67,10 @@ Example (ticket-selection.html):
 ```
 
 This allows selenium web driver to select an element with class ```tst-ticket-free``` for any free ticket.
+
+
+## Todo Function Test Coverage
+
+- Event organiser management and access
+- Promo codes and discounts
+- Seating (when full solution is built)

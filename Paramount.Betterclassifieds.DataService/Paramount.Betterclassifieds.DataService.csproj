@@ -123,6 +123,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
+    <Compile Include="RecaptchaConfigReader.cs" />
     <Compile Include="Search\ClassifiedsSearchEntities.cs">
       <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
     </Compile>

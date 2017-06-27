@@ -1,27 +1,31 @@
-﻿using System.Linq;
-using Paramount.Betterclassifieds.Presentation.Services.Mail;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
     using System.Web.Mvc;
     using ViewModels;
+    using Services.Mail;
+    using Services;
+    using System.Linq;
 
     public class AccountController : ApplicationController, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
-        private readonly IClientConfig _clientConfig;
         private readonly IMailService _mailService;
+        private readonly IApplicationConfig _appConfig;
+        private readonly IGoogleCaptchaVerifier _googleCaptchaVerifier;
+        private readonly LoginOrRegisterModelFactory _loginOrRegisterModelFactory;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IClientConfig clientConfig, IMailService mailService)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IMailService mailService, IGoogleCaptchaVerifier googleCaptchaVerifier, LoginOrRegisterModelFactory loginOrRegisterModelFactory, IApplicationConfig appConfig)
         {
             _userManager = userManager;
             _authManager = authManager;
-            _clientConfig = clientConfig;
+            _googleCaptchaVerifier = googleCaptchaVerifier;
+            _loginOrRegisterModelFactory = loginOrRegisterModelFactory;
+            _appConfig = appConfig;
             _mailService = mailService.Initialise(this);
         }
 
@@ -39,14 +43,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 TempData[ReturnUrlKey] = returnUrl;
             }
 
-            var loginMsgFactory = new LoginMessageFactory(_clientConfig);
+            var loginOrRegisterModel = _loginOrRegisterModelFactory.Create(returnUrl);
 
-            // Render Login page
-            return View(new LoginOrRegisterModel
-            {
-                LoginViewModel = new LoginViewModel { ReturnUrl = returnUrl },
-                LoginHelpMessage = loginMsgFactory.Get(returnUrl)
-            });
+            return View(loginOrRegisterModel);
         }
 
         [HttpPost]
@@ -54,7 +53,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            if (_authManager.IsUserIdentityLoggedIn(this.User))
+            if (_authManager.IsUserIdentityLoggedIn(User))
             {
                 ModelState.AddModelError("AlreadyLoggedIn", "You are already logged in!");
                 return View();
@@ -66,7 +65,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 ModelState.AddModelError("EmailNotValid", "Username/email or password is invalid.");
                 //return View(loginOrRegister);
-                return View(new LoginOrRegisterModel { LoginViewModel = loginViewModel });
+                return View(_loginOrRegisterModelFactory.Create(loginViewModel));
             }
 
             // Authenticate
@@ -74,7 +73,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 ModelState.AddModelError("BadPassword", "Username/email or password is invalid.");
                 //return View(loginOrRegister);
-                return View(new LoginOrRegisterModel { LoginViewModel = loginViewModel });
+                return View(_loginOrRegisterModelFactory.Create(loginViewModel));
             }
 
             // Finally, the user is ok.. so redirect them appropriately
@@ -96,15 +95,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Register(RegisterViewModel viewModel)
         {
-            if (_authManager.IsUserIdentityLoggedIn(this.User))
+            if (_authManager.IsUserIdentityLoggedIn(User))
             {
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
-                return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
+                return View("Login", _loginOrRegisterModelFactory.Create(viewModel));
             }
 
             if (!ModelState.IsValid)
             {
-                return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
+                return View("Login", _loginOrRegisterModelFactory.Create(viewModel));
+            }
+
+            if (!_googleCaptchaVerifier.IsValid(_appConfig.GoogleRegistrationCatpcha.Secret, Request))
+            {
+                ModelState.AddModelError("Captcha", "Please click 'I'm not a robot' to continue.");
+                return View("Login", _loginOrRegisterModelFactory.Create(viewModel));
             }
 
             var registrationResult = _userManager.RegisterUser(this.Map<RegisterViewModel, RegistrationModel>(viewModel), viewModel.RegisterPassword);
@@ -179,7 +184,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Find(string email)
         {
             var user = _userManager.GetUserByEmail(email);
-            
+
             return Json(user != null);
         }
 
@@ -282,7 +287,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return View(viewModel);
             }
-                
+
             var attachments = viewModel.Files.Select(f => MailAttachment.New(f.FileName, f.InputStream.ToBytes(), f.ContentType));
             _mailService.SendEventOrganiserIdentityConfirmation(attachments);
 

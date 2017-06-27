@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public string MailgunApiKey => ConfigManager.ReadAppSetting<string>("Mailgun.ApiKey");
         public string MailgunDomain => ConfigManager.ReadAppSetting<string>("Mailgun.Domain");
 
-        public RecaptchaConfig RegistrationCatpcha => RecaptchaConfigReader.GetFromConfigSettings("Registration");
+        public RecaptchaConfig GoogleRegistrationCatpcha => RecaptchaConfigReader.GetFromConfigSettings("Registration");
         public RecaptchaConfig ContactUs => RecaptchaConfigReader.GetFromConfigSettings("ContactUs");
         public RecaptchaConfig Enquiry => RecaptchaConfigReader.GetFromConfigSettings("Enquiry");
 

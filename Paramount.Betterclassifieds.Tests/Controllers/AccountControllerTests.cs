@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -35,6 +36,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // arrange
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, 
+                new RecaptchaConfig("key", "secret"));
 
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
@@ -45,7 +48,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             ctrl.TempData.ContainsValue("/fakeReturnUrl");
             result.IsTypeOf<ViewResult>();
             var viewResult = ((ViewResult)result);
-            viewResult.Model.IsTypeOf<LoginOrRegisterModel>();
+            var vm = viewResult.Model.IsTypeOf<LoginOrRegisterModel>();
+            vm.RegisterViewModel.IsNotNull();
+            vm.RegisterViewModel.GoogleCaptchaKey.IsEqualTo("key");
         }
 
         [Test]
@@ -72,6 +77,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), null);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
 
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
@@ -92,7 +99,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
-
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+            
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
@@ -190,7 +199,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
                 It.Is<IPrincipal>(p => p == mockUser.Object)), 
                 result: true);
-            
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
             var controller = BuildController(mockUser: mockUser);
             var result = controller.Register(mockViewModel);
             
@@ -208,6 +219,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<IPrincipal>(p => p == mockUser.Object)),
                 result: false);
 
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
             var controller = BuildController(mockUser: mockUser);
             controller.ModelState.AddModelError("RandomError", "Does not matter what it is");
 
@@ -216,6 +230,30 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             result.ViewResultModelIsTypeOf<LoginOrRegisterModel>();
             controller.ModelState.Keys.Single().IsEqualTo("RandomError");
+        }
+
+        [Test]
+        public void Register_GoogleCaptchaFails_ReturnsLoginViewWithErrors()
+        {
+            var mockUser = new Mock<IPrincipal>();
+            var mockViewModel = new RegisterViewModel();
+
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
+                    It.Is<IPrincipal>(p => p == mockUser.Object)),
+                result: false);
+
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
+            _captchaVerifier.SetupWithVerification(call => call.IsValid("secret", It.IsAny<HttpRequestBase>()), false);
+
+            var controller = BuildController(mockUser: mockUser);
+            // act
+            var result = controller.Register(mockViewModel);
+
+            result.ViewResultModelIsTypeOf<LoginOrRegisterModel>();
+            controller.ModelState.Keys.Single().IsEqualTo("Captcha");
+            controller.ModelState.Values.Single().Errors.Single().ErrorMessage.IsEqualTo("Please click 'I'm not a robot' to continue.");
         }
 
         [Test]
@@ -251,6 +289,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<bool>(disabledConfirm => disabledConfirm == false)),
                 result: mockRegistrationResult);
 
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
+            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+            
             _mailService.SetupWithVerification(call => call.SendRegistrationConfirmationEmail(
                 It.Is<string>(email => email == mockViewModel.RegisterEmail),
                 It.IsAny<string>()));
@@ -301,6 +344,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<string>(email => email == mockViewModel.RegisterEmail),
                 It.Is<string>(username => username == registrationMockModel.Username)));
 
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
+            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+
+
             var controller = BuildController(mockUser: mockUser);
 
             // act
@@ -342,6 +391,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<bool>(disabledConfirm => disabledConfirm == false)),
                 result: mockRegistrationResult);
 
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
+                new RecaptchaConfig("key", "secret"));
+
+            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+            
             _mailService.SetupWithVerification(call => call.SendWelcomeEmail(
                 It.Is<string>(email => email == mockViewModel.RegisterEmail),
                 It.Is<string>(username => username == registrationMockModel.Username)));
@@ -359,6 +413,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IPrincipal> _mockLoggedInUser;
         private Mock<IClientConfig> _mockClientConfig;
         private Mock<IMailService> _mailService;
+        private Mock<IGoogleCaptchaVerifier> _captchaVerifier;
+        private Mock<IClientConfig> _clientConfig;
+        private Mock<IApplicationConfig> _appConfig;
 
         [SetUp]
         public void SetupCotroller()
@@ -367,7 +424,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUserMgr = CreateMockOf<IUserManager>();
             _mockAuthMgr = CreateMockOf<IAuthManager>();
             _searchServiceMgr = CreateMockOf<ISearchService>();
-            _mockClientConfig = CreateMockOf<IClientConfig>();
+            _captchaVerifier = CreateMockOf<IGoogleCaptchaVerifier>();
+            _clientConfig = CreateMockOf<IClientConfig>();
+            _appConfig = CreateMockOf<IApplicationConfig>();
             _mailService = CreateMockOf<IMailService>();
             _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
         }

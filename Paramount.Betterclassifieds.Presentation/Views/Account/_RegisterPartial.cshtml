@@ -42,8 +42,10 @@
         @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", required = "", @maxlength = 12, data_numbers_only = "true" })
         @Html.ValidationMessageFor(m => m.Phone)
     </div>
+    
+    <div class="g-recaptcha" data-sitekey="@Model.GoogleCaptchaKey"></div>
 
-    <div class="form-group">
+    <div class="form-group top-buffer-10">
         <button type="submit" id="btnRegister" class="btn btn-default">Register</button>
     </div>
 </form>

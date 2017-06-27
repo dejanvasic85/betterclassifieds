@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public static RecaptchaConfig GetFromConfigSettings(string siteSectionName)
         {
-            var config = ConfigurationManager.AppSettings.Get("Google.:" + siteSectionName);
+            var config = ConfigurationManager.AppSettings.Get("GoogleRecaptcha." + siteSectionName);
             if (config == null)
             {
                 throw new ConfigurationErrorsException($"Recaptcha for {siteSectionName} has not been configured.");

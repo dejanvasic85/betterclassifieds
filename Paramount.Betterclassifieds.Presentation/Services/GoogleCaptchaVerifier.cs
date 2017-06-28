@@ -15,14 +15,22 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     public class GoogleCaptchaVerifier : IGoogleCaptchaVerifier
     {
         private readonly ILogService _logService;
+        private readonly IApplicationConfig _appConfig;
 
-        public GoogleCaptchaVerifier(ILogService logService)
+        public GoogleCaptchaVerifier(ILogService logService, IApplicationConfig appConfig)
         {
             _logService = logService;
+            _appConfig = appConfig;
         }
 
         public bool IsValid(string siteSectionSecret, HttpRequestBase httpRequest)
         {
+            if (!_appConfig.GoogleCaptchaEnabled)
+            {
+                _logService.Info("Google captcha disabled. Returning true");
+                return true;
+            }
+
             var watch = new Stopwatch();
             watch.Start();
             var restclient = new RestClient("https://www.google.com/recaptcha/api");

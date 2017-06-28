@@ -66,5 +66,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string ReturnUrl { get; set; }
         
         public string GoogleCaptchaKey { get; set; }
+        public bool GoogleCaptchaEnabled { get; set; }
     }
 }

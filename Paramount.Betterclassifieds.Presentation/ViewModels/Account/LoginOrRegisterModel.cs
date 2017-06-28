@@ -30,6 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 RegisterViewModel = new RegisterViewModel
                 {
                     ReturnUrl = returnUrl,
+                    GoogleCaptchaEnabled = _appConfig.GoogleCaptchaEnabled,
                     GoogleCaptchaKey = _appConfig.GoogleRegistrationCatpcha.Key
                 }
             };
@@ -44,6 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 RegisterViewModel = new RegisterViewModel
                 {
                     ReturnUrl = loginViewModel.ReturnUrl,
+                    GoogleCaptchaEnabled = _appConfig.GoogleCaptchaEnabled,
                     GoogleCaptchaKey = _appConfig.GoogleRegistrationCatpcha.Key
                 }
             };
@@ -52,6 +54,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public LoginOrRegisterModel Create(RegisterViewModel registerViewModel)
         {
             registerViewModel.GoogleCaptchaKey = _appConfig.GoogleRegistrationCatpcha.Key;
+            registerViewModel.GoogleCaptchaEnabled = _appConfig.GoogleCaptchaEnabled;
+
             return new LoginOrRegisterModel
             {
                 LoginHelpMessage = CreateLoginHelpMessage(registerViewModel.ReturnUrl),

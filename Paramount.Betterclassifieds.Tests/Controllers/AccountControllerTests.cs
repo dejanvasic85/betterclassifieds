@@ -36,8 +36,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // arrange
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, 
-                new RecaptchaConfig("key", "secret"));
+
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
@@ -77,8 +78,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), null);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
-                new RecaptchaConfig("key", "secret"));
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
@@ -99,9 +100,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
-                new RecaptchaConfig("key", "secret"));
-            
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
             // act
             var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
@@ -199,8 +199,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(
                 It.Is<IPrincipal>(p => p == mockUser.Object)), 
                 result: true);
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
-                new RecaptchaConfig("key", "secret"));
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
             var controller = BuildController(mockUser: mockUser);
             var result = controller.Register(mockViewModel);
@@ -219,8 +219,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<IPrincipal>(p => p == mockUser.Object)),
                 result: false);
 
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
-                new RecaptchaConfig("key", "secret"));
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, false);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
             var controller = BuildController(mockUser: mockUser);
             controller.ModelState.AddModelError("RandomError", "Does not matter what it is");
@@ -242,8 +242,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     It.Is<IPrincipal>(p => p == mockUser.Object)),
                 result: false);
 
-            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
-                new RecaptchaConfig("key", "secret"));
+            _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, true);
+            _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
             _captchaVerifier.SetupWithVerification(call => call.IsValid("secret", It.IsAny<HttpRequestBase>()), false);
 

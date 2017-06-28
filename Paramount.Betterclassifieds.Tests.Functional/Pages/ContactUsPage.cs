@@ -92,12 +92,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return _webdriver.FindElements(By.TagName("span"))
                 .Any(e => e.HasAttributeValue("data-valmsg-for", "Phone"));
         }
-
-        public bool IsHumanTestValidationMsgShown()
-        {
-            return _webdriver.IsElementPresentBy(By.Id("enquiryFailed"));
-        }
+        
 
         #endregion
+
+        public string GetSuccessMessage()
+        {
+            return _webdriver.FindElement(By.ClassName("alert-success")).Text;
+        }
     }
 }

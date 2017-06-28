@@ -108,7 +108,7 @@
                 .RegisterType<IMailService, MailService>()
                 .RegisterType<IMailSender, MailgunSender>()
                 .RegisterType<IPdfGenerator, PdfGenerator>()
-                .RegisterType<IGoogleCaptchaVerifier, GoogleCaptchaVerifier>()
+                .RegisterType<IRobotVerifier, RobotVerifier>()
                 ;
 
             return container;

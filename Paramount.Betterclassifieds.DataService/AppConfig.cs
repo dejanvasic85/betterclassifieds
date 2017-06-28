@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public bool GoogleCaptchaEnabled => ConfigManager.ReadAppSetting<bool>("GoogleRecaptcha.IsEnabled");
 
         public RecaptchaConfig GoogleRegistrationCatpcha => RecaptchaConfigReader.GetFromConfigSettings("Registration");
+        public RecaptchaConfig GoogleGeneralEnquiryCatpcha => RecaptchaConfigReader.GetFromConfigSettings("GeneralEnquiry");
         public RecaptchaConfig ContactUs => RecaptchaConfigReader.GetFromConfigSettings("ContactUs");
         public RecaptchaConfig Enquiry => RecaptchaConfigReader.GetFromConfigSettings("Enquiry");
 

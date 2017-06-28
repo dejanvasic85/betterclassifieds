@@ -14,16 +14,16 @@
         private readonly IAuthManager _authManager;
         private readonly IMailService _mailService;
         private readonly IApplicationConfig _appConfig;
-        private readonly IGoogleCaptchaVerifier _googleCaptchaVerifier;
+        private readonly IRobotVerifier _robotVerifier;
         private readonly LoginOrRegisterModelFactory _loginOrRegisterModelFactory;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IMailService mailService, IGoogleCaptchaVerifier googleCaptchaVerifier, LoginOrRegisterModelFactory loginOrRegisterModelFactory, IApplicationConfig appConfig)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IMailService mailService, IRobotVerifier robotVerifier, LoginOrRegisterModelFactory loginOrRegisterModelFactory, IApplicationConfig appConfig)
         {
             _userManager = userManager;
             _authManager = authManager;
-            _googleCaptchaVerifier = googleCaptchaVerifier;
+            _robotVerifier = robotVerifier;
             _loginOrRegisterModelFactory = loginOrRegisterModelFactory;
             _appConfig = appConfig;
             _mailService = mailService.Initialise(this);
@@ -106,9 +106,9 @@
                 return View("Login", _loginOrRegisterModelFactory.Create(viewModel));
             }
 
-            if (!_googleCaptchaVerifier.IsValid(_appConfig.GoogleRegistrationCatpcha.Secret, Request))
+            if (!_robotVerifier.IsValid(_appConfig.GoogleRegistrationCatpcha.Secret, Request))
             {
-                ModelState.AddModelError("Captcha", "Please click 'I'm not a robot' to continue.");
+                AddModelErrorCaptchaFailed();
                 return View("Login", _loginOrRegisterModelFactory.Create(viewModel));
             }
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -18,12 +18,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IMailService _mailService;
         private readonly ISitemapFactory _sitemapProvider;
+        private readonly IApplicationConfig _appConfig;
+        private readonly IRobotVerifier _robotVerifier;
 
-        public HomeController(ISearchService searchService, IClientConfig clientConfig, ISitemapFactory sitemapFactory, IMailService mailService)
+        public HomeController(ISearchService searchService, IClientConfig clientConfig, ISitemapFactory sitemapFactory, IMailService mailService, IApplicationConfig appConfig, IRobotVerifier robotVerifier)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
             _sitemapProvider = sitemapFactory;
+            _appConfig = appConfig;
+            _robotVerifier = robotVerifier;
             _mailService = mailService.Initialise(this);
         }
 
@@ -40,12 +44,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult ContactUs()
         {
-            var contactUs = new ContactUsView();
+            var contactUs = new ContactUsView
+            {
+                GoogleCaptchaEnabled = _appConfig.GoogleCaptchaEnabled,
+                GoogleCaptchaKey = _appConfig.GoogleGeneralEnquiryCatpcha.Key
+            };
             ViewBag.Address = this.Map<Address, AddressViewModel>(_clientConfig.ClientAddress);
             ViewBag.PhoneNumber = _clientConfig.ClientPhoneNumber;
             ViewBag.AddressLatitude = _clientConfig.ClientAddressLatLong.Item1;
             ViewBag.AddressLongitude = _clientConfig.ClientAddressLatLong.Item2;
-
+            
             return View(contactUs);
         }
 
@@ -53,6 +61,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult ContactUs(ContactUsView contactUsView)
         {
+            if (!_robotVerifier.IsValid(_appConfig.GoogleGeneralEnquiryCatpcha.Secret, Request))
+            {
+                AddModelErrorCaptchaFailed();
+            }
+
             if (!ModelState.IsValid)
             {
                 return JsonModelErrors();

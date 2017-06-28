@@ -7,17 +7,12 @@ using RestSharp;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
-    public interface IGoogleCaptchaVerifier
-    {
-        bool IsValid(string siteSectionSecret, HttpRequestBase httpRequest);
-    }
-
-    public class GoogleCaptchaVerifier : IGoogleCaptchaVerifier
+    public class RobotVerifier : IRobotVerifier
     {
         private readonly ILogService _logService;
         private readonly IApplicationConfig _appConfig;
 
-        public GoogleCaptchaVerifier(ILogService logService, IApplicationConfig appConfig)
+        public RobotVerifier(ILogService logService, IApplicationConfig appConfig)
         {
             _logService = logService;
             _appConfig = appConfig;

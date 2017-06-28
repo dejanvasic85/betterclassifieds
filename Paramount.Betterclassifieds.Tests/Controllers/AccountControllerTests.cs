@@ -245,7 +245,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _appConfig.SetupWithVerification(call => call.GoogleCaptchaEnabled, true);
             _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha, new RecaptchaConfig("key", "secret"));
 
-            _captchaVerifier.SetupWithVerification(call => call.IsValid("secret", It.IsAny<HttpRequestBase>()), false);
+            _robotVerifier.SetupWithVerification(call => call.IsValid("secret", It.IsAny<HttpRequestBase>()), false);
 
             var controller = BuildController(mockUser: mockUser);
             // act
@@ -292,7 +292,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
                 new RecaptchaConfig("key", "secret"));
 
-            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+            _robotVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
             
             _mailService.SetupWithVerification(call => call.SendRegistrationConfirmationEmail(
                 It.Is<string>(email => email == mockViewModel.RegisterEmail),
@@ -347,7 +347,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
                 new RecaptchaConfig("key", "secret"));
 
-            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+            _robotVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
 
 
             var controller = BuildController(mockUser: mockUser);
@@ -394,7 +394,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _appConfig.SetupWithVerification(call => call.GoogleRegistrationCatpcha,
                 new RecaptchaConfig("key", "secret"));
 
-            _captchaVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
+            _robotVerifier.SetupWithVerification(call => call.IsValid(It.IsAny<string>(), It.IsAny<HttpRequestBase>()), true);
             
             _mailService.SetupWithVerification(call => call.SendWelcomeEmail(
                 It.Is<string>(email => email == mockViewModel.RegisterEmail),
@@ -413,7 +413,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IPrincipal> _mockLoggedInUser;
         private Mock<IClientConfig> _mockClientConfig;
         private Mock<IMailService> _mailService;
-        private Mock<IGoogleCaptchaVerifier> _captchaVerifier;
+        private Mock<IRobotVerifier> _robotVerifier;
         private Mock<IClientConfig> _clientConfig;
         private Mock<IApplicationConfig> _appConfig;
 
@@ -424,7 +424,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUserMgr = CreateMockOf<IUserManager>();
             _mockAuthMgr = CreateMockOf<IAuthManager>();
             _searchServiceMgr = CreateMockOf<ISearchService>();
-            _captchaVerifier = CreateMockOf<IGoogleCaptchaVerifier>();
+            _robotVerifier = CreateMockOf<IRobotVerifier>();
             _clientConfig = CreateMockOf<IClientConfig>();
             _appConfig = CreateMockOf<IApplicationConfig>();
             _mailService = CreateMockOf<IMailService>();

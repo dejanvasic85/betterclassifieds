@@ -23,5 +23,6 @@ namespace Paramount.Betterclassifieds.Business
         string MailgunDomain { get; }
         bool GoogleCaptchaEnabled { get; }
         RecaptchaConfig GoogleRegistrationCatpcha { get; }
+        RecaptchaConfig GoogleGeneralEnquiryCatpcha { get; }
     }
 }

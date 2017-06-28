@@ -301,6 +301,7 @@
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
     <Compile Include="Services\GoogleCaptchaVerifier.cs" />
+    <Compile Include="Services\IRobotVerifier.cs" />
     <Compile Include="Services\Mail\MailAttachment.cs" />
     <Compile Include="Services\Mail\MailSender.cs" />
     <Compile Include="Services\IPdfGenerator.cs" />

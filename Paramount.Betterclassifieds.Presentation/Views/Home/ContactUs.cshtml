@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Phone)
-                        @Html.BootstrapTextBoxFor(m => m.Phone)
+                        @Html.BootstrapTelFor(m => m.Phone)
                         @Html.ValidationMessageFor(m => m.Phone)
                     </div>
                     <div class="form-group">
@@ -33,6 +33,13 @@
                         @Html.BootstrapTextBoxFor(m => m.Comment)
                         @Html.ValidationMessageFor(m => m.Comment)
                     </div>
+
+                    @if (Model.GoogleCaptchaEnabled)
+                    {
+                        <div class="g-recaptcha" data-sitekey="@Model.GoogleCaptchaKey"></div>
+                    }
+
+                    <div class="top-buffer-20"></div>
                     <div class="alert alert-danger hidden" id="enquiryFailed">Unable to process your request this time. If problem persists, please call us.</div>
                     <div class="form-group">
                         <button id="btnSubmit" class="btn btn-default">
@@ -46,8 +53,10 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="well">
-                        <h4>Have a suggestion, complaint or general feedback? Fill in the easy form
-                        and one of our team members will be in touch with you shortly..</h4>
+                        <h4>
+                            Have a suggestion, complaint or general feedback? Fill in the easy form
+                            and one of our team members will be in touch with you shortly..
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -57,7 +66,7 @@
 </div>
 
 @section Scripts{
-    
+
     <script>
 
         var map, latLng;
@@ -98,11 +107,23 @@
                     data: $('#contactUsForm').serialize()
                 }).always(function () {
                     $btn.button('reset');
-                }).success(function (result) {
-                    if (!result.isValid) {
-                        $('#enquiryFailed').removeClass('hidden');
-                        return;
-                    }
+                    }).success(function (result) {
+
+                        if (result.errors && result.errors.length > 0) {
+
+                            if (result.errors[0].key === 'Captcha') {
+
+                                toastr.error('Please ensure you are not a robot!');
+
+                            } else {
+                            
+                                $('#enquiryFailed').removeClass('hidden');    
+                            }
+
+
+                            return;
+                        }
+
                     $('#contactUsForm').slideUp(500, function () {
                         $('#enquirySuccessful').removeClass('hidden');
                     });

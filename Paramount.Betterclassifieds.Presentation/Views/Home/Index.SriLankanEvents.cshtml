@@ -8,7 +8,6 @@
     ViewBag.Title = "Sri Lankan Events";
 
     // Setup latest ads carousel
-    // Setup latest ads carousel
     var latestAdsRowCount = 1;
     var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
     if (adCount == 0)
@@ -33,19 +32,7 @@
 @section Main{
     <main class="mast-head" id="content" role="main">
         <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <h1>
-                        <a href="@Url.Action("Index", "Home")">
-                            Sri Lankan Events
-                        </a>
-                    </h1>
-                    <p>
-                        <em>
-                            Manage your event without hassles!
-                        </em>
-                    </p>
-                </div>
+            <div class="row search-container">
                 <div class="col-md-8 col-md-offset-2">
                     <form action="@Url.Action("Find", "Listings")">
                         <div class="input-group input-group-lg">
@@ -62,34 +49,30 @@
             </div>
 
             <div class="row top-buffer-40">
-                <div class="col-sm-3 col-sm-offset-3 text-left">
+                <div class="col-md-3 col-md-offset-3 text-left">
                     <a class="btn btn-primary btn-block btn-lg" href="@Url.Booking(1)">
                         <i class="fa fa-pencil"></i>&nbsp; Organise an Event
                     </a>
                 </div>
-                <div class="col-sm-3 text-right">
+                <div class="col-md-3 text-right">
                     <a class="btn btn-primary btn-block btn-lg" href="@Url.Search()">
                         <i class="fa fa-binoculars"></i>&nbsp; Find an Event
                     </a>
                 </div>
-
             </div>
-
+            
+            @*<div class="row top-buffer-20">
+                <div class="col-xs-12 text-center">
+                    <p>
+                        <em>
+                            Event Management without any hassles!
+                        </em>
+                    </p>
+                </div>
+            </div>*@
         </div>
     </main>
 }
-
-<article>
-    <div class="text-center">
-        <h1>Why Sri Lankan Events?</h1>
-        <p>
-            Guaranteed the most competitive price in the ticketing market.
-            <a href="@Url.EventPricing()">Learn More <i class="fa fa-arrow-right"></i></a>
-        </p>
-        <p>No hassles. Everything is online, no need to call anyone...</p>
-        <p>It's for our people made by our people in Australia.</p>
-    </div>
-</article>
 
 @if (Model.AdSummaryList.Count > 0)
 {
@@ -180,6 +163,20 @@
     </div>
 
 </div>
+
+
+<article>
+    <div class="text-center">
+        <h1>Why Sri Lankan Events?</h1>
+        <p>
+            Guaranteed the most competitive price in the ticketing market.
+            <a href="@Url.EventPricing()">Learn More <i class="fa fa-arrow-right"></i></a>
+        </p>
+        <p>No hassles. Everything is online, no need to call anyone...</p>
+        <p>It's for our people made by our people in Australia.</p>
+    </div>
+</article>
+
 <section class="home-impact">
     <div class="container">
         <div class="row">

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -6,13 +8,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     {
         [Required]
         public int AdId { get; set; }
-
-        [Required]
+        
         [Display(Name = "Full Name")]
         [MaxLength(100, ErrorMessage = "Full Name cannot exceed 100 characters")]
         public string FullName { get; set; }
 
-        [Required]
         [MaxLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
         [EmailAddress]
         public string Email { get; set; }
@@ -28,5 +28,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public string AdTitle { get; set; }
         public string AdUrl { get; set; }
+        
     }
 }

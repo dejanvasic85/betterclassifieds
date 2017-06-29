@@ -6,6 +6,7 @@ using Microsoft.Ajax.Utilities;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.Services.Mail;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
@@ -20,16 +21,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IAuthManager _authManager;
         private readonly IMailService _mailService;
+        private readonly IApplicationConfig _appConfig;
+        private readonly IRobotVerifier _robotVerifier;
+        private readonly IUserManager _userManager;
 
         private const string Tempdata_ComingFromSearch = "IsComingFromSearch";
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IBookingManager bookingManager, IAuthManager authManager, IMailService mailService)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IBookingManager bookingManager, IAuthManager authManager, IMailService mailService, IApplicationConfig appConfig, IRobotVerifier robotVerifier, IUserManager userManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
             _authManager = authManager;
+            _robotVerifier = robotVerifier;
+            _userManager = userManager;
+            _appConfig = appConfig;
             _mailService = mailService.Initialise(this);
         }
 
@@ -181,13 +188,40 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
+        public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry, string googleCaptchaResult)
         {
             if (!ModelState.IsValid)
             {
                 return JsonModelErrors();
             }
 
+            var currentUser = _userManager.GetCurrentUser();
+            if (currentUser != null)
+            {
+                adEnquiry.FullName = currentUser.FullName;
+                adEnquiry.Email = currentUser.Email;
+                adEnquiry.Phone = currentUser.Phone; 
+            }
+            else
+            {
+                if (adEnquiry.FullName.IsNullOrWhiteSpace())
+                {
+                    ModelState.AddModelError("FullName", "Full name is required");
+                    return JsonModelErrors();
+                }
+                if (adEnquiry.Email.IsNullOrWhiteSpace())
+                {
+                    ModelState.AddModelError("Email", "Email is required");
+                    return JsonModelErrors();
+                }
+
+                if (!_robotVerifier.IsValid(_appConfig.GoogleAdEnquiryCatpcha.Secret, googleCaptchaResult))
+                {
+                    AddModelErrorCaptchaFailed();
+                    return JsonModelErrors();
+                }
+            }
+            
             var enquiry = this.Map<AdEnquiryViewModel, AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
             _mailService.SendListingEnquiryEmail(adEnquiry);

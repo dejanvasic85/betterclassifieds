@@ -179,8 +179,8 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    @Html.Partial("_ContactAdvertiser")
+                <div class="col-xs-12 col-md-6" id="contactAdvertiserForm">
+                    <contact-advertiser params="isLoggedIn: @User.Identity.IsAuthenticated.ToJsonString(), adId: @Model.AdId" />
                 </div>
 
             </div>

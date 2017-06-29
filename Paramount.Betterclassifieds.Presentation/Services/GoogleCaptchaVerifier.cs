@@ -20,6 +20,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public bool IsValid(string siteSectionSecret, HttpRequestBase httpRequest)
         {
+            return IsValid(siteSectionSecret, httpRequest.Form["g-recaptcha-response"]);
+        }
+
+        public bool IsValid(string siteSectionSecret, string googleCaptchaResult)
+        {
             if (!_appConfig.GoogleCaptchaEnabled)
             {
                 _logService.Info("Google captcha disabled. Returning true");
@@ -34,7 +39,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             var request = new RestRequest("/siteverify");
             request.AddQueryParameter("secret", siteSectionSecret);
-            request.AddQueryParameter("response", httpRequest.Form["g-recaptcha-response"]);
+            request.AddQueryParameter("response", googleCaptchaResult);
             
             var response = restclient.Post(request);
             watch.Stop();

@@ -24,5 +24,6 @@ namespace Paramount.Betterclassifieds.Business
         bool GoogleCaptchaEnabled { get; }
         RecaptchaConfig GoogleRegistrationCatpcha { get; }
         RecaptchaConfig GoogleGeneralEnquiryCatpcha { get; }
+        RecaptchaConfig GoogleAdEnquiryCatpcha { get;}
     }
 }

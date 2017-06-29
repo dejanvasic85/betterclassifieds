@@ -22,6 +22,11 @@
                     ko.applyBindings({}, ticketSeatingInterface);
                 }
 
+                var contactAdvertiserInterface = document.getElementById('contactAdvertiserForm');
+                if (contactAdvertiserInterface) {
+                    ko.applyBindings({}, contactAdvertiserInterface);
+                }
+
                 if (options.floorPlanDocumentId === '') {
                     $('.floor-plan').hide();
                 } else if (options.floorPlanFileName.endsWith('.pdf')) {

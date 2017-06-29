@@ -142,6 +142,7 @@
     <Compile Include="Controllers\EditAdControllerTests.cs" />
     <Compile Include="Controllers\EventControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Controllers\ListingsControllerTests.cs" />
     <Compile Include="Csv\CsvGeneratorTests.cs" />
     <Compile Include="Csv\ExcelGuestGeneratorServiceTests.cs" />
     <Compile Include="Events\EventAccessTests.cs" />

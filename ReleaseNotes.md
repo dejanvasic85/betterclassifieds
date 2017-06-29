@@ -1,5 +1,12 @@
 Here's a list of the latest changes:
 
+**3.29.0**
+
+- [Feature - Registration form should have a robot (captcha) checker](https://trello.com/c/XeCj5VW2/541-add-google-recaptcha-to-the-registration-form)
+- [Feature - General enquiry - contact us form - should have a captcha](https://trello.com/c/rE56P4TS/653-add-google-captcha-for-the-general-enquiry-page)
+- [Feature - Contact advertiser / event organiser should have a captcha when not logged in](https://trello.com/c/rE56P4TS/653-add-google-captcha-for-the-general-enquiry-page)
+
+
 **3.28.5**
 
 - Fix - The server side validation on max selected reservations was incorrect

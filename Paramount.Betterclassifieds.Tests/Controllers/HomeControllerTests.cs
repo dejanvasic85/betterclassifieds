@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // Arrange
             _mockSearchService
-                .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 6)),
+                .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 9)),
                 new List<AdSearchResult>
                 {
                     new AdSearchResult{AdId = 1, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 1", Description = "Description 1"},

@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Presentation.Services;
+﻿using System.Collections.Generic;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -33,7 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
-            var results = _searchService.GetLatestAds(pageSize: 6);
+            var results = _searchService.GetLatestAds(9);
             var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
             return View(new HomeModel

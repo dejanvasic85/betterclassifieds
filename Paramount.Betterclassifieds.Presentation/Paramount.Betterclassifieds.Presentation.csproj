@@ -636,7 +636,11 @@
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
+    <Content Include="Scripts\app\events\featuredEvents.js\featuredEvents.html" />
+    <Content Include="Scripts\app\events\featuredEvents.js\featuredEvents.js" />
     <Content Include="Scripts\app\events\guest-settings.js" />
+    <Content Include="Scripts\app\events\eventListing\eventListing.html" />
+    <Content Include="Scripts\app\events\eventListing\eventListing.js" />
     <Content Include="Scripts\app\events\organisers\add-organiser.js" />
     <Content Include="Scripts\app\events\organisers\add-organiser.html" />
     <Content Include="Scripts\app\events\organisers\event-organiser.js" />

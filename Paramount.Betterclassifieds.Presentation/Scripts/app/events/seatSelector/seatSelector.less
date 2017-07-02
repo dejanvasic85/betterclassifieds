@@ -47,7 +47,6 @@
             white-space: nowrap;
 
             @media (max-width: 766px) {
-                max-height: 320px;
                 overflow-x: auto;
                 white-space: nowrap;
             }
@@ -55,10 +54,10 @@
             .seat-layout {
                 display: table;
 
-                @media (min-width: 768px) {
+                @media (max-width: 766px) {
                     zoom: 0.5;
-                    moz-transform: scale(0.5);
-                    moz-transform-origin: 0 0;
+                    -moz-transform: scale(0.5);
+                    -moz-transform-origin: 0 0;
                 }
 
                 .seats-row {

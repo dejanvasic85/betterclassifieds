@@ -55,6 +55,12 @@
             .seat-layout {
                 display: table;
 
+                @media (min-width: 768px) {
+                    zoom: 0.5;
+                    moz-transform: scale(0.5);
+                    moz-transform-origin: 0 0;
+                }
+
                 .seats-row {
                     margin-top: -5px;
                     text-align: center;

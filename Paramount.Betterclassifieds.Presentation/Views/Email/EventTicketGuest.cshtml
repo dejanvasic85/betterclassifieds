@@ -18,9 +18,19 @@
 </p>
 
 <p>
-    Event starts @Model.EventStartDateTime at @Model.EventLocation.
-    Tickets are attached to this email.
+    Event starts @Model.EventStartDateTime @@ @Model.EventLocation
 </p>
+
+<p>Your details: <br/>
+Name: @Model.GuestName <br/>
+Email: @Model.GuestEmail <br/>
+@if (Model.SeatNumber.HasValue())
+{
+    <text>Seat Number: @Model.SeatNumber    </text>
+}
+</p>
+
+<p>Tickets are attached to this email.</p>
 
 <p>
     <a class="btn-primary" href="@Model.EventUrl">See Event Page</a>

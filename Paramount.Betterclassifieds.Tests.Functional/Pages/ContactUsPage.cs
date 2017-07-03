@@ -98,7 +98,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public string GetSuccessMessage()
         {
-            return _webdriver.FindElement(By.ClassName("alert-success")).Text;
+            var classNameToFind = "alert-success";
+
+            _webdriver.WaitFor(d => d.FindElement(By.ClassName(classNameToFind)).Text != string.Empty, secondsToWait: 10);
+
+            return _webdriver.FindElement(By.ClassName(classNameToFind)).Text;
         }
     }
 }

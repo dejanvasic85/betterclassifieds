@@ -2,7 +2,8 @@ Here's a list of the latest changes:
 
 **3.31.0**
 
-
+- [Change - Moving the sold ticket legend to the bottom](https://trello.com/c/Um2JbnOi/657-ticket-legend-for-sold-items-should-go-last)
+- []
 
 **3.30.0 - Mobile improvements**
 

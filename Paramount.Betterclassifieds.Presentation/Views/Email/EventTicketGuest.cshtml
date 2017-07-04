@@ -21,7 +21,8 @@
     Event starts @Model.EventStartDateTime @@ @Model.EventLocation
 </p>
 
-<p>Your details: <br/>
+<p>Details: <br/>
+Ticket: @Model.TicketName <br/>
 Name: @Model.GuestName <br/>
 Email: @Model.GuestEmail <br/>
 @if (Model.SeatNumber.HasValue())

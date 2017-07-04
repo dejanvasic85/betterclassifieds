@@ -3,7 +3,7 @@ Here's a list of the latest changes:
 **3.31.0**
 
 - [Change - Moving the sold ticket legend to the bottom](https://trello.com/c/Um2JbnOi/657-ticket-legend-for-sold-items-should-go-last)
-- []
+- [Change - Guest email should contain ticket type and price](https://trello.com/c/GgLMqZQs/658-ticket-name-to-be-shown-in-guest-email)
 
 **3.30.0 - Mobile improvements**
 

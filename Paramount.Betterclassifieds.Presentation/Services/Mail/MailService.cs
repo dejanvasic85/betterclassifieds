@@ -141,6 +141,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 SeatNumber = eventBookingTicket.SeatNumber,
                 GuestName = eventBookingTicket.GuestFullName,
                 GuestEmail = eventBookingTicket.GuestEmail,
+                TicketName = eventBookingTicket.TicketName,
                 EventStartDateTime = eventModel?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
                 IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail,
                 BarcodeImgUrl = _url.Image(eventBookingTicket.BarcodeImageDocumentId.ToString(), 

@@ -17,15 +17,6 @@
         <div class="loading-overlay" data-bind="visible: loading"></div>
 
         <div class="row">
-            <div class="col-sm-4">
-                <div class="ticket-summary">
-                    <span></span>
-                    <div class="ticket-legend">
-                        <i class="fa fa-times"></i>
-                    </div>
-                    <div class="ticket-name">Sold / Not Available</div>
-                </div>
-            </div>
             <!-- ko foreach: tickets-->
             <div class="col-sm-4">
                 <div class="ticket-summary">
@@ -37,6 +28,15 @@
                 </div>
             </div>
             <!-- /ko -->
+            <div class="col-sm-4">
+                <div class="ticket-summary">
+                    <span></span>
+                    <div class="ticket-legend">
+                        <i class="fa fa-times"></i>
+                    </div>
+                    <div class="ticket-name">Sold / Not Available</div>
+                </div>
+            </div>
         </div>
         <div class="alert alert-info visible-xs">
             <strong>Tip:</strong> On your mobile, you can pinch to zoom on the seats.

@@ -1,5 +1,14 @@
 Here's a list of the latest changes:
 
+**3.31.0**
+
+
+
+**3.30.0 - Mobile improvements**
+
+- [Feature - Transform zoom allowing for better mobile view](https://trello.com/c/SaHZKms9/620-mobile-pinch-zoom-for-seat-selection)
+- [Feature - adding more details to the email body](https://trello.com/c/rHvnsrPk/656-additional-information-like-guest-name-email-and-seat-number-should-be-part-of-the-email-body-to-the-guest)
+
 **3.29.0 - Captcha ... Security!**
 
 - [Feature - Registration form should have a robot (captcha) checker](https://trello.com/c/XeCj5VW2/541-add-google-recaptcha-to-the-registration-form)

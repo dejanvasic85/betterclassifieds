@@ -86,7 +86,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [ActionName("privacy-policy")]
         public ActionResult PrivacyPolicy()
         {
-            return View();
+            return View("Terms");
         }
 
         [Route("sitemap.xml")]

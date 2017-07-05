@@ -18,25 +18,29 @@
             me.eventTicketFields = ko.observableArray();
             me.editMode = ko.observable(false);
             me.soldQty = ko.observable();
+            me.colourCode = ko.observable();
             me.displayGuestPurchasesWarning = ko.observable(false);
             me.displayNotificationProgress = ko.observable(false);
             me.ticketHasPurchases = ko.observable(false);
             me.guestsAffected = ko.observable(0);
             me.guestsNotified = ko.observable(0);
             me.onSave = params.onSave;
-            
-            if (params.ticketDetails) {
 
-                me.eventTicketId(params.ticketDetails.eventTicketId);
+            var ticketDetails = params.ticketDetails;
+
+            if (ticketDetails) {
+
+                me.eventTicketId(ticketDetails.eventTicketId);
                 me.editMode(true);
-                me.ticketName(params.ticketDetails.ticketName);
-                me.availableQuantity(params.ticketDetails.availableQuantity);
-                me.remainingQuantity(params.ticketDetails.remainingQuantity);
-                me.isActive(params.ticketDetails.isActive);
-                me.price(params.ticketDetails.price);
-                me.ticketHasPurchases(params.ticketDetails.soldQty > 0);
-                me.soldQty(params.ticketDetails.soldQty);
-                _.each(params.ticketDetails.eventTicketFields, function (field) {
+                me.ticketName(ticketDetails.ticketName);
+                me.availableQuantity(ticketDetails.availableQuantity);
+                me.remainingQuantity(ticketDetails.remainingQuantity);
+                me.isActive(ticketDetails.isActive);
+                me.price(ticketDetails.price);
+                me.colourCode(ticketDetails.colourCode);
+                me.ticketHasPurchases(ticketDetails.soldQty > 0);
+                me.soldQty(ticketDetails.soldQty);
+                _.each(ticketDetails.eventTicketFields, function (field) {
                     me.eventTicketFields.push(new $p.models.DynamicFieldDefinition(me, field));
                 });
             }

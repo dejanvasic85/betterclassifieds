@@ -17,13 +17,22 @@
         <input id="txtRemainingQuantity" type="number" class="form-control" data-bind="value: remainingQuantity" />
     </div>
 
+    <div class="col-xs-12 form-group" data-bind="validationElement: colourCode">
+        <label class="control-label">Colour Code</label>
+        <input type="color" class="form-control" data-bind="value: colourCode" style="max-width: 200px"/>
+        <p class="help-block">
+            This feature is helpful to guests booking tickets for a seated event.
+        </p>
+    </div>
+
     <div class="col-xs-12 form-group">
         <label class="control-label">Active</label>
         <div class="display-block toggle-required">
             <input type="checkbox" data-bind="toggle: isActive" data-on="Yes" data-off="No" data-onstyle="success" />
         </div>
         <p class="help-block">
-            By disabling the ticket, it will be hidden from the public for new purchases.
+            By disabling the ticket, it will be hidden from the public for new purchases. Existing 
+            purchases will not be affected.
         </p>
     </div>
 

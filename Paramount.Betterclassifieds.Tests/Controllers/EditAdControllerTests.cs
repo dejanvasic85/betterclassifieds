@@ -286,7 +286,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<string>(p => p == mockPromoCode.Trim().ToUpper()),
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>(),
-                It.IsAny<Func<string, string>>()), mockEventBooking);
+                It.IsAny<Func<string, string>>(),
+                It.IsAny<string>()),
+                mockEventBooking);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
@@ -441,7 +443,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
 
-        [Test] 
+        [Test]
         public void EditTicket_Get_ReturnsView()
         {
             var mockTicket = new EventTicketMockBuilder().Default().Build();
@@ -523,13 +525,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<string>(name => name == "Foo bar"),
                 It.Is<decimal>(price => price == 10),
                 It.Is<int>(remaining => remaining == 10),
-                It.Is<string>(colour=> colour == "#black"),
+                It.Is<string>(colour => colour == "#black"),
                 It.Is<bool>(active => active == true),
                 It.IsAny<IEnumerable<EventTicketField>>()));
 
             var ctrl = BuildController();
             var result = ctrl.EditTicket(mockAdId, mockTicketId, mockEventTicketUpdateModel);
-            
+
             result.IsTypeOf<JsonResult>();
         }
 
@@ -583,12 +585,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<int>(eventId => eventId == 1),
                 It.Is<string>(ticketName => ticketName == "Ticket-123"),
                 It.Is<decimal>(price => price == 10),
-                It.Is<int>(available => available == 100 ),
+                It.Is<int>(available => available == 100),
                 It.Is<string>(colour => colour == "#blue"),
                 It.Is<bool>(active => active == true),
                 It.IsAny<IEnumerable<EventTicketField>>()),
                 result: mockEventTicket);
-            
+
             var result = ctrl.AddTicket(mockId, newEventTicketViewModel);
 
             var viewResult = result.IsTypeOf<JsonResult>();

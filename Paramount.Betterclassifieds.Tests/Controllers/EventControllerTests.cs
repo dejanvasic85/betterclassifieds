@@ -355,7 +355,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(
+                It.IsAny<int>(), 
+                It.IsAny<string>(), 
+                It.IsAny<ApplicationUser>(), 
+                It.IsAny<IEnumerable<EventTicketReservation>>(), 
+                It.IsAny<Func<string, string>>(),
+                It.IsAny<string>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");
@@ -412,7 +418,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>(), It.IsAny<string>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");

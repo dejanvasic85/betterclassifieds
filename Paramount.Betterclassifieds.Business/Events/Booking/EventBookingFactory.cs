@@ -19,7 +19,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventBooking Create(EventModel eventModel,
             EventPromoCode eventPromo,
             ApplicationUser applicationUser,
-            IEnumerable<EventTicketReservation> currentReservations)
+            IEnumerable<EventTicketReservation> currentReservations,
+            string howYourHeardAboutEvent)
         {
             var reservations = currentReservations.ToList();
             var bookingCost = _ticketFeeCalculator.GetTotalTicketPrice(reservations, eventPromo, eventModel.IncludeTransactionFee.GetValueOrDefault());
@@ -32,6 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 FirstName = applicationUser.FirstName,
                 LastName = applicationUser.LastName,
                 Email = applicationUser.Email,
+                HowYouHeardAboutEvent = howYourHeardAboutEvent,
                 Phone = applicationUser.Phone,
                 PostCode = applicationUser.Postcode,
                 UserId = applicationUser.Username,
@@ -44,6 +46,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Status = bookingCost.Total > 0
                     ? EventBookingStatus.PaymentPending
                     : EventBookingStatus.Active
+
             };
 
             // Add the ticket bookings

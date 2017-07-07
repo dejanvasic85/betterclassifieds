@@ -208,7 +208,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
-        public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator)
+        public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator, string howYouHeardAboutEvent = "")
         {
             Guard.NotDefaultValue(eventId);
             Guard.NotNull(applicationUser);
@@ -223,7 +223,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventModel = _eventRepository.GetEventDetails(eventId);
             var feeCalculator = new TicketFeeCalculator(_clientConfig);
             var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator)
-                .Create(eventModel, eventPromo, applicationUser, currentReservations);
+                .Create(eventModel, eventPromo, applicationUser, currentReservations, howYouHeardAboutEvent);
 
             _eventRepository.CreateBooking(eventBooking);
             _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
@@ -529,7 +529,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             if (originalEventDetails == null || onlineAd == null)
                 throw new ArgumentException("Cannot find required event to update", "eventId");
-#if !DEBUG
             
                 // Only the following details will allowed to be changed if the event has started
                 originalEventDetails.Location = location;
@@ -566,8 +565,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 {
                     _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
                 }
-            
-#endif
+       
             onlineAd.Heading = title;
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;

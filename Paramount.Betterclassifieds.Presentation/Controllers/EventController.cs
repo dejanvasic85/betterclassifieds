@@ -193,7 +193,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventBookingContext.AppliedPromoCode,
                 applicationUser,
                 currentReservations,
-                barcode => Url.ValidateBarcode(barcode).WithFullUrl());
+                barcode => Url.ValidateBarcode(barcode).WithFullUrl(),
+                bookTicketsViewModel.HowYouHeardAboutEvent);
 
             // Set the event id and booking id in the session for the consecutive calls
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();

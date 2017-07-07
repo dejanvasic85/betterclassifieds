@@ -155,7 +155,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList()));
-            
+
             eventEditViewModel.RequiresEventOrganiserConfirmation = applicationUser.RequiresEventOrganiserConfirmation;
             eventEditViewModel.EventUrl = eventUrl;
 
@@ -225,7 +225,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 if (guestCount > 0)
                 {
                     ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
-                    return JsonModelErrors(); 
+                    return JsonModelErrors();
                 }
             }
 
@@ -357,11 +357,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var ad = _searchService.GetByAdId(id);
             var eventModel = _eventManager.GetEventDetails(eventPaymentRequestViewModel.EventId.GetValueOrDefault());
 
-             
-            _mailService.SendEventPaymentRequest(ad, eventModel, 
+
+            _mailService.SendEventPaymentRequest(ad, eventModel,
                 eventPaymentRequestViewModel.PaymentMethod,
                 eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault());
-            
+
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 
@@ -495,7 +495,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.CreateEventBooking(
                 viewModel.EventId.GetValueOrDefault(),
-                viewModel.PromoCode.TryTrim().TryToUpper(),
+                 viewModel.PromoCode.TryTrim().TryToUpper(),
                 currentUser,
                 new[] { reservation },
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());

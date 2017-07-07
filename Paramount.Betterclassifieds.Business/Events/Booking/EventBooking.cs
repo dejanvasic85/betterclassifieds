@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal? DiscountAmount { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
+        public string HowYouHeardAboutEvent { get; set; } // How the user found out about the event
 
         // Only because of entity framework
         public string StatusAsString

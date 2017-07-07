@@ -5,6 +5,7 @@ Here's a list of the latest changes:
 - [Change - Moving the sold ticket legend to the bottom](https://trello.com/c/Um2JbnOi/657-ticket-legend-for-sold-items-should-go-last)
 - [Change - Guest email should contain ticket type and price](https://trello.com/c/GgLMqZQs/658-ticket-name-to-be-shown-in-guest-email)
 - [Feature - Adding the colour code adding and editing for ticket types.](https://trello.com/c/iaknPPCN/649-colour-editing-for-ticket-types)
+- [Feature - On booking tickets, users can give us information on how they found about the event](https://trello.com/c/KqFyIqS5/660-analytics-how-u-heard-about-the-event-on-checkout)
 
 **3.30.0 - Mobile improvements**
 

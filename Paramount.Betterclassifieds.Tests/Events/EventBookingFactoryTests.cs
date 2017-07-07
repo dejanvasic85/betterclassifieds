@@ -33,7 +33,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 mockEvent,
                 null,
                 applicationUser,
-                eventTicketReservations);
+                eventTicketReservations,
+                "Google");
 
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventId, Is.EqualTo(eventId));
@@ -93,7 +94,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 mockEvent,
                 new EventPromoCode{ PromoCode = "promo123", DiscountPercent = 30}, 
                 applicationUser,
-                eventTicketReservations);
+                eventTicketReservations,
+                "Google");
 
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventBookingTickets, Is.Not.Null);

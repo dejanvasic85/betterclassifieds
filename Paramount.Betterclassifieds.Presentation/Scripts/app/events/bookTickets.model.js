@@ -22,13 +22,9 @@
         me.phone = ko.observable(data.phone);
         me.postCode = ko.observable(data.postCode);
         me.email = ko.observable(data.email);
+        me.showHowYouHeardAboutEventOptions = ko.observable(data.howYouHeardAboutEventOptions && data.howYouHeardAboutEventOptions.length > 0);
         me.howYouHeardAboutEvent = ko.observable();
-        me.howYourHeardSurveyOptions = ko.observableArray([
-            'Facebook',
-            'Google',
-            'Friend',
-            'Other'
-        ]);
+        me.howYouHeardAboutEventOptions = ko.observableArray(data.howYouHeardAboutEventOptions);
 
         // Promo code
         me.promoCode = ko.observable();

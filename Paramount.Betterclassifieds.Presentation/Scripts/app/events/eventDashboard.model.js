@@ -1,5 +1,5 @@
 ﻿(function ($, ko, $paramount) {
-    
+
     function EventDashboardModel(editEventViewModel, adDesignService) {
         var me = this;
         me.eventId = ko.observable();
@@ -20,6 +20,11 @@
         me.showPayMeButton = ko.observable();
         me.showWithdrawPayment = ko.observable();
         me.pageViews = ko.observable();
+        me.surveyStatistics = $paramount.ko.bindArray(editEventViewModel.surveyStatistics, function (stat) {
+            return new SurveyStatistic(stat, editEventViewModel.surveyStaticsTotalAnswers);
+        });
+
+
         me.addTicketType = function () {
             me.tickets.splice(0, 0, new $paramount.models.EventTicket({
                 adId: editEventViewModel.adId,
@@ -73,7 +78,7 @@
             t.adId = editEventViewModel.adId;
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
-       
+
         me.eventId(editEventViewModel.eventId);
         me.organiserAbsorbsTransactionFee(editEventViewModel.organiserAbsorbsTransactionFee);
         me.isClosed(editEventViewModel.isClosed);
@@ -90,5 +95,12 @@
 
     $paramount.models = $paramount.models || {};
     $paramount.models.EventDashboardModel = EventDashboardModel;
+    
+    function SurveyStatistic(stat, totalAnswers) {
+        this.optionName = ko.observable(stat.optionName);
+        this.count = ko.observable(stat.count);
+        this.total = ko.observable(totalAnswers);
+        this.optionNameWithCount = ko.observable(stat.optionName + ' - ' + stat.count + '/' + totalAnswers);
+    }
 
 })(jQuery, ko, $paramount);

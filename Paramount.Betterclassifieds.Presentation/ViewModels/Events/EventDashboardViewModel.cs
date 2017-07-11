@@ -44,6 +44,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 {
                     eventTicketType.SoldQty = bookedTickets.Count(t => t.EventTicketId == eventTicketType.EventTicketId);
                 }
+
+                SurveyStatistics = eventModel.EventBookings
+                    .Where(b => b.HowYouHeardAboutEvent.HasValue())
+                    .GroupBy(b => b.HowYouHeardAboutEvent)
+                    .Select(g => new HowYouHeardAboutEventStat{Count = g.Count(), OptionName = g.Key});                
             }
         }
 
@@ -65,5 +70,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool IsClosed { get; set; }
         public bool? RequiresEventOrganiserConfirmation { get; set; }
         public string EventUrl { get; set; }
+        public IEnumerable<HowYouHeardAboutEventStat> SurveyStatistics { get; set; }
+        public int SurveyStaticsTotalAnswers => SurveyStatistics.Sum(t => t.Count);
+    }
+
+    public class HowYouHeardAboutEventStat
+    {
+        public string OptionName { get; set; }
+        public int Count { get; set; }
     }
 }

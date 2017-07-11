@@ -13,6 +13,20 @@
 </p>
 
 <p>
+    @if (Model.Guests != null)
+    {
+        <div>Guests:</div>
+
+        <ul>
+            @foreach (var guest in Model.Guests)
+            {
+                <li>@guest</li>
+            }
+        </ul>
+    }
+</p>
+
+<p>
     Each guest will receive an email containing their barcode for mobile display
     and ticket for printing. 
 </p>

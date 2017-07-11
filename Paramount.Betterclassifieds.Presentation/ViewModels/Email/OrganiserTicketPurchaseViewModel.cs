@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
+﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
 {
     public class OrganiserTicketPurchaseViewModel
     {
@@ -14,5 +9,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
         public decimal TotalCost { get; set; }
         public int TotalTicketsPurchased { get; set; }
         public string EventDashboardUrl { get; set; }
+        public string[] Guests { get; set; }
     }
 }

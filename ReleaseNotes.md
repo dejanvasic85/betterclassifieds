@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.32.0**
+
+- Feature - The email for all organisers and ticket purchasers should contain the guest information as well as the buyer now.
+
 **3.31.0**
 
 - [Change - Moving the sold ticket legend to the bottom](https://trello.com/c/Um2JbnOi/657-ticket-legend-for-sold-items-should-go-last)

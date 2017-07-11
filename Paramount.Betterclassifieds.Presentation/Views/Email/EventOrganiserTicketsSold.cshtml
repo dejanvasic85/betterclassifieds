@@ -12,19 +12,32 @@
         Congratulations! Ticket has been purchased for event @Model.EventName by:
         <strong>@Model.FirstName @Model.LastName &lt;@Model.Email&gt; </strong>
     </p>
-    
+
     <div>
         Transaction total: <strong>@Model.TotalCost.ToString("C")</strong>
     </div>
-    
+
     <div>
         Number of Tickets Sold: <strong>@Model.TotalTicketsPurchased</strong>
     </div>
-    
+
+
+    @if (Model.Guests != null)
+    {
+        <div>Guests:</div>
+
+        <ul>
+            @foreach (var guest in Model.Guests)
+            {
+                <li>@guest</li>
+            }
+        </ul>
+    }
+
     <div>
         To manage notifications visit the event dashboard.
-        <br/>
+        <br />
         <a href="@Model.EventDashboardUrl" class="btn-primary" itemprop="url">Event Dashboard</a>
     </div>
-    
+
 </div>

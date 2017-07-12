@@ -1150,7 +1150,51 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockEvent.DisplayGuests.IsTrue();
         }
 
+        [Test]
+        public void CreateSurveyOption_OptionsDoNotExist_UpdatesSuccessfully()
+        {
+            var eventId = 2;
+            var option = " google  ";
 
+            var mockEvent = new EventModelMockBuilder()
+                .Default()
+                .WithHowYouHeardAboutEventOptions(null)
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                It.Is<int>(e => e == eventId)),
+                mockEvent);
+
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(
+                It.Is<EventModel>(e => e == mockEvent)));
+
+            BuildTargetObject().CreateSurveyOption(eventId, option);
+
+            mockEvent.HowYouHeardAboutEventOptions.IsEqualTo("google");
+        }
+
+        [Test]
+        public void CreateSurveyOption_HasOptions_UpdatesSuccessfully()
+        {
+            var eventId = 2;
+            var option = " option 3  ";
+
+            var mockEvent = new EventModelMockBuilder()
+                .Default()
+                .WithHowYouHeardAboutEventOptions("option 1,option 2")
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                    It.Is<int>(e => e == eventId)),
+                mockEvent);
+
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(
+                It.Is<EventModel>(e => e == mockEvent)));
+
+            BuildTargetObject().CreateSurveyOption(eventId, option);
+
+            mockEvent.HowYouHeardAboutEventOptions.IsEqualTo("option 1,option 2,option 3");
+        }
 
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;

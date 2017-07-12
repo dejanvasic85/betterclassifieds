@@ -235,7 +235,7 @@
                 <h3>
                     <i class="fa fa-clipboard"></i> Survey Results
                 </h3>
-                <p>How guests found out about event.</p>
+                <p>Your guests will be presented with a question registering for the event.</p>
             </div>
             <div data-bind="visible: surveyStatistics().length > 0" class="row">
                 <!-- ko foreach: surveyStatistics-->
@@ -246,6 +246,20 @@
                     <progress-bar params="howMany: total, processed: count"></progress-bar>
                 </div>
                 <!-- /ko -->
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <label class="control-label">
+                        Add new survey option:
+                    </label>
+                    <div class="input-group">
+                        <input data-bind="value: newSurveyOption" type="text" class="form-control" placeholder="e.g. Facebook"/>
+                        <div class="input-group-btn">
+                            <button data-bind="click: addSurveyOption" class="btn btn-default">Add Option</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

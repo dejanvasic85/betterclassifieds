@@ -23,19 +23,8 @@
         me.surveyStatistics = $paramount.ko.bindArray(editEventViewModel.surveyStatistics, function (stat) {
             return new SurveyStatistic(stat, editEventViewModel.surveyStaticsTotalAnswers);
         });
+        me.newSurveyOption = ko.observable();
 
-
-        me.addTicketType = function () {
-            me.tickets.splice(0, 0, new $paramount.models.EventTicket({
-                adId: editEventViewModel.adId,
-                eventId: editEventViewModel.eventId,
-                ticketName: 'Ticket Name',
-                price: 0,
-                availableQuantity: 0,
-                remainingQuantity: 0,
-                soldQty: 0
-            }));
-        }
         me.bindEditEvent(editEventViewModel);
 
         /*
@@ -55,6 +44,34 @@
                     $btn.button('reset');
                 });
         }
+
+        me.addSurveyOption = function () {
+
+            var newOption = me.newSurveyOption();
+            if (!newOption) {
+                return;
+            }
+
+            var valueExists = false;
+
+            _.each(me.surveyStatistics(), function (option) {
+                if (option.optionName().toLowerCase().trim() === newOption.toLowerCase().trim()) {
+                    valueExists = true;
+                }
+            });
+
+            if (valueExists === true) {
+                toastr.error('The option ' + newOption + ' already exists');
+                return;
+            }
+
+            me.surveyStatistics.push(new SurveyStatistic({
+                optionName: newOption.trim(),
+                count: 0
+            }, editEventViewModel.surveyStaticsTotalAnswers));
+            me.newSurveyOption(null);
+        }
+
 
         /*
          * Computed Methods
@@ -95,7 +112,7 @@
 
     $paramount.models = $paramount.models || {};
     $paramount.models.EventDashboardModel = EventDashboardModel;
-    
+
     function SurveyStatistic(stat, totalAnswers) {
         this.optionName = ko.observable(stat.optionName);
         this.count = ko.observable(stat.count);

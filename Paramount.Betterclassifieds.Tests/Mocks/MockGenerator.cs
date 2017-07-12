@@ -623,6 +623,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.IsSeatedEvent = val);
 		}
+		public EventModelMockBuilder WithHowYouHeardAboutEventOptions(String val)
+		{ 
+			return WithBuildStep(p => p.HowYouHeardAboutEventOptions = val);
+		}
 	}
 
 	internal partial class EventTicketMockBuilder : MockBuilder<EventTicketMockBuilder, EventTicket>
@@ -898,6 +902,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingMockBuilder WithCreatedDateTimeUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.CreatedDateTimeUtc = val);
+		}
+		public EventBookingMockBuilder WithHowYouHeardAboutEvent(String val)
+		{ 
+			return WithBuildStep(p => p.HowYouHeardAboutEvent = val);
 		}
 		public EventBookingMockBuilder WithStatusAsString(String val)
 		{ 

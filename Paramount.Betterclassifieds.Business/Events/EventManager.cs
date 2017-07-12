@@ -529,43 +529,43 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             if (originalEventDetails == null || onlineAd == null)
                 throw new ArgumentException("Cannot find required event to update", "eventId");
-            
-                // Only the following details will allowed to be changed if the event has started
-                originalEventDetails.Location = location;
+
+            // Only the following details will allowed to be changed if the event has started
+            originalEventDetails.Location = location;
 
 
-                if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
-                    locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
-                {
-                    originalEventDetails.LocationLatitude = locationLatitude;
-                    originalEventDetails.LocationLongitude = locationLongitude;
+            if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
+                locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
+            {
+                originalEventDetails.LocationLatitude = locationLatitude;
+                originalEventDetails.LocationLongitude = locationLongitude;
 
-                    // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
+                // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
 
-                    // Update the timezone info using the location service
-                    var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
-                    originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
-                    originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
-                    originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
-                    originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
+                // Update the timezone info using the location service
+                var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
+                originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
+                originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
+                originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
+                originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
 
 
-                    // Work out what the UTC date is for these dates which is based on the events location!
-                    var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
-                    originalEventDetails.EventStartDate = eventStartDate;
-                    originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
-                    originalEventDetails.EventEndDate = eventEndDateTime;
-                    originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
-                    
-                    address.AddressId = originalEventDetails.AddressId;
-                    originalEventDetails.Address = address;
-                    _eventRepository.UpdateEventAddress(address);
-                }
-                else
-                {
-                    _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
-                }
-       
+                // Work out what the UTC date is for these dates which is based on the events location!
+                var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
+                originalEventDetails.EventStartDate = eventStartDate;
+                originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
+                originalEventDetails.EventEndDate = eventEndDateTime;
+                originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
+
+                address.AddressId = originalEventDetails.AddressId;
+                originalEventDetails.Address = address;
+                _eventRepository.UpdateEventAddress(address);
+            }
+            else
+            {
+                _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
+            }
+
             onlineAd.Heading = title;
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
@@ -690,5 +690,17 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
+        public void CreateSurveyOption(int eventId, string surveyOption)
+        {
+            var eventDetails = GetEventDetails(eventId);
+
+            if (eventDetails.HowYouHeardAboutEventOptions.HasValue())
+            {
+                eventDetails.HowYouHeardAboutEventOptions += ",";
+            }
+
+            eventDetails.HowYouHeardAboutEventOptions += surveyOption.Trim();
+            _eventRepository.UpdateEvent(eventDetails);
+        }
     }
 }

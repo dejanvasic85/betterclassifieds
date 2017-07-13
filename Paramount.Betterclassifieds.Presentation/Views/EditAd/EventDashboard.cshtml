@@ -209,6 +209,21 @@
             </div>
         </div>
 
+        @*Promo Codes*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    <i class="fa fa-book"></i> Promo Codes
+                </h3>
+                <p class="action-info">Track your promoter success and provide discounts for your event.</p>
+                <div class="action-btn">
+                    <a id="lnkManagePromos" class="btn btn-primary js-load" href="@Url.ManagePromoCodes(Model.EventId)">
+                        Manage Promos
+                    </a>
+                </div>
+            </div>
+        </div>
+
         @*Close Event*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
@@ -254,7 +269,7 @@
                         Add new survey option:
                     </label>
                     <div class="input-group">
-                        <input data-bind="value: newSurveyOption" type="text" class="form-control" placeholder="e.g. Facebook"/>
+                        <input data-bind="value: newSurveyOption" type="text" class="form-control" placeholder="e.g. Facebook" />
                         <div class="input-group-btn">
                             <button data-bind="click: addSurveyOption" class="btn btn-default">Add Option</button>
                         </div>

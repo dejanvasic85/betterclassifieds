@@ -667,9 +667,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [Route("event-dashboard/{id}/event/{eventId}/survey-option")]
-        public ActionResult AddSurveyOption(int id, int eventId, string surveyOption)
+        public ActionResult AddSurveyOption(int id, int eventId, string optionName)
         {
-            _eventManager.CreateSurveyOption(eventId, surveyOption);
+            _eventManager.CreateSurveyOption(eventId, optionName);
 
             return Json(true);
         }

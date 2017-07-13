@@ -65,11 +65,18 @@
                 return;
             }
 
-            me.surveyStatistics.push(new SurveyStatistic({
-                optionName: newOption.trim(),
-                count: 0
-            }, editEventViewModel.surveyStaticsTotalAnswers));
-            me.newSurveyOption(null);
+            var model = {
+                eventId: me.eventId(),
+                optionName: newOption
+            };
+
+            adDesignService.addSurveyOption(model).then(function (resp) {
+                me.surveyStatistics.push(new SurveyStatistic({
+                    optionName: newOption.trim(),
+                    count: 0
+                }, editEventViewModel.surveyStaticsTotalAnswers));
+                me.newSurveyOption(null);
+            });
         }
 
 

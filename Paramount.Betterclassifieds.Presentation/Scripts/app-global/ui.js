@@ -9,8 +9,13 @@
 
         // Global ajax error handler
         $.ajaxSetup({
-            error: function () {
-                toastr.error('Oh no. We were unable to connect to our server. Check your internet connection and try again.');
+            error: function (err) {
+                if (err.status === 404 || err.status === 500) {
+                    toastr.error('Oh no. Something is not wired properly. Our team will be notified and apply fix shortly.');
+                }
+                else {
+                    toastr.error('Oh no. We were unable to connect to our server. Check your internet connection and try again.');
+                }
             }
         });
 
@@ -86,7 +91,7 @@
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
         };
-        
+
         /*
          * jQuery extensions
          */
@@ -130,11 +135,11 @@
                 });
                 return me;
             },
-            loadBtn : function() {
+            loadBtn: function () {
                 this.button('loading');
                 return this;
             },
-            resetBtn : function() {
+            resetBtn: function () {
                 this.button('reset');
                 return this;
             }

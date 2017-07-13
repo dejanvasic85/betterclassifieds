@@ -206,6 +206,7 @@
     <Compile Include="Utility\SystemExtensionDates.cs" />
     <Compile Include="ViewModels\SearchFilterTests.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
+    <Compile Include="ViewModels\SurveyStatisticsViewFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">

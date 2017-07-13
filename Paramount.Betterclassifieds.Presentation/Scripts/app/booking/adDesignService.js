@@ -158,6 +158,11 @@
         return $paramount.httpPost(url, model);
     }
 
+    AdDesignService.prototype.addSurveyOption = function(model) {
+        var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + model.eventId + '/survey-option';
+        return $paramount.httpPost(url, model);
+    }
+
     // Exports
     $paramount.AdDesignService = AdDesignService;
 

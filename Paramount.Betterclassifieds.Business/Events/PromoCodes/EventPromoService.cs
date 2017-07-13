@@ -8,6 +8,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventPromoCode> GetEventPromoCodes(int eventId);
 
         EventPromoCode GetEventPromoCode(int eventId, string promoCode);
+
+        EventPromoCode CreateEventPromoCode(int eventId, string promoCode, decimal? discountPercent);
+
+        void DisablePromoCode(long eventPromoCodeId);
     }
 
     public class EventPromoService : IEventPromoService
@@ -34,6 +38,23 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
 
             return promo;
+        }
+
+        public EventPromoCode CreateEventPromoCode(int eventId, string promoCode, decimal? discountPercent)
+        {
+            var eventPromoCode = EventPromoCodeFactory.Create(eventId, promoCode, discountPercent);
+
+            _repository.CreateEventPromoCode(eventPromoCode);
+
+            return eventPromoCode;
+        }
+
+        public void DisablePromoCode(long eventPromoCodeId)
+        {
+            var promo = _repository.GetEventPromoCode(eventPromoCodeId);
+            promo.IsDisabled = true;
+
+            _repository.UpdateEventPromoCode(promo);
         }
     }
 }

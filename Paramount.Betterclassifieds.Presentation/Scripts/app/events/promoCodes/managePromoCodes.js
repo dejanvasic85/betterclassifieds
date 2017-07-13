@@ -5,28 +5,60 @@
         var me = this;
         me.adId = data.adId;
         me.eventId = data.eventId;
-        me.showAdd = ko.observable();
-        me.promoCodes = $p.ko.bindArray(data.promoCodes, function(p) {
+        me.showAdd = ko.observable(false);
+        me.promoCodes = $p.ko.bindArray(data.promoCodes, function (p) {
             return new $p.models.EventPromoCode(p);
         });
 
-        me.add = function(model, event) {
-            var $btn = $(event.target);
-            $btn.btnLoad();
-            var vm = ko.toJS(model);
-            service.add(vm)
-                .then(function(r) {
-                    if (r.errors) {
-                        return;
-                    }
+        me.newPromoCode = new $p.models.EventPromoCode({
+            eventId: data.eventId,
+            isDisabled: false
+        });
 
-                    me.promoCodes.push(new $p.models.EventPromoCode(r.eventPromoCode));
-                    toastr.success('Promo code added successfully');
-                });
+        /*
+        * Methods
+        */
+
+        me.cancelAdd = function () {
+            me.showAdd(false);
         }
 
-        me.remove = function(model, event) {
-            console.log()
+        me.displayAddPromo = function () {
+            me.showAdd(true);
+        }
+
+        me.addPromoCode = function (model, event) {
+
+            if (!$p.checkValidity(me.newPromoCode)) {
+                return;
+            }
+
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+
+            var vm = ko.toJS(me.newPromoCode);
+            service.add(vm).then(function (response) {
+                if (response.errors) {
+                    return;
+                }
+
+                me.promoCodes.push(new $p.models.EventPromoCode(response));
+                toastr.success('Promo code has been added successfully.');
+                me.showAdd(false);
+
+            }).always(function() {
+                $btn.resetBtn();
+            });
+        }
+
+        me.remove = function (model, event) {
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+            service.remove(model.eventPromoCodeId()).then(function () {
+                me.promoCodes.remove(model);
+            });
         }
     }
 

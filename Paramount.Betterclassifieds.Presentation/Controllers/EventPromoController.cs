@@ -37,5 +37,32 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(vm);
         }
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult CreatePromoCode(int eventId, EventPromoViewModel eventPromo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonModelErrors();
+            }
+
+            var promoCodeModel = _eventPromoService.CreateEventPromoCode(eventId, eventPromo.PromoCode, eventPromo.DiscountPercent);
+
+            var factory = new EventPromoViewModelFactory();
+            var vm = factory.CreatePromoCode(promoCodeModel);
+
+            return Json(vm);
+        }
+
+        [HttpPost]
+        [Route("remove")]
+        public ActionResult RemovePromoCode(int eventId, int eventPromoCodeId)
+        {
+            _eventPromoService.DisablePromoCode(eventPromoCodeId);
+
+            return Json(true);
+        }
+
     }
 }

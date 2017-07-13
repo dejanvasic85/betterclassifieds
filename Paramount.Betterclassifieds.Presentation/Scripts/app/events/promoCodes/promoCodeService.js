@@ -10,8 +10,8 @@
                 return $p.httpPost(baseUrl + '/create', { eventPromo: eventPromo });
             },
 
-            remove: function (eventPromoId) {
-                return $p.httpPost(baseUrl + '/remove', { eventPromoId: eventPromoId });
+            remove: function (eventPromoCodeId) {
+                return $p.httpPost(baseUrl + '/remove', { eventPromoCodeId: eventPromoCodeId });
             }
 
         }

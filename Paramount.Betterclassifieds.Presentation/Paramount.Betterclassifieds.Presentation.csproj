@@ -350,7 +350,6 @@
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="Services\EventBookingManager.cs" />
     <Compile Include="ViewModels\Events\EventPromoViewModel.cs" />
-    <Compile Include="ViewModels\Converter\IsoDateConverter.cs" />
     <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />

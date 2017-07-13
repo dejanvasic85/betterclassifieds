@@ -18,4 +18,20 @@ namespace Paramount.Betterclassifieds.Business.Events
             return PromoCode;
         }
     }
+
+    public class EventPromoCodeFactory
+    {
+        public static EventPromoCode Create(int eventId, string promoCode, decimal? discountPercent)
+        {
+            return new EventPromoCode
+            {
+                PromoCode = promoCode,
+                DiscountPercent = discountPercent,
+                CreatedDate = DateTime.Now,
+                CreatedDateUtc = DateTime.UtcNow,
+                EventId = eventId,
+                IsDisabled = false,
+            };
+        }
+    }
 }

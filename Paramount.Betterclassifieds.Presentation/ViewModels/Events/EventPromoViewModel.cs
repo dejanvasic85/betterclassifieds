@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using AutoMapper;
@@ -16,6 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? DiscountPercent { get; set; }
         public bool? IsDisabled { get; set; }
         public string CreatedDate { get; set; }
+        public string CreatedDateUtc { get; set; }
     }
 
     public class ManageEventPromoViewModel
@@ -34,11 +36,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             {
                 AdId = adId,
                 EventId = eventId,
-                PromoCodes = promoCodes.Select(CreatePromoCodes)
+                PromoCodes = promoCodes.Select(CreatePromoCode)
             };
         }
 
-        public EventPromoViewModel CreatePromoCodes(EventPromoCode eventPromoCode)
+        public EventPromoViewModel CreatePromoCode(EventPromoCode eventPromoCode)
         {
             Guard.NotNull(eventPromoCode);
             return this.Map<EventPromoCode, EventPromoViewModel>(eventPromoCode);
@@ -47,7 +49,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventPromoCode, EventPromoViewModel>()
-                .ForMember(m => m.CreatedDate, options => options.ResolveUsing<IsoDateConverter>());
+                .ForMember(m => m.CreatedDate, options => options.MapFrom(src => src.CreatedDate.ToIsoDateString()))
+                .ForMember(m => m.CreatedDateUtc, options => options.MapFrom(src => src.CreatedDateUtc.ToUtcIsoDateString()));
         }
     }
 }

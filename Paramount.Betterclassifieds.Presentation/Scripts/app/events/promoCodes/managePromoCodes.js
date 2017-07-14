@@ -46,8 +46,10 @@
                 me.promoCodes.push(new $p.models.EventPromoCode(response));
                 toastr.success('Promo code has been added successfully.');
                 me.showAdd(false);
+                me.newPromoCode.promoCode(null);
+                me.newPromoCode.discountPercent(null);
 
-            }).always(function() {
+            }).always(function () {
                 $btn.resetBtn();
             });
         }

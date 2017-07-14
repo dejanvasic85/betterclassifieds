@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservation> reservations);
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
+        IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId);
         EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator, string howYouHeardAboutEvent = "");
         void CancelEventBooking(int? eventBookingId);
         void ActivateBooking(int? eventBookingId, long? eventInvitationId);
@@ -56,5 +57,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void SetEventGroupStatus(int eventGroupId, bool isDisabled);
         void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate);
         void CreateSurveyOption(int eventId, string surveyOption);
+        
     }
 }

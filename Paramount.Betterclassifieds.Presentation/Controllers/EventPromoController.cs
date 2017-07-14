@@ -14,11 +14,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly IEventPromoService _eventPromoService;
         private readonly ISearchService _searchService;
+        private readonly IEventManager _eventManager;
 
-        public EventPromoController(IEventPromoService eventPromoService, ISearchService searchService)
+        public EventPromoController(IEventPromoService eventPromoService, ISearchService searchService, IEventManager eventManager)
         {
             _eventPromoService = eventPromoService;
             _searchService = searchService;
+            _eventManager = eventManager;
         }
 
         [HttpGet]
@@ -32,8 +34,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var ad = searchResult.AdSearchResult;
             var promoCodes = _eventPromoService.GetEventPromoCodes(eventId);
+            var eventBookings = _eventManager.GetEventBookingsForEvent(eventId);
             var factory = new EventPromoViewModelFactory();
-            var vm = factory.CreateManageViewModel(ad.AdId, eventId, promoCodes);
+            var vm = factory.CreateManageViewModel(ad.AdId, eventId, promoCodes, eventBookings);
 
             return View(vm);
         }

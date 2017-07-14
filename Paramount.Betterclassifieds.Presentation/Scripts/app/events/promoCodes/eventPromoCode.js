@@ -9,6 +9,7 @@
         me.discountPercent = ko.observable(data.discountPercent);
         me.isDisabled = ko.observable(data.isDisabled);
         me.createdDate = ko.observable(data.createdDate);
+        me.bookingCount = ko.observable(data.bookingCount || 0);
 
         // Validation
         me.validator = ko.validatedObservable({

@@ -2,7 +2,9 @@ Here's a list of the latest changes:
 
 **3.32.0**
 
-- Feature - The email for all organisers and ticket purchasers should contain the guest information as well as the buyer now.
+- [Feature - The email for all organisers and ticket purchasers should contain the guest information as well as the buyer now.](https://trello.com/c/awvsAEyu/664-the-guest-ticket-and-seat-information-on-the-event-booked-email-for-organisers)
+- [Feature - New promo codes screen to see how many bookings against each promo code](https://trello.com/c/l85tgdAs/643-view-booked-promo-codes)
+- [Feature - Ability to manage promo codes. Create and remove (disable) should be available now](https://trello.com/c/2Ij9SSE9/644-manage-promo-codes-and-discounts)
 
 **3.31.0**
 

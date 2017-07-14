@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool? IsDisabled { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedDateUtc { get; set; }
+        public int BookingCount { get; set; }
     }
 
     public class ManageEventPromoViewModel
@@ -30,20 +31,31 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
     public class EventPromoViewModelFactory : IMappingBehaviour
     {
-        public ManageEventPromoViewModel CreateManageViewModel(int adId, int eventId, IEnumerable<EventPromoCode> promoCodes)
+        public ManageEventPromoViewModel CreateManageViewModel(int adId, int eventId, IEnumerable<EventPromoCode> promoCodes, IEnumerable<EventBooking> eventBookings)
         {
-            return new ManageEventPromoViewModel
+            var promoCodeBookings = eventBookings?.Where(b=> b.PromoCode.HasValue()).ToList();
+
+            var vm= new ManageEventPromoViewModel
             {
                 AdId = adId,
                 EventId = eventId,
-                PromoCodes = promoCodes.Select(CreatePromoCode)
+                PromoCodes = promoCodes.Select(p => CreatePromoCode(p, promoCodeBookings)),
             };
+            return vm;
+        }
+
+        public EventPromoViewModel CreatePromoCode(EventPromoCode eventPromoCode, IList<EventBooking> bookings)
+        {
+            var vm = CreatePromoCode(eventPromoCode);
+            vm.BookingCount = bookings.Count(b => b.PromoCode.Equals(eventPromoCode.PromoCode, StringComparison.OrdinalIgnoreCase));
+            return vm;
         }
 
         public EventPromoViewModel CreatePromoCode(EventPromoCode eventPromoCode)
         {
             Guard.NotNull(eventPromoCode);
-            return this.Map<EventPromoCode, EventPromoViewModel>(eventPromoCode);
+            var vm = this.Map<EventPromoCode, EventPromoViewModel>(eventPromoCode);
+            return vm;
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

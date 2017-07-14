@@ -208,6 +208,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
+        public IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId)
+        {
+            return _eventRepository.GetEventBookingsForEvent(eventId);
+        }
+
         public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator, string howYouHeardAboutEvent = "")
         {
             Guard.NotDefaultValue(eventId);

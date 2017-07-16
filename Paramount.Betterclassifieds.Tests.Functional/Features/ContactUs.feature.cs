@@ -98,7 +98,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
  testRunner.And("I submit the contact us form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
- testRunner.Then("I should see a human test validation message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see enquiry successful message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

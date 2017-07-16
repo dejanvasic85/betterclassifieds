@@ -2,15 +2,16 @@
 {
     public class EventTicketFactory
     {
-        public EventTicket Create(int remainingQuantity, int eventId, string ticketName, decimal price, bool isActive)
+        public EventTicket Create(int availableQty, int eventId, string ticketName, decimal price, string colourCode, bool isActive)
         {
             return new EventTicket
             {
-                AvailableQuantity = remainingQuantity,
-                RemainingQuantity = remainingQuantity,
+                AvailableQuantity = availableQty,
+                RemainingQuantity = availableQty,
                 EventId = eventId,
                 TicketName = ticketName,
                 Price = price,
+                ColourCode = colourCode,
                 IsActive = isActive
             };
         }

@@ -61,9 +61,21 @@ namespace Paramount
         /// </summary>
         public static MvcHtmlString BootstrapNumberFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
         {
-            var bootstrapTextBox = htmlHelper.BootstrapTextBoxFor(expression).ToHtmlString();
+            var bootstrapTextBox = htmlHelper.BootstrapTextBoxFor(expression, attributes).ToHtmlString();
 
             var numberInput = bootstrapTextBox.Replace("type=\"text\"", "type=\"number\"");
+                
+            return new MvcHtmlString(numberInput);
+        }
+
+        /// <summary>
+        /// Simply replaces the type=text with type=number for html5 purposes and adds form-control css class
+        /// </summary>
+        public static MvcHtmlString BootstrapTelFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
+        {
+            var bootstrapTextBox = htmlHelper.BootstrapTextBoxFor(expression).ToHtmlString();
+
+            var numberInput = bootstrapTextBox.Replace("type=\"text\"", "type=\"tel\"");
 
             return new MvcHtmlString(numberInput);
         }

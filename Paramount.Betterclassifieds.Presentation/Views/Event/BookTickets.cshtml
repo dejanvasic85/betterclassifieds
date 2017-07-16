@@ -50,11 +50,18 @@
 
         @*Tickets and form*@
         <div class="row">
+
             <div class="col-sm-12 book-tickets-form">
 
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
                     <p data-bind="visible: canContinue">We'll need some details for each guest. Buyer details have been prefilled.</p>
+                </div>
+
+                <div class="text-right top-buffer-10" data-bind="click: useLoginDetailsForAllTickets, visible: reservations().length > 1">
+                    <button class="btn btn-sm btn-info">
+                        Use my details for all tickets
+                    </button>
                 </div>
 
                 <div data-bind="foreach: reservations">
@@ -182,9 +189,8 @@
 
             <div class="col-xs-12 col-sm-8 book-tickets-form top-buffer-20">
                 <div class="alert alert-warning" data-bind="visible: requiresPayment">
-                    By proceeding to payment, you agree to the <a href="@Url.Terms()">
-                        terms and
-                        conditions
+                    By proceeding, you agree to the <a href="@Url.Terms()" target="_blank">
+                        terms and conditions
                     </a> and are committed to purchase the tickets.
                 </div>
 
@@ -217,7 +223,7 @@
                         </div>
                     </div>
                 }
-             
+
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -241,9 +247,9 @@
                 </table>
 
                 <div class="pull-right" data-bind="visible: canContinue()">
-                    <button class="btn btn-primary" data-loading-text="Please Wait..." id="proceedToPaymentBtn">
-                        <span data-bind="visible: requiresPayment">Proceed to Payment <i class="fa fa-arrow-right"></i></span>
-                        <span data-bind="visible: requiresPayment() === false">Get My Tickets!</span>
+                    <button class="btn btn-primary btn-lg" data-loading-text="Please Wait..." id="proceedToPaymentBtn">
+                        <i class="fa fa-arrow-right"></i>
+                        Submit
                     </button>
                 </div>
             </div>

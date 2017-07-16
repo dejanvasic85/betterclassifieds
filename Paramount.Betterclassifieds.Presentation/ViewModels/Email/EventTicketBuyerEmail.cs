@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
 {
     public class EventTicketBuyerEmail
@@ -6,5 +8,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
         public string EventUrl { get; set; }
         public string StartDate { get; set; }
         public string Address { get; set; }
+        public IEnumerable<string> Guests { get; set; }
     }
 }

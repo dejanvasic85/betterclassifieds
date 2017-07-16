@@ -155,7 +155,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList()));
-            
+
             eventEditViewModel.RequiresEventOrganiserConfirmation = applicationUser.RequiresEventOrganiserConfirmation;
             eventEditViewModel.EventUrl = eventUrl;
 
@@ -215,7 +215,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EditTicket(int id, int ticketId, UpdateEventTicketViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return JsonModelErrors(); ;
+                return JsonModelErrors();
 
             var vm = viewModel.EventTicket;
             if (vm.SoldQty == 0)
@@ -225,12 +225,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 if (guestCount > 0)
                 {
                     ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
-                    return JsonModelErrors(); ;
+                    return JsonModelErrors();
                 }
             }
 
             _eventManager.UpdateEventTicket(ticketId, vm.TicketName,
-                vm.Price, vm.RemainingQuantity, vm.IsActive,
+                vm.Price, vm.RemainingQuantity, vm.ColourCode, vm.IsActive,
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
             return Json(viewModel.EventTicket);
@@ -261,6 +261,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
+                vm.ColourCode,
                 vm.IsActive,
                 vm.EventTicketFields?.Select(f => new EventTicketField
                 {
@@ -356,11 +357,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var ad = _searchService.GetByAdId(id);
             var eventModel = _eventManager.GetEventDetails(eventPaymentRequestViewModel.EventId.GetValueOrDefault());
 
-             
-            _mailService.SendEventPaymentRequest(ad, eventModel, 
+
+            _mailService.SendEventPaymentRequest(ad, eventModel,
                 eventPaymentRequestViewModel.PaymentMethod,
                 eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault());
-            
+
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 
@@ -494,7 +495,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.CreateEventBooking(
                 viewModel.EventId.GetValueOrDefault(),
-                viewModel.PromoCode.TryTrim().TryToUpper(),
+                 viewModel.PromoCode.TryTrim().TryToUpper(),
                 currentUser,
                 new[] { reservation },
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
@@ -660,6 +661,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult UpdateGuestSettings(int id, int eventId, bool displayGuests)
         {
             _eventManager.UpdateEventGuestSettings(eventId, displayGuests);
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        [Route("event-dashboard/{id}/event/{eventId}/survey-option")]
+        public ActionResult AddSurveyOption(int id, int eventId, string optionName)
+        {
+            _eventManager.CreateSurveyOption(eventId, optionName);
 
             return Json(true);
         }

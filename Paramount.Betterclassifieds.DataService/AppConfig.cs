@@ -25,6 +25,13 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string MailgunApiKey => ConfigManager.ReadAppSetting<string>("Mailgun.ApiKey");
         public string MailgunDomain => ConfigManager.ReadAppSetting<string>("Mailgun.Domain");
+        public bool GoogleCaptchaEnabled => ConfigManager.ReadAppSetting<bool>("GoogleRecaptcha.IsEnabled");
+
+        public RecaptchaConfig GoogleRegistrationCatpcha => RecaptchaConfigReader.GetFromConfigSettings("Registration");
+        public RecaptchaConfig GoogleGeneralEnquiryCatpcha => RecaptchaConfigReader.GetFromConfigSettings("GeneralEnquiry");
+        public RecaptchaConfig GoogleAdEnquiryCatpcha => RecaptchaConfigReader.GetFromConfigSettings("AdEnquiry");
+        public RecaptchaConfig ContactUs => RecaptchaConfigReader.GetFromConfigSettings("ContactUs");
+        public RecaptchaConfig Enquiry => RecaptchaConfigReader.GetFromConfigSettings("Enquiry");
 
         public string DslImageUrlHandler => ConfigManager.ReadAppSetting<string>("DslImageUrlHandler");
 

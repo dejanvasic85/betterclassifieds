@@ -13,4 +13,4 @@ Scenario: Submit form without captcha
 	Given I navigate to the contact us page
 	When I provide my comment and contact details
 	And I submit the contact us form
-	Then I should see a human test validation message
+	Then I should see enquiry successful message

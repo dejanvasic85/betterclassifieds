@@ -9,5 +9,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Email
         public string EventStartDateTime { get; set; }
         public string EventLocation { get; set; }
         public string BarcodeImgUrl { get; set; }
+        public string SeatNumber { get; set; }
+        public string GuestName { get; set; }
+        public string GuestEmail { get; set; }
+        public string TicketName { get; set; }
     }
 }

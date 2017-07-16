@@ -21,5 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         public string Comment { get; set; }
 
+        public bool GoogleCaptchaEnabled { get; set; }
+        public string GoogleCaptchaKey { get; set; }    
     }
 }

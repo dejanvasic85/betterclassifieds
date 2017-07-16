@@ -152,6 +152,7 @@
     <Compile Include="Pricing\PrintCharges\PrintSuperBoldHeadingCharge.cs" />
     <Compile Include="Print\EditionManager.cs" />
     <Compile Include="Booking\BookingAuthorisationException.cs" />
+    <Compile Include="RecaptchaConfig.cs" />
     <Compile Include="Search\EventSearchResult.cs" />
     <Compile Include="SetupException.cs" />
     <Compile Include="IApplicationConfig.cs" />

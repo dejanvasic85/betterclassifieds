@@ -396,5 +396,42 @@ namespace Paramount.Betterclassifieds.Tests.PresentationServices
             BuildTargetObject().SendEventOrganiserTicketsSold(mockEventOwner, mockEventOrganisers,
                 mockAd, mockEventBooking);
         }
+
+        [Test]
+        public void SendTicketGuestEmail_CallsMailSender()
+        {
+            var imageId = Guid.NewGuid();
+            var mockAd = new AdSearchResultMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockEventBooking = new EventBookingMockBuilder().Default().WithEvent(mockEvent).Build();
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default()
+                .WithBarcodeImageDocumentId(imageId).Build();
+
+            _mailSender.Setup(call =>
+                call.Send(It.Is<string>(str => str == mockEventBookingTicket.GuestEmail),
+                    It.Is<string>(str => str == "<fake-body></fake-body>"),
+                    It.Is<string>(str => str == "Tickets to " + mockAd.Heading),
+                    It.IsAny<MailAttachment[]>()));
+
+            _urlMock.SetupWithVerification(call => call.EventUrl(
+                It.Is<string>(slug => slug == mockAd.HeadingSlug),
+                It.Is<int>(slug => slug == mockAd.AdId)),
+                result: "http://event-dashboard.com");
+
+            _urlMock.SetupWithVerification(call => call.Image(
+                It.Is<string>(imgId => imgId == imageId.ToString()),
+                It.Is<int>(height => height == 200),
+                It.Is<int>(width => width == 200)),
+                result: "BARCODE_GUID");
+
+            _templatingService.SetupWithVerification(call => call.Generate(
+                    It.IsAny<EventTicketGuestEmail>(),
+                    It.Is<string>(t => t == "~/Views/Email/EventTicketGuest.cshtml")),
+                result: "<fake-body></fake-body>");
+
+            _clientConfig.SetupWithVerification(call => call.ClientName, result: "foo bar");
+
+            BuildTargetObject().SendTicketGuestEmail(mockAd, mockEventBooking, mockEventBookingTicket, new byte[0]);
+        }
     }
 }

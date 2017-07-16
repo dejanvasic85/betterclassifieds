@@ -262,9 +262,14 @@ namespace Paramount
             return new UrlBuilder(urlHelper).WithAction("manage-guests", "editad").WithRouteValues(new { id, eventId });
         }
 
+        public static UrlBuilder ManagePromoCodes(this UrlHelper urlHelper, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("manage-promo-codes", "EventPromo").WithRouteValues(new { eventId });
+        }
+
         public static UrlBuilder ManageEventOrganisers(this UrlHelper urlHelper, int eventId)
         {
-            return new UrlBuilder(urlHelper).WithAction("manage-organisers", "EventOrganiser").WithRouteValues(new {eventId});
+            return new UrlBuilder(urlHelper).WithAction("manage-organisers", "EventOrganiser").WithRouteValues(new { eventId });
         }
 
         public static UrlBuilder CategorySeoView(this UrlHelper urlHelper, string seoName)
@@ -311,7 +316,7 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper)
                 .WithAction("manage-notifications", "EventOrganiser")
-                .WithRouteValues(new {eventId});
+                .WithRouteValues(new { eventId });
         }
     }
 }

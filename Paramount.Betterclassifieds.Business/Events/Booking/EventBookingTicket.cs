@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -36,5 +37,21 @@ namespace Paramount.Betterclassifieds.Business.Events
         public Guid? TicketDocumentId { get; set; }
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }
+
+        public override string ToString()
+        {
+            var builder =  new StringBuilder(this.GuestFullName);
+
+            builder.AppendFormat(" - {0}", GuestEmail);
+            builder.AppendFormat(" - {0}", TicketName);
+
+            if (SeatNumber.HasValue())
+            {
+                builder.AppendFormat(" - {0}", SeatNumber);
+            }
+
+
+            return builder.ToString();
+        }
     }
 }

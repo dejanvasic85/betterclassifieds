@@ -5,6 +5,7 @@
     ViewBag.Title = "Welcome";
 }
 
+
 <div class="container top-buffer-60">
     @if (!ViewData.ModelState.IsValid)
     {
@@ -41,6 +42,14 @@
         </div>
     </div>
 
+
+
+
+</div>
+
+
+@section Modals
+{
     @*Login Modal*@
     <div class="modal fade" id="passwordResetModal" tabindex="-1" role="dialog" aria-labelledby="passwordResetModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -69,4 +78,4 @@
             </div>
         </div>
     </div>
-</div>
+}

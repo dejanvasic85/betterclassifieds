@@ -1,5 +1,38 @@
 Here's a list of the latest changes:
 
+**3.32.0**
+
+- [Feature - The email for all organisers and ticket purchasers should contain the guest information as well as the buyer now.](https://trello.com/c/awvsAEyu/664-the-guest-ticket-and-seat-information-on-the-event-booked-email-for-organisers)
+- [Feature - New promo codes screen to see how many bookings against each promo code](https://trello.com/c/l85tgdAs/643-view-booked-promo-codes)
+- [Feature - Ability to manage promo codes. Create and remove (disable) should be available now](https://trello.com/c/2Ij9SSE9/644-manage-promo-codes-and-discounts)
+- [Feature - The purchaser email now contains guest details](https://trello.com/c/ZabHCdD5/661-add-guest-details-on-the-buyer-booking-email)
+- [Fix - Attempting to fix the KeyNotFound exception when reserving tickets. Removing the Parallel code](https://trello.com/c/TRUtaGeR/659-exception-keynotfoundexception-occurs-sometimes-when-reserving-tickets)
+
+**3.31.0**
+
+- [Change - Moving the sold ticket legend to the bottom](https://trello.com/c/Um2JbnOi/657-ticket-legend-for-sold-items-should-go-last)
+- [Change - Guest email should contain ticket type and price](https://trello.com/c/GgLMqZQs/658-ticket-name-to-be-shown-in-guest-email)
+- [Feature - Adding the colour code adding and editing for ticket types.](https://trello.com/c/iaknPPCN/649-colour-editing-for-ticket-types)
+- [Feature - On booking tickets, users can give us information on how they found about the event](https://trello.com/c/KqFyIqS5/660-analytics-how-u-heard-about-the-event-on-checkout)
+
+**3.30.0 - Mobile improvements**
+
+- [Feature - Transform zoom allowing for better mobile view](https://trello.com/c/SaHZKms9/620-mobile-pinch-zoom-for-seat-selection)
+- [Feature - adding more details to the email body](https://trello.com/c/rHvnsrPk/656-additional-information-like-guest-name-email-and-seat-number-should-be-part-of-the-email-body-to-the-guest)
+
+**3.29.0 - Captcha ... Security!**
+
+- [Feature - Registration form should have a robot (captcha) checker](https://trello.com/c/XeCj5VW2/541-add-google-recaptcha-to-the-registration-form)
+- [Feature - General enquiry - contact us form - should have a captcha](https://trello.com/c/rE56P4TS/653-add-google-captcha-for-the-general-enquiry-page)
+- [Feature - Contact advertiser / event organiser should have a captcha when not logged in](https://trello.com/c/rE56P4TS/653-add-google-captcha-for-the-general-enquiry-page)
+- [Change  - Updating the home page for sri lankan events including new background photo!](https://trello.com/c/niQVNI1l/652-update-the-background-image-for-srilankanevents)
+
+**3.28.5**
+
+- Feature - New button that will use logged in details for all tickets.
+- Fix - The server side validation on max selected reservations was incorrect.
+- Fix - The contact us form on the general site was not working because the mail service wasn't initialised.
+
 **3.28.4**
 
 - Fix - Removing the guest was not de-allocating the seat

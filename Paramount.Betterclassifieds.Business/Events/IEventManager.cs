@@ -22,14 +22,15 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservation> reservations);
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
-        EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator);
+        IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId);
+        EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator, string howYouHeardAboutEvent = "");
         void CancelEventBooking(int? eventBookingId);
         void ActivateBooking(int? eventBookingId, long? eventInvitationId);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
         string CreateEventTicketDocument(int eventBookingTicketId, byte[] ticketPdfData);
-        void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields);
-        EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields);
+        void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, string colourCode, bool isActive, IEnumerable<EventTicketField> fields);
+        EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int availableQty, string colourCode, bool isActive, IEnumerable<EventTicketField> fields);
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
         EventPaymentSummary BuildPaymentSummary(int? eventId);
         bool AreBookingsPresentForEvent(int? eventId);
@@ -54,6 +55,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser, bool isDisabled);
         void SetEventGroupStatus(int eventGroupId, bool isDisabled);
-        void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate);       
+        void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate);
+        void CreateSurveyOption(int eventId, string surveyOption);
+        
     }
 }

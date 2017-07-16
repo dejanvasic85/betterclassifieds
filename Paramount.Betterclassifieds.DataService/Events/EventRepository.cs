@@ -324,6 +324,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventPromoCode GetEventPromoCode(long eventPromoCodeId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.PromoCodes.SingleOrDefault(p => p.EventPromoCodeId == eventPromoCodeId);
+            }
+        }
+
         public EventPromoCode GetEventPromoCode(int eventId, string promoCode)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -400,6 +408,15 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 context.EventOrganisers.Add(eventOrganiser);
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateEventPromoCode(EventPromoCode eventPromoCode)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.PromoCodes.Add(eventPromoCode);
                 context.SaveChanges();
             }
         }
@@ -575,6 +592,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventSeats.Attach(eventSeat);
                 context.Entry(eventSeat).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventPromoCode(EventPromoCode promo)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.PromoCodes.Attach(promo);
+                context.Entry(promo).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

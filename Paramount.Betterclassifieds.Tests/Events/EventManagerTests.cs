@@ -424,7 +424,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             BuildTargetObject().CreateEventTicket(eventId: 10,
                 ticketName: "Adult",
                 price: 100,
-                remainingQuantity: 50,
+                availableQty: 50,
+                colourCode: "#blue",
                 isActive: true,
                 fields: null);
         }
@@ -435,7 +436,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventTicket(eventId: 0,
                 ticketName: "Adult",
                 price: 100,
-                remainingQuantity: 50,
+                availableQty: 50,
+                colourCode: "#blue",
                 isActive: true,
                 fields: null));
         }
@@ -1069,6 +1071,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithPrice(10)
                 .WithRemainingQuantity(50)
                 .WithAvailableQuantity(100)
+                .WithColourCode("#black")
                 .Build();
 
             var newTicketName = "new ticket name";
@@ -1080,13 +1083,19 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var manager = BuildTargetObject();
 
-            manager.UpdateEventTicket(1, newTicketName, price: 9, remainingQuantity: 45, isActive: true, fields: new List<EventTicketField>());
+            manager.UpdateEventTicket(1, newTicketName, 
+                price: 9, 
+                remainingQuantity: 45, 
+                colourCode: "#white", 
+                isActive: true, 
+                fields: new List<EventTicketField>());
 
             mockOriginalTicket.RemainingQuantity.IsEqualTo(45);
             mockOriginalTicket.AvailableQuantity.IsEqualTo(95); // Reduced by 5 (50 - 45) so availability originally is down to 95
             mockOriginalTicket.TicketName.IsEqualTo(newTicketName);
             mockOriginalTicket.Price.IsEqualTo(9);
             mockOriginalTicket.IsActive.IsTrue();
+            mockOriginalTicket.ColourCode.IsEqualTo("#white");
         }
 
         [Test]
@@ -1141,7 +1150,51 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockEvent.DisplayGuests.IsTrue();
         }
 
+        [Test]
+        public void CreateSurveyOption_OptionsDoNotExist_UpdatesSuccessfully()
+        {
+            var eventId = 2;
+            var option = " google  ";
 
+            var mockEvent = new EventModelMockBuilder()
+                .Default()
+                .WithHowYouHeardAboutEventOptions(null)
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                It.Is<int>(e => e == eventId)),
+                mockEvent);
+
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(
+                It.Is<EventModel>(e => e == mockEvent)));
+
+            BuildTargetObject().CreateSurveyOption(eventId, option);
+
+            mockEvent.HowYouHeardAboutEventOptions.IsEqualTo("google");
+        }
+
+        [Test]
+        public void CreateSurveyOption_HasOptions_UpdatesSuccessfully()
+        {
+            var eventId = 2;
+            var option = " option 3  ";
+
+            var mockEvent = new EventModelMockBuilder()
+                .Default()
+                .WithHowYouHeardAboutEventOptions("option 1,option 2")
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                    It.Is<int>(e => e == eventId)),
+                mockEvent);
+
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(
+                It.Is<EventModel>(e => e == mockEvent)));
+
+            BuildTargetObject().CreateSurveyOption(eventId, option);
+
+            mockEvent.HowYouHeardAboutEventOptions.IsEqualTo("option 1,option 2,option 3");
+        }
 
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;

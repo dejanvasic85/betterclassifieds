@@ -72,6 +72,7 @@
 
     </div>
 
+
     @*Action Items*@
     <div class="row">
 
@@ -124,7 +125,7 @@
                 </p>
                 <div class="action-btn">
                     <a href="@Url.EditEventDetails(Model.AdId)" id="edit-event-details" class="btn btn-primary js-load">
-                        Edit Details 
+                        Edit Details
                     </a>
                 </div>
             </div>
@@ -139,7 +140,7 @@
                 <p class="action-info">Add or change your ticket structure here. See what people are buying and what is remaining.</p>
                 <div class="action-btn">
                     <a href="@Url.EventTicketManagement(Model.AdId, Model.EventId)" id="lnkManageTickets" class="btn btn-primary js-load">
-                        Manage Tickets 
+                        Manage Tickets
                     </a>
                 </div>
             </div>
@@ -154,7 +155,7 @@
                 <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
                 <div class="action-btn">
                     <a id="lnkManageGroups" class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
-                        Manage Groups 
+                        Manage Groups
                     </a>
                 </div>
             </div>
@@ -169,12 +170,12 @@
                 <p class="action-info">See who's coming, edit their details or transfer tickets.</p>
                 <div class="action-btn">
                     <a id="lnkManageGuests" class="btn btn-primary js-load" href="@Url.ManageGuests(Model.AdId, Model.EventId)">
-                        Manage Guests 
+                        Manage Guests
                     </a>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
@@ -185,13 +186,13 @@
                 </p>
                 <div class="action-btn">
                     <a id="lnkManageOrganisers" class="btn btn-primary js-load" href="@Url.ManageEventOrganisers(Model.EventId)">
-                        Manage Organisers 
+                        Manage Organisers
                     </a>
                 </div>
 
             </div>
         </div>
-        
+
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
@@ -203,6 +204,21 @@
                 <div class="action-btn">
                     <a id="lnkManageNotifications" class="btn btn-primary js-load" href="@Url.EventNotifications(Model.EventId)">
                         Manage Notifications
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @*Promo Codes*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    <i class="fa fa-book"></i> Promo Codes
+                </h3>
+                <p class="action-info">Track your promoter success and provide discounts for your event.</p>
+                <div class="action-btn">
+                    <a id="lnkManagePromos" class="btn btn-primary js-load" href="@Url.ManagePromoCodes(Model.EventId)">
+                        Manage Promos
                     </a>
                 </div>
             </div>
@@ -226,6 +242,39 @@
             <div class="alert alert-danger">
                 <strong>Account Confirmation Required.</strong> To meet our security standards, as an event organiser, you must confirm your identity.
                 <a class="btn btn-sm btn-primary js-load" href="@Url.ConfirmEventOrganiser()">Continue</a>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    <i class="fa fa-clipboard"></i> Survey Results
+                </h3>
+                <p>Your guests will be presented with a question registering for the event.</p>
+            </div>
+            <div data-bind="visible: surveyStatistics().length > 0" class="row">
+                <!-- ko foreach: surveyStatistics-->
+                <div class="col-xs-12">
+                    <span data-bind="text: optionNameWithCount"></span>
+                </div>
+                <div class="col-xs-12">
+                    <progress-bar params="howMany: total, processed: count"></progress-bar>
+                </div>
+                <!-- /ko -->
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <label class="control-label">
+                        Add new survey option:
+                    </label>
+                    <div class="input-group">
+                        <input data-bind="value: newSurveyOption" type="text" class="form-control" placeholder="e.g. Facebook" />
+                        <div class="input-group-btn">
+                            <button data-bind="click: addSurveyOption" class="btn btn-default">Add Option</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

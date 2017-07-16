@@ -208,7 +208,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
-        public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator)
+        public IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId)
+        {
+            return _eventRepository.GetEventBookingsForEvent(eventId);
+        }
+
+        public EventBooking CreateEventBooking(int eventId, string promoCode, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator, string howYouHeardAboutEvent = "")
         {
             Guard.NotDefaultValue(eventId);
             Guard.NotNull(applicationUser);
@@ -223,7 +228,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventModel = _eventRepository.GetEventDetails(eventId);
             var feeCalculator = new TicketFeeCalculator(_clientConfig);
             var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator)
-                .Create(eventModel, eventPromo, applicationUser, currentReservations);
+                .Create(eventModel, eventPromo, applicationUser, currentReservations, howYouHeardAboutEvent);
 
             _eventRepository.CreateBooking(eventBooking);
             _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
@@ -357,13 +362,14 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields)
+        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, string colourCode, bool isActive, IEnumerable<EventTicketField> fields)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId);
             var nameChanged = eventTicket.TicketName != ticketName;
             eventTicket.TicketName = ticketName;
             eventTicket.Price = price;
             eventTicket.IsActive = isActive;
+            eventTicket.ColourCode = colourCode;
 
             if (eventTicket.RemainingQuantity != remainingQuantity)
             {
@@ -385,10 +391,10 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields)
+        public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int availableQty, string colourCode, bool isActive, IEnumerable<EventTicketField> fields)
         {
             Guard.NotDefaultValue(eventId);
-            var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price, isActive);
+            var ticket = new EventTicketFactory().Create(availableQty, eventId, ticketName, price, colourCode, isActive);
             if (fields != null)
                 ticket.EventTicketFields = fields.ToList();
 
@@ -528,45 +534,43 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             if (originalEventDetails == null || onlineAd == null)
                 throw new ArgumentException("Cannot find required event to update", "eventId");
-#if !DEBUG
-            
-                // Only the following details will allowed to be changed if the event has started
-                originalEventDetails.Location = location;
+
+            // Only the following details will allowed to be changed if the event has started
+            originalEventDetails.Location = location;
 
 
-                if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
-                    locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
-                {
-                    originalEventDetails.LocationLatitude = locationLatitude;
-                    originalEventDetails.LocationLongitude = locationLongitude;
+            if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
+                locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
+            {
+                originalEventDetails.LocationLatitude = locationLatitude;
+                originalEventDetails.LocationLongitude = locationLongitude;
 
-                    // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
+                // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
 
-                    // Update the timezone info using the location service
-                    var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
-                    originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
-                    originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
-                    originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
-                    originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
+                // Update the timezone info using the location service
+                var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
+                originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
+                originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
+                originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
+                originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
 
 
-                    // Work out what the UTC date is for these dates which is based on the events location!
-                    var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
-                    originalEventDetails.EventStartDate = eventStartDate;
-                    originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
-                    originalEventDetails.EventEndDate = eventEndDateTime;
-                    originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
-                    
-                    address.AddressId = originalEventDetails.AddressId;
-                    originalEventDetails.Address = address;
-                    _eventRepository.UpdateEventAddress(address);
-                }
-                else
-                {
-                    _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
-                }
-            
-#endif
+                // Work out what the UTC date is for these dates which is based on the events location!
+                var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
+                originalEventDetails.EventStartDate = eventStartDate;
+                originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
+                originalEventDetails.EventEndDate = eventEndDateTime;
+                originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
+
+                address.AddressId = originalEventDetails.AddressId;
+                originalEventDetails.Address = address;
+                _eventRepository.UpdateEventAddress(address);
+            }
+            else
+            {
+                _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
+            }
+
             onlineAd.Heading = title;
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
@@ -691,5 +695,17 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
+        public void CreateSurveyOption(int eventId, string surveyOption)
+        {
+            var eventDetails = GetEventDetails(eventId);
+
+            if (eventDetails.HowYouHeardAboutEventOptions.HasValue())
+            {
+                eventDetails.HowYouHeardAboutEventOptions += ",";
+            }
+
+            eventDetails.HowYouHeardAboutEventOptions += surveyOption.Trim();
+            _eventRepository.UpdateEvent(eventDetails);
+        }
     }
 }

@@ -35,27 +35,25 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
             var groupRequests = CreateGroupRequests(requests).ToArray();
 
             // Fetch all the tickets and their reservations 
-            ConcurrentBag<EventTicket> tickets = new ConcurrentBag<EventTicket>();
-            ConcurrentBag<TicketQuantityRequest> ticketRequests =  new ConcurrentBag<TicketQuantityRequest>();
-            ConcurrentBag<SeatRequest> seatRequests = new ConcurrentBag<SeatRequest>();
+            var ticketRequests = new ConcurrentBag<TicketQuantityRequest>();
+            var seatRequests = new ConcurrentBag<SeatRequest>();
 
-            Parallel.ForEach(requests, r =>
+            foreach (var r in requests)
             {
                 var ticket = _eventManager.GetEventTicketAndReservations(r.EventTicketId);
-                tickets.Add(ticket);
                 ticketRequests.Add(new TicketQuantityRequest(ticket, r.SelectedQuantity));
                 if (r.SeatNumber.HasValue())
                 {
                     seatRequests.Add(new SeatRequest(
-                        r.SeatNumber, 
+                        r.SeatNumber,
                         _eventSeatingService.GetSeatsForTicket(ticket, r.OrderRequestId)));
                 }
-            });
-            
-            return groupRequests.All(groupRule.IsSatisfiedBy) 
+            }
+
+            return groupRequests.All(groupRule.IsSatisfiedBy)
                 && ticketRequests.All(t => ticketRule.IsSatisfiedBy(t))
                 && seatRequests.All(s => seatAvailabilityRule.IsSatisfiedBy(s));
-        }   
+        }
 
         private IEnumerable<GroupRequest> CreateGroupRequests(IEnumerable<TicketReservationRequest> requests)
         {

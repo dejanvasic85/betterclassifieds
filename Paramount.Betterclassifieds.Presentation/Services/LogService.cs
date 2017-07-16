@@ -22,9 +22,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             _logger.Info(message);
         }
 
+        public void Info(string message, TimeSpan duration)
+        {
+            _logger.InfoFormat("{0} - Duration {1}ms", message, duration.TotalMilliseconds);
+        }
+
         public void Warn(string message)
         {
             _logger.Warn(message);
+        }
+
+        public void Warn(string message, TimeSpan duration)
+        {
+            _logger.WarnFormat("{0} - Duration {1}ms", message, duration.TotalMilliseconds);
         }
 
         public void Error(string message)

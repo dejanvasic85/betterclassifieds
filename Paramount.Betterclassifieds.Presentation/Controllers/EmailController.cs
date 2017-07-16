@@ -117,6 +117,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EventStartDateTime = DateTime.Today.AddDays(1).ToLongDateString(),
                 EventUrl = "www.google.com.au",
                 IsGuestTheBuyer = true,
+                SeatNumber = "A838",
+                GuestEmail = "bob@something.com",
+                GuestName = "Foo Bob Bar"
             });
         }
 

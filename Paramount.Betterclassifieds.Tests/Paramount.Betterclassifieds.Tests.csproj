@@ -141,7 +141,9 @@
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\EditAdControllerTests.cs" />
     <Compile Include="Controllers\EventControllerTests.cs" />
+    <Compile Include="Controllers\EventPromoControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Controllers\ListingsControllerTests.cs" />
     <Compile Include="Csv\CsvGeneratorTests.cs" />
     <Compile Include="Csv\ExcelGuestGeneratorServiceTests.cs" />
     <Compile Include="Events\EventAccessTests.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Utility\SystemExtensionDates.cs" />
     <Compile Include="ViewModels\SearchFilterTests.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
+    <Compile Include="ViewModels\SurveyStatisticsViewFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">

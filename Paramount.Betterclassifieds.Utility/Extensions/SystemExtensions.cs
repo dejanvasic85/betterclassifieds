@@ -37,7 +37,7 @@ namespace Paramount
 
         public static string ToUtcIsoDateString(this DateTime dateTime)
         {
-            return string.Concat(dateTime.ToUniversalTime().ToString("s"), "Z");
+            return string.Concat(dateTime.ToString("s"), "Z");
         }
 
         public static string ToUtcIsoDateString(this DateTime? dateTime)

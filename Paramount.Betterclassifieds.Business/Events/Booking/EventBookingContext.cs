@@ -1,5 +1,5 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Events
-{
+{   
     public interface IEventBookingContext
     {
         int? EventId { get; set; }

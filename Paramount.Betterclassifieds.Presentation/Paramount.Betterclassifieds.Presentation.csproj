@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\EventOrganiserController.cs" />
+    <Compile Include="Controllers\EventPromoController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
@@ -300,6 +301,8 @@
     <Compile Include="Services\Constants.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
+    <Compile Include="Services\GoogleCaptchaVerifier.cs" />
+    <Compile Include="Services\IRobotVerifier.cs" />
     <Compile Include="Services\Mail\MailAttachment.cs" />
     <Compile Include="Services\Mail\MailSender.cs" />
     <Compile Include="Services\IPdfGenerator.cs" />
@@ -346,6 +349,7 @@
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="Services\EventBookingManager.cs" />
+    <Compile Include="ViewModels\Events\EventPromoViewModel.cs" />
     <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
@@ -617,7 +621,8 @@
     <Content Include="Scripts\app\availabilityOptions\availability-options.js" />
     <Content Include="Scripts\app\common\dynamicFieldDefinition.js" />
     <Content Include="Scripts\app\common\dynamicFieldValue.js" />
-    <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
+    <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.html" />
+    <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.js" />
     <Content Include="Scripts\app\booking\eventTicketingSetup.model.js" />
     <Content Include="Scripts\app\booking\eventTicketDefinition.model.js" />
     <Content Include="Scripts\app\events\addGuest.model.js" />
@@ -633,13 +638,20 @@
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
+    <Content Include="Scripts\app\events\featuredEvents.js\featuredEvents.html" />
+    <Content Include="Scripts\app\events\featuredEvents.js\featuredEvents.js" />
     <Content Include="Scripts\app\events\guest-settings.js" />
+    <Content Include="Scripts\app\events\eventListing\eventListing.html" />
+    <Content Include="Scripts\app\events\eventListing\eventListing.js" />
     <Content Include="Scripts\app\events\organisers\add-organiser.js" />
     <Content Include="Scripts\app\events\organisers\add-organiser.html" />
     <Content Include="Scripts\app\events\organisers\event-organiser.js" />
     <Content Include="Scripts\app\events\organisers\manage-notifications.js" />
     <Content Include="Scripts\app\events\organisers\manage-organisers.js" />
     <Content Include="Scripts\app\events\organisers\organiser-service.js" />
+    <Content Include="Scripts\app\events\promoCodes\eventPromoCode.js" />
+    <Content Include="Scripts\app\events\promoCodes\managePromoCodes.js" />
+    <Content Include="Scripts\app\events\promoCodes\promoCodeService.js" />
     <Content Include="Scripts\app\events\seatSelector\seatSelector.css">
       <DependentUpon>seatSelector.less</DependentUpon>
     </Content>
@@ -1017,7 +1029,6 @@
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
     <Content Include="Views\Event\ViewEventAd.cshtml" />
-    <Content Include="Views\Shared\_ContactAdvertiser.cshtml" />
     <Content Include="Views\Event\BookTickets.cshtml" />
     <Content Include="Views\Event\_UserEventBookingDetails.cshtml" />
     <Content Include="Views\Event\EventBooked.cshtml" />
@@ -1091,6 +1102,8 @@
     <Content Include="Views\Email\_EmailFooter.Beat.cshtml" />
     <Content Include="Views\Email\EventOrganiserTicketsSold.cshtml" />
     <Content Include="Views\EventOrganiser\manage-notifications.cshtml" />
+    <Content Include="Views\EventPromo\manage-promo-codes.cshtml" />
+    <Content Include="Views\Shared\_HeadScripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

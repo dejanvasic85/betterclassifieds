@@ -65,6 +65,7 @@
 
             if (_.includes(me.selectedSeats(), seat)) {
                 me.selectedSeats.remove(seat);
+                notifier.warning('Seat ' + seat.seatNumber() + ' removed.');
             } else {
 
                 if (me.selectedSeats().length >= params.maxSeats) {
@@ -72,6 +73,7 @@
                     return;
                 }
 
+                notifier.success('Seat ' + seat.seatNumber() + ' selected.');
                 me.selectedSeats.push(seat);
             }
 

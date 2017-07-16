@@ -90,6 +90,24 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
+        public void ReserveTickets_Post_TooManySelected_ReturnsModelError()
+        {
+            _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 2);
+
+            var controller = BuildController();
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel(),
+                new EventTicketRequestViewModel(),
+                new EventTicketRequestViewModel()
+            }};
+
+            var result = controller.ReserveTickets(vm);
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
         public void ReserveTickets_Post_EventIsClosed_ReturnsModelError()
         {
             // arrange
@@ -337,7 +355,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(
+                It.IsAny<int>(), 
+                It.IsAny<string>(), 
+                It.IsAny<ApplicationUser>(), 
+                It.IsAny<IEnumerable<EventTicketReservation>>(), 
+                It.IsAny<Func<string, string>>(),
+                It.IsAny<string>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");
@@ -394,7 +418,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>(), It.IsAny<string>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupWithVerification(call => call.AppliedPromoCode, "PROMO");

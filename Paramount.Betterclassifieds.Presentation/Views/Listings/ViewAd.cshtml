@@ -38,7 +38,7 @@
         <h2 class="ad-title-h2">@Model.Heading</h2>
         <div class="row visible-xs">
             <div class="col-xs-12">
-                <a class="btn btn-block btn-default" href="#contactAdvertiserPanel">Contact Advertiser</a>
+                <a class="btn btn-block btn-default" href="#contactAdvertiserForm">Contact Advertiser</a>
             </div>
         </div>
         <div class="row top-buffer-10">
@@ -134,8 +134,8 @@
         </div>
 
         <div class="row top-buffer-20">
-            <div class="col-xs-12" id="contactAdvertiserPanel">
-                @Html.Partial("_ContactAdvertiser")
+            <div class="col-xs-12" id="contactAdvertiserForm">
+                <contact-advertiser params="isLoggedIn: @User.Identity.IsAuthenticated.ToJsonString(), adId: @Model.AdId" />
             </div>
         </div>
         <div class="row visible-xs">
@@ -151,7 +151,7 @@
 @section Scripts{
 
     <script>
-        window.fbAsyncInit = function () {
+        window.fbAsyncInit = function() {
             FB.init({
                 appId: '@ViewBag.FacebookAppId',
                 xfbml: true,
@@ -159,22 +159,29 @@
             });
         };
 
-        (function (d, s, id) {
+        (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        $(function () {
+        $(function() {
 
-            $('#shareOnFacebook').on('click', function () {
-                FB.ui({
-                    method: 'share',
-                    href: '@urlWithProtocol',
-                }, function (response) { });
-            });
+            $('#shareOnFacebook').on('click',
+                function() {
+                    FB.ui({
+                        method: 'share',
+                        href: '@urlWithProtocol',
+                        },
+                        function(response) {});
+                });
         });
+
+        ko.applyBindings({}, document.getElementById('contactAdvertiserForm'));
     </script>
 }

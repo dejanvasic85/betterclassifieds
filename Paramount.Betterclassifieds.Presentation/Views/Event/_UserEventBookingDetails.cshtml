@@ -45,3 +45,8 @@
            data-val-email="Email is not a valid address" />
     <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
 </div>
+
+<div class="form-group" data-bind="visible: showHowYouHeardAboutEventOptions">
+    <label class="control-label" for="howYouHeard">How did you hear about the event?</label>
+    <select id="howYouHeard" data-bind="options: howYouHeardAboutEventOptions, value: howYouHeardAboutEvent, optionsCaption: 'Please select...'" class="form-control"></select>
+</div>

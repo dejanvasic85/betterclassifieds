@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
         private readonly IPdfGenerator _pdfGenerator;
         private readonly ILogService _log;
         private readonly ISearchService _searchService;
-        
+
         private const string EventDateFormat = "dd-MMM-yyyy hh:mm";
 
         public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator, ILogService log, ISearchService searchService)
@@ -62,7 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
             _searchService = searchService;
         }
 
-        
+
 
         public IMailService Initialise(Controller controller)
         {
@@ -105,7 +105,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 EventName = ad.Heading,
                 EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
                 Address = eventModel.Location,
-                StartDate = eventModel.EventStartDate?.ToString(EventDateFormat)
+                StartDate = eventModel.EventStartDate?.ToString(EventDateFormat),
+                Guests = eventBooking.EventBookingTickets?.Select(t => t.ToString())
             };
 
             var body = _templatingService.Generate(viewModel, Views.EventPurchaserNotificationView);
@@ -138,9 +139,13 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 EventUrl = eventUrl,
                 EventLocation = eventModel.Location,
                 BuyerName = eventBooking.GetFullName(),
+                SeatNumber = eventBookingTicket.SeatNumber,
+                GuestName = eventBookingTicket.GuestFullName,
+                GuestEmail = eventBookingTicket.GuestEmail,
+                TicketName = eventBookingTicket.TicketName,
                 EventStartDateTime = eventModel?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
                 IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail,
-                BarcodeImgUrl = _url.Image(eventBookingTicket.BarcodeImageDocumentId.ToString(), 
+                BarcodeImgUrl = _url.Image(eventBookingTicket.BarcodeImageDocumentId.ToString(),
                     height: 200, width: 200)
 
             }, Views.EventGuestTicketView);
@@ -282,7 +287,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
             Guard.NotNull(bookedByUser);
             Guard.NotNull(ad);
             Guard.NotNull(ad.OnlineAdModel);
-            
+
             var subject = "Listing placed";
             var body = _templatingService.Generate(new ListingCompleteEmail
             {
@@ -336,7 +341,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 AdvertiserEmail = bookingUser.Email
 
             }, Views.NewListingNetworkView);
-            
+
 
             Parallel.ForEach(userNetworkUsers, user =>
             {
@@ -369,10 +374,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 _log.Warn("Unable to send support email. There are no support emails configured. ");
                 return;
             }
-            
+
             Parallel.ForEach(supportEmails, support =>
             {
-                _mailSender.Send(support,  body, subject, attachments);
+                _mailSender.Send(support, body, subject, attachments);
             });
         }
 
@@ -386,13 +391,14 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 Email = eventBooking.Email,
                 TotalCost = eventBooking.TotalCost,
                 TotalTicketsPurchased = eventBooking.EventBookingTickets.Count,
-                EventDashboardUrl = _url.EventDashboardUrl(ad.AdId),                
+                EventDashboardUrl = _url.EventDashboardUrl(ad.AdId),
+                Guests = eventBooking.EventBookingTickets?.Select(t => t.ToString()).ToArray()
             };
 
             var subject = "Tickets sold for " + vm.EventName;
             var body = _templatingService.Generate(vm, Views.EventOrganiserTicketsSold);
             var activeOrganisers = organisers.Where(o => o.IsActive).ToArray();
-            
+
             activeOrganisers
                 .Where(o => o.SubscribeToPurchaseNotifications.GetValueOrDefault())
                 .ForEach(org =>

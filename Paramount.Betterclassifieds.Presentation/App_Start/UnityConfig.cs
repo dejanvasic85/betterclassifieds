@@ -108,6 +108,7 @@
                 .RegisterType<IMailService, MailService>()
                 .RegisterType<IMailSender, MailgunSender>()
                 .RegisterType<IPdfGenerator, PdfGenerator>()
+                .RegisterType<IRobotVerifier, RobotVerifier>()
                 ;
 
             return container;

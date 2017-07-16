@@ -46,10 +46,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithComments();
         }
 
-        [Then(@"I should see a human test validation message")]
-        public void ThenIShouldSeeAHumanTestValidationMessage()
+        [Then(@"I should see enquiry successful message")]
+        public void ThenIShouldSeeEnquirySuccessfulMessage()
         {
-            Assert.That(_pageBrowser.Init<ContactUsPage>().IsHumanTestValidationMsgShown(), Is.True);
+            var result = _pageBrowser.Init<ContactUsPage>()
+                .GetSuccessMessage();
+
+            Assert.That(result, Is.EqualTo("Your message has been sent successfully"));
         }
+
     }
 }

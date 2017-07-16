@@ -195,11 +195,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<decimal>(p => p == requestedAmount)));
 
             _searchServiceMock.SetupWithVerification(
-                call => call.GetByAdId(It.IsAny<int>()), 
+                call => call.GetByAdId(It.IsAny<int>()),
                 new AdSearchResultMockBuilder().Default().WithAdId(adId).Build());
 
             _eventManagerMock.SetupWithVerification(
-                call => call.GetEventDetails(It.IsAny<int>()), 
+                call => call.GetEventDetails(It.IsAny<int>()),
                 new EventModelMockBuilder().Default().WithEventId(eventId).Build());
 
             _mailService.SetupWithVerification(call => call.SendEventPaymentRequest(
@@ -283,15 +283,17 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 mockEventTicketReservation);
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
-                It.Is<string>(p => p == mockPromoCode.Trim().ToUpper()), 
+                It.Is<string>(p => p == mockPromoCode.Trim().ToUpper()),
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>(),
-                It.IsAny<Func<string, string>>()), mockEventBooking);
+                It.IsAny<Func<string, string>>(),
+                It.IsAny<string>()),
+                mockEventBooking);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
             _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), mockApplicationUser);
-            
+
             _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
                 It.IsAny<IList<EventBookingTicket>>()));
 
@@ -497,6 +499,43 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
+        public void EditTicket_Post_ReturnsJson()
+        {
+            var mockAdId = 1;
+            var mockTicketId = 20;
+
+            var mockEventTicketUpdateModel = new UpdateEventTicketViewModel
+            {
+                EventTicket = new EventTicketViewModel
+                {
+                    EventTicketId = 20,
+                    EventId = 2,
+                    Price = 10,
+                    ColourCode = "#black",
+                    AvailableQuantity = 20,
+                    RemainingQuantity = 10,
+                    IsActive = true,
+                    SoldQty = 10,
+                    TicketName = "Foo bar"
+                }
+            };
+
+            _eventManagerMock.SetupWithVerification(call => call.UpdateEventTicket(
+                It.Is<int>(eventTicketId => eventTicketId == 20),
+                It.Is<string>(name => name == "Foo bar"),
+                It.Is<decimal>(price => price == 10),
+                It.Is<int>(remaining => remaining == 10),
+                It.Is<string>(colour => colour == "#black"),
+                It.Is<bool>(active => active == true),
+                It.IsAny<IEnumerable<EventTicketField>>()));
+
+            var ctrl = BuildController();
+            var result = ctrl.EditTicket(mockAdId, mockTicketId, mockEventTicketUpdateModel);
+
+            result.IsTypeOf<JsonResult>();
+        }
+
+        [Test]
         public void EditTicketSettings_ReturnsJson()
         {
             var mockSettings = new TicketSettingsViewModel
@@ -514,6 +553,48 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var controller = BuildController();
 
             controller.EditTicketSettings(1, 10, mockSettings);
+        }
+
+        [Test]
+        public void AddTicket_Post_ReturnsJson()
+        {
+            var ctrl = BuildController();
+
+            var newEventTicketViewModel = new NewEventTicketViewModel
+            {
+                EventId = 1,
+                AvailableQuantity = 100,
+                ColourCode = "#blue",
+                Price = 10,
+                TicketName = "Ticket-123",
+                IsActive = true,
+                EventTicketFields = new[]
+                {
+                    new EventTicketFieldViewModel
+                    {
+                        FieldName = "Gender",
+                        IsRequired = true
+                    },
+                }
+            };
+            var mockId = 100;
+            var mockEventTicket = new EventTicketMockBuilder().Default().Build();
+
+            // Ensure services
+            _eventManagerMock.SetupWithVerification(call => call.CreateEventTicket(
+                It.Is<int>(eventId => eventId == 1),
+                It.Is<string>(ticketName => ticketName == "Ticket-123"),
+                It.Is<decimal>(price => price == 10),
+                It.Is<int>(available => available == 100),
+                It.Is<string>(colour => colour == "#blue"),
+                It.Is<bool>(active => active == true),
+                It.IsAny<IEnumerable<EventTicketField>>()),
+                result: mockEventTicket);
+
+            var result = ctrl.AddTicket(mockId, newEventTicketViewModel);
+
+            var viewResult = result.IsTypeOf<JsonResult>();
+
         }
 
         private Mock<ISearchService> _searchServiceMock;

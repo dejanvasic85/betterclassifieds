@@ -35,6 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             IncludeTransactionFee = eventDetails.IncludeTransactionFee;
             DisplayGuests = eventDetails.DisplayGuests;
             HasPromoCodes = eventDetails.PromoCodes.Any();
+            HowYouHeardAboutEventOptions = eventDetails.GetHowYouHeardAboutEventValues();
 
             if (applicationUser != null)
             {
@@ -88,5 +89,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string BrandName { get; set; }
         public bool HasPromoCodes { get; set; }
+        public string[] HowYouHeardAboutEventOptions { get; set; }
     }
 }

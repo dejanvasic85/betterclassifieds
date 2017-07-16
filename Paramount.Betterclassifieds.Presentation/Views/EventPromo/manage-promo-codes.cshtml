@@ -1,0 +1,123 @@
+﻿@model ManageEventPromoViewModel
+
+
+@{
+    ViewBag.Title = "Manage Event Promo Codes";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            var vm = new $paramount.models.ManagePromoCodes(data);
+            ko.applyBindings(vm);
+        });
+    </script>
+}
+
+<div class="container top-buffer-60" id="managePromoCodes">
+    <h2 class="page-header">
+        Manage Promo Codes
+    </h2>
+    <p>
+        Promo codes allow you to track your event organiser performance
+        and a way to provide discount to your customers.
+    </p>
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
+            <button id="btnAddEventPromoCode" class="btn btn-primary btn-block"
+                    data-bind="click: displayAddPromo">
+                <i class="fa fa-plus-circle"></i>
+                Add Promo Code
+            </button>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="@Url.EventDashboard(Model.AdId)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-sm">Event</span>
+                Dashboard
+            </a>
+        </div>
+
+    </div>
+
+    <div class="top-buffer-20 row" data-bind="visible: showAdd">
+
+        <div class="col-xs-12 col-md-6 col-md-offset-3 well">
+            <div data-bind="with: newPromoCode">
+                <div class="form-group" data-bind="validationElement: promoCode">
+                    <label class="control-label">Promo Code</label>
+                    <input data-bind="value: promoCode" type="text" maxlength="20" class="form-control" />
+                    <p class="help-block">
+                        This is what the user will need to enter when completing their booking. Ensure 
+                        it is a user friendly value.
+                    </p>
+                </div>
+                
+                <div class="form-group" data-bind="validationElement: discountPercent">
+                    <label class="control-label">Discount %</label>
+                    <input data-bind="value: discountPercent" type="number" maxlength="3" class="form-control" />
+                    <p class="help-block">
+                        (Optional) Enter a discount between 0 and 100
+                    </p>
+                </div>
+            </div>
+
+            <div class="top-buffer-10">
+                <div class="pull-left">
+                    <button data-bind="click: cancelAdd" class="btn btn-warning">
+                        Cancel
+                    </button>
+                </div>
+                <div class="pull-right">
+                    <button data-bind="click: addPromoCode" class="btn btn-default ko-load">
+                        Save <i class="fa fa-floppy-o"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-20">
+
+        <div class="col-xs-12 alert alert-info" data-bind="visible: promoCodes().length === 0">
+            You have no promo codes available. Click 'Add promo code' to get started'.
+        </div>
+
+        <div class="col-xs-12" data-bind="visible: promoCodes().length > 0">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>Promo Code</td>
+                        <td>Discount</td>
+                        <td>Bookings</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: promoCodes">
+                    <tr>
+                        <td data-bind="text: promoCode"></td>
+                        <td data-bind="text: discountDisplay"></td>
+                        <td data-bind="text: bookingCount"></td>
+                        <td class="text-right">
+                            <button class="btn btn-default ko-load" data-bind="click: $parent.remove">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+
+

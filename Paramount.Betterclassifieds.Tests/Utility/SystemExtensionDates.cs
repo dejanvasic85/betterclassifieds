@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Tests.Utility
             var result = someDateTime.ToUtcIsoDateString();
 
             result.IsNotNull();
-            result.IsEqualTo("2017-06-11T19:55:00Z");
+            result.IsEqualTo("2017-06-12T05:55:00Z");
         }
 
         [Test]

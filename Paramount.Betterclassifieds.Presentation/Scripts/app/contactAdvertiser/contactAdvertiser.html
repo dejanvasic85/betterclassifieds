@@ -1,0 +1,43 @@
+﻿<div class="panel panel-primary" id="contactAdvertiserComponent">
+    <div class="panel-heading">
+        <h4><i class="fa fa-question-circle"></i> Your enquiry</h4>
+    </div>
+
+    <div id="contactAdvertiserForm" data-bind="visible: submitted() === false">
+        <div class="panel-body">
+            <p>
+                Need more information? Leave a message for the advertiser and they will
+                be notified immediately.
+            </p>
+
+            <div class="control-group" data-bind="validationElement: fullName, visible: !isLoggedIn">
+                <label class="control-label" for="enquiryName">Full Name *</label>
+                <input class="form-control" type="text" placeholder="Your Name" data-bind="value: fullName" id="enquiryName" name="enquiryName" />
+            </div>
+
+            <div class="control-group" data-bind="validationElement: email, visible: !isLoggedIn">
+                <label class="control-label" for="enquiryEmail">Email *</label>
+                <input class="form-control" type="email" placeholder="Your Email" data-bind="value: email" id="enquiryEmail" name="enquiryEmail" />
+            </div>
+
+            <div class="control-group" data-bind="validationElement: question">
+                <label class="control-label" for="enquiryQuestion">Question *</label>
+                <textarea class="form-control" type="text" placeholder="Your Question" data-bind="value: question" id="enquiryQuestion" name="enquiryQuestion" rows="4"></textarea>
+            </div>
+
+            <div class="top-buffer-10 text-center" data-bind="visible: !isLoggedIn">
+                <div class="g-recaptcha" data-sitekey="6LfGMicUAAAAAIbXQqEAcAQj3dJRyEyHRoqiSjZv"></div>
+            </div>
+            
+        </div>
+
+        <div class="panel-footer clearfix">
+            <button class="btn btn-primary pull-right" type="submit" data-bind="click: submit">Submit</button>
+        </div>
+    </div>
+
+    <div class="alert alert-success" data-bind="visible: submitted() === true">
+        Your message has been sent successfully!
+    </div>
+
+</div>

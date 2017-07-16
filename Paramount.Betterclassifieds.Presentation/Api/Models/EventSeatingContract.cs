@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         }
 
         public EventSeatingContract FromModels(EventModel eventDetails, IEnumerable<EventTicket> tickets,
-            IEnumerable<EventSeatBooking> seats)
+            IEnumerable<EventSeat> seats)
         {
             var seatsGroupedByRow = seats.GroupBy(s => s.RowNumber);
 

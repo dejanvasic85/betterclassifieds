@@ -79,7 +79,7 @@
     <Compile Include="Events\Booking\EventPaymentSummary.cs" />
     <Compile Include="Events\EventInvitation.cs" />
     <Compile Include="Events\PromoCodes\EventPromoCode.cs" />
-    <Compile Include="Events\Booking\EventSeatBooking.cs" />
+    <Compile Include="Events\Booking\EventSeat.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
     <Compile Include="Events\Reservations\EventTicketReservationStatus.cs" />
     <Compile Include="Events\IEventBarcodeValidator.cs" />

@@ -104,7 +104,7 @@ namespace SeatGen
                         var seatNumber = $"{row.Value.Name}{i}";
                         Console.WriteLine("Creating Seat " + seatNumber);
 
-                        var eventSeat = new EventSeatBooking
+                        var eventSeat = new EventSeat
                         {
                             EventTicketId = row.Value.TicketId,
                             SeatNumber = seatNumber,

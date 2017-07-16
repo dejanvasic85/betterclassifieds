@@ -27,9 +27,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId);
         EventOrganiser GetEventOrganiser(int eventOrganiserId);
         IEnumerable<EventOrganiser> GetEventOrganisersForEvent(int eventId);
-        IEnumerable<EventSeatBooking> GetEventSeats(int eventId);
-        IEnumerable<EventSeatBooking> GetEventSeatsForTicket(int eventTicketId);
-        EventSeatBooking GetEventSeat(int eventTicketId, string seatNumber);
+        IEnumerable<EventSeat> GetEventSeats(int eventId);
+        IEnumerable<EventSeat> GetEventSeatsForTicket(int eventTicketId);
+        EventSeat GetEventSeat(int eventTicketId, string seatNumber);
         EventPromoCode GetEventPromoCode(long eventPromoCodeId);
         EventPromoCode GetEventPromoCode(int eventId, string promoCode);
         IEnumerable<EventPromoCode> GetEventPromoCodes(int eventId);
@@ -58,7 +58,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventGroupStatus(int eventGroupId, bool isDisabled);
         void UpdateEventTicketIncudingFields(EventTicket eventTicket);
         void UpdateEventOrganiser(EventOrganiser eventOrganiser);
-        void UpdateEventSeat(EventSeatBooking eventSeat);
+        void UpdateEventSeat(EventSeat eventSeat);
         void UpdateEventPromoCode(EventPromoCode promo);
     }
 }

@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeatBooking>()
+            var seatsForDesiredTicket = new List<EventSeat>()
             {
                 new EventSeatBookingMockBuilder().WithSeatNumber("A2").Build()
             };
@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeatBooking>
+            var seatsForDesiredTicket = new List<EventSeat>
             {
                 new EventSeatBookingMockBuilder().WithSeatNumber("A1").WithEventBookingTicketId(1).Build()
             };
@@ -62,7 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeatBooking>
+            var seatsForDesiredTicket = new List<EventSeat>
             {
                 new EventSeatBookingMockBuilder().WithSeatNumber("A1").WithNotAvailableToPublic(true).Build()
             };
@@ -81,7 +81,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeatBooking>
+            var seatsForDesiredTicket = new List<EventSeat>
             {
                 new EventSeatBookingMockBuilder().WithSeatNumber("A1")
                     .WithEventBookingTicketId(null)

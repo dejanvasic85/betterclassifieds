@@ -87,7 +87,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var orderRequestId = _httpContext.With(s => s.Session).SessionID;
-            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity, orderRequestId, t.SeatNumber)).ToArray()))
+            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(eventModel, reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity, orderRequestId, t.SeatNumber)).ToArray()))
             {
                 ModelState.AddModelError("Tickets", "The requested ticket(s) are longer available. Please reload the page and try again.");
                 return JsonModelErrors();

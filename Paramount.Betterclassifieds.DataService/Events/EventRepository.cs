@@ -299,7 +299,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventSeatBooking> GetEventSeats(int eventId)
+        public IEnumerable<EventSeat> GetEventSeats(int eventId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -308,7 +308,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventSeatBooking> GetEventSeatsForTicket(int eventTicketId)
+        public IEnumerable<EventSeat> GetEventSeatsForTicket(int eventTicketId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -316,7 +316,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public EventSeatBooking GetEventSeat(int eventTicketId, string seatNumber)
+        public EventSeat GetEventSeat(int eventTicketId, string seatNumber)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -349,7 +349,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public EventSeatBooking GetEventSeatByTicketAndSeatNumber(int eventTicketId, string seatNumber)
+        public EventSeat GetEventSeatByTicketAndSeatNumber(int eventTicketId, string seatNumber)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -586,7 +586,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public void UpdateEventSeat(EventSeatBooking eventSeat)
+        public void UpdateEventSeat(EventSeat eventSeat)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {

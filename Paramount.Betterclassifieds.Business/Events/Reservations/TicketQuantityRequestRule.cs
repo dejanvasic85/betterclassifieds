@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
             {
                 return new RuleResult<EventTicketReservationStatus> { IsSatisfied = false, Result = EventTicketReservationStatus.SoldOut };
             }
-
+            
             int remainingTicketCount = _eventManager.GetRemainingTicketCount(target.EventTicket);
 
             if (remainingTicketCount < target.Quantity)

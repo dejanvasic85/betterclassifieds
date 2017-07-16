@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         {
         }
 
-        public IEnumerable<EventRowContract> FromModels(IEnumerable<IGrouping<string, EventSeatBooking>> seatsGroupedByRow)
+        public IEnumerable<EventRowContract> FromModels(IEnumerable<IGrouping<string, EventSeat>> seatsGroupedByRow)
         {
             foreach (var grouping in seatsGroupedByRow)
             {

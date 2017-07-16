@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 result: mockEventSeatBooking);
 
             _mockEventRepository.SetupWithVerification(call => call.UpdateEventSeat(
-                It.Is<EventSeatBooking>(s => s == mockEventSeatBooking)));
+                It.Is<EventSeat>(s => s == mockEventSeatBooking)));
 
 
             // Act
@@ -221,7 +221,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 It.IsAny<string>()), eventSeatBooking);
 
             _mockEventRepository.SetupWithVerification(call => call.UpdateEventSeat(
-                It.Is<EventSeatBooking>(b => b == eventSeatBooking)));
+                It.Is<EventSeat>(b => b == eventSeatBooking)));
 
             BuildTargetObject().RemoveSeatBooking(eventBookingTicket);
         }

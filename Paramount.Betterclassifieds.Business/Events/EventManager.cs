@@ -101,12 +101,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Save the new ticket
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
 
-            if (eventBookingTicket.SeatNumber.HasValue())
-            {
-                // Update the seat number
-                _eventSeatingService.BookSeat(eventBookingTicket.EventTicketId, eventBookingTicket.EventBookingTicketId, eventBookingTicket.SeatNumber);
-            }
-
             // Now we have the id so we need to generate the barcode
             CreateTicketBarcodeAndUpdate(eventBooking, newEventBookingTicket, barcodeUrlCreator);
 
@@ -157,12 +151,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             var ticket = _eventRepository.GetEventTicketDetails(eventBookingTicket.EventTicketId);
             ticket.RemainingQuantity = ticket.RemainingQuantity + 1;
             _eventRepository.UpdateEventTicket(ticket);
-
-            // Un-Allocate the seat if it's a seated event
-            if (eventBookingTicket.SeatNumber.HasValue())
-            {
-                _eventSeatingService.RemoveSeatBooking(eventBookingTicket);
-            }
 
             return eventBookingTicket;
         }
@@ -236,17 +224,13 @@ namespace Paramount.Betterclassifieds.Business.Events
             if (eventBooking.EventBookingTickets.Count > 0 && barcodeUrlCreator == null)
                 throw new NullReferenceException("barcodeUrlCreator cannot be null when there's tickets to have their barcode images created.");
 
-            Parallel.ForEach(eventBooking.EventBookingTickets, ticket =>
+
+            foreach (var ticket in eventBooking.EventBookingTickets)
             {
                 try
                 {
                     _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
                     CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
-
-                    if (eventBooking.Status == EventBookingStatus.Active && ticket.SeatNumber.HasValue())
-                    {
-                        AssignBookingTicketToSeat(eventBooking.EventBookingId, ticket);
-                    }
 
                     _logService.Info($"EventBooking created successfully. EventBookingId {eventBooking.EventBookingId}");
                 }
@@ -255,15 +239,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                     _logService.Error("Unable to create ticket and generate barcode " + ticket.EventBookingTicketId, ex);
                     throw;
                 }
-            });
+            }
 
             return eventBooking;
-        }
-
-        private void AssignBookingTicketToSeat(int eventBookingId, EventBookingTicket ticket)
-        {
-            _logService.Info($"Setting eventBookingId {eventBookingId} for seat number {ticket.SeatNumber}");
-            _eventSeatingService.BookSeat(ticket.EventTicketId, ticket.EventBookingTicketId, ticket.SeatNumber);
         }
 
         public void CancelEventBooking(int? eventBookingId)
@@ -293,19 +271,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                 invitation.ConfirmedDateUtc = _dateService.UtcNow;
                 _eventRepository.UpdateEventInvitation(invitation);
             }
-
-            Parallel.ForEach(eventBooking.EventBookingTickets.Where(t => t.SeatNumber.HasValue()), ticket =>
-            {
-                try
-                {
-                    AssignBookingTicketToSeat(eventBooking.EventBookingId, ticket);
-                }
-                catch (Exception ex)
-                {
-                    _logService.Error("There was a problem associating seat number with event booking id.", ex);
-                    throw;
-                }
-            });
         }
 
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)

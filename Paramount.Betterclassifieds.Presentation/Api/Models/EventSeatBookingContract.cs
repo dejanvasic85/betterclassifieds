@@ -14,16 +14,16 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
 
     public class EventSeatBookingContractFactory : IMappingBehaviour
     {
-        public EventSeatBookingContract FromModel(EventSeatBooking seatBooking)
+        public EventSeatBookingContract FromModel(EventSeat seat)
         {
-            return this.Map<EventSeatBooking, EventSeatBookingContract>(seatBooking);
+            return this.Map<EventSeat, EventSeatBookingContract>(seat);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<EventSeatBooking, EventSeatBookingContract>()
+            configuration.CreateMap<EventSeat, EventSeatBookingContract>()
                 .ForMember(m => m.Available, options => options.MapFrom(src => src.IsAvailable()))
-                .ForMember(m => m.EventSeatId, options => options.MapFrom(src => src.EventSeatBookingId));
+                .ForMember(m => m.EventSeatId, options => options.MapFrom(src => src.EventSeatId));
 
             configuration.CreateMap<EventTicket, EventTicketContract>();
         }

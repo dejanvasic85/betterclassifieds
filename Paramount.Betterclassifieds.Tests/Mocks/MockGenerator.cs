@@ -675,7 +675,7 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventTicketFields = val);
 		}
-		public EventTicketMockBuilder WithEventSeats(IList<EventSeatBooking> val)
+		public EventTicketMockBuilder WithEventSeats(IList<EventSeat> val)
 		{ 
 			return WithBuildStep(p => p.EventSeats = val);
 		}
@@ -1289,11 +1289,11 @@ namespace Paramount.Betterclassifieds.Tests
 		}
 	}
 
-	internal partial class EventSeatBookingMockBuilder : MockBuilder<EventSeatBookingMockBuilder, EventSeatBooking>
+	internal partial class EventSeatBookingMockBuilder : MockBuilder<EventSeatBookingMockBuilder, EventSeat>
 	{	
 		public EventSeatBookingMockBuilder WithEventSeatBookingId(Int64 val)
 		{ 
-			return WithBuildStep(p => p.EventSeatBookingId = val);
+			return WithBuildStep(p => p.EventSeatId = val);
 		}
 		public EventSeatBookingMockBuilder WithEventTicketId(Int32? val)
 		{ 

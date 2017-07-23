@@ -438,8 +438,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 .ToList();
 
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
-            var totalSales = eventBookings.Sum(b => b.CostAfterDiscount);
-            var totalTransactions = eventBookings.Count;
+            var transactions = eventBookings.Where(b => b.PaymentMethod != PaymentType.None).ToList();
+            var totalSales = transactions.Sum(b => b.CostAfterDiscount);
+            var totalTransactions = transactions.Count;
             var paymentSummary = new EventPaymentSummary
             {
                 TotalTicketSalesAmount = totalSales,

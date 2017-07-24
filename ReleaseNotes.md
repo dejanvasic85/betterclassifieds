@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.32.1**
 
 - [Fix - The calculation for organiser fees should be much more accurate now](https://trello.com/c/sgSZ3XsR/672-the-fee-calculation-for-the-organiser-is-not-displaying-properly-on-the-event-dashboard)
+- [Fix - The home page should be able to display regular ads again](https://trello.com/c/bdA3ZfMU/665-themusic-classies-front-page-is-broken)
 - Change - Adding ad for the ticket print. Blank images for kandobay and theMusic
 
 **3.32.0**

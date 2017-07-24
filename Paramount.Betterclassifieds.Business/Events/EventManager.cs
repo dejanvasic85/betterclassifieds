@@ -231,7 +231,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                 .Create(eventModel, eventPromo, applicationUser, currentReservations, howYouHeardAboutEvent);
 
             _eventRepository.CreateBooking(eventBooking);
-            _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
 
             if (eventBooking.EventBookingTickets.Count > 0 && barcodeUrlCreator == null)
                 throw new NullReferenceException("barcodeUrlCreator cannot be null when there's tickets to have their barcode images created.");

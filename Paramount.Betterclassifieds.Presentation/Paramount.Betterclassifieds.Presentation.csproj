@@ -515,6 +515,7 @@
     <Content Include="Content\KandoBay\img\logo-nav.png" />
     <Content Include="Content\KandoBay\img\logo.png" />
     <Content Include="Content\KandoBay\img\safari.jpg" />
+    <Content Include="Content\KandoBay\img\ticket-ad.png" />
     <Content Include="Content\KandoBay\img\ticket.jpg" />
     <Content Include="Content\KandoBay\kando.nav.css">
       <DependentUpon>kando.nav.less</DependentUpon>
@@ -553,6 +554,7 @@
     <Content Include="Content\SriLankanEvents\img\hero.jpg" />
     <Content Include="Content\SriLankanEvents\img\logo-nav.png" />
     <Content Include="Content\SriLankanEvents\img\logo.png" />
+    <Content Include="Content\SriLankanEvents\img\ticket-ad.PNG" />
     <Content Include="Content\SriLankanEvents\img\ticket.jpg" />
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
@@ -566,6 +568,7 @@
     <Content Include="Content\TheMusic\img\hero-bg.jpg" />
     <Content Include="Content\TheMusic\img\logo.png" />
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
+    <Content Include="Content\TheMusic\img\ticket-ad.png" />
     <Content Include="Content\TheMusic\img\ticket.jpg" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="Content\TheMusic\themusic.css">

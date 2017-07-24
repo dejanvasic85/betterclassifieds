@@ -1,5 +1,10 @@
 Here's a list of the latest changes:
 
+**3.32.1**
+
+- [Fix - The calculation for organiser fees should be much more accurate now](https://trello.com/c/sgSZ3XsR/672-the-fee-calculation-for-the-organiser-is-not-displaying-properly-on-the-event-dashboard)
+- Change - Adding ad for the ticket print. Blank images for kandobay and theMusic
+
 **3.32.0**
 
 - [Feature - The email for all organisers and ticket purchasers should contain the guest information as well as the buyer now.](https://trello.com/c/awvsAEyu/664-the-guest-ticket-and-seat-information-on-the-event-booked-email-for-organisers)

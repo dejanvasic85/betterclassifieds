@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string TicketName { get; set; }
         public int TicketNumber { get; set; }
         public decimal TotalTicketPrice { get; set; }
+        public decimal? TicketPrice { get; set; }
         public DateTime DateOfBooking { get; set; }
         public DateTime DateOfBookingUtc { get; set; }
         public int TicketId { get; set; }
@@ -24,17 +25,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }
         public string PromoCode { get; set; }
-    }
-
-    public class EventGuestPublicView
-    {
-        public EventGuestPublicView(string guestName, string groupName)
-        {
-            this.GuestName = guestName;
-            this.GroupName = groupName;
-        }
-
-        public string GuestName { get; private set; }
-        public string GroupName { get; private set; }
+        
     }
 }

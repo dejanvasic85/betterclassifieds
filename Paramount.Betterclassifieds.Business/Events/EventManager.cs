@@ -406,13 +406,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             Guard.NotNull(eventId);
 
+            var eventDetails = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
             var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
 
             // Need to fetch all the groups to match each guest to the group
             // We cannot do that at the moment because groups cannot be fetched from EntityFramework (separate stored procedure)
             var groups = _eventRepository.GetEventGroups(eventId.GetValueOrDefault(), eventTicketId: null);
 
-            return tickets.Select(t => new EventGuestDetails
+            var guests = tickets.Select(t => new EventGuestDetails
             {
                 GuestFullName = t.GuestFullName,
                 GuestEmail = t.GuestEmail,
@@ -421,6 +422,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TicketId = t.EventTicketId,
                 TicketName = t.TicketName,
                 TotalTicketPrice = t.TotalPrice,
+                TicketPrice = t.Price,
                 IsPublic = t.IsPublic,
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
                 DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault(),
@@ -428,6 +430,21 @@ namespace Paramount.Betterclassifieds.Business.Events
                 SeatNumber = t.SeatNumber,
                 PromoCode = t.EventBooking?.PromoCode
             });
+
+            if (eventDetails.IsSeatedEvent.GetValueOrDefault())
+            {
+                guests = guests.OrderBy(g => g.SeatNumber);
+            }
+            else if (groups.Any())
+            {
+                guests = guests.OrderBy(g => g.GroupName);
+            }
+            else
+            {
+                guests = guests.OrderBy(g => g.TicketNumber);
+            }
+
+            return guests;
         }
 
         public EventPaymentSummary BuildPaymentSummary(int? eventId)

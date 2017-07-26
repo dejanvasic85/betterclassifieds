@@ -84,9 +84,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithTicketName("General Admission")
                 .WithGuestFullName("Morgan Freeman")
                 .WithGuestEmail("fake@email.com")
-                .WithEventGroupId(123)
-                ;
+                .WithEventGroupId(123);
 
+            int mockEventId = 10;
+            var mockEvent = new EventModelMockBuilder().Default()
+                .WithEventId(10).Build();
+            
             var mockTickets = new[]
             {
                 ticketBuilder.WithEventBookingTicketId(1).Build(),
@@ -99,11 +102,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventGroups(It.IsAny<int>(), null), new List<EventGroup> { mockGroup });
+            
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                It.Is<int>(e => e == mockEventId)),
+                mockEvent);
 
-
-            var result = this.BuildTargetObject().BuildGuestList(10).ToList();
-
-
+            var result = this.BuildTargetObject().BuildGuestList(mockEventId).ToList();
+            
             result.Count.IsEqualTo(2);
             var expectedGuest = result.First();
             expectedGuest.GuestFullName.IsEqualTo("Morgan Freeman");

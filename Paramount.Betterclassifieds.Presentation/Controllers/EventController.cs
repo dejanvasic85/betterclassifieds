@@ -48,7 +48,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
 
-            var eventViewModel = new EventViewDetailsModel(_httpContext,
+            var viewModelFactory = new EventViewDetailsModelFactory();
+            var eventViewModel = viewModelFactory.Create(_httpContext,
                 Url, onlineAdModel, eventModel, _clientConfig, guestList.Select(g => g.GuestName).ToArray(),
                 _eventBookingContext.OrderRequestId);
 

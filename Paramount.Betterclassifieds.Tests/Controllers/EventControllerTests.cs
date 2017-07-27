@@ -24,10 +24,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
     internal class EventControllerTests : ControllerTest<EventController>
     {
         [Test]
-        [Ignore("The session mock object needs to be mocked properly")]
         public void ViewEventAd_Get_ReturnsViewResult()
         {
-
             var mockAd = new AdSearchResultMockBuilder()
                 .Default()
                 .WithHtmlText("FirstLine<br />SecondLine")
@@ -40,12 +38,20 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithDisplayGuests(true)
                 .Build();
 
+            var mockAppUser = new ApplicationUserMockBuilder().Default().Build();
+
             // arrange services
             _searchService.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == mockAd.AdId)), mockAd);
             _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockEventAd.OnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
+            _eventGuestService.SetupWithVerification(call => call.GetPublicGuestNames(It.Is<int?>(i => i == mockEventAd.EventId)), new EventGuestPublicView[] { });
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
             _httpContext.SetupWithVerification(call => call.Server.HtmlEncode(It.IsAny<string>()), "This looks good " + mockAd.Heading);
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), mockAppUser);
+            _bookingManager.SetupWithVerification(call => call.IncrementHits(It.Is<int>(b => b == mockAd.AdId)));
+            _eventBookingContext.SetupProperty(prop => prop.EventUrl).SetReturnsDefault("");
+            _eventBookingContext.SetupProperty(prop => prop.OrderRequestId).SetReturnsDefault("");
+
 
             // act
             var result = BuildController().ViewEventAd(mockAd.AdId);
@@ -59,9 +65,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             eventViewModel.HtmlText.IsEqualTo("FirstLine<br />SecondLine");
             eventViewModel.EventPhoto.IsEqualTo(mockAd.PrimaryImage);
             eventViewModel.IsClosed.IsEqualTo(true);
-            eventViewModel.EventStartDateDisplay.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
-            eventViewModel.EventStartTime.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"));
-            eventViewModel.EventEndDateDisplay.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
+            eventViewModel.EventStartDateDisplay.IsEqualTo(mockEventAd.EventStartDate.ToDisplayDateTimeFormat());
+            eventViewModel.EventEndDateDisplay.IsEqualTo(mockEventAd.EventEndDate.ToDisplayDateTimeFormat());
             eventViewModel.DisplayGuests.IsEqualTo(true);
         }
 
@@ -95,12 +100,16 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 2);
 
             var controller = BuildController();
-            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = new List<EventTicketRequestViewModel>
+            var vm = new ReserveTicketsViewModel
+            {
+                EventId = 1,
+                Tickets = new List<EventTicketRequestViewModel>
             {
                 new EventTicketRequestViewModel(),
                 new EventTicketRequestViewModel(),
                 new EventTicketRequestViewModel()
-            }};
+            }
+            };
 
             var result = controller.ReserveTickets(vm);
             var jsonResult = result.IsTypeOf<JsonResult>();
@@ -356,10 +365,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(
-                It.IsAny<int>(), 
-                It.IsAny<string>(), 
-                It.IsAny<ApplicationUser>(), 
-                It.IsAny<IEnumerable<EventTicketReservation>>(), 
+                It.IsAny<int>(),
+                It.IsAny<string>(),
+                It.IsAny<ApplicationUser>(),
+                It.IsAny<IEnumerable<EventTicketReservation>>(),
                 It.IsAny<Func<string, string>>(),
                 It.IsAny<string>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
@@ -368,7 +377,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
-            
+
 
             // act
             var controller = BuildController(mockUser: _mockUser);

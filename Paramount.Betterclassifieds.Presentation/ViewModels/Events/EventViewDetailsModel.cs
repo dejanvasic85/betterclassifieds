@@ -97,9 +97,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 EventStartDate = eventModel.EventStartDate.GetValueOrDefault(),
                 EventEndDate = eventModel.EventEndDate.GetValueOrDefault(),
                 EventStartDateDisplay = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
-                EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"),
-                EventEndDateDisplay = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
-                EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt"),
+                EventEndDateDisplay = eventModel.EventEndDate.ToDisplayDateTimeFormat(),
                 EventEndDateUtcIso = eventModel.EventEndDateUtc.ToIsoDateString(),
                 DisplayGuests = eventModel.DisplayGuests,
 

@@ -79,17 +79,5 @@ namespace Paramount
 
             return new MvcHtmlString(numberInput);
         }
-
-        /// <summary>
-        /// Generates an input element with calendar class and data-provide attributes
-        /// </summary>
-        public static MvcHtmlString BootstrapCalendar<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
-        {
-            if (attributes == null)
-                attributes = new Dictionary<string, object>();
-            attributes.WithLargeFormControl().WithCalendar();
-            return htmlHelper.BootstrapLargeTextBoxFor(expression, attributes, "{0:dd/MM/yyyy}");
-        }
-
     }
 }

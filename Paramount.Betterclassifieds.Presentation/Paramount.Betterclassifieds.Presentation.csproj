@@ -298,7 +298,6 @@
     </Compile>
     <Compile Include="Services\BarcodeGenerator.cs" />
     <Compile Include="Services\ClientConfigService.cs" />
-    <Compile Include="Services\Constants.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
     <Compile Include="Services\GoogleCaptchaVerifier.cs" />

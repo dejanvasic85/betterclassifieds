@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Address = "1 hello world",
                 EventName = "The Great Festival",
                 EventUrl = "http://events.com.au",
-                StartDate = DateTime.Now.AddMonths(1).ToString("MMMM d yyyy hh:mm")
+                StartDate = DateTime.Now.AddMonths(1).ToDisplayDateTimeFormat()
             };
 
             return View("EventTicketBuyer", fakeVm);

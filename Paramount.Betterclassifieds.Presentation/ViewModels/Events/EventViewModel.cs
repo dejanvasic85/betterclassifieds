@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventPhoto { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "yyyy-MM-dd H:mm")]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd H:mm")] // Todo dates
         public DateTime EventStartDate { get; set; }
 
         [Required]

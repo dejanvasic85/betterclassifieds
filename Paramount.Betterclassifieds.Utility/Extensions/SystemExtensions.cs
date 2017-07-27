@@ -33,8 +33,7 @@ namespace Paramount
         {
             return dateTime?.ToIsoDateString();
         }
-
-
+        
         public static string ToUtcIsoDateString(this DateTime dateTime)
         {
             return string.Concat(dateTime.ToString("s"), "Z");
@@ -45,9 +44,14 @@ namespace Paramount
             return dateTime?.ToUtcIsoDateString();
         }
 
+        public static string ToDisplayDateFormat(this DateTime dateTime)
+        {
+            return dateTime.ToString("dddd, d MMMM yyyy");
+        }
+
         public static string ToDisplayDateTimeFormat(this DateTime dateTime)
         {
-            return dateTime.ToString("dddd, d MMMM yyyy") + " " + dateTime.ToHourFormat();
+            return dateTime.ToDisplayDateFormat() + " " + dateTime.ToHourFormat();
         }
 
         public static string ToDisplayDateTimeFormat(this DateTime? dateTime)

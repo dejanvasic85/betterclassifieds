@@ -53,6 +53,15 @@ namespace Paramount.Betterclassifieds.Tests.Utility
         }
 
         [Test]
+        public void ToDisplayDateTimeFormat_Null_ReturnsEmptyString()
+        {
+            DateTime? nullDate = null;
+            var format = nullDate.ToDisplayDateTimeFormat();
+
+            format.IsEqualTo(string.Empty);
+        }
+
+        [Test]
         public void ToHourFormat_ReturnsString()
         {
             var datetime = new DateTime(2000, 8, 13, 9, 30, 30);

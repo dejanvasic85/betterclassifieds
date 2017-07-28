@@ -56,7 +56,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
             {
                 throw new NoSuchElementException("Geolocation cannot find the address " + location);
             }
-            googleAddressResults.First().ClickOnElement();
+
+            //_webdriver.JsClick(googleAddressResults.First());
+            googleAddressResults.First().Click();
             return this;
         }
 

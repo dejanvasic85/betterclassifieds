@@ -7,7 +7,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;

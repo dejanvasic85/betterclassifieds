@@ -49,16 +49,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
             LocationInput.FillText(location);
 
             var wait = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("pac-container")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("pac-item")));
 
-            var googleAddressResults = _webdriver.FindElements(By.ClassName("pac-item"));
-            if (googleAddressResults.Count == 0)
-            {
-                throw new NoSuchElementException("Geolocation cannot find the address " + location);
-            }
-
-            //_webdriver.JsClick(googleAddressResults.First());
-            googleAddressResults.First().Click();
+            LocationInput.SendKeys(Keys.ArrowDown);
+            LocationInput.SendKeys(Keys.ArrowDown);
+            LocationInput.SendKeys(Keys.Enter);
+            
             return this;
         }
 

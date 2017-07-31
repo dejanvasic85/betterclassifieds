@@ -275,7 +275,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>
     </None>
-    <Content Include="..\packages\WebDriver.GeckoDriver.0.16.1\content\geckodriver.exe">
+    <Content Include="..\packages\WebDriver.GeckoDriver.0.16.0\content\geckodriver.exe">
       <Link>geckodriver.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -7,7 +7,7 @@ namespace Paramount
     {
         public static TTo As<TTo>(this object target)
         {
-            return target is TTo ? (TTo) target : default(TTo);
+            return target is TTo ? (TTo)target : default(TTo);
         }
 
         public static byte[] ToBytes(this Stream input)
@@ -33,8 +33,7 @@ namespace Paramount
         {
             return dateTime?.ToIsoDateString();
         }
-
-
+        
         public static string ToUtcIsoDateString(this DateTime dateTime)
         {
             return string.Concat(dateTime.ToString("s"), "Z");
@@ -43,6 +42,37 @@ namespace Paramount
         public static string ToUtcIsoDateString(this DateTime? dateTime)
         {
             return dateTime?.ToUtcIsoDateString();
+        }
+
+        public static string ToDisplayDateFormat(this DateTime dateTime)
+        {
+            return dateTime.ToString("dddd, d MMMM yyyy");
+        }
+
+        public static string ToDisplayDateTimeFormat(this DateTime dateTime)
+        {
+            return dateTime.ToDisplayDateFormat() + " " + dateTime.ToHourFormat();
+        }
+
+        public static string ToDisplayDateTimeFormat(this DateTime? dateTime)
+        {
+            if (!dateTime.HasValue)
+                return string.Empty;
+
+            return dateTime.Value.ToDisplayDateTimeFormat();
+        }
+        
+        public static string ToHourFormat(this DateTime dateTime)
+        {
+            return dateTime.ToString("h:mm tt");
+        }
+
+        public static string ToHourFormat(this DateTime? dateTime)
+        {
+            if (!dateTime.HasValue)
+                return string.Empty;
+
+            return dateTime.Value.ToHourFormat();
         }
     }
 }

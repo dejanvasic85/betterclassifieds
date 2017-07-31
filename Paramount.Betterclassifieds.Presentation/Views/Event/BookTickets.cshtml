@@ -89,7 +89,7 @@
                             </div>
                         </div>
 
-                        <div class="row" data-bind="visible: seatNumber() !== undefined">
+                        <div class="row" data-bind="visible: $paramount.notNullOrUndefined(seatNumber())">
                             <div class="col-xs-3 col-md-2">
                                 <label class="ticket-label">
                                     <i class="fa fa-user"></i> Seat

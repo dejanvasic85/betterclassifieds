@@ -64,7 +64,7 @@ namespace Paramount
             var bootstrapTextBox = htmlHelper.BootstrapTextBoxFor(expression, attributes).ToHtmlString();
 
             var numberInput = bootstrapTextBox.Replace("type=\"text\"", "type=\"number\"");
-                
+
             return new MvcHtmlString(numberInput);
         }
 

@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _dateServiceMock.SetupNow().SetupNowUtc();
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
-            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            //_logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), mockTicket);
-            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
+            //_logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act

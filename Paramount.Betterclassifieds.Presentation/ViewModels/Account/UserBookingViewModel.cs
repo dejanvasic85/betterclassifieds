@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                     AdId = ad.AdBookingId,
                     Email = enq.Email,
                     Question = enq.EnquiryText,
-                    CreatedDate = enq.CreatedDate.ToString("dd-MMM-yyyy")
+                    CreatedDate = enq.CreatedDate.ToDisplayDateTimeFormat()
                 })
                 .OrderByDescending(enq => enq.CreatedDate)
                 .ToArray() ?? new AdEnquiryViewModel[0];

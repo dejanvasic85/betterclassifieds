@@ -73,10 +73,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             get
             {
-                if (this.FirstPrintDate.IsNullOrEmpty())
+                if (FirstPrintDate.IsNullOrEmpty())
                     return null;
 
-                return DateTime.ParseExact(this.FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
+                return DateTime.ParseExact(FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
             }
         }
         

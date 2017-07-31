@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public EventEditDetailsPage SaveAndSendNotifications()
         {
-            SaveAndResendNotification.Click();
+            _driver.JsClick(SaveAndResendNotification);
             _driver.GetToastSuccessMsgWhenVisible();
             return this;
         }

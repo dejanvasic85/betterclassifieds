@@ -204,7 +204,7 @@
     <Compile Include="Utility\HtmlExtensionsTests.cs" />
     <Compile Include="Utility\MappingBehaviourTests.cs" />
     <Compile Include="Utility\StringExtensionTests.cs" />
-    <Compile Include="Utility\SystemExtensionDates.cs" />
+    <Compile Include="Utility\SystemExtensionTests.cs" />
     <Compile Include="ViewModels\SearchFilterTests.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
     <Compile Include="ViewModels\SurveyStatisticsViewFactoryTests.cs" />

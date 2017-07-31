@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
@@ -22,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public TimeZoneResult GetTimezone(decimal latitude, decimal longitude)
         {
+            Stopwatch sw = new Stopwatch();
             var url = $"{_config.GoogleTimezoneApiUrl.TrimEnd('/')}/timezone/json?location={latitude},{longitude}&timestamp={_dateService.Timestamp}&key={_config.GoogleTimezoneApiKey}";
             _logService.Info("Fetching timezone from " + url);
             var request = WebRequest.Create(url);
@@ -33,7 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var str = reader.ReadToEnd();
             responseStream.Close();
             reader.Close();
-            _logService.Info("Timezone Response: " + str);
+            _logService.Info("Timezone Response: " + str, sw.Elapsed);
             var googleResponseObj = JsonConvert.DeserializeObject<TimeZoneResult>(str);
             return googleResponseObj;
         }

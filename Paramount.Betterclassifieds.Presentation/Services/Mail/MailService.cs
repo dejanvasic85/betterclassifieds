@@ -47,8 +47,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
         private readonly ILogService _log;
         private readonly ISearchService _searchService;
 
-        private const string EventDateFormat = "dd-MMM-yyyy hh:mm";
-
         public MailService(ITemplatingService templatingService, IUrl url, IUserManager userManager, IMailSender mailSender, IClientConfig clientConfig, IPdfGenerator pdfGenerator, ILogService log, ISearchService searchService)
         {
             _templatingService = templatingService;
@@ -105,7 +103,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 EventName = ad.Heading,
                 EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
                 Address = eventModel.Location,
-                StartDate = eventModel.EventStartDate?.ToString(EventDateFormat),
+                StartDate = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
                 Guests = eventBooking.EventBookingTickets?.Select(t => t.ToString())
             };
 
@@ -143,7 +141,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
                 GuestName = eventBookingTicket.GuestFullName,
                 GuestEmail = eventBookingTicket.GuestEmail,
                 TicketName = eventBookingTicket.TicketName,
-                EventStartDateTime = eventModel?.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
+                EventStartDateTime = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
                 IsGuestTheBuyer = eventBooking.Email == eventBookingTicket.GuestEmail,
                 BarcodeImgUrl = _url.Image(eventBookingTicket.BarcodeImageDocumentId.ToString(),
                     height: 200, width: 200)
@@ -206,7 +204,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Mail
             {
                 EventName = ad.Heading,
                 EventUrl = _url.EventUrl(ad.HeadingSlug, ad.AdId),
-                EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToString(EventDateFormat),
+                EventStartDate = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
                 TicketNumber = eventBookingTicket.EventBookingTicketId.ToString()
             };
 

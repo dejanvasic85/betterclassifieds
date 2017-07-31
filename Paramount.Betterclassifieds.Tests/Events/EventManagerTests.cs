@@ -84,9 +84,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithTicketName("General Admission")
                 .WithGuestFullName("Morgan Freeman")
                 .WithGuestEmail("fake@email.com")
-                .WithEventGroupId(123)
-                ;
+                .WithEventGroupId(123);
 
+            int mockEventId = 10;
+            var mockEvent = new EventModelMockBuilder().Default()
+                .WithEventId(10).Build();
+            
             var mockTickets = new[]
             {
                 ticketBuilder.WithEventBookingTicketId(1).Build(),
@@ -99,11 +102,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventGroups(It.IsAny<int>(), null), new List<EventGroup> { mockGroup });
+            
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(
+                It.Is<int>(e => e == mockEventId)),
+                mockEvent);
 
-
-            var result = this.BuildTargetObject().BuildGuestList(10).ToList();
-
-
+            var result = this.BuildTargetObject().BuildGuestList(mockEventId).ToList();
+            
             result.Count.IsEqualTo(2);
             var expectedGuest = result.First();
             expectedGuest.GuestFullName.IsEqualTo("Morgan Freeman");
@@ -125,13 +130,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBookingTickets = new[]
-             {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
-            };
+
             var mockEvent = new EventModelMockBuilder()
                 .Default()
                 .WithIncludeTransactionFee(false)
@@ -139,7 +138,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var mockBooking = new EventBookingMockBuilder()
                 .Default()
-                .WithEventBookingTickets(mockBookingTickets)
+                .WithPaymentMethod(PaymentType.CreditCard)
                 .WithCost(100)
                 .WithDiscountPercent(0)
                 .Build();
@@ -174,22 +173,20 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockBookingBuilder = new EventBookingMockBuilder().Default();
 
             var mockBooking = mockBookingBuilder
-                .WithEventBookingTickets(new[]
-                {
-                    new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                    new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build()
-                })
                 .WithCost(30)
+                .WithPaymentMethod(PaymentType.CreditCard)  
                 .WithDiscountAmount(10)
                 .Build();
 
-            var mockBookingTwo = mockBookingBuilder.WithEventBookingTickets(new[]
-                {
-                    new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                    new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build()
-                })
+            var mockBookingTwo = mockBookingBuilder
                 .WithCost(30)
                 .WithDiscountAmount(5)
+                .WithPaymentMethod(PaymentType.CreditCard)
+                .Build();
+
+            var mockBookingWithoutPaymethodMethod = mockBookingBuilder
+                .WithCost(30)
+                .WithPaymentMethod(PaymentType.None)
                 .Build();
 
             _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2);
@@ -199,7 +196,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                     It.Is<int>(e => e == 100),
                     It.Is<bool>(d => d == true),
                     It.Is<bool>(d => d == true)),
-                result: new[] { mockBooking, mockBookingTwo });
+                result: new[] { mockBooking, mockBookingTwo, mockBookingWithoutPaymethodMethod });
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -215,19 +212,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBookingTickets = new[]
-             {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
-            };
 
             var mockBooking = new EventBookingMockBuilder()
                 .Default()
-                .WithEventBookingTickets(mockBookingTickets)
+                //.WithEventBookingTickets(mockBookingTickets)
                 .WithCost(100)
                 .WithDiscountPercent(0)
+                .WithPaymentMethod(PaymentType.CreditCard)
                 .Build();
 
             var mockEvent = new EventModelMockBuilder()
@@ -257,13 +248,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBookingTickets = new[]
-             {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
-            };
+
             var mockEvent = new EventModelMockBuilder()
                .Default()
                .WithIncludeTransactionFee(false)
@@ -271,7 +256,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var mockBooking = new EventBookingMockBuilder()
                 .Default()
-                .WithEventBookingTickets(mockBookingTickets)
+                .WithPaymentMethod(PaymentType.CreditCard)
                 .WithCost(100)
                 .WithDiscountPercent(0)
                 .Build();
@@ -298,18 +283,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBookingTickets = new[]
-             {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
-            };
-
             var mockBooking = new EventBookingMockBuilder()
                 .Default()
-                .WithEventBookingTickets(mockBookingTickets)
                 .WithCost(100)
+                .WithPaymentMethod(PaymentType.CreditCard)
                 .WithDiscountPercent(0)
                 .Build();
 
@@ -341,18 +318,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // arrange
             var eventId = 100;
 
-            var mockBookingTickets = new[]
-            {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
-            };
-
             var mockBooking = new EventBookingMockBuilder()
                 .Default()
-                .WithEventBookingTickets(mockBookingTickets)
                 .WithCost(100)
+                .WithPaymentMethod(PaymentType.CreditCard)
                 .WithDiscountPercent(0)
                 .Build();
 

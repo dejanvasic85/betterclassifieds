@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Payment;
@@ -21,6 +22,9 @@ namespace Paramount.Betterclassifieds.Payments.Stripe
         {
             try
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                
                 var myCharge = new StripeChargeCreateOptions
                 {
                     Amount = request.AmountInCents,
@@ -41,7 +45,7 @@ namespace Paramount.Betterclassifieds.Payments.Stripe
                     amount,
                     PaymentType.CreditCard);
 
-                _logService.Info("Payment complete. Transaction ID " + stripeCharge.BalanceTransactionId);
+                _logService.Info("Payment complete. Transaction ID " + stripeCharge.BalanceTransactionId, sw.Elapsed);
 
                 return CreditCardResponse.Success(stripeCharge.BalanceTransactionId);
             }
@@ -51,6 +55,9 @@ namespace Paramount.Betterclassifieds.Payments.Stripe
                 {
                     return CreditCardResponse.Failed(ResponseType.CardDeclined);
                 }
+
+                _logService.Error("Unable to process stripe payment", ex);
+
                 throw;
             }
         }

@@ -37,11 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public TicketSelectionComponent PlaceOrder()
         {
             var button = _webDriver.FindElements(By.ClassName("tst-order-tickets")).First(el => el.Displayed);
-
-            // For some reason this button click is not clicking directly on the button
-            // Using a javascript method click invoke does the trick very nicely!
-            _webDriver.ExecuteJavaScript("arguments[0].click()", button);
-
+            _webDriver.JsClick(button);
             return this;
         }
 

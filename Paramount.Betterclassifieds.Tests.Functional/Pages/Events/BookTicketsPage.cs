@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -39,15 +40,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public IWebElement SubTotalElement { get; set; }
 
 
+        struct Locator
+        {
+            public static By EventTicketInputs => By.ClassName("event-ticket");
+            public static By ProceedToPaymentBtn => By.Id("proceedToPaymentBtn");
+        }
 
         public BookTicketsPage Checkout()
         {
-            _webDriver.JsClick(By.Id("proceedToPaymentBtn"));
+            _webDriver.JsClick(Locator.ProceedToPaymentBtn);
             return this;
         }
 
         public BookTicketsPage WithSecondGuest(string email, string fullName)
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(Locator.EventTicketInputs));
+
             if (TicketInputs.Count < 2)
                 throw new IndexOutOfRangeException("To enter the second guest, there has to have been at least 2 tickets selected");
 

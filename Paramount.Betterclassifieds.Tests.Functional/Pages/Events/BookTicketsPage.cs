@@ -90,6 +90,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         private decimal GetPriceFromElement(IWebElement element)
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            wait.Until(d => element.Displayed);
+
             return decimal.Parse(element.Text.Trim().Replace("$", string.Empty));
         }
     }

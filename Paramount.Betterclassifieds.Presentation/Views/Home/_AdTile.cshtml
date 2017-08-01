@@ -2,14 +2,14 @@
 
 @using Paramount
 
-<div class="col-md-4 ad-tile">
+<div class="col-md-4">
     <div class="col-item">
         <div class="item-photo">
             <div class="photo">
                 <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, Model.CategoryAdType)">
                     @if (string.IsNullOrEmpty(Model.PrimaryImage))
                     {
-                        <div class="ico-img">
+                        <div class="ico-img text-center">
                             <i class="fa fa-@Model.CategoryFontIcon fa-5x"></i>
                         </div>
                     }
@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>
-                        @Model.Heading
+                        @Model.Heading.TruncateOnWordBoundary(40)
                     </h5>
                 </div>
 

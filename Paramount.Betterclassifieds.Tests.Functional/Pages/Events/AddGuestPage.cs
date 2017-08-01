@@ -38,8 +38,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public AddGuestPage Add()
         {
-            AddGuestButton.Click();
-            WebDriverWait wait= new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
+            _webDriver.JsClick(AddGuestButton);
+            WebDriverWait wait= new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementIsVisible(By.Id("guestAddedSuccessfully")));
             return this;
         }

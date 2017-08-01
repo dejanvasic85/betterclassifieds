@@ -39,7 +39,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
             {
                 DiscountPercent = 20
             };
-            var price = 100;
 
             var calculator = new TicketFeeCalculator(clientConfig.Object);
             var result = calculator.GetTotalTicketPrice(100, eventPromo, true);
@@ -62,7 +61,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
             {
                 DiscountPercent = 100
             };
-            var price = 100;
 
             var calculator = new TicketFeeCalculator(clientConfig.Object);
             var result = calculator.GetTotalTicketPrice(100, eventPromo, true);
@@ -78,7 +76,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void GetOrganiserOwedAmount_ReturnsAmount()
         {
-            var eventTicketMock = new EventTicketMockBuilder().WithPrice(10).Build();
             var clientConfig = new Mock<IClientConfig>();
             clientConfig.Setup(prop => prop.EventTicketFeePercentage).Returns((decimal)3.9);
             clientConfig.Setup(prop => prop.EventTicketFeeCents).Returns(30);

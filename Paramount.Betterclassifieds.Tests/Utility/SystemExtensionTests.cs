@@ -42,5 +42,32 @@ namespace Paramount.Betterclassifieds.Tests.Utility
             var result = nullDate.ToUtcIsoDateString();
             result.IsNull();
         }
+
+        [Test]
+        public void ToDisplayDateTimeFormat_ReturnsString()
+        {
+            var datetime = new DateTime(2000, 8, 13, 9, 30, 30);
+            var format = datetime.ToDisplayDateTimeFormat();
+
+            format.IsEqualTo("Sunday, 13 August 2000 9:30 AM");
+        }
+
+        [Test]
+        public void ToDisplayDateTimeFormat_Null_ReturnsEmptyString()
+        {
+            DateTime? nullDate = null;
+            var format = nullDate.ToDisplayDateTimeFormat();
+
+            format.IsEqualTo(string.Empty);
+        }
+
+        [Test]
+        public void ToHourFormat_ReturnsString()
+        {
+            var datetime = new DateTime(2000, 8, 13, 9, 30, 30);
+            var format = datetime.ToHourFormat();
+
+            format.IsEqualTo("9:30 AM");
+        }
     }
 }

@@ -5,19 +5,8 @@
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
-
-    // Setup latest ads carousel
-    // Setup latest ads carousel
-    var latestAdsRowCount = 1;
+    
     var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
-    if (adCount == 0)
-    {
-        latestAdsRowCount = 0;
-    }
-    if (adCount > 3)
-    {
-        latestAdsRowCount = adCount / 3;
-    }
 
 }
 
@@ -71,55 +60,14 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-xs-6">
-                    <h2>What's new?</h2>
-                </div>
-                <div class="col-xs-6">
-                    <div class="controls pull-right hidden-xs">
-                        <a class="left fa fa-chevron-left btn btn-primary" href="#carousel-example-generic"
-                           data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-primary" href="#carousel-example-generic"
-                                                    data-slide="next"></a>
-                    </div>
+                <div class="col-xs-12 text-center">
+                    <h2>Featured Listings</h2>
                 </div>
             </div>
 
+            <div class="row">
 
-            <div class="row hidden-xs">
-                <div class="col-xs-12">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-
-                            @for (var r = 0; r < latestAdsRowCount; r++)
-                            {
-                                var adsToDisplay = Model.AdSummaryList.Skip(r * 3).Take(3);
-                                var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
-
-                                <div class="@itemClass">
-                                    <div class="row">
-                                        @foreach (var ad in adsToDisplay)
-                                        {
-                                            if (ad.CategoryAdType.HasValue())
-                                            {
-                                                @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
-                                            }
-                                            else
-                                            {
-                                                @Html.Partial("_AdTile", ad)
-                                            }
-
-                                        }
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row visible-xs">
-                @foreach (var ad in @Model.AdSummaryList.Take(3))
+                @foreach (var ad in Model.AdSummaryList)
                 {
                     if (ad.CategoryAdType.HasValue())
                     {
@@ -129,8 +77,10 @@
                     {
                         @Html.Partial("_AdTile", ad)
                     }
+
                 }
             </div>
+
         </div>
     </div>
 
@@ -154,7 +104,8 @@
                         <li>Tickets</li>
                         <li>Guests</li>   
                         <li>Groups (grouping guests together e.g. Tables)</li>   
-                        <li>Event Organisers</li>   
+                        <li>Event Organisers</li>  
+                        <li>And plenty more...</li>
                     </ul>
                 </p>
             </div>
@@ -162,7 +113,7 @@
     </div>
 
     <div class="row categories-links">
-        <div class="col-xs-12">
+        <div class="col-xs-12 text-center">
             <h2>Categories</h2>
         </div>
         <div data-bind="foreach: parentCategories">

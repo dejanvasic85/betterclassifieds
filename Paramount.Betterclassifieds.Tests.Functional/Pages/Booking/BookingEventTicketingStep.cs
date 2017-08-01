@@ -27,8 +27,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
 
         public BookingEventTicketingStep AddTicketType(string ticketName, decimal price, int quantity)
         {
-            AddTicketButton.Click();
-            
+            _webdriver.JsClick(AddTicketButton);
+
             var wait = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(5));
             wait.Until(drv => drv.FindElements(By.ClassName("ticket-form")).Count > _numberOfTickets);
 

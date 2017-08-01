@@ -115,7 +115,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Fetch the editions for the selected publications
                 stepTwoModel.UpcomingEditions = _editionManager
                     .GetUpcomingEditions(bookingCart.Publications)
-                    .Select(m => new SelectListItem { Text = m.ToString(Constants.DATE_FORMAT), Value = m.ToString(Constants.DATE_FORMAT) });
+                    .Select(m => new SelectListItem { Text = m.ToDisplayDateFormat(), Value = m.ToDisplayDateFormat() });
 
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
@@ -334,7 +334,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 string publicationName;
                 var dates = _editionManager
                     .GetUpcomingEditionsForPublication(publicationId, firstEdition, out publicationName)
-                    .Select(e => e.Date.ToString(Constants.DATE_FORMAT))
+                    .Select(e => e.Date.ToDisplayDateFormat())
                     .Take(printInsertions)
                     .ToArray();
 

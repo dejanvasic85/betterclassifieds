@@ -13,62 +13,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     /// <summary>
     /// Used for viewing the event ad
     /// </summary>
-    public class EventViewDetailsModel : IMappingBehaviour
+    public class EventViewDetailsModel
     {
-        public EventViewDetailsModel()
-        {
-
-        }
-
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, 
-            AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, 
-            string[] guestList, string orderRequestId)
-        {
-            AdId = searchResult.AdId;
-            Title = searchResult.Heading;
-            TitleSlug = searchResult.HeadingSlug;
-            EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, searchResult.CategoryAdType).WithFullUrl();
-            HtmlText = searchResult.HtmlText;
-            Description = searchResult.Description;
-            EventPhoto = searchResult.PrimaryImage;
-            EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl();
-            OrganiserName = searchResult.ContactName;
-            OrganiserPhone = searchResult.ContactPhone;
-            Views = searchResult.NumOfViews;
-            SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'";
-            IsClosed = eventModel.IsClosed;
-
-            EventId = eventModel.EventId.GetValueOrDefault();
-            Location = eventModel.Location;
-            LocationFriendlyName = eventModel.VenueNameAndLocation;
-            LocationLatitude = eventModel.LocationLatitude;
-            LocationLongitude = eventModel.LocationLongitude;
-            EventStartDate = eventModel.EventStartDate.GetValueOrDefault();
-            EventEndDate = eventModel.EventEndDate.GetValueOrDefault();
-            EventStartDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
-            EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
-            EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
-            EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
-            EventEndDateUtcIso = eventModel.EventEndDateUtc.ToIsoDateString();
-            DisplayGuests = eventModel.DisplayGuests;
-
-            FacebookAppId = clientConfig.FacebookAppId;
-            MaxTicketsPerBooking = clientConfig.EventMaxTicketsPerBooking;
-
-            LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
-            LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
-            TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any(t => t.IsActive);
-            IsSeatedEvent = eventModel.IsSeatedEvent.GetValueOrDefault();
-            OpeningDateUtcIso = eventModel.OpeningDateUtc.ToIsoDateString();
-            ClosingDateUtcIso = eventModel.ClosingDateUtc.ToIsoDateString();
-
-            // Build the guest list
-            TotalGuests = guestList.Length;
-            Guests = guestList.Take(6).ToList();
-
-            OrderRequestId = orderRequestId;
-        }
-
         public DateTime EventEndDate { get; set; }
         public DateTime EventStartDate { get; set; }
         public int AdId { get; set; }
@@ -80,10 +26,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? LocationLongitude { get; set; }
         public string EventPhoto { get; set; }
         public string EventStartDateDisplay { get; set; }
-        public string EventStartTime { get; set; }
         public string EventEndDateDisplay { get; set; }
-        public string EventEndTime { get; set; }
-        public string EventEndDateUtcIso { get; set; } // Iso format
+        public string EventEndDateUtcIso { get; set; } // Iso format used for javascript
         public string OrganiserName { get; set; }
         public string OrganiserPhone { get; set; }
         public int Views { get; set; }
@@ -110,6 +54,72 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrderRequestId { get; set; }
         public string OpeningDateUtcIso { get; set; }
         public string ClosingDateUtcIso { get; set; }
+
+
+    }
+
+    public class EventViewDetailsModelFactory : IMappingBehaviour
+    {
+
+        public EventViewDetailsModel Create(HttpContextBase httpContext,
+            UrlHelper urlHelper,
+            AdSearchResult searchResult,
+            EventModel eventModel,
+            IClientConfig clientConfig,
+            string[] guestList,
+            string orderRequestId)
+
+        {
+            return new EventViewDetailsModel
+            {
+
+                AdId = searchResult.AdId,
+                Title = searchResult.Heading,
+                TitleSlug = searchResult.HeadingSlug,
+                EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug,
+                searchResult.AdId,
+                searchResult.CategoryAdType).WithFullUrl(),
+                HtmlText = searchResult.HtmlText,
+                Description = searchResult.Description,
+                EventPhoto = searchResult.PrimaryImage,
+                EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl(),
+                OrganiserName = searchResult.ContactName,
+                OrganiserPhone = searchResult.ContactPhone,
+                Views = searchResult.NumOfViews,
+                SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'",
+                IsClosed = eventModel.IsClosed,
+
+                EventId = eventModel.EventId.GetValueOrDefault(),
+                Location = eventModel.Location,
+                LocationFriendlyName = eventModel.VenueNameAndLocation,
+                LocationLatitude = eventModel.LocationLatitude,
+                LocationLongitude = eventModel.LocationLongitude,
+                EventStartDate = eventModel.EventStartDate.GetValueOrDefault(),
+                EventEndDate = eventModel.EventEndDate.GetValueOrDefault(),
+                EventStartDateDisplay = eventModel.EventStartDate.ToDisplayDateTimeFormat(),
+                EventEndDateDisplay = eventModel.EventEndDate.ToDisplayDateTimeFormat(),
+                EventEndDateUtcIso = eventModel.EventEndDateUtc.ToIsoDateString(),
+                DisplayGuests = eventModel.DisplayGuests,
+
+                FacebookAppId = clientConfig.FacebookAppId,
+                MaxTicketsPerBooking = clientConfig.EventMaxTicketsPerBooking,
+
+                LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename,
+                LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId,
+                TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any(t => t.IsActive),
+                IsSeatedEvent = eventModel.IsSeatedEvent.GetValueOrDefault(),
+                OpeningDateUtcIso = eventModel.OpeningDateUtc.ToIsoDateString(),
+                ClosingDateUtcIso = eventModel.ClosingDateUtc.ToIsoDateString(),
+
+                // Build the guest list
+                TotalGuests = guestList.Length,
+                Guests = guestList.Take(6).ToList(),
+
+                OrderRequestId = orderRequestId,
+
+
+            };
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

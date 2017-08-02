@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockEvent = new EventModelMockBuilder().WithEventId(10).WithIncludeTransactionFee(true).Build();
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator, clientConfig.Object);
 
             var result = factory.Create(
                 mockEvent,
@@ -45,6 +45,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.EventBookingTickets, Is.Not.Null);
             Assert.That(result.EventBookingTickets.Count, Is.EqualTo(0));
             Assert.That(result.TotalCost, Is.EqualTo(0));
+            Assert.That(result.FeePercentage, Is.EqualTo(0.02));
+            Assert.That(result.FeeCents, Is.EqualTo(30));
 
             // Ensure all user information
             Assert.That(result.UserId, Is.EqualTo(applicationUser.Username));
@@ -88,7 +90,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var feeCalculator = new TicketFeeCalculator(clientConfig.Object);
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object, feeCalculator, clientConfig.Object);
 
             var result = factory.Create(
                 mockEvent,
@@ -107,6 +109,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.PromoCode, Is.EqualTo("promo123"));
             Assert.That(result.DiscountPercent, Is.EqualTo(30));
             Assert.That(result.DiscountAmount, Is.EqualTo(6));
+            Assert.That(result.FeePercentage, Is.EqualTo(0.02));
+            Assert.That(result.FeeCents, Is.EqualTo(30));
         }
 
     }

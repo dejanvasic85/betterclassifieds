@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         // Only because of entity framework
         public string StatusAsString
         {
-            get { return Status.ToString(); }
+            get => Status.ToString();
             set
             {
                 EventBookingStatus status;
@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public string PaymentMethodAsString
         {
-            get { return PaymentMethod.ToString(); }
+            get => PaymentMethod.ToString();
             set
             {
                 PaymentType status;
@@ -61,7 +61,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal Cost { get; set; }
         public decimal TransactionFee { get; set; }
        
-
         public string GetFullName()
         {
             return $"{FirstName} {LastName}";
@@ -74,5 +73,16 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public decimal CostAfterDiscount => Cost - DiscountAmount.GetValueOrDefault();
+
+
+        /// <summary>
+        /// The original percentage fee used at the time of the booking. Important to track when prices change.
+        /// </summary>
+        public decimal FeePercentage { get; set; }
+
+        /// <summary>
+        /// The original cents fee used at the time of the booking. Important to track when prices change.
+        /// </summary>
+        public decimal FeeCents { get; set; }
     }
 }

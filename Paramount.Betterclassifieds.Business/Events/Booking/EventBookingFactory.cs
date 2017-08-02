@@ -8,12 +8,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IEventRepository _eventRepository;
         private readonly IDateService _dateService;
         private readonly TicketFeeCalculator _ticketFeeCalculator;
+        private readonly IClientConfig _clientConfig;
 
-        public EventBookingFactory(IEventRepository eventRepository, IDateService dateService, TicketFeeCalculator ticketFeeCalculator)
+        public EventBookingFactory(IEventRepository eventRepository, IDateService dateService, TicketFeeCalculator ticketFeeCalculator, IClientConfig clientConfig)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
             _ticketFeeCalculator = ticketFeeCalculator;
+            _clientConfig = clientConfig;
         }
 
         public EventBooking Create(EventModel eventModel,
@@ -45,7 +47,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TotalCost = bookingCost.Total,
                 Status = bookingCost.Total > 0
                     ? EventBookingStatus.PaymentPending
-                    : EventBookingStatus.Active
+                    : EventBookingStatus.Active,
+                FeePercentage = _clientConfig.EventTicketFeePercentage / 100,
+                FeeCents = _clientConfig.EventTicketFeeCents
 
             };
 

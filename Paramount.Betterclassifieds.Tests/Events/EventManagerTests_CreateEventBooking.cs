@@ -23,6 +23,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
             //_logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 20);
 
             // act
             var manager = BuildTargetObject();
@@ -57,6 +59,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), mockTicket);
             //_logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 20);
 
             // act
             var manager = BuildTargetObject();
@@ -99,6 +103,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 It.Is<int>(t => t == mockTicket.EventTicketId),
                 It.IsAny<int>(),
                 It.Is<string>(s => s == "seat-123")));
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 20);
 
             // act
             var manager = BuildTargetObject();

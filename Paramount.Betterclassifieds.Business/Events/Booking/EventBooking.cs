@@ -32,9 +32,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string HowYouHeardAboutEvent { get; set; } // How the user found out about the event
 
         // Only because of entity framework
+        // Only because of entity framework
         public string StatusAsString
         {
-            get => Status.ToString();
+            get { return Status.ToString(); }
             set
             {
                 EventBookingStatus status;
@@ -47,7 +48,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public string PaymentMethodAsString
         {
-            get => PaymentMethod.ToString();
+            get { return PaymentMethod.ToString(); }
             set
             {
                 PaymentType status;

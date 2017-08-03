@@ -215,7 +215,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             var eventModel = _eventRepository.GetEventDetails(eventId);
             var feeCalculator = new TicketFeeCalculator(_clientConfig);
-            var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator)
+            var eventBooking = new EventBookingFactory(_eventRepository, _dateService, feeCalculator, _clientConfig)
                 .Create(eventModel, eventPromo, applicationUser, currentReservations, howYouHeardAboutEvent);
 
             _eventRepository.CreateBooking(eventBooking);

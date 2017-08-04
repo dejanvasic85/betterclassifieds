@@ -298,7 +298,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                 .Default()
                 .Build();
 
-            var mockEventSeatBooking = new EventSeatBookingMockBuilder()
+            var mockEventSeatBooking = new EventSeatMockBuilder()
                 .WithRowNumber("A")
                 .WithSeatNumber("A1")
                 .WithEventTicketId(mockTicket.EventTicketId)

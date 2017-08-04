@@ -7,7 +7,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
     {
         public string EventSeatId { get; set; }
         public string SeatNumber { get; set; }
-        public bool Available { get; set; }
+        public bool Available => !IsBooked;
+        public bool IsBooked { get; set; }
         public int? EventTicketId { get; set; }
         public EventTicketContract EventTicket { get; set; }
     }
@@ -22,7 +23,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<EventSeat, EventSeatBookingContract>()
-                .ForMember(m => m.Available, options => options.MapFrom(src => src.IsAvailable()))
                 .ForMember(m => m.EventSeatId, options => options.MapFrom(src => src.EventSeatId));
 
             configuration.CreateMap<EventTicket, EventTicketContract>();

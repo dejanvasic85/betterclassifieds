@@ -12,17 +12,17 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
             _eventManager = eventManager;
         }
 
-        public RuleResult<EventTicketReservationStatus> IsSatisfiedBy(TicketQuantityRequest target)
+        public RuleResult<EventTicketReservationStatus> IsSatisfiedBy(TicketQuantityRequest request)
         {
-            Guard.NotNullIn(target, target.EventTicket);
-            if (target.EventTicket.RemainingQuantity == 0)
+            Guard.NotNullIn(request, request.EventTicket);
+            if (request.EventTicket.RemainingQuantity == 0)
             {
                 return new RuleResult<EventTicketReservationStatus> { IsSatisfied = false, Result = EventTicketReservationStatus.SoldOut };
             }
             
-            int remainingTicketCount = _eventManager.GetRemainingTicketCount(target.EventTicket);
+            int remainingTicketCount = _eventManager.GetRemainingTicketCount(request.EventTicket);
 
-            if (remainingTicketCount < target.Quantity)
+            if (remainingTicketCount < request.Quantity)
             {
                 return new RuleResult<EventTicketReservationStatus> { IsSatisfied = false, Result = EventTicketReservationStatus.RequestTooLarge };
             }

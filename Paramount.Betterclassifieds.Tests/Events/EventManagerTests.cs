@@ -664,12 +664,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(),
                 It.IsAny<bool>(), It.IsAny<bool>()), eventBooking);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));
-            _eventSeatingService.SetupWithVerification(call => call.BookSeat(
-                It.Is<int>(t => t == mockTicket.EventTicketId),
-                It.Is<int>(t => t == 1998),
-                It.Is<string>(s => s == "A1")));
-
-
+           
             BuildTargetObject().ActivateBooking(100, null);
             eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
         }
@@ -877,13 +872,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventBarcodeValidator.SetupWithVerification(
                 call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "barcode123");
-
-            _eventSeatingService.SetupWithVerification(
-                call => call.BookSeat(
-                    It.Is<int>(t => t == 555),
-                    It.Is<int>(t => t == 666),
-                    It.Is<string>(s => s == "seat123")));
-
+            
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();

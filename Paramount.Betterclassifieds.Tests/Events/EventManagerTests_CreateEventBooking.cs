@@ -99,10 +99,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventBarcodeValidator.SetupWithVerification(call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "111-222-333");
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _eventSeatingService.SetupWithVerification(call => call.BookSeat(
-                It.Is<int>(t => t == mockTicket.EventTicketId),
-                It.IsAny<int>(),
-                It.Is<string>(s => s == "seat-123")));
             _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 2);
             _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 20);
 

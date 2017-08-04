@@ -3,14 +3,16 @@ using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.DataService.Events
 {
-    public class EventSeatBookingConfiguration : EntityTypeConfiguration<EventSeat>
+    public class EventSeatConfiguration : EntityTypeConfiguration<EventSeat>
     {
-        public EventSeatBookingConfiguration()
+        public EventSeatConfiguration()
         {
-            ToTable("EventSeatBooking");
+            ToTable("EventSeat");
+
             HasKey(prop => prop.EventSeatId);
+
             HasRequired(prop => prop.EventTicket).WithMany(t => t.EventSeats).HasForeignKey(k => k.EventTicketId);
-            Ignore(prop => prop.ReservationExpiryUtc);
+            
         }
     }
 }

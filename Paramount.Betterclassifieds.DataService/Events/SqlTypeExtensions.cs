@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
 
         public static object SqlNullIfEmpty(this string target)
         {
-            if (target == null)
+            if (target.IsNullOrEmpty())
                 return DBNull.Value;
             return target;
         }

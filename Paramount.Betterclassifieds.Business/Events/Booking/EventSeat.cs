@@ -10,27 +10,6 @@
         public EventTicket EventTicket { get; set; }
         public string RowNumber { get; set; }
         public int RowOrder { get; set; }
-        //public DateTime? ReservationExpiryUtc { get; set; }
-        
-
-        //private bool IsReserved()
-        //{
-        //    return ReservationExpiryUtc.HasValue;
-        //}
-
-        //public bool IsAvailable()
-        //{
-        //    return !IsReserved() && IsAvailableToPublic() && !IsBooked();
-        //}
-
-        //private bool IsAvailableToPublic()
-        //{
-        //    return !NotAvailableToPublic.GetValueOrDefault();
-        //}
-
-        //private bool IsBooked()
-        //{
-        //    return EventBookingTicketId.HasValue;
-        //}
+        public bool IsBooked { get; set; }
     }
 }

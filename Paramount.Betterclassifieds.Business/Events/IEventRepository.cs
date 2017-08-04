@@ -27,9 +27,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId);
         EventOrganiser GetEventOrganiser(int eventOrganiserId);
         IEnumerable<EventOrganiser> GetEventOrganisersForEvent(int eventId);
-        IEnumerable<EventSeat> GetEventSeats(int eventId);
-        IEnumerable<EventSeat> GetEventSeatsForTicket(int eventTicketId);
-        EventSeat GetEventSeat(int eventTicketId, string seatNumber);
+        IEnumerable<EventSeat> GetEventSeats(int eventId, int? eventTicketId = null, string seatNumber = "", string orderRequestId = ""); 
         EventPromoCode GetEventPromoCode(long eventPromoCodeId);
         EventPromoCode GetEventPromoCode(int eventId, string promoCode);
         IEnumerable<EventPromoCode> GetEventPromoCodes(int eventId);

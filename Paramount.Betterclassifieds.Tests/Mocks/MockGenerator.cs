@@ -923,6 +923,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TransactionFee = val);
 		}
+		public EventBookingMockBuilder WithFeePercentage(Decimal val)
+		{ 
+			return WithBuildStep(p => p.FeePercentage = val);
+		}
+		public EventBookingMockBuilder WithFeeCents(Decimal val)
+		{ 
+			return WithBuildStep(p => p.FeeCents = val);
+		}
 	}
 
 	internal partial class EventTicketReservationMockBuilder : MockBuilder<EventTicketReservationMockBuilder, EventTicketReservation>
@@ -1034,6 +1042,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithTotalTicketPrice(Decimal val)
 		{ 
 			return WithBuildStep(p => p.TotalTicketPrice = val);
+		}
+		public EventGuestDetailsMockBuilder WithTicketPrice(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.TicketPrice = val);
 		}
 		public EventGuestDetailsMockBuilder WithDateOfBooking(DateTime val)
 		{ 
@@ -1289,47 +1301,43 @@ namespace Paramount.Betterclassifieds.Tests
 		}
 	}
 
-	internal partial class EventSeatBookingMockBuilder : MockBuilder<EventSeatBookingMockBuilder, EventSeat>
+	internal partial class EventSeatMockBuilder : MockBuilder<EventSeatMockBuilder, EventSeat>
 	{	
-		public EventSeatBookingMockBuilder WithEventSeatBookingId(Int64 val)
+		public EventSeatMockBuilder WithEventSeatId(Int64 val)
 		{ 
 			return WithBuildStep(p => p.EventSeatId = val);
 		}
-		public EventSeatBookingMockBuilder WithEventTicketId(Int32? val)
+		public EventSeatMockBuilder WithEventTicketId(Int32? val)
 		{ 
 			return WithBuildStep(p => p.EventTicketId = val);
 		}
-		public EventSeatBookingMockBuilder WithEventBookingTicketId(Int32? val)
-		{ 
-			return WithBuildStep(p => p.EventBookingTicketId = val);
-		}
-		public EventSeatBookingMockBuilder WithSeatOrder(Int32 val)
+		public EventSeatMockBuilder WithSeatOrder(Int32 val)
 		{ 
 			return WithBuildStep(p => p.SeatOrder = val);
 		}
-		public EventSeatBookingMockBuilder WithSeatNumber(String val)
+		public EventSeatMockBuilder WithSeatNumber(String val)
 		{ 
 			return WithBuildStep(p => p.SeatNumber = val);
 		}
-		public EventSeatBookingMockBuilder WithNotAvailableToPublic(Boolean? val)
+		public EventSeatMockBuilder WithNotAvailableToPublic(Boolean? val)
 		{ 
 			return WithBuildStep(p => p.NotAvailableToPublic = val);
 		}
-		public EventSeatBookingMockBuilder WithEventTicket(EventTicket val)
+		public EventSeatMockBuilder WithEventTicket(EventTicket val)
 		{ 
 			return WithBuildStep(p => p.EventTicket = val);
 		}
-		public EventSeatBookingMockBuilder WithRowNumber(String val)
+		public EventSeatMockBuilder WithRowNumber(String val)
 		{ 
 			return WithBuildStep(p => p.RowNumber = val);
 		}
-		public EventSeatBookingMockBuilder WithRowOrder(Int32 val)
+		public EventSeatMockBuilder WithRowOrder(Int32 val)
 		{ 
 			return WithBuildStep(p => p.RowOrder = val);
 		}
-		public EventSeatBookingMockBuilder WithReservationExpiryUtc(DateTime? val)
+		public EventSeatMockBuilder WithIsBooked(Boolean val)
 		{ 
-			return WithBuildStep(p => p.ReservationExpiryUtc = val);
+			return WithBuildStep(p => p.IsBooked = val);
 		}
 	}
 

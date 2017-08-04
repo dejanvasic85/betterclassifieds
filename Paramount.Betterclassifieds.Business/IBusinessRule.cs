@@ -4,7 +4,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     public interface IBusinessRule<in TTarget, TResult>
     {
-        RuleResult<TResult> IsSatisfiedBy(TTarget target);
+        RuleResult<TResult> IsSatisfiedBy(TTarget request);
     }
 
     public interface IBusinessRule<in TTarget>

@@ -16,13 +16,11 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
     {
         private readonly IEventManager _eventManager;
         private readonly IEventSeatingService _eventSeatingService;
-        private readonly IEventRepository _eventRepository;
 
-        public TicketRequestValidator(IEventManager eventManager, IEventSeatingService eventSeatingService, IEventRepository eventRepository)
+        public TicketRequestValidator(IEventManager eventManager, IEventSeatingService eventSeatingService)
         {
             _eventManager = eventManager;
             _eventSeatingService = eventSeatingService;
-            _eventRepository = eventRepository;
         }
 
         public bool IsSufficientTicketsAvailableForRequest(EventModel eventModel, TicketReservationRequest[] requests)
@@ -53,13 +51,9 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
         {
             if (eventModel.IsSeatedEvent.HasValue && eventModel.IsSeatedEvent.Value)
             {
-                var currentTicketBookings = _eventRepository.GetEventBookingTicketsForEvent(eventModel.EventId);
-                var currentTicketReservations = _eventRepository.GetCurrentReservationsForEvent(eventModel.EventId.GetValueOrDefault());
-                
                 return requests.Select(r => new SeatRequest(r.OrderRequestId,
-                    _eventSeatingService.GetEventSeat(eventModel.EventId.GetValueOrDefault(), r.SeatNumber),
-                    currentTicketBookings,
-                    currentTicketReservations));
+                    r.SeatNumber,
+                    _eventSeatingService.GetSeat(eventModel.EventId.GetValueOrDefault(), seatNumber: r.SeatNumber, orderRequestId: r.OrderRequestId)));
             }
             return new List<SeatRequest>();
         }

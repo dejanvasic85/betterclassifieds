@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             modelBuilder.Configurations.Add(new EventInvitationConfiguration());
             modelBuilder.Configurations.Add(new EventGroupConfiguration());
             modelBuilder.Configurations.Add(new EventOrganiserConfiguration());
-            modelBuilder.Configurations.Add(new EventSeatBookingConfiguration());
+            modelBuilder.Configurations.Add(new EventSeatConfiguration());
             modelBuilder.Configurations.Add(new EventPromoCodeConfiguration());
         }
     }

@@ -298,29 +298,18 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 return context.EventOrganisers.Where(o => o.EventId == eventId).ToList();
             }
         }
-
-        public IEnumerable<EventSeat> GetEventSeats(int eventId)
+            
+        public IEnumerable<EventSeat> GetEventSeats(int eventId, int? eventTicketId = null, string seatNumber = "", string orderRequestId = "")
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventSeats
-                    .Include(s => s.EventTicket).Where(s => s.EventTicket.EventId == eventId).ToList();
-            }
-        }
-
-        public IEnumerable<EventSeat> GetEventSeatsForTicket(int eventTicketId)
-        {
-            using (var context = _dbContextFactory.CreateEventContext())
-            {
-                return context.EventSeats.Where(s => s.EventTicketId == eventTicketId).ToList();
-            }
-        }
-
-        public EventSeat GetEventSeat(int eventTicketId, string seatNumber)
-        {
-            using (var context = _dbContextFactory.CreateEventContext())
-            {
-                return context.EventSeats.SingleOrDefault(s => s.EventTicketId == eventTicketId && s.SeatNumber == seatNumber);
+                return context.Database
+                    .SqlQuery<EventSeat>("EventSeat_Get @eventId, @eventTicketId, @seatNumber, @orderRequestId",
+                        new SqlParameter("eventId", SqlDbType.Int) { SqlValue = eventId },
+                        new SqlParameter("eventTicketId", SqlDbType.Int) { SqlValue = eventTicketId.SqlNullIfEmpty() },
+                        new SqlParameter("seatNumber", SqlDbType.VarChar) { SqlValue = seatNumber.SqlNullIfEmpty() },
+                        new SqlParameter("orderRequestId", SqlDbType.VarChar) { SqlValue = orderRequestId.SqlNullIfEmpty() })
+                    .ToList();
             }
         }
 

@@ -104,5 +104,13 @@ namespace Paramount.Betterclassifieds.Tests.Integration
 
             Assert.That(organiser.EventOrganiserId, Is.Not.EqualTo(0));
         }
+
+        [Test]
+        public void GetEventSeats()
+        {
+            var seats = _repository.GetEventSeats(8, seatNumber:"A1");
+
+            Assert.That(seats, Is.Not.Null);
+        }
     }
 }

@@ -228,7 +228,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupWithVerification(call => call.Clear());
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
             _eventBookingContext.SetupSet(p => p.OrderRequestId = It.Is<string>(s => s == "123"));
-            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<TicketReservationRequest[]>()), result: true);
+            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<EventModel>(), It.IsAny<TicketReservationRequest[]>()), result: true);
 
             // act
             var controller = BuildController();
@@ -266,7 +266,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "ABC");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
-            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<TicketReservationRequest[]>()), result: false);
+            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<EventModel>(), It.IsAny<TicketReservationRequest[]>()), result: false);
 
             // act
             var controller = BuildController();

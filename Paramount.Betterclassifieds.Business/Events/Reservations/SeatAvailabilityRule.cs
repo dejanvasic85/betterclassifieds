@@ -1,42 +1,36 @@
 using System;
+using System.Configuration;
 using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events.Reservations
 {
     public class SeatAvailabilityRule : IBusinessRule<SeatRequest, EventTicketReservationStatus>
     {
-        public RuleResult<EventTicketReservationStatus> IsSatisfiedBy(SeatRequest target)
+        public RuleResult<EventTicketReservationStatus> IsSatisfiedBy(SeatRequest request)
         {
-            Guard.NotNull(target);
-            Guard.NotNull(target.DesiredSeat);
+            Guard.NotNull(request);
+            Guard.NotNull(request.DesiredSeat);
 
-            var ruleResult = new RuleResult<EventTicketReservationStatus>();
+            var ruleOutcome = new RuleResult<EventTicketReservationStatus>();
+            
+            var seat = request.Seat;
 
-            if (target.DesiredSeat.NotAvailableToPublic.GetValueOrDefault() == false)
+            if (seat == null || seat.SeatNumber != request.DesiredSeat)
             {
-                ruleResult.Result = EventTicketReservationStatus.InvalidRequest;
-                return ruleResult;
+                ruleOutcome.Result = EventTicketReservationStatus.InvalidRequest;
+                return ruleOutcome;
             }
 
-            if (target.BookedTickets != null &&
-                target.BookedTickets.Any(t => t.SeatNumber.Equals(target.DesiredSeat.SeatNumber, StringComparison.OrdinalIgnoreCase)))
+            if (seat.IsBooked || seat.NotAvailableToPublic.GetValueOrDefault())
             {
-                ruleResult.Result = EventTicketReservationStatus.SoldOut;
-                return ruleResult;
+                ruleOutcome.Result = EventTicketReservationStatus.SoldOut;
+                return ruleOutcome;
             }
 
-            if (target.ReservedTickets != null &&
-                target.ReservedTickets.Any(r => r.SessionId.DoesNotEqual(target.CurrentRequestId) &&
-                                                r.Status == EventTicketReservationStatus.Reserved))
-            {
-                ruleResult.Result = EventTicketReservationStatus.SoldOut;
-                return ruleResult;
-            }
+            ruleOutcome.IsSatisfied = true;
+            ruleOutcome.Result = EventTicketReservationStatus.Reserved;
 
-            ruleResult.IsSatisfied = true;
-            ruleResult.Result = EventTicketReservationStatus.Reserved;
-
-            return ruleResult;
+            return ruleOutcome;
         }
     }
 }

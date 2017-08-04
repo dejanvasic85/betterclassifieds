@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Events.Reservations;
@@ -14,22 +13,17 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             var rule = new SeatAvailabilityRule();
             Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(null));
-            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(new SeatRequest(null, null)));
-            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(new SeatRequest("A1", null)));
+            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(new SeatRequest(null, null, null)));
         }
-
+        
         [Test]
-        public void IsSatisfiedBy_MissingSeat_ReturnsInvalidRequest()
+        public void IsSatisfiedBy_SeatIsNull_ReturnsInvalidRequest()
         {
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeat>()
-            {
-                new EventSeatBookingMockBuilder().WithSeatNumber("A2").Build()
-            };
 
-            var request = new SeatRequest(desiredSeat, seatsForDesiredTicket);
+            var request = new SeatRequest("order1", desiredSeat, null);
 
             var ruleResult = rule.IsSatisfiedBy(request);
 
@@ -38,17 +32,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void IsSatisfiedBy_SeatNotAvailable_ReturnsSoldOut()
+        public void IsSatisfiedBy_SeatNotAvailableToPublic_ReturnsSoldOut()
         {
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeat>
-            {
-                new EventSeatBookingMockBuilder().WithSeatNumber("A1").WithEventBookingTicketId(1).Build()
-            };
+            var seatsForDesiredTicket = new EventSeatMockBuilder().WithSeatNumber("A1").WithNotAvailableToPublic(true).Build();
 
-            var request = new SeatRequest(desiredSeat, seatsForDesiredTicket);
+            var request = new SeatRequest("order1", desiredSeat, seatsForDesiredTicket);
 
             var ruleResult = rule.IsSatisfiedBy(request);
 
@@ -57,17 +48,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void IsSatisfiedBy_SeatNotAvailableToPublic_ReturnsSoldOut()
+        public void IsSatisfiedBy_SeatIsBooked_ReturnsSoldOut()
         {
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeat>
-            {
-                new EventSeatBookingMockBuilder().WithSeatNumber("A1").WithNotAvailableToPublic(true).Build()
-            };
+            var seatsForDesiredTicket = new EventSeatMockBuilder().WithSeatNumber("A1").WithIsBooked(true).Build();
 
-            var request = new SeatRequest(desiredSeat, seatsForDesiredTicket);
+            var request = new SeatRequest("order1", desiredSeat, seatsForDesiredTicket);
 
             var ruleResult = rule.IsSatisfiedBy(request);
 
@@ -81,15 +69,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var rule = new SeatAvailabilityRule();
 
             var desiredSeat = "A1";
-            var seatsForDesiredTicket = new List<EventSeat>
-            {
-                new EventSeatBookingMockBuilder().WithSeatNumber("A1")
-                    .WithEventBookingTicketId(null)
-                    .WithNotAvailableToPublic(false)
-                    .Build()
-            };
+            var seat = new EventSeatMockBuilder().WithSeatNumber("A1")
+                .WithNotAvailableToPublic(false)
+                .WithIsBooked(false)
+                .Build();
 
-            var request = new SeatRequest(desiredSeat, seatsForDesiredTicket);
+            var request = new SeatRequest("order", desiredSeat, seat);
 
             var ruleResult = rule.IsSatisfiedBy(request);
 

@@ -1022,7 +1022,6 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Booking\_BookingInformationPanel.cshtml" />
     <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
     <Content Include="Views\Shared\_CropImage.cshtml" />
     <Content Include="Views\Shared\_EditionsDates.cshtml" />

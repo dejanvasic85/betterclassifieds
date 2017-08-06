@@ -79,11 +79,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         /// <summary>
         /// The original percentage fee used at the time of the booking. Important to track when prices change.
         /// </summary>
-        public decimal FeePercentage { get; set; }
+        public decimal? FeePercentage { get; set; }
 
         /// <summary>
         /// The original cents fee used at the time of the booking. Important to track when prices change.
         /// </summary>
-        public decimal FeeCents { get; set; }
+        public decimal? FeeCents { get; set; }
     }
 }

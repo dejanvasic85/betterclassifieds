@@ -15,5 +15,13 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
           AND Object_ID = Object_ID(N'dbo.EventBooking'))
 BEGIN
     ALTER TABLE dbo.[EventBooking]
-	ADD FeeCents INT NULL
+	ADD FeeCents MONEY NULL
 END
+
+GO
+
+UPDATE EventBooking
+SET	FeePercentage = .021;
+
+UPDATE EventBooking
+SET	FeeCents = 30;

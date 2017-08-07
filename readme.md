@@ -73,4 +73,4 @@ This allows selenium web driver to select an element with class ```tst-ticket-fr
 
 - Event organiser management and access
 - Promo codes and discounts
-- Seating (when full solution is built)
+- Seating

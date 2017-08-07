@@ -60,10 +60,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         int AddEventOrganiser(int eventId, string username);
         void SetEventIncludeTransactionFee(int eventId, bool include);
         void SetEventGroupsRequired(int eventId);
-        
+        void SetEventSeatedEvent(int eventId, bool isSeated);
+
 
         // Address
         int AddAddress(object address);
 
+        
     }
 }

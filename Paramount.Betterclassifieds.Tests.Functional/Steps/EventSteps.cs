@@ -4,8 +4,10 @@ using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 using Paramount.Betterclassifieds.Tests.Functional.Pages.Events;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
@@ -31,13 +33,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             GivenAnEventAdTitledExistsForUser(adTitle, TestData.DefaultUsername);
         }
 
+        [Given(@"the event has seating setup")]
+        public void GivenTheEventHasSeatingSetup()
+        {
+            var eventAdContext = _contextData.Get();
+            
+            _repository.SetEventSeatedEvent(eventAdContext.EventId, true);
+        }
+        
+
         [Given(@"the event ticket fee is ""(.*)"" percent and ""(.*)"" cents")]
         public void GivenTheEventTicketFeeIsPercentAndCents(string percent, int cents)
         {
             _repository.SetClientConfig("EventTicketFee", percent);
             _repository.SetClientConfig("EventTicketFeeCents", cents.ToString());
         }
-
 
         [Given(@"an event ad titled ""(.*)"" exists for user ""(.*)""")]
         public void GivenAnEventAdTitledExistsForUser(string adTitle, string username)
@@ -116,8 +126,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _pageBrowser.Init<EventDetailsPage>(ensureUrl: false).ConfirmTicketSelection();
         }
-
-
+        
         [When(@"enter the email ""(.*)"" and name ""(.*)"" for the second guest")]
         public void WhenEnterTheEmailAndNameForTheSecondGuest(string email, string fullName)
         {

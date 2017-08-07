@@ -4,4 +4,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks.Models
     {
         public int EventId { get; set; } 
     }
+    
 }

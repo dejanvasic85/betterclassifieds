@@ -141,6 +141,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public void SetEventSeatedEvent(int eventId, bool isSeated)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                connection.ExecuteSql("UPDATE [Event] SET [IsSeatedEvent] = 1 where EventId = @eventId", new {eventId, isSeated});
+            }
+        }
+
         public EventTestData GetEventByName(string eventTitle)
         {
             using (var db = _connectionFactory.CreateClassifieds())

@@ -23,11 +23,26 @@ Scenario: View event and book two tickets with successful payment
 	And the tickets should be booked with total cost "10" and ticket count "2"
 
 	
-@BookTickets
+@BookTickets @EventSeating
 Scenario: View event and book tickets and seats
 	Given I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
-	And an event ad exists
-	| Event Name | Username | 
+	And an event ad titled "Selenium Seated Event" exists
+	And the event has seating setup
+	And with a ticket option "Gold" for "0" dollars each and "8" available
+	And with a ticket option "VIP" for "0" dollars each and "15" available
+	And the event seating has "2" rows with "4" seats assigned to "Gold" ticket
+	And the event seating has "3" rows with "5" seats assigned to "VIP" ticket
+	When I navigate to "Event/selenium-seated-event/adId"
+	And I select seat numbers
+	| Seat Number |
+	| A1          |
+	| C1          |
+	| C2          |
+	And proceed to order the tickets
+	And same details are used for all guests
+	And my details are prefilled so I proceed to checkout
+	Then I should see a ticket purchased success page
+
 
 @BookTickets @GroupsRequired
 Scenario: View event and book ticket by selecting group first

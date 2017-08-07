@@ -141,7 +141,7 @@
                 </div>
 
                 <div class="text-right" data-bind="visible: !saved()">
-                    <button id="btnAddGuest" class="btn btn-success btn-lg" data-bind="click: submitGuest" data-loading-text="Please Wait...">
+                    <button id="btnAddGuest" class="btn btn-success btn-lg" data-bind="click: submitGuest, disable: disableAddGuest" data-loading-text="Please Wait...">
                         Add Guest
                     </button>
                 </div>

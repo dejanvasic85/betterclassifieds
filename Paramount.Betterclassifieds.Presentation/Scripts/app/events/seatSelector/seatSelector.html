@@ -13,7 +13,6 @@
     </div>
 
     <div data-bind="visible: ticketingOpened">
-        <span data-bind="visible: loading"> Loading...</span>
         <div class="loading-overlay" data-bind="visible: loading"></div>
 
         <div class="row">
@@ -68,7 +67,6 @@
                 </div>
             </div>
         </div>
-
         <div class="selected-items top-buffer-20" data-bind="visible: selectedSeats().length > 0">
             <div class="row">
                 <div class="col-xs-12">

@@ -32,13 +32,13 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             IEnumerable<EventSeat> seats)
         {
             var seatsGroupedByRow = seats.GroupBy(s => s.RowNumber);
-
+            var eventTicketContracts = tickets.Select(t => _ticketFactory.FromModel(t)).ToList();
             var rowContracts = _rowFactory.FromModels(seatsGroupedByRow).ToList();
             
             return new EventSeatingContract
             {
                 VenueName = eventDetails.VenueName,
-                Tickets = tickets.Select(t => _ticketFactory.FromModel(t)),
+                Tickets = eventTicketContracts,
                 Rows = rowContracts
             };
         }

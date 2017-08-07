@@ -474,7 +474,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AddGuest(int id, AddEventGuestViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return Json(ModelState.ToErrors());
+            {
+                return JsonModelErrors();
+            }
 
             var eventTicket = _eventManager.GetEventTicket(viewModel.With(vm => vm.SelectedTicket).With(t => t.EventTicketId.GetValueOrDefault()));
             var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, viewModel.SelectedGroup.With(g => g.EventGroupId), eventTicket);
@@ -482,7 +484,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (reservation.Status != EventTicketReservationStatus.Reserved)
             {
                 ModelState.AddModelError("SelectedTicket", "The selected ticket could not be reserved");
-                return Json(ModelState.ToErrors());
+                return JsonModelErrors();
             }
 
             var currentUser = _userManager.GetCurrentUser();

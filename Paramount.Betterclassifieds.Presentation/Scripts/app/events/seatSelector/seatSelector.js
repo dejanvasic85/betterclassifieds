@@ -1,15 +1,16 @@
 ﻿(function ($, ko, $p, eventService, notifier) {
 
-    function Seat(data) {
+    function Seat(seatData, rowData, ticketsData) {
         var me = this;
-        me.id = ko.observable(data.id);
-        me.seatNumber = ko.observable(data.seatNumber);
-        me.available = ko.observable(data.available || false);
-        me.selected = ko.observable(data.selected || false);
-        me.ticketName = data.eventTicket.ticketName;
-        me.price = $p.formatCurrency(data.eventTicket.price);
-        me.ticket = new $p.models.EventTicket(data.eventTicket);
-        me.style = ko.observable({ 'background-color': data.available === true ? data.eventTicket.colourCode : '#eee' });
+        me.id = ko.observable(seatData.id);
+        me.seatNumber = ko.observable(seatData.seatNumber);
+        me.available = ko.observable(seatData.available || false);
+        me.selected = ko.observable(seatData.selected || false);
+        var ticket = _.find(ticketsData, { eventTicketId: seatData.eventTicketId });
+        me.ticketName = ticket.ticketName;
+        me.price = $p.formatCurrency(ticket.price);
+        me.ticket = new $p.models.EventTicket(ticket);
+        me.style = ko.observable({ 'background-color': seatData.available === true ? ticket.colourCode : '#eee' });
         me.tooltip = ko.computed(function () {
             if (me.available() === true) {
                 return me.seatNumber();
@@ -18,13 +19,13 @@
         });
     }
 
-    function Row(data) {
+    function Row(data, ticketsData) {
         var me = this;
         me.rowName = ko.observable(data.rowName);
         me.seats = ko.observableArray();
 
         for (var i = 0; i < data.seats.length; i++) {
-            me.seats.push(new Seat(data.seats[i], me));
+            me.seats.push(new Seat(data.seats[i], me, ticketsData));
         }
     }
 
@@ -119,8 +120,10 @@
             function loadSeating(seatingResponse) {
 
                 _.each(seatingResponse.tickets, function (t) {
+                    var remainingPercentage = parseInt((t.remainingQuantity / t.availableQuantity) * 100);
+
                     me.tickets.push({
-                        ticketNameAndPrice: t.ticketName + ' ' + $p.formatCurrency(t.price),
+                        ticketNameAndPrice: t.ticketName + ' ' + $p.formatCurrency(t.price) + ' - ' + remainingPercentage + '% left',
                         soldOut: t.remainingQuantity <= 0,
                         style: { 'background-color': t.colourCode }
                     });
@@ -128,7 +131,7 @@
 
                 // Todo - support different type of layouts? how ???
                 _.each(seatingResponse.rows, function (r) {
-                    me.rows.push(new Row(r));
+                    me.rows.push(new Row(r, seatingResponse.tickets));
                 });
             }
         }

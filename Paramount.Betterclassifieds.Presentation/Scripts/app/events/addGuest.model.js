@@ -21,6 +21,7 @@
         this.seats = ko.observableArray();
         this.guestAddWarning = ko.observable('');
         this.showSeatWarning = ko.observable(false);
+        this.disableAddGuest = ko.observable();
         this.validator = ko.validatedObservable({
             guestFullName: this.guestFullName.extend({ required: true }),
             guestEmail: this.guestEmail.extend({ required: true, email: true })
@@ -38,6 +39,7 @@
                 me.showSeatWarning(true);
                 me.seatNumber(null);
                 me.selectedTicket(null);
+                me.disableAddGuest(true);
             } else {
                 var eventTicketId = seat.eventTicketId;
                 var eventTicket = _.find(me.tickets(), function (t) {
@@ -45,6 +47,7 @@
                 });
                 me.selectedTicket(eventTicket);
                 me.ticketChanged();
+                me.disableAddGuest(false);
             }
         }
 
@@ -69,6 +72,7 @@
         me.isPublic(data.isPublic);
         me.hasGroups(data.eventGroups && data.eventGroups.length > 0);
         me.isSeatedEvent(data.isSeatedEvent);
+        me.disableAddGuest(data.isSeatedEvent === true);
 
         _.each(data.ticketFields, function (tf) {
             me.ticketFields.push(new $p.models.DynamicFieldValue(tf));
@@ -158,7 +162,11 @@
         var objToSend = this.toModel(me);
 
         var service = new $p.AdDesignService(me.id());
-        service.addGuest(objToSend).then(function () {
+        service.addGuest(objToSend).then(function (r) {
+            if (r.errors) {
+                return;
+            }
+
             $btn.button('reset');
             me.saved(true);
         });

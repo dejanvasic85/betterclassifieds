@@ -279,7 +279,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     // Capacity reached
                     ModelState.AddModelError("eventGroupId", "Max capacity reached for selected group");
-                    return Json(ModelState.ToErrors());
+                    return JsonModelErrors();
                 }
             }
             _eventManager.AssignGroupToTicket(eventBookingTicketId, eventGroupId);

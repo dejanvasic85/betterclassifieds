@@ -7,9 +7,8 @@ Feature: bookEventTickets
 	So that I can go to the event
 
 @BookTickets
-@ignore
 Scenario: View event and book two tickets with successful payment
-	Given client setting "Events.EnablePayPalPayments" is set to "true"
+	Given client setting "Events.EnableCreditCardPayments" is set to "true"
 	And I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee
@@ -19,7 +18,7 @@ Scenario: View event and book two tickets with successful payment
 	And proceed to order the tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
 	And my details are prefilled so I proceed to checkout and payment
-	And paypal payment is completed
+	And credit card payment is complete
 	Then I should see a ticket purchased success page
 	And the tickets should be booked with total cost "10" and ticket count "2"
 

@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 
         public static IWebElement JsClick(this IWebDriver driver, By by)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
             return driver.JsClick(element);
         }

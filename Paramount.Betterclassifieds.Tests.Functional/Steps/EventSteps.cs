@@ -139,10 +139,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
             bookingTicketPage.WithPhone("0433 095 822");
             bookingTicketPage.Checkout();
-
-            _pageBrowser.Init<MakeTicketPaymentPage>()
-                .PayWithPayPal()
-                .WaitForPayPal();
         }
 
         [Then(@"I should see a ticket purchased success page")]
@@ -152,14 +148,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(eventBookedPage.GetSuccessText(), Is.EquivalentTo("You have tickets to The Opera"));
         }
 
+        [When(@"credit card payment is complete")]
+        public void WhenCreditCardPaymentIsComplete()
+        {
+            _pageBrowser.Init<MakeTicketPaymentPage>()
+                .PayWithStripe();
+        }
+        
         [When(@"When selecting ""(.*)"" for guest ""(.*)""")]
         public void ThenWhenSelectingForGuest(string groupName, string guestFullName)
         {
             var eventBookedPage = _pageBrowser.Init<EventBookedPage>();
             eventBookedPage.AssignGroup(groupName, guestFullName);
         }
-
-
+        
         [Then(@"the tickets should be booked with total cost ""(.*)"" and ticket count ""(.*)""")]
         public void ThenTheTicketsShouldBeBooked(int expectedCost, int expectedTicketCount)
         {
@@ -182,8 +184,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var ticket = eventBookingTickets.Single(t => t.GuestFullName.Equals(guestFullName));
             Assert.That(ticket.EventGroupId, Is.Not.Null);
         }
-
-
+        
         [Then(@"the ticket ""(.*)"" price should be ""(.*)""")]
         public void ThenTheTicketPriceShouldBe(string ticketName, string expectedPrice)
         {

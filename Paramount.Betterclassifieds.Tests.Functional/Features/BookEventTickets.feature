@@ -22,6 +22,13 @@ Scenario: View event and book two tickets with successful payment
 	Then I should see a ticket purchased success page
 	And the tickets should be booked with total cost "10" and ticket count "2"
 
+	
+@BookTickets
+Scenario: View event and book tickets and seats
+	Given I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
+	And an event ad exists
+	| Event Name | Username | 
+
 @BookTickets @GroupsRequired
 Scenario: View event and book ticket by selecting group first
 	Given client setting "Events.EnablePayPalPayments" is set to "true"
@@ -95,3 +102,4 @@ Scenario: Invitation exists and is used to book tickets
 	Then It should display the invitation page with event title "Event with Invite"
 	When selecting to purchase the "VIP" ticket
 	Then I should be on the registration page
+

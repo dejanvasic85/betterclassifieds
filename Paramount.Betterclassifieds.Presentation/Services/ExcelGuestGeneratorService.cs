@@ -59,7 +59,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 sheet.Cells[dataRowIndex, 5].Value = guest.SeatNumber;
                 sheet.Cells[dataRowIndex, 6].Value = guest.PromoCode;
                 sheet.Cells[dataRowIndex, 7].Value = guest.GroupName;
-                sheet.Cells[dataRowIndex, 8].Value = guest.TicketPrice;
+                sheet.Cells[dataRowIndex, 8].Value = guest.TotalTicketPrice;
                 sheet.Cells[dataRowIndex, 9].Value = guest.DateOfBooking.ToDisplayDateFormat();
                 sheet.Cells[dataRowIndex, 10].Value = guest.DateOfBooking.ToHourFormat();
 

@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         /// <summary>
         /// The actual online paid amount which may include discount
         /// </summary>
-        public decimal TicketTotalPrice { get; set; }
+        public decimal TotalTicketPrice { get; set; }
 
         /// <summary>
         /// The original price of the ticket type. Not the actual online paid amount.

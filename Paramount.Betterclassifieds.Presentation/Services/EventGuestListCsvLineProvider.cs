@@ -34,8 +34,22 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public string GetCsvLine(EventGuestListViewModel guest)
         {
-            var builder = new StringBuilder($"{guest.TicketNumber},{guest.TicketName},{guest.GuestEmail},{guest.GuestFullName},{guest.SeatNumber},{guest.PromoCode},{guest.GroupName},{guest.TicketPrice},{guest.DateOfBooking.ToDisplayDateFormat()},{guest.DateOfBooking.ToHourFormat()}");
+            var csvLine = new[]
+            {
+                guest.TicketNumber.ToString(),
+                guest.TicketName, 
+                guest.GuestEmail,
+                guest.GuestFullName,
+                guest.SeatNumber,
+                guest.PromoCode,
+                guest.GroupName,
+                guest.TotalTicketPrice.ToString("C"),
+                guest.DateOfBooking.ToDisplayDateFormat(),
+                guest.DateOfBooking.ToHourFormat()
+            };
             
+            var builder= new StringBuilder(string.Join(",", csvLine));
+
             foreach (var field in _fields)
             {
                 var guestField = guest.DynamicFields.FirstOrDefault(f => f.FieldName.Equals(field.FieldName, StringComparison.OrdinalIgnoreCase));

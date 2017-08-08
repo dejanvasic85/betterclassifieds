@@ -150,6 +150,12 @@ namespace Paramount.Betterclassifieds.Security
         {
             var user = Membership.GetUser(username);
 
+            if (user == null)
+                throw new NullReferenceException($"Unable to change password for {username}. The user does not exist.");
+
+            if (user.IsLockedOut)
+                user.UnlockUser();
+
             Guard.NotNull(user);
 
             user.ChangePassword(user.GetPassword(), newPassword);

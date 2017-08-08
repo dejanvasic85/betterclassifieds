@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Transactions;
 using Dapper;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
@@ -125,6 +126,35 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public void AddEventSeats(int eventId, int rowCount, int seatCount, string ticketName)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                var ticket = GetEventTicketByName(eventId, ticketName);
+                
+                for (var r = 1; r <= rowCount; r++)
+                {
+                    var seatNumberBuilder = new StringBuilder(r.ToString());
+
+                    for (var s = 1; s <= seatCount; s++)
+                    {
+                        seatNumberBuilder.Append(s.ToString());
+
+                        db.Add(Constants.Table.EventSeat, new
+                        {
+                            ticket.EventTicketId,
+                            RowNumber = r,
+                            RowOrder = r,
+                            SeatNumber = seatNumberBuilder.ToString(),
+                            SeatOrder = s,
+                            NotAvailableToPublic = false
+                        });
+
+                    }
+                }
+            }
+        }
+
         public void SetEventIncludeTransactionFee(int eventId, bool include)
         {
             using (var connection = _connectionFactory.CreateClassifieds())
@@ -145,7 +175,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var connection = _connectionFactory.CreateClassifieds())
             {
-                connection.ExecuteSql("UPDATE [Event] SET [IsSeatedEvent] = 1 where EventId = @eventId", new {eventId, isSeated});
+                connection.ExecuteSql("UPDATE [Event] SET [IsSeatedEvent] = 1 where EventId = @eventId", new { eventId, isSeated });
             }
         }
 
@@ -159,7 +189,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     join dbo.OnlineAd o on o.OnlineAdId = e.OnlineAdId
                     join dbo.AdDesign d on d.AdDesignId = o.AdDesignId
                     join dbo.AdBooking bk on bk.AdId = d.AdId 
-                    where o.Heading = '" + eventTitle + "'" + 
+                    where o.Heading = '" + eventTitle + "'" +
                     @" order by bk.AdBookingId desc").FirstOrDefault();
             }
         }

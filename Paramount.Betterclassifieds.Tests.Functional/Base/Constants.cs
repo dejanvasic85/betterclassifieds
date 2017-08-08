@@ -87,6 +87,7 @@
             public const string Transaction = "Transaction";
             public const string EventTicketReservation = "EventTicketReservation";
             public const string EventBooking = "EventBooking";
+            public const string EventSeat = "EventSeat";
         }
 
         /// <summary>

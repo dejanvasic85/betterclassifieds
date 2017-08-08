@@ -286,6 +286,12 @@ WHERE EventGroupId IN
 	SELECT EventGroupId FROM EventGroup gr WHERE gr.EventId = @eventId
 );
 
+DELETE FROM EventSeat
+WHERE EventTicketId IN
+(
+    SELECT EventTicketId FROM EventTicket t WHERE t.EventId = @eventId
+);
+
 DELETE FROM EventGroup WHERE EventId = @eventId;
 DELETE FROM EventBooking WHERE EventId = @eventId;
 DELETE FROM EventPaymentRequest WHERE EventId = @eventId;

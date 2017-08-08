@@ -140,11 +140,11 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Seat Number"});
             table1.AddRow(new string[] {
-                        "A1"});
+                        "11"});
             table1.AddRow(new string[] {
-                        "C1"});
+                        "31"});
             table1.AddRow(new string[] {
-                        "C2"});
+                        "32"});
 #line 36
  testRunner.And("I select seat numbers", ((string)(null)), table1, "And ");
 #line 41

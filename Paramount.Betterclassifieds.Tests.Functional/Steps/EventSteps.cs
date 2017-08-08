@@ -84,6 +84,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _repository.AddEventTicketType(_contextData.Get().EventId, ticketName, amount, availableQty);
         }
 
+        [Given(@"the event seating has ""(.*)"" rows with ""(.*)"" seats assigned to ""(.*)"" ticket")]
+        public void GivenTheEventSeatingHasRowsWithSeatsAssignedToTicket(int rowCount, int seatCount, string ticketName)
+        {
+            var eventId = _contextData.Get().EventId;
+            _repository.AddEventSeats(eventId, rowCount, seatCount, ticketName);
+        }
+
+
         [Given(@"a guest name ""(.*)"" and email ""(.*)"" with a ""(.*)"" ticket to ""(.*)""")]
         public void GivenAGuestNameAndEmailWithATicketTo(string guestFullName, string guestEmail, string ticketName, string eventName)
         {

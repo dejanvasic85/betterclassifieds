@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
                     .ToList();
                 
                 // Let's wait until the page is loaded before we initialise the elements
-                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(60));
+                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(120));
                 wait.Until(drv => acceptedUrls.Any(drv.Url.ToLower().Contains));
             }
 

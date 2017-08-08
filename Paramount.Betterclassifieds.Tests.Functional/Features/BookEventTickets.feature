@@ -35,9 +35,9 @@ Scenario: View event and book tickets and seats
 	When I navigate to "Event/selenium-seated-event/adId"
 	And I select seat numbers
 	| Seat Number |
-	| A1          |
-	| C1          |
-	| C2          |
+	| 11          |
+	| 31          |
+	| 32          |
 	And proceed to order the tickets
 	And same details are used for all guests
 	And my details are prefilled so I proceed to checkout

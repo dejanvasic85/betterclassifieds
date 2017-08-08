@@ -58,6 +58,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests);
         int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId);
         int AddEventOrganiser(int eventId, string username);
+        void AddEventSeats(int eventId, int rowCount, int seatCount, string ticketName);
         void SetEventIncludeTransactionFee(int eventId, bool include);
         void SetEventGroupsRequired(int eventId);
         void SetEventSeatedEvent(int eventId, bool isSeated);
@@ -65,6 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 
         // Address
         int AddAddress(object address);
+
 
         
     }

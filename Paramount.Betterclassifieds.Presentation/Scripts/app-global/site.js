@@ -240,6 +240,15 @@
         }
     }
 
+    $paramount.encodeQuery = function (obj) {
+        var str = [];
+        for (var p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
+    }
+
     $paramount.processPromises = function (funcsWithPromises, cb) {
         /// <summary>Will process each promise one by one which is very useufl in http calls to not flood the server.</summary>  
         /// <param name="funcsWithPromises" type="Array">The collection of methods when executed will return a Promise.</param>  

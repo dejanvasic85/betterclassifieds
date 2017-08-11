@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Monads;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
@@ -35,6 +32,29 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             // Get all current 
             var eventContractFactory = new EventContractFactory();
             var contracts = _searchService.GetEvents()
+                .Select(eventContractFactory.FromModel);
+
+            return Ok(contracts);
+        }
+
+        [Route("search")]
+        public IHttpActionResult GetEventsByQuery([FromUri]EventSearchQuery query)
+        {
+            // Get all current 
+            var eventContractFactory = new EventContractFactory();
+            var results = _searchService.GetEvents();
+
+            if (query.TakeMax.HasValue)
+            {
+                results = results.Take(query.TakeMax.Value);
+            }
+
+            if (query.User.HasValue())
+            {
+                results = results.Where(r => r.AdSearchResult.Username.Equals(query.User.Trim()));
+            }
+
+            var contracts = results
                 .Select(eventContractFactory.FromModel);
 
             return Ok(contracts);
@@ -155,7 +175,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             {
                 return Ok(new EventSeatingContract { VenueName = eventDetails.VenueName });
             }
-            
+
             var tickets = eventDetails.Tickets.Where(t => t.IsActive);
             var seats = _eventSeatingService.GetSeatsForEvent(id, requestId);
 

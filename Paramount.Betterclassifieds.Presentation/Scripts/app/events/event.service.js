@@ -9,6 +9,20 @@
         return $paramount.httpGet(this.baseUrl + 'api/events/' + eventId);
     }
 
+    EventService.prototype.searchEvents = function (query) {
+
+        var url = this.baseUrl + 'api/events/search';
+
+        if (!query) {
+            return $paramount.httpGet(url);
+        }
+
+        var queryEncoded = $paramount.encodeQuery(query);
+        url += '?' + queryEncoded;
+
+        return $paramount.httpGet(url);
+    }
+
     EventService.prototype.startTicketOrder = function (order) {
         return $paramount.httpPost(this.baseUrl + 'event/reserveTickets', order);
     }

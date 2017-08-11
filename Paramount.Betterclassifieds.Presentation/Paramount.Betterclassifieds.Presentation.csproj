@@ -219,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
+    <Compile Include="Api\Models\EventSearchQuery.cs" />
     <Compile Include="Api\Models\EventSeatBookingContract.cs" />
     <Compile Include="Api\HealthController.cs" />
     <Compile Include="Api\Models\AddressContract.cs" />
@@ -636,6 +637,8 @@
     <Content Include="Scripts\app\events\eventGroup.model.js" />
     <Content Include="Scripts\app\events\eventGroupSelector.model.js" />
     <Content Include="Scripts\app\events\eventGroupTicket.model.js" />
+    <Content Include="Scripts\app\events\eventListing\eventList.js" />
+    <Content Include="Scripts\app\events\eventListing\eventQuery.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.model.js" />
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />

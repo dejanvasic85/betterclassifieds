@@ -1,16 +1,16 @@
 ﻿(function (ko, $p) {
 
     ko.components.register('event-listing', {
-        viewModel: function() {
-            
-        },
+        viewModel: EventListing,
         template: { path: $p.baseUrl + 'Scripts/app/events/eventListing/eventListing.html' }
     });
 
-    function EventListing(data) {
-        ko.adId = data.adId;
-        ko.eventId = data.eventId;
-        ko.eventName = data.eventName;
+    function EventListing(params) {
+        var listing = params.listing;
+        this.adId = listing.adId;
+        this.eventId = listing.eventId;
+        this.eventName = listing.eventName;
+        this.eventUrl = listing.eventUrl;
     }
 
     $p.models.EventListing = EventListing;

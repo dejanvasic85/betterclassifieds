@@ -5,6 +5,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Api.Models;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Api
 {
@@ -16,23 +17,27 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly IUserManager _userManager;
         private readonly IEventGuestService _eventGuestService;
         private readonly IEventSeatingService _eventSeatingService;
+        private readonly IUrl _url;
+        private readonly EventContractFactory _eventContractFactory;
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService)
+
+        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, IUrl url, EventContractFactory eventContractFactory)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
             _eventGuestService = eventGuestService;
             _eventSeatingService = eventSeatingService;
+            _url = url;
+            _eventContractFactory = eventContractFactory;
         }
 
         [Route("")]
         public IHttpActionResult GetAllEvents()
         {
             // Get all current 
-            var eventContractFactory = new EventContractFactory();
             var contracts = _searchService.GetEvents()
-                .Select(eventContractFactory.FromModel);
+                .Select(_eventContractFactory.FromModel);
 
             return Ok(contracts);
         }
@@ -40,8 +45,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("search")]
         public IHttpActionResult GetEventsByQuery([FromUri]EventSearchQuery query)
         {
-            // Get all current 
-            var eventContractFactory = new EventContractFactory();
             var results = _searchService.GetEvents();
 
             if (query.TakeMax.HasValue)
@@ -55,7 +58,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             }
 
             var contracts = results
-                .Select(eventContractFactory.FromModel);
+                .Select(_eventContractFactory.FromModel);
 
             return Ok(contracts);
         }
@@ -74,8 +77,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api
                 return NotFound();
 
             var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address);
-            var contract = new EventContractFactory().FromModel(searchResult);
-            return Ok(contract);
+            var contract = _eventContractFactory.FromModel(searchResult);
+            return Ok(contract);    
         }
 
         [Route("{id:int}/groups")]

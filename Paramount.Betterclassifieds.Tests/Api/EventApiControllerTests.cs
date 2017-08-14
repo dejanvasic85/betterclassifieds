@@ -37,10 +37,12 @@ namespace Paramount.Betterclassifieds.Tests.Api
         public void GetAllEvents_ReturnsOk()
         {
             // Arrange
+            var adSearchResult = new AdSearchResultMockBuilder().Default().Build();
+
             IEnumerable<EventSearchResult> mockSearchResults = new[]
             {
                 new EventSearchResult(
-                    new AdSearchResultMockBuilder().Default().Build(),
+                    adSearchResult,
                     new EventModelMockBuilder().Default().Build(),
                     new AddressMockBuilder().Default().Build())
             };
@@ -56,6 +58,10 @@ namespace Paramount.Betterclassifieds.Tests.Api
                 .IsTypeOf<OkNegotiatedContentResult<IEnumerable<EventContract>>>();
 
             result.Content.Count().IsEqualTo(1);
+            var eventContract = result.Content.Single();
+            eventContract.Heading.IsEqualTo(adSearchResult.Heading);
+            eventContract.HeadingSlug.IsEqualTo(adSearchResult.HeadingSlug);
+            eventContract.EventUrl.IsNotNull();
         }
 
         [Test]

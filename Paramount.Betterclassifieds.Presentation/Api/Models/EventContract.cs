@@ -3,6 +3,7 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Api.Models
 {
@@ -49,10 +50,18 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         // Address object
         public AddressContract Address { get; set; }
         public string VenueName { get; set; }
+        public string EventUrl { get; set; }
     }
 
     public class EventContractFactory : IMappingBehaviour
     {
+        private readonly IUrl _url;
+
+        public EventContractFactory(IUrl url)
+        {
+            _url = url.WithAbsoluteUrl();
+        }
+
         public EventContract FromModel(EventSearchResult eventSearchResult)
         {
             Guard.NotNullIn(eventSearchResult, eventSearchResult.EventDetails,
@@ -62,6 +71,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             var contract = this.Map<EventModel, EventContract>(eventSearchResult.EventDetails);
             this.Map(eventSearchResult.AdSearchResult, contract);
             this.Map(eventSearchResult.Address, contract.Address);
+
+            contract.EventUrl = _url.EventUrl(eventSearchResult.AdSearchResult.HeadingSlug,
+                eventSearchResult.AdSearchResult.AdId);
 
             return contract;
         }

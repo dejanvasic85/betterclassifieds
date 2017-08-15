@@ -10,6 +10,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Api;
 using Paramount.Betterclassifieds.Presentation.Api.Models;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Api
@@ -22,6 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         private Mock<IUserManager> _mockUserManager;
         private Mock<IEventGuestService> _mockEventGuestService;
         private Mock<IEventSeatingService> _mockEventSeatingService;
+        private Mock<IUrl> _mockUrl;
 
         [SetUp]
         public void SetupDependencies()
@@ -31,6 +33,9 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockUserManager = CreateMockOf<IUserManager>();
             _mockEventGuestService = CreateMockOf<IEventGuestService>();
             _mockEventSeatingService = CreateMockOf<IEventSeatingService>();
+            _mockUrl = CreateMockOf<IUrl>();
+
+            _mockUrl.Setup(call => call.WithAbsoluteUrl()).Returns(_mockUrl.Object);
         }
 
         [Test]
@@ -49,6 +54,9 @@ namespace Paramount.Betterclassifieds.Tests.Api
 
             _mockSearchService.SetupWithVerification(call => call.GetEvents(null),
                 mockSearchResults);
+
+            _mockUrl.SetupWithVerification(call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()),
+                "http://fake-event.url");
 
             var controller = BuildTargetObject();
             var events = controller.GetAllEvents();
@@ -74,6 +82,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
             _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+            _mockUrl.SetupWithVerification(call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()), "http://fake-event.url");
 
             var controller = BuildTargetObject();
             var events = controller.GetEvent(123);
@@ -115,6 +124,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
             _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+            _mockUrl.SetupWithVerification(call => call.EventUrl(It.IsAny<string>(), It.IsAny<int>()), "http://fake-event.url");
 
             var controller = BuildTargetObject();
             var events = controller.GetEvent(123);
@@ -300,7 +310,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             var mockEvent = new EventModelMockBuilder()
                 .WithIsSeatedEvent(true)
                 .WithVenueName("Venue Gala")
-                .WithTickets(new [] {mockTicket})
+                .WithTickets(new[] { mockTicket })
                 .Default()
                 .Build();
 
@@ -313,7 +323,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockEventManager.SetupWithVerification(call => call.GetEventDetails(eventId), mockEvent);
             _mockEventSeatingService.SetupWithVerification(call => call.GetSeatsForEvent(
                 It.Is<int>(e => e == eventId),
-                It.Is<string>(r => r == requestId)), result: new [] {mockEventSeatBooking});
+                It.Is<string>(r => r == requestId)), result: new[] { mockEventSeatBooking });
 
             var result = BuildTargetObject().GetEventSeatingForRequest(eventId, requestId);
 

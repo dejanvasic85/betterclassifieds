@@ -75,6 +75,8 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.3x\006-BookedEvent_Get.Proc.Alter.sql" />
+    <EmbeddedResource Include="Scripts-3.3x\005-BookedEvents.Alter.sql" />
     <EmbeddedResource Include="Scripts-3.3x\003-EventSeat_Get.Create - Copy.sql" />
     <EmbeddedResource Include="Scripts-3.3x\004-EventSeat.DropEventBookingTicketId.sql" />
     <EmbeddedResource Include="Scripts-3.3x\002-EventSeatBooking.Refactor.sql" />

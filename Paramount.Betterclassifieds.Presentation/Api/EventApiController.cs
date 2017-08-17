@@ -17,18 +17,16 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly IUserManager _userManager;
         private readonly IEventGuestService _eventGuestService;
         private readonly IEventSeatingService _eventSeatingService;
-        private readonly IUrl _url;
         private readonly EventContractFactory _eventContractFactory;
 
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, IUrl url, EventContractFactory eventContractFactory)
+        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, EventContractFactory eventContractFactory)
         {
             _eventManager = eventManager;
             _searchService = searchService;
             _userManager = userManager;
             _eventGuestService = eventGuestService;
             _eventSeatingService = eventSeatingService;
-            _url = url;
             _eventContractFactory = eventContractFactory;
         }
 
@@ -58,7 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             }
 
             var contracts = results
-                .Select(_eventContractFactory.FromModel);
+                .Select(_eventContractFactory.FromModel);                
 
             return Ok(contracts);
         }

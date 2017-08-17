@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public decimal? LocationLongitude { get; set; }
         public string TimeZoneId { get; set; }
         public string TimeZoneName { get; set; }
+
         public long? TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
@@ -37,12 +38,16 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public string Heading { get; set; }
         public string HeadingSlug { get; set; }
         public string Description { get; set; }
+        public string ShortDescription { get; set; }
         public DateTime? BookingDate { get; set; }
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
+        public string PrimaryImage { get; set; }
         public string[] ImageUrls { get; set; }
         public string ParentCategoryName { get; set; }
+        public string CategoryName { get; set; }
+        public string CategoryFontIcon { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool DisplayGuests { get; set; }
@@ -65,8 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public EventContract FromModel(EventSearchResult eventSearchResult)
         {
             Guard.NotNullIn(eventSearchResult, eventSearchResult.EventDetails,
-                eventSearchResult.Address,
-                eventSearchResult.AdSearchResult);
+                eventSearchResult.Address, eventSearchResult.AdSearchResult);
 
             var contract = this.Map<EventModel, EventContract>(eventSearchResult.EventDetails);
             this.Map(eventSearchResult.AdSearchResult, contract);
@@ -82,7 +86,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         {
             configuration.CreateProfile(this.GetType().Name);
             configuration.CreateMap<EventModel, EventContract>();
-            configuration.CreateMap<AdSearchResult, EventContract>();
+            configuration.CreateMap<AdSearchResult, EventContract>()
+                .ForMember(m => m.ShortDescription, options => options.MapFrom(s => s.Description.TruncateOnWordBoundary(100)));
             configuration.CreateMap<Address, AddressContract>();
         }
     }

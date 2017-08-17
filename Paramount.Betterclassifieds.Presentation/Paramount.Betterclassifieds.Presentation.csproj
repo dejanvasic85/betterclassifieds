@@ -299,6 +299,7 @@
     </Compile>
     <Compile Include="Services\BarcodeGenerator.cs" />
     <Compile Include="Services\ClientConfigService.cs" />
+    <Compile Include="Services\DebugLocationService.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\ExcelGuestGeneratorService.cs" />
     <Compile Include="Services\GoogleCaptchaVerifier.cs" />
@@ -637,6 +638,7 @@
     <Content Include="Scripts\app\events\eventGroup.model.js" />
     <Content Include="Scripts\app\events\eventGroupSelector.model.js" />
     <Content Include="Scripts\app\events\eventGroupTicket.model.js" />
+    <Content Include="Scripts\app\events\eventListing\eventList.html" />
     <Content Include="Scripts\app\events\eventListing\eventList.js" />
     <Content Include="Scripts\app\events\eventListing\eventQuery.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.model.js" />
@@ -1107,9 +1109,7 @@
     <Content Include="Views\EventPromo\manage-promo-codes.cshtml" />
     <Content Include="Views\Shared\_HeadScripts.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\app\home\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

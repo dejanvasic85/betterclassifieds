@@ -28,7 +28,7 @@
 
     public class UnityConfig
     {
-       
+
         public static IUnityContainer Initialise()
         {
             var container = new UnityContainer();
@@ -110,6 +110,14 @@
                 .RegisterType<IPdfGenerator, PdfGenerator>()
                 .RegisterType<IRobotVerifier, RobotVerifier>()
                 ;
+
+
+#if (DEBUG)
+            container.RegisterType<ILocationService, DebugLocationService>();
+#else
+            container.RegisterType<ILocationService, LocationService>();
+#endif
+
 
             return container;
         }

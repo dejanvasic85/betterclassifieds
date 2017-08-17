@@ -1,16 +1,34 @@
 ﻿(function (ko, $p) {
-    
-    $p.models.EventList = function(data) {
-            
-        //this.events = $p.ko.bindArray(data, function (listing) {
-        //    return new $p.models.EventListing(listing);
-        //});
 
-        if (!Array.isArray(data)) {
-            throw new Error('Expected data to be an array of events');
-        }
+    var eventService = new $p.EventService($p.baseUrl);
 
-        this.events = data;
+    $p.models.EventList = function (params) {
+        var me = this;
+        me.events = ko.observableArray();
+
+        var query = new $p.EventQuery()
+            .withMax(params.maxItems)
+            .build();
+
+        eventService.searchEvents(query).then(function (response) {
+            if (response.errors) {
+                return;
+            }
+
+            if (!Array.isArray(response)) {
+                throw new Error("The response does not contain an array of events.");
+            }
+
+            _.each(response, function (item) {
+                me.events.push(item);
+            });
+        });
     };
+
+    ko.components.register('event-list', {
+        viewModel: $p.models.EventList,
+        template: { path: $p.baseUrl + 'Scripts/app/events/eventListing/eventList.html' }
+    });
+
 
 })(ko, $paramount);

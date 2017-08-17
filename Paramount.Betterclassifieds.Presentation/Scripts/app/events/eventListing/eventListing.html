@@ -1,7 +1,35 @@
-﻿<div class="col-md-4">
-    
-    <a data-bind="attr: {href: eventUrl}">
-        Listing id <span data-bind="text: eventId"></span>
-    </a>
+﻿<a data-bind="attr: {href: eventUrl}" class="list-group-item">
+    <h4 data-bind="text: eventName" class="list-group-item-heading"></h4>
 
-</div>`
+    <p data-bind="text: shortDescription" class="list-group-item-text"></p>
+    <!-- ko if: photo !== null -->
+    <div>
+        <img data-bind="attr: {src: photo}" class="img-responsive img-centered img-rounded" />
+    </div>
+    <!-- /ko -->
+    <!-- ko if: photo === null -->
+    <div>
+        <i class="fa fa-5x" data-bind="attr: { 'class' : categoryFontIcon }"></i>
+    </div>
+    <!-- /ko -->
+    
+    <div>
+        <span class="label label-category" data-bind="text: parentCategory"></span>
+        <span class="label label-category" data-bind="text: category"></span>
+    </div>
+    
+    
+    <div>
+        <i class="fa fa-calendar"></i> <span data-bind="text: startDate"></span>
+    </div>
+    
+    <div>
+        <i class="fa fa-map"></i> <span data-bind="text: location"></span>
+    </div>
+    
+    
+    <div>
+        <i class="fa fa-ticket"></i>
+    </div>
+
+</a>

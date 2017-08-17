@@ -62,19 +62,16 @@
 
         <div class="container">
             
-            
-            <div class="row" id="eventList">
-                <!-- ko foreach: events -->
-                <event-listing params="listing: $data"></event-listing>
-                <!-- /ko -->
-            </div>
-            
-
             <div class="row">
                 <div class="col-xs-12 text-center">
                     <h2>Featured Events</h2>
                 </div>
             </div>
+
+            <div id="eventList">
+                <event-list params="maxItems: 3"></event-list>
+            </div>
+           
 
             <div class="row">
 

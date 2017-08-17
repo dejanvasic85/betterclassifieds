@@ -363,12 +363,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             this.Map(eventViewModel, bookingCart);
 
-#if !DEBUG
             // Do the timezone stuff before saving
             // Fetches the Timezone information selected for the map / address from google map
             if (eventViewModel.LocationLatitude.HasValue && eventViewModel.LocationLongitude.HasValue)
             {
-                
                 var result = _locationService.GetTimezone(eventViewModel.LocationLatitude.Value, eventViewModel.LocationLongitude.Value);
                 if (result.IsOk())
                 {
@@ -388,10 +386,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 }
             }
 
-#else
-            bookingCart.Event.TimeZoneName = "Australian Eastern Standard Time";
-            bookingCart.Event.TimeZoneUtcOffsetSeconds = 36000;
-#endif
             _cartRepository.Save(bookingCart);
 
             var designTicketingStep = new BookingWorkflowController<DesignEventStep>(Url, bookingCart);

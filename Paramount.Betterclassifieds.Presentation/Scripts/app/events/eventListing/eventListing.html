@@ -24,12 +24,12 @@
     </div>
     
     <div>
-        <i class="fa fa-map"></i> <span data-bind="text: location"></span>
+        <i class="fa fa-map-marker"></i> <span data-bind="text: location"></span>
     </div>
     
     
-    <div>
-        <i class="fa fa-ticket"></i>
+    <div data-bind="if: ticketInfo">
+        <i class="fa fa-ticket"></i> <span data-bind="text: ticketInfo"></span>
     </div>
 
 </a>

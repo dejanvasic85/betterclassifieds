@@ -25,6 +25,7 @@
 		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },
 		
 		{ "Paramount.Betterclassifieds.Business.Events.EventModel",  "EventModel" },
+		{ "Paramount.Betterclassifieds.Business.Events.EventSearchResultTicketData",  "EventSearchResultTicketData" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventBookingTicket",  "EventBookingTicket" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventBookingTicketField",  "EventBookingTicketField" },

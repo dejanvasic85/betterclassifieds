@@ -23,7 +23,22 @@
         this.location = listing.location.replace(', Australia', '');
         this.categoryFontIcon = "fa fa-5x fa fa-" + listing.categoryFontIcon;
         this.photo = null;
-        
+        this.ticketPriceRange = null;
+        this.ticketInfo = null;
+
+        if (listing.hasTickets === true) {
+            if (listing.areAllTicketsFree === true) {
+                this.ticketInfo = 'Free';
+            } else {
+                this.ticketInfo = $paramount.formatCurrency(listing.cheapestTicket);
+
+                if (listing.cheapestTicket !== listing.mostExpensiveTicket) {
+                    this.ticketInfo += ' - ' + $paramount.formatCurrency(listing.mostExpensiveTicket);
+                }
+            }
+        }
+
+
         if (listing.primaryImage) {
             this.photo = imgService.getImageUrl(listing.primaryImage, {
                 w: params.imgHeight || 500,

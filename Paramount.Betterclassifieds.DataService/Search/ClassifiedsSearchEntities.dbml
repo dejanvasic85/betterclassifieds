@@ -66,6 +66,8 @@
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CheapestTicket" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MostExpensiveTicket" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />

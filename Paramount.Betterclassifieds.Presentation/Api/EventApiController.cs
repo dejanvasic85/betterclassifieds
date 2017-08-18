@@ -73,8 +73,10 @@ namespace Paramount.Betterclassifieds.Presentation.Api
 
             if (onlineAdModel.HasNotStarted() && !isCurrentUserTheOwner)
                 return NotFound();
+            
+            var ticketData = new EventSearchResultTicketDataFactory().CreateFromEventModel(eventDetails);
 
-            var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address);
+            var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address, ticketData);
             var contract = _eventContractFactory.FromModel(searchResult);
             return Ok(contract);    
         }

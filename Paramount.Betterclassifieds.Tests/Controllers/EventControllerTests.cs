@@ -631,9 +631,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockEvent = new EventModelMockBuilder().Default()
                 .WithEventId(mockRequest.EventId).Build();
+            
+            var mockTicketData = new EventSearchResultTicketDataMockBuilder()
+                .WithCheapestTicket(0)
+                .WithMostExpensiveTicket(100).Build();
 
             var mockSearchResult = new EventSearchResult(
-                new AdSearchResultMockBuilder().Default().Build(), mockEvent, null);
+                new AdSearchResultMockBuilder().Default().Build(), mockEvent, null,
+                mockTicketData);
 
             // Setup services
             _searchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), mockSearchResult);

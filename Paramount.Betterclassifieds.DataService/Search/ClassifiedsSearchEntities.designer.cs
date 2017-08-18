@@ -736,8 +736,13 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		private System.Nullable<System.DateTime> _OpeningDateUtc;
 		
 		private bool _DisplayGuests;
-		
-		public BookedEvent()
+
+	    private System.Nullable<System.Decimal> _CheapestTicket;
+
+	    private System.Nullable<System.Decimal> _MostExpensiveTicket;
+
+
+        public BookedEvent()
 		{
 		}
 		
@@ -1236,8 +1241,40 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactName", DbType="NVarChar(200)")]
+
+	    [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_CheapestTicket", DbType = "Money")]
+	    public System.Nullable<decimal> CheapestTicket
+	    {
+	        get
+	        {
+	            return this._CheapestTicket;
+	        }
+	        set
+	        {
+	            if ((this._CheapestTicket != value))
+	            {
+	                this._CheapestTicket = value;
+	            }
+	        }
+	    }
+
+	    [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_MostExpensiveTicket", DbType = "Money")]
+	    public System.Nullable<decimal> MostExpensiveTicket
+        {
+	        get
+	        {
+	            return this._MostExpensiveTicket;
+	        }
+	        set
+	        {
+	            if ((this._MostExpensiveTicket != value))
+	            {
+	                this._MostExpensiveTicket = value;
+	            }
+	        }
+	    }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactName", DbType="NVarChar(200)")]
 		public string ContactName
 		{
 			get

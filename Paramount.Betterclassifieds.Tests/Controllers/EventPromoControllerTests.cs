@@ -38,9 +38,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
             var mockBooking = new EventBookingMockBuilder().Default().WithPromoCode("PROMO1").Build();
 
+            var mockTicketData = new EventSearchResultTicketDataMockBuilder()
+                .WithCheapestTicket(0)
+                .WithMostExpensiveTicket(100).Build();
+
             _mockSearchService.SetupWithVerification(call => call.GetEvent(
                 It.Is<int>(e => e == mockEventId)),
-                new EventSearchResult(mockSearchResult, mockEvent, mockAddress));
+                new EventSearchResult(mockSearchResult, mockEvent, mockAddress, mockTicketData));
 
             _mockEventPromoService.SetupWithVerification(call => call.GetEventPromoCodes(
                 It.Is<int>(e => e == mockEventId)),

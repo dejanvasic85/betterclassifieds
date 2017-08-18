@@ -629,6 +629,18 @@ namespace Paramount.Betterclassifieds.Tests
 		}
 	}
 
+	internal partial class EventSearchResultTicketDataMockBuilder : MockBuilder<EventSearchResultTicketDataMockBuilder, EventSearchResultTicketData>
+	{	
+		public EventSearchResultTicketDataMockBuilder WithCheapestTicket(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.CheapestTicket = val);
+		}
+		public EventSearchResultTicketDataMockBuilder WithMostExpensiveTicket(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.MostExpensiveTicket = val);
+		}
+	}
+
 	internal partial class EventTicketMockBuilder : MockBuilder<EventTicketMockBuilder, EventTicket>
 	{	
 		public EventTicketMockBuilder WithEventTicketId(Int32? val)
@@ -923,11 +935,11 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TransactionFee = val);
 		}
-		public EventBookingMockBuilder WithFeePercentage(Decimal val)
+		public EventBookingMockBuilder WithFeePercentage(Decimal? val)
 		{ 
 			return WithBuildStep(p => p.FeePercentage = val);
 		}
-		public EventBookingMockBuilder WithFeeCents(Decimal val)
+		public EventBookingMockBuilder WithFeeCents(Decimal? val)
 		{ 
 			return WithBuildStep(p => p.FeeCents = val);
 		}

@@ -43,13 +43,17 @@ namespace Paramount.Betterclassifieds.Tests.Api
         {
             // Arrange
             var adSearchResult = new AdSearchResultMockBuilder().Default().Build();
+            var mockTicketData = new EventSearchResultTicketDataMockBuilder()
+                .WithCheapestTicket(0)
+                .WithMostExpensiveTicket(100).Build();
 
             IEnumerable<EventSearchResult> mockSearchResults = new[]
             {
                 new EventSearchResult(
                     adSearchResult,
                     new EventModelMockBuilder().Default().Build(),
-                    new AddressMockBuilder().Default().Build())
+                    new AddressMockBuilder().Default().Build(),
+                    mockTicketData)
             };
 
             _mockSearchService.SetupWithVerification(call => call.GetEvents(null),

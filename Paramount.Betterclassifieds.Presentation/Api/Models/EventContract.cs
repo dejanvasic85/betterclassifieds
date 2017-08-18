@@ -56,6 +56,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public AddressContract Address { get; set; }
         public string VenueName { get; set; }
         public string EventUrl { get; set; }
+
+        // Ticketing information
+        public decimal? CheapestTicket { get; set; }
+        public decimal? MostExpensiveTicket { get; set; }
+        public bool HasTickets { get; set; }
+        public bool AreAllTicketsFree { get; set; }
     }
 
     public class EventContractFactory : IMappingBehaviour
@@ -74,6 +80,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
 
             var contract = this.Map<EventModel, EventContract>(eventSearchResult.EventDetails);
             this.Map(eventSearchResult.AdSearchResult, contract);
+            this.Map(eventSearchResult.TicketData, contract);
             this.Map(eventSearchResult.Address, contract.Address);
 
             contract.EventUrl = _url.EventUrl(eventSearchResult.AdSearchResult.HeadingSlug,
@@ -86,9 +93,11 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         {
             configuration.CreateProfile(this.GetType().Name);
             configuration.CreateMap<EventModel, EventContract>();
+            configuration.CreateMap<EventSearchResultTicketData, EventContract>();
             configuration.CreateMap<AdSearchResult, EventContract>()
                 .ForMember(m => m.ShortDescription, options => options.MapFrom(s => s.Description.TruncateOnWordBoundary(100)));
             configuration.CreateMap<Address, AddressContract>();
+
         }
     }
 }

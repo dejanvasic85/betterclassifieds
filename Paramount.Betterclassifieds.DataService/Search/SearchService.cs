@@ -150,7 +150,7 @@ namespace Paramount.Betterclassifieds.DataService
                     AdSearchResult = this.Map<BookedEvent, AdSearchResult>(be),
                     EventDetails = this.Map<BookedEvent, EventModel>(be),
                     Address = this.Map<BookedEvent, Address>(be),
-                    
+                    TicketData = this.Map<BookedEvent, EventSearchResultTicketData>(be)
                 }).ToList();
             }
         }
@@ -181,6 +181,7 @@ namespace Paramount.Betterclassifieds.DataService
                 ;
             configuration.CreateMap<BookedEvent, EventModel>();
             configuration.CreateMap<BookedEvent, Address>();
+            configuration.CreateMap<BookedEvent, EventSearchResultTicketData>();
 
             configuration.CreateMap<SeoMapping, SeoNameMappingModel>()
                 .ForMember(dest => dest.CategoryIds, opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()))

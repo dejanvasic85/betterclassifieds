@@ -1,6 +1,4 @@
-﻿USE [Classifieds]
-GO
-
+﻿
 /****** Object: View [dbo].[BookedEvents] Script Date: 18/08/2017 8:19:34 AM ******/
 SET ANSI_NULLS ON
 GO

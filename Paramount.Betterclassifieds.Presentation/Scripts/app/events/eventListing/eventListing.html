@@ -1,35 +1,47 @@
-﻿<a data-bind="attr: {href: eventUrl}" class="list-group-item">
-    <h4 data-bind="text: eventName" class="list-group-item-heading"></h4>
+﻿<div class="col-item">
 
-    <p data-bind="text: shortDescription" class="list-group-item-text"></p>
-    <!-- ko if: photo !== null -->
-    <div>
-        <img data-bind="attr: {src: photo}" class="img-responsive img-centered img-rounded" />
-    </div>
-    <!-- /ko -->
-    <!-- ko if: photo === null -->
-    <div>
-        <i class="fa fa-5x" data-bind="attr: { 'class' : categoryFontIcon }"></i>
-    </div>
-    <!-- /ko -->
-    
-    <div>
-        <span class="label label-category" data-bind="text: parentCategory"></span>
-        <span class="label label-category" data-bind="text: category"></span>
-    </div>
-    
-    
-    <div>
-        <i class="fa fa-calendar"></i> <span data-bind="text: startDate"></span>
-    </div>
-    
-    <div>
-        <i class="fa fa-map-marker"></i> <span data-bind="text: location"></span>
-    </div>
-    
-    
-    <div data-bind="if: ticketInfo">
-        <i class="fa fa-ticket"></i> <span data-bind="text: ticketInfo"></span>
-    </div>
+    <a data-bind="attr: {href: eventUrl}">
 
-</a>
+        <div class="item-photo">
+            <div class="photo">
+                <div class="ico-img text-center" data-bind="visible: photo === null">
+                    <i class="fa fa-5x" data-bind="attr: { 'class' : categoryFontIcon }"></i>
+                </div>
+
+                <img data-bind="attr: {src: photo}, visible: photo !== null" class="img-responsive img-centered img-rounded" />
+            </div>
+        </div>
+
+        <div class="info">
+
+            <h4 data-bind="text: eventName"></h4>
+
+            <div>
+                <div class="label label-category">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span data-bind="text: parentCategory"></span>
+                    <i class="fa fa-arrow-right"></i>
+                    <span data-bind="text: category"></span>
+                </div>
+            </div>
+            
+            <div>
+                <div class="label label-default">
+                    <i class="fa fa-calendar"></i> <span data-bind="text: startDate"></span>
+                </div>
+            </div>
+            
+            <div>
+                <div class="label label-default">
+                    <i class="fa fa-map-marker"></i> <span data-bind="text: location"></span>
+                </div>
+            </div>
+            
+            <div>
+                <div data-bind="if: ticketInfo" class="label label-default">
+                    <i class="fa fa-ticket"></i> <span data-bind="text: ticketInfo"></span>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

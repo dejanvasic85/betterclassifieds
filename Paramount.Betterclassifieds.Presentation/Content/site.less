@@ -284,14 +284,12 @@
         }
 
         .social-share {
-           margin-top: 20px;
+            margin-top: 20px;
 
             @media (max-width: 766px) {
                 a {
                     min-width: 55px;
                 }
-
-               
             }
         }
     }
@@ -684,8 +682,17 @@ input[readonly] {
 
     .col-item {
         border: 1px solid @color_primary;
-        background: #FFF;
         margin-top: 20px;
+        min-height: 385px;
+
+        &:hover {
+            background-color: @border_light;
+        }
+
+        a:hover, :visited {
+            text-decoration: none;
+            background-color: #eee;
+        }
 
         .item-photo {
             min-height: 200px;
@@ -736,11 +743,8 @@ input[readonly] {
     .controls {
         margin-top: 20px;
     }
-
-    [data-slide="prev"] {
-        margin-right: 10px;
-    }
 }
+
 
 /*
     Small Devices

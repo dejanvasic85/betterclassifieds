@@ -69,24 +69,7 @@
             </div>
 
             <div id="eventList">
-                <event-list params="maxItems: 3"></event-list>
-            </div>
-           
-
-            <div class="row">
-
-                @foreach (var ad in Model.AdSummaryList)
-                {
-                    if (ad.CategoryAdType.HasValue())
-                    {
-                        @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
-                    }
-                    else
-                    {
-                        @Html.Partial("_AdTile", ad)
-                    }
-
-                }
+                <event-list params="maxItems: 9"></event-list>
             </div>
 
         </div>

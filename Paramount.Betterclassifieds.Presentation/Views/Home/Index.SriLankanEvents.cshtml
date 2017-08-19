@@ -7,8 +7,6 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Sri Lankan Events";
 
-    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
-
 }
 
 @section Scripts
@@ -56,26 +54,22 @@
     </main>
 }
 
-@if (adCount > 0)
-{
-    <div class="home-featured">
+<div class="home-featured">
 
-        <div class="container">
-            
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <h2>Featured Events</h2>
-                </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h2>Featured Events</h2>
             </div>
-
-            <div id="eventList">
-                <event-list params="maxItems: 9"></event-list>
-            </div>
-
         </div>
-    </div>
 
-}
+        <div id="eventList">
+            <event-list params="maxItems: 9"></event-list>
+        </div>
+
+    </div>
+</div>
 
 
 <div class="container top-buffer-40">

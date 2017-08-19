@@ -663,7 +663,6 @@ input[readonly] {
 */
 
 .listings {
-    /*background-color: @color_primary;*/
     padding-bottom: 20px;
 
     .thumbnail {
@@ -680,9 +679,8 @@ input[readonly] {
             box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
-        a:hover, :visited {
+        a:hover, a:visited, a:focus, a:active {
             text-decoration: none;
-            /*background-color: #eee;*/
         }
 
         .item-photo {
@@ -709,8 +707,12 @@ input[readonly] {
             border-radius: 0 0 5px 5px;
             margin-top: 1px;
 
-            i{
+            i {
                 min-width: 20px;
+            }
+
+            .info-item {
+                margin-top: 5px;
             }
         }
 

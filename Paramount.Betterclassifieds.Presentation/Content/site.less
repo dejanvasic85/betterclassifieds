@@ -611,7 +611,7 @@ input[readonly] {
 /*
     Extra small devices
 */
-@media (max-width: 766px) {
+@media (max-width: 990px) {
     /* Smaller widths stack controls on top of another with no margin */
     .form-control {
         margin-top: 5px;
@@ -623,16 +623,6 @@ input[readonly] {
 
     .user-menu-filters {
         margin: 0;
-    }
-
-    .myads-date-info {
-        dd {
-            margin-left: 20px;
-        }
-
-        dt {
-            margin-left: 20px;
-        }
     }
 
     .event-details {
@@ -669,11 +659,11 @@ input[readonly] {
 
 
 /*
-    home featured
+    listings
 */
 
-.home-featured {
-    background-color: @color_primary;
+.listings {
+    /*background-color: @color_primary;*/
     padding-bottom: 20px;
 
     .thumbnail {
@@ -681,17 +671,18 @@ input[readonly] {
     }
 
     .col-item {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         border: 1px solid @color_primary;
         margin-top: 20px;
         min-height: 385px;
 
         &:hover {
-            background-color: @border_light;
+            box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
         a:hover, :visited {
             text-decoration: none;
-            background-color: #eee;
+            /*background-color: #eee;*/
         }
 
         .item-photo {
@@ -705,6 +696,7 @@ input[readonly] {
             }
 
             .ico-img {
+                min-height: 200px;
                 background-color: #eee;
                 width: 100%;
                 padding: 40px 0;
@@ -716,6 +708,10 @@ input[readonly] {
             padding: 10px;
             border-radius: 0 0 5px 5px;
             margin-top: 1px;
+
+            i{
+                min-width: 20px;
+            }
         }
 
         .price h5 {

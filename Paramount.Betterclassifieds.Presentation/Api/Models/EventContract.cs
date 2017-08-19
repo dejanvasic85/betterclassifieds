@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
@@ -20,6 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventStartDateUtc { get; set; }
+        public string StartDateHumanized { get; set; }
         public DateTime? EventEndDate { get; set; }
         public DateTime? EventEndDateUtc { get; set; }
         public DateTime? ClosingDate { get; set; }
@@ -38,7 +40,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public string Heading { get; set; }
         public string HeadingSlug { get; set; }
         public string Description { get; set; }
-        public string ShortDescription { get; set; }
         public DateTime? BookingDate { get; set; }
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
@@ -62,6 +63,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public decimal? MostExpensiveTicket { get; set; }
         public bool HasTickets { get; set; }
         public bool AreAllTicketsFree { get; set; }
+        public string EventShortName { get; set; }
     }
 
     public class EventContractFactory : IMappingBehaviour
@@ -83,6 +85,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             this.Map(eventSearchResult.TicketData, contract);
             this.Map(eventSearchResult.Address, contract.Address);
 
+            contract.StartDateHumanized = eventSearchResult.EventDetails.EventStartDate.Humanize();
             contract.EventUrl = _url.EventUrl(eventSearchResult.AdSearchResult.HeadingSlug,
                 eventSearchResult.AdSearchResult.AdId);
 
@@ -95,7 +98,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             configuration.CreateMap<EventModel, EventContract>();
             configuration.CreateMap<EventSearchResultTicketData, EventContract>();
             configuration.CreateMap<AdSearchResult, EventContract>()
-                .ForMember(m => m.ShortDescription, options => options.MapFrom(s => s.Description.TruncateOnWordBoundary(100)));
+                .ForMember(m => m.EventShortName, options => options.MapFrom(s => s.Heading.TruncateOnWordBoundary(42)));
             configuration.CreateMap<Address, AddressContract>();
 
         }

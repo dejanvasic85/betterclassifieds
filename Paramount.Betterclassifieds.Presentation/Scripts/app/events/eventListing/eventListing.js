@@ -8,17 +8,19 @@
     var imgService = new $p.ImageService($p.baseUrl);
 
     function EventListing(params) {
-        console.log(params);
+        
         var listing = params.listing;
 
         this.adId = listing.adId;
         this.eventId = listing.eventId;
         this.eventName = listing.heading;
+        this.eventShortName = listing.eventShortName;
         this.eventUrl = listing.eventUrl;
         this.category = listing.categoryName;
         this.parentCategory = listing.parentCategoryName;
         this.shortDescription = listing.shortDescription;
         this.startDate = $p.dateToDisplay(listing.eventStartDate);
+        this.startDateHumanized = listing.startDateHumanized;
         this.endDate = listing.endDate;
         this.location = listing.location.replace(', Australia', '');
         this.categoryFontIcon = "fa fa-5x fa fa-" + listing.categoryFontIcon;

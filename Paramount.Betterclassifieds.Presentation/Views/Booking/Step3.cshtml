@@ -1,5 +1,4 @@
-﻿@using Humanizer
-@model Step3View
+﻿@model Step3View
 
 @{
     ViewBag.Title = "Confirmation Step";
@@ -58,7 +57,7 @@
                                 <td>
                                     @if (Model.StartDate.HasValue)
                                     {
-                                        <span id="BookingStartDate">@Model.StartDate.Value.Humanize(false)</span>
+                                        <span id="BookingStartDate">@Model.StartDateHumanized</span>
                                     }
                                     else
                                     {

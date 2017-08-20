@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Humanizer;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -15,15 +16,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string BookingReference { get; set; }
-        public bool IsPaymentRequired
-        {
-            get { return this.TotalPrice > 0; }
-        }
+        public bool IsPaymentRequired => this.TotalPrice > 0;
         public bool IsPaymentCancelled { get; set; }
         public DateTime? PrintFirstEditionDate { get; set; }
         public int? PrintInsertions { get; set; }
         public bool IsLineAdIncluded { get; set; }
         public int? PublicationCount { get; set; }
         public string PreviousStepUrl { get; set; }
+
+        public string StartDateHumanized => StartDate.GetValueOrDefault().Humanize(utcDate: false);
+
+
     }
 }

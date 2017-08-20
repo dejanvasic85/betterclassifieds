@@ -5,8 +5,8 @@
         me.query = {};
 
         return {
-            withMax: function (max) {
-                me.query.takeMax = max;
+            withPageSize: function (pageSize) {
+                me.query.pageSize = pageSize;
                 return this;
             },
             withUser: function (user) {

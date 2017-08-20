@@ -35,10 +35,7 @@
             var results = _searchService.GetLatestAds(9);
             var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
-            return View(new HomeModel
-            {
-                AdSummaryList = adSummaryViewModels
-            });
+            return View(new HomeModel());
         }
 
         public ActionResult ContactUs()
@@ -52,7 +49,7 @@
             ViewBag.PhoneNumber = _clientConfig.ClientPhoneNumber;
             ViewBag.AddressLatitude = _clientConfig.ClientAddressLatLong.Item1;
             ViewBag.AddressLongitude = _clientConfig.ClientAddressLatLong.Item2;
-            
+
             return View(contactUs);
         }
 

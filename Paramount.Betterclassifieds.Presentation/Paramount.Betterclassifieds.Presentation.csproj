@@ -221,6 +221,7 @@
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
     <Compile Include="Api\ListingApiController.cs" />
+    <Compile Include="Api\Models\AdContract.cs" />
     <Compile Include="Api\Models\EventSearchQuery.cs" />
     <Compile Include="Api\Models\EventSeatBookingContract.cs" />
     <Compile Include="Api\HealthController.cs" />

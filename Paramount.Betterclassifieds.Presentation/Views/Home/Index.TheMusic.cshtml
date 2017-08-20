@@ -5,8 +5,6 @@
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
-    
-    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
 
 }
 
@@ -26,9 +24,9 @@
                 <div class="col-xs-12 text-center">
                     <h1>
                         <a href="@Url.Home()">
-                            
-                                TheMusic Classies
-                            
+
+                            TheMusic Classies
+
                         </a>
                     </h1>
                     <p>
@@ -53,38 +51,24 @@
     </main>
 }
 
-@if (adCount > 0)
-{
-    <div class="home-featured">
+<div class="home-featured">
 
-        <div class="container">
+    <div class="container">
 
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <h2>Featured Listings</h2>
-                </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h2>Featured Listings</h2>
             </div>
-
-            <div class="row">
-
-                @foreach (var ad in Model.AdSummaryList)
-                {
-                    if (ad.CategoryAdType.HasValue())
-                    {
-                        @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
-                    }
-                    else
-                    {
-                        @Html.Partial("_AdTile", ad)
-                    }
-
-                }
-            </div>
-
         </div>
-    </div>
 
-}
+
+        <ad-list params="pageSize: 9" id="adList">
+        </ad-list>
+
+
+    </div>
+</div>
+
 
 
 <div class="container top-buffer-40">
@@ -102,9 +86,9 @@
                     <ul>
                         <li>Ticket validation using Barcode Recognition</li>
                         <li>Tickets</li>
-                        <li>Guests</li>   
-                        <li>Groups (grouping guests together e.g. Tables)</li>   
-                        <li>Event Organisers</li>  
+                        <li>Guests</li>
+                        <li>Groups (grouping guests together e.g. Tables)</li>
+                        <li>Event Organisers</li>
                         <li>And plenty more...</li>
                     </ul>
                 </p>

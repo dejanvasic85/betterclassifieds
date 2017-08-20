@@ -12,10 +12,13 @@ namespace Paramount.Betterclassifieds.Presentation.Api
     public class ListingApiController : ApiController
     {
         private readonly ISearchService _searchService;
+        private readonly AdContractFactory _adContractFactory;
 
-        public ListingApiController(ISearchService searchService)
+        public ListingApiController(ISearchService searchService, 
+            AdContractFactory adContractFactory)
         {
             _searchService = searchService;
+            _adContractFactory = adContractFactory;
         }
 
         [HttpGet]
@@ -26,7 +29,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api
                 query.CategoryIds, null, null, query.PageNumber.GetValueOrDefault(0),
                 query.PageSize, AdSearchSortOrder.NewestFirst);
 
-            return Ok(results);
+            var contracts = results.Select(_adContractFactory.Create);
+
+            return Ok(contracts);
         }
     }
 }

@@ -8,21 +8,22 @@
     var imgService = new $p.ImageService($p.baseUrl);
 
     function AdListing(params) {
-        
+
         var listing = params.listing;
-        
+        console.log(listing);
         this.adId = listing.adId;
-        this.adName = listing.heading;
-        this.adShortName = listing.adShortName;
+        this.title = listing.title;
+        this.shortTitle = listing.shortTitle;
         this.adUrl = listing.adUrl;
         this.category = listing.categoryName;
         this.parentCategory = listing.parentCategoryName;
-        this.startDate = $p.dateToDisplay(listing.adStartDate);
+        this.startDate = $p.dateToDisplay(listing.startDate);
         this.startDateHumanized = listing.startDateHumanized;
-        this.location = listing.location;
+        this.locationName = listing.locationName;
+        this.locationAreaName = listing.locationAreaName;
         this.categoryFontIcon = "fa fa-5x fa fa-" + listing.categoryFontIcon;
         this.photo = null;
-        
+
         if (listing.primaryImage) {
             this.photo = imgService.getImageUrl(listing.primaryImage, {
                 w: params.imgHeight || 500,
@@ -31,6 +32,6 @@
         }
     }
 
-    $p.models.adListing = adListing;
+    $p.models.AdListing = AdListing;
 
 })(ko, $paramount);

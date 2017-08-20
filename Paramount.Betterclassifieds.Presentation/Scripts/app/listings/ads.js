@@ -1,4 +1,4 @@
-﻿(function (ko, $p) {
+﻿ (function (ko, $p) {
 
     $p.ListingService = function (baseUrl) {
         var me = this;
@@ -6,7 +6,7 @@
 
         me.search = function (query) {
             var url = this.baseUrl + 'api/listings/search';
-
+            
             if (!query) {
                 return $paramount.httpGet(url);
             }
@@ -26,14 +26,14 @@
         me.ads = ko.observableArray();
 
         var query = new $p.QueryManager()
-            .withMax(params.maxItems)
+            .withPageSize(params.pageSize)
             .build();
 
         listingService.search(query).then(function (response) {
             if (response.errors) {
                 return;
             }
-
+            
             if (!Array.isArray(response)) {
                 throw new Error("The response does not contain an array of events.");
             }

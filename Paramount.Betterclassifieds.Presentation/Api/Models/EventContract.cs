@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             configuration.CreateMap<EventModel, EventContract>();
             configuration.CreateMap<EventSearchResultTicketData, EventContract>();
             configuration.CreateMap<AdSearchResult, EventContract>()
-                .ForMember(m => m.EventShortName, options => options.MapFrom(s => s.Heading.TruncateOnWordBoundary(42)));
+                .ForMember(m => m.EventShortName, options => options.MapFrom(s => s.Heading.TruncateOnWordBoundary(40)));
             configuration.CreateMap<Address, AddressContract>();
 
         }

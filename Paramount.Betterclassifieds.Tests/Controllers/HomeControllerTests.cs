@@ -20,24 +20,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void Index_CallsSearchServiceForLatestSix_ReturnsSummary()
         {
-            // Arrange
-            _mockSearchService
-                .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 9)),
-                new List<AdSearchResult>
-                {
-                    new AdSearchResult{AdId = 1, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 1", Description = "Description 1"},
-                    new AdSearchResult{AdId = 2, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 2", Description = "Description 2"}
-                });
-
             // Act
             var result = BuildController().Index();
 
             // Assert
             result.IsTypeOf<ViewResult>();
-            var viewResult = (ViewResult)result;
-            var homeModel = viewResult.Model;
-            homeModel.IsTypeOf<HomeModel>();
-            ((HomeModel)homeModel).AdSummaryList.Count.IsEqualTo(2);
         }
 
         [Test]
@@ -128,7 +115,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
         private Mock<IMailService> _mailService;
         private Mock<IClientConfig> _mockClientConfig;
-        private Mock<ISearchService> _mockSearchService;
         private Mock<ISitemapFactory> _mockSitemapFactory;
         private Mock<IApplicationConfig> _mockAppConfig;
         private Mock<IRobotVerifier> _mockRobotVerifier;
@@ -139,7 +125,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mailService = CreateMockOf<IMailService>();
             _mailService.Setup(call => call.Initialise(It.IsAny<Controller>())).Returns(_mailService.Object);
             _mockClientConfig = CreateMockOf<IClientConfig>();
-            _mockSearchService = CreateMockOf<ISearchService>();
             _mockSitemapFactory = CreateMockOf<ISitemapFactory>();
             _mockAppConfig = CreateMockOf<IApplicationConfig>();
             _mockRobotVerifier = CreateMockOf<IRobotVerifier>();

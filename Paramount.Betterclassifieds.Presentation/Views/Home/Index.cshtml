@@ -1,23 +1,11 @@
 ﻿@using System.Monads
 @using Paramount
 
-@model HomeModel
+@model dynamic
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Sell tickets for your event. Simple and easy to use for events of all sizes.";
-
-    // Setup latest ads carousel
-    var latestAdsRowCount = 1;
-    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
-    if (adCount == 0)
-    {
-        latestAdsRowCount = 0;
-    }
-    if (adCount > 3)
-    {
-        latestAdsRowCount = adCount / 3;
-    }
 }
 
 @section Scripts

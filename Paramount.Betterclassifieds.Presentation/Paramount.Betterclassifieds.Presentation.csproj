@@ -405,7 +405,6 @@
     <Compile Include="ViewModels\Events\EventViewDetailsModel.cs" />
     <Compile Include="ViewModels\Events\EventViewModel.cs" />
     <Compile Include="ViewModels\Converter\EventViewToBookingCartConverter.cs" />
-    <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />

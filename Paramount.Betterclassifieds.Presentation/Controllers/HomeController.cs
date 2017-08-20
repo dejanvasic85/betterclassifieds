@@ -4,7 +4,6 @@
     using Business;
     using Business.Search;
     using ViewModels;
-    using System.Linq;
     using System.Web.Mvc;
     using System.Text;
     using Services.Seo;
@@ -13,16 +12,14 @@
 
     public class HomeController : ApplicationController, IMappingBehaviour
     {
-        private readonly ISearchService _searchService;
         private readonly IClientConfig _clientConfig;
         private readonly IMailService _mailService;
         private readonly ISitemapFactory _sitemapProvider;
         private readonly IApplicationConfig _appConfig;
         private readonly IRobotVerifier _robotVerifier;
 
-        public HomeController(ISearchService searchService, IClientConfig clientConfig, ISitemapFactory sitemapFactory, IMailService mailService, IApplicationConfig appConfig, IRobotVerifier robotVerifier)
+        public HomeController(IClientConfig clientConfig, ISitemapFactory sitemapFactory, IMailService mailService, IApplicationConfig appConfig, IRobotVerifier robotVerifier)
         {
-            _searchService = searchService;
             _clientConfig = clientConfig;
             _sitemapProvider = sitemapFactory;
             _appConfig = appConfig;
@@ -32,10 +29,7 @@
 
         public ActionResult Index()
         {
-            var results = _searchService.GetLatestAds(9);
-            var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
-
-            return View(new HomeModel());
+            return View();
         }
 
         public ActionResult ContactUs()

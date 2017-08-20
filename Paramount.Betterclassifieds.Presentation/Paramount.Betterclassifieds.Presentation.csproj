@@ -33,6 +33,7 @@
     <OldToolsVersion>12.0</OldToolsVersion>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -219,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
+    <Compile Include="Api\ListingApiController.cs" />
     <Compile Include="Api\Models\EventSearchQuery.cs" />
     <Compile Include="Api\Models\EventSeatBookingContract.cs" />
     <Compile Include="Api\HealthController.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Api\Models\EventTicketContract.cs" />
     <Compile Include="Api\Models\GuestContract.cs" />
     <Compile Include="Api\Models\EventRowContract.cs" />
+    <Compile Include="Api\Models\ListingQuery.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />
@@ -629,6 +632,11 @@
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.js" />
     <Content Include="Scripts\app\booking\eventTicketingSetup.model.js" />
     <Content Include="Scripts\app\booking\eventTicketDefinition.model.js" />
+    <Content Include="Scripts\app\listings\ads.html" />
+    <Content Include="Scripts\app\listings\ads.js" />
+    <Content Include="Scripts\app\listings\adListing.html" />
+    <Content Include="Scripts\app\listings\adListing.js" />
+    <Content Include="Scripts\app\listings\queryManager.js" />
     <Content Include="Scripts\app\events\addGuest.model.js" />
     <Content Include="Scripts\app\events\addGuest.ui.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />

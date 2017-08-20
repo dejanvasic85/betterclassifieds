@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Presentation.Services;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
@@ -12,6 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using System.Text;
     using Services.Seo;
     using Services.Mail;
+    using Services;
 
     public class HomeController : ApplicationController, IMappingBehaviour
     {

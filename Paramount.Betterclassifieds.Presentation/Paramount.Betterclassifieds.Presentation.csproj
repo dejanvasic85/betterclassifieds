@@ -324,7 +324,6 @@
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
-    <Compile Include="ViewModels\Account\UserBookingViewModel.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
@@ -622,7 +621,6 @@
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />
-    <Content Include="Scripts\app\account\userAdsView.model.js" />
     <Content Include="Scripts\app\account\userAds.service.js" />
     <Content Include="Scripts\app\availabilityOptions\availability-options.html" />
     <Content Include="Scripts\app\availabilityOptions\availability-options.js" />

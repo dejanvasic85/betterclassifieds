@@ -1,193 +1,27 @@
-﻿@model List<UserBookingViewModel>
+﻿@model dynamic
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Manage my Ads";
 }
 
-@section Scripts{
-
+@section Scripts
+{
     <script>
-        var data = @Html.Raw(Model.ToJsonString());
-        $paramount.ui.userAdsUI.init(data);
+    $paramount.ui.userAdsUI.init();
     </script>
 }
 
-<div class="container top-buffer-60 user-ads">
-
-    <div class="row">
-        <div class="col-sm-offset-6 col-sm-6">
-            <div class="btn-group user-menu-filters pull-right" data-toggle="buttons">
-                <label class="btn btn-primary active" data-status="All" data-bind="click: setStatus">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> All
-                </label>
-                <label class="btn btn-success" data-status="Current" data-bind="click: setStatus">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Current
-                </label>
-                <label class="btn btn-warning" data-status="Scheduled" data-bind="click: setStatus">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Scheduled
-                </label>
-                <label class="btn btn-danger" data-status="Expired" data-bind="click: setStatus">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Expired
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        
-        <div class="col-xs-12">
-
-            <div class="alert alert-info-alt" data-bind="visible: noAdsAvaialble" style="display: none;" id="noAdsMsg">
-                There doesn't seem to be anything here at the moment :( <br />
-                <a href="@Url.Booking()">Go ahead and start creating!</a>
-            </div>
-
-            <div id="adList" class="listing-results" data-bind="foreach: ads">
-                <div class="panel panel-default" 
-                     data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
-                    <div class="panel-body">
-                        <div class="row">
-                            @*Image*@
-                            <div class="col-md-4 img-centered">
-                                <a data-bind="attr : {href : viewHref}">
-                                    <img class="thumbnail" alt="100x200" data-bind="visible : adImageId() !== '', attr : {src : imageUrl}">
-                                    <i data-bind="attr : {class : fontIcon}, visible : adImageId() === ''"></i>
-                                </a>
-                            </div>
-
-                            @*Descripton*@
-                            <div class="col-md-8">
-                                <h4 class="media-heading" data-bind="text: heading"><small>(<strong data-bind="text: adId"></strong>)</small></h4>
-                                <p data-bind="text: description"></p>
-                                <p>
-
-                                    <span class="label label-category" data-bind="text: parentCategoryName"></span>
-                                    <span class="label label-category" data-bind="text: categoryName"></span>
-
-                                </p>
-                                <p><small>Published: <span data-bind="text: adPublishedDateDescription"></span></small></p>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    @*Footer - Command Panel*@
-                    <div class="panel-footer">
-                        @*Visits : <span data-bind="text: visits"></span>*@
-                        <div class="pull-left">
-                            <div data-bind="visible : $data.status() !== 'Expired'" style="display: inline-block">
-                                <a class="btn btn-primary js-load" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
-                                    <span class="hidden-xs">Manage</span> <i class="fa fa-pencil"></i>
-                                </a>
-
-                                <a class="btn btn-primary js-load" data-bind="attr : {href : viewHref}">
-                                    <span class="hidden-xs">View</span> <i class="fa fa-eye"></i>
-                                </a>
-                            </div>
-
-                            <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
-                                <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
-                            </button>
-
-                            <a class="btn btn-primary" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
-                                <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
-                            </a>
-
-                            <button class="btn btn-default book-again" data-bind="click: bookAgain()">
-                                <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
-                            </button>
-
-                        </div>
-
-                        <div class="pull-right">
-
-                            <div data-bind="visible : $data.status() !== 'Expired'">
-                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
-                                    <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-
-                            
-
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="userEnquiriesDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Direct Messages</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Enquiry</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody data-bind="foreach : userEnquiries">
-                            <tr>
-                                <td data-bind="text: fullName"></td>
-                                <td data-bind="text: email"></td>
-                                <td data-bind="text: enquiryText"></td>
-                                <td data-bind="text: createdDate"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="cancelAdDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Are you sure?</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <strong><i class="fa fa-warning"></i> Danger: </strong>
-                        This action is not reversable. Please contact our team
-                        for a refund, if applicable.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary confirm-cancel js-load">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="bookAgainDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Booking the same Ad</h4>
-                </div>
-                <div class="modal-body">
-                    You will be taken through the booking steps with all forms prefilled
-                    with the selected ad details. Click Ok to get started.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary confirm-book-again js-load">Ok</button>
-                </div>
-            </div>
-        </div>
+<div class="container top-buffer-60">
+    
+    <h2 class="page-header">
+        Event Management
+    </h2>
+    <p>
+        You have been granted the privilage to manage the following events.
+    </p>
+    
+    <div id="eventList">
+        <event-list params="maxItems: 100, user: true"></event-list>
     </div>
 </div>

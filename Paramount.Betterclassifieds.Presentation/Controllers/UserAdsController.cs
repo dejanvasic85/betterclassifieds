@@ -21,18 +21,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
-            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name, takeMax: 20);
-            var viewModels = userAds.Select(ad => new UserBookingViewModel(ad, Url)).ToList();
-            return View(viewModels);
+            return View();
         }
-
-        public ActionResult GetAdsForUser()
-        {
-            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name, takeMax: 20);
-            var viewModels = userAds.Select(ad => new UserBookingViewModel(ad, Url));
-            return Json(viewModels, JsonRequestBehavior.AllowGet);
-        }
-
+        
+        // 
+        // POST: /Cancel/Id 
+        // JSON
         [HttpPost]
         public ActionResult Cancel(int adId)
         {

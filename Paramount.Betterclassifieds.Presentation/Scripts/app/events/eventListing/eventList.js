@@ -8,6 +8,7 @@
 
         var query = new $p.EventQuery()
             .withMax(params.maxItems)
+            .withUser(params.user)
             .build();
 
         eventService.searchEvents(query).then(function (response) {

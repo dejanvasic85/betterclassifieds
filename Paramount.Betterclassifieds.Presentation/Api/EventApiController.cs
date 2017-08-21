@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business;
@@ -45,14 +46,19 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         {
             var results = _searchService.GetEvents();
 
-            if (query.TakeMax.HasValue)
+            if (query.PageSize.HasValue)
             {
-                results = results.Take(query.TakeMax.Value);
+                results = results.Take(query.PageSize.Value);
             }
 
-            if (query.User.HasValue())
+            if (query.User)
             {
-                results = results.Where(r => r.AdSearchResult.Username.Equals(query.User.Trim()));
+                var currentUser = _userManager.GetCurrentUser();
+                if (currentUser == null)
+                {
+                    throw new UnauthorizedAccessException("There is no current user for this request");
+                }
+                results = results.Where(r => r.AdSearchResult.Username.Equals(currentUser.Username));
             }
 
             var contracts = results

@@ -1,23 +1,11 @@
 ﻿@using System.Monads
 @using Paramount
 
-@model HomeModel
+@model dynamic
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
-    ViewBag.Title = "Beat Magazine.";
-
-    // Setup latest ads carousel
-    var latestAdsRowCount = 1;
-    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
-    if (adCount == 0)
-    {
-        latestAdsRowCount = 0;
-    }
-    if (adCount > 3)
-    {
-        latestAdsRowCount = adCount / 3;
-    }
+    ViewBag.Title = "Beat Magazine";
 }
 
 @section Scripts
@@ -25,7 +13,6 @@
     <script>
         $(function () {
             $paramount.ui.home.init();
-            new WOW().init();
         });
     </script>
 }

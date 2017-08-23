@@ -1,7 +1,7 @@
 ﻿<div class="listings">
     <div class="row" data-bind="foreach: events">
         <div class="col-md-4 col-sm-6">
-            <event-listing params="listing: $data"></event-listing>
+            <event-listing params="listing: $data, user: $parent.userEnabled"></event-listing>
         </div>
     </div>
 </div>  

@@ -34,6 +34,10 @@
         return moment(date).format($paramount.jsToDisplayDateFormat);
     }
 
+    $paramount.isUtcDateBeforeNow = function(utcDate) {
+        return moment.utc(utcDate).local().isBefore(moment());
+    }
+
     /*
      * Constants
      */

@@ -5,6 +5,7 @@
     $p.models.EventList = function (params) {
         var me = this;
         me.events = ko.observableArray();
+        me.userEnabled = params.user && params.user === true;
 
         var query = new $p.EventQuery()
             .withMax(params.maxItems)

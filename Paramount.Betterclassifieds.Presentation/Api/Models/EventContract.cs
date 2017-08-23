@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventStartDateUtc { get; set; }
-        public string StartDateHumanized { get; set; }
+        public string EventStartDateHumanized { get; set; }
         public DateTime? EventEndDate { get; set; }
         public DateTime? EventEndDateUtc { get; set; }
         public DateTime? ClosingDate { get; set; }
@@ -85,7 +85,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             this.Map(eventSearchResult.TicketData, contract);
             this.Map(eventSearchResult.Address, contract.Address);
 
-            contract.StartDateHumanized = eventSearchResult.EventDetails.EventStartDate.Humanize();
+            contract.EventStartDateHumanized = eventSearchResult.EventDetails.EventStartDate.Humanize();
+            
             contract.EventUrl = _url.EventUrl(eventSearchResult.AdSearchResult.HeadingSlug,
                 eventSearchResult.AdSearchResult.AdId);
 

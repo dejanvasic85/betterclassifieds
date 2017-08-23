@@ -101,7 +101,7 @@
     EventService.prototype.resendGuestEmail = function (adId, eventBookingTicketId) {
         return $paramount.httpPost(this.baseUrl + 'event-dashboard/' + adId + '/resend-email/' + eventBookingTicketId);
     }
-    
+
     EventService.prototype.createGuestEmailSendPromises = function (id, guests) {
         var me = this;
         var emailFuncs = _.map(guests, function (g) {
@@ -128,6 +128,10 @@
         }
 
         return $paramount.httpGet(uri);
+    }
+
+    EventService.prototype.getEventDashboardUrl = function(adId) {
+        return this.baseUrl + 'event-dashboard/' + adId;
     }
 
     $paramount.EventService = EventService;

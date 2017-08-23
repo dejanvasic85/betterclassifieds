@@ -54,7 +54,8 @@
         }
 
         if (params.eventEndDate) {
-            me.ticketingClosed(moment.utc(params.eventEndDate).local().isBefore(moment()));
+            var isTicketingClosed = $p.isUtcDateBeforeNow(params.eventEndDate);
+            me.ticketingClosed(isTicketingClosed);
         }
 
         me.ticketingOpened(!me.ticketingNotOpened() && !me.ticketingClosed());

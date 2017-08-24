@@ -11,7 +11,7 @@
     function EventListing(params) {
 
         var listing = params.listing;
-
+        console.log('user', params.user);
         this.adId = listing.adId;
         this.eventId = listing.eventId;
         this.eventName = listing.heading;
@@ -25,7 +25,6 @@
         this.endDate = listing.endDate;
         this.location = listing.location.replace(', Australia', '');
         this.categoryFontIcon = "fa fa-5x fa fa-" + listing.categoryFontIcon;
-        this.userEnabled = false;
         this.eventDashboardUrl = eventService.getEventDashboardUrl(this.adId);
         this.isPastEvent = $p.isUtcDateBeforeNow(listing.eventStartDateUtc);
         this.isComingSoon = this.isPastEvent === false;

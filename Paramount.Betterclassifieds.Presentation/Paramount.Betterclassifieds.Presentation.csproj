@@ -921,7 +921,7 @@
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\vendor\bootstrap-toggle.js" />
     <Content Include="Scripts\vendor\bootstrap-typeahead-4.0.2.js" />
-    <Content Include="Scripts\vendor\chart.js" />
+    <Content Include="Scripts\vendor\Chart-2.6.0.js" />
     <Content Include="Scripts\vendor\cropper.js" />
     <Content Include="Scripts\vendor\jquery.fileupload-5.42.0.js" />
     <Content Include="Scripts\vendor\jquery.morphext.js" />

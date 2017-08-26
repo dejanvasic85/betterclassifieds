@@ -48,8 +48,7 @@
         <div class="col-sm-6 col-md-3">
 
             <div class="stat">
-                <canvas id="ticketSalesChart"></canvas>
-
+                <i class="fa fa-ticket fa-4x pull-left"></i>
                 <small>
                     Sold / Remaining
                 </small>
@@ -252,15 +251,12 @@
                 </h3>
                 <p>Your guests will be presented with a question registering for the event.</p>
             </div>
-            <div data-bind="visible: surveyStatistics().length > 0" class="row">
-                <!-- ko foreach: surveyStatistics-->
-                <div class="col-xs-12">
-                    <span data-bind="text: optionNameWithCount"></span>
+            <div class="row">
+                
+                <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center">
+                    <canvas height="200" width="200" data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
                 </div>
-                <div class="col-xs-12">
-                    <progress-bar params="howMany: total, processed: count"></progress-bar>
-                </div>
-                <!-- /ko -->
+              
             </div>
 
             <div class="row">

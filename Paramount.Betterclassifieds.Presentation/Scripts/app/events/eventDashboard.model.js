@@ -20,11 +20,8 @@
         me.showPayMeButton = ko.observable();
         me.showWithdrawPayment = ko.observable();
         me.pageViews = ko.observable();
-        me.surveyStatistics = $paramount.ko.bindArray(editEventViewModel.surveyStatistics, function (stat) {
-            return new SurveyStatistic(stat, editEventViewModel.surveyStaticsTotalAnswers);
-        });
+        me.surveyStatChartData = getSurveyStatChartData(editEventViewModel);
         me.newSurveyOption = ko.observable();
-
         me.bindEditEvent(editEventViewModel);
 
         /*
@@ -119,12 +116,34 @@
 
     $paramount.models = $paramount.models || {};
     $paramount.models.EventDashboardModel = EventDashboardModel;
+    
 
-    function SurveyStatistic(stat, totalAnswers) {
-        this.optionName = ko.observable(stat.optionName);
-        this.count = ko.observable(stat.count);
-        this.total = ko.observable(totalAnswers);
-        this.optionNameWithCount = ko.observable(stat.optionName + ' - ' + stat.count + '/' + totalAnswers);
+    function getSurveyStatChartData(model) {
+        if (!model.surveyStatistics ||
+            !Array.isArray(model.surveyStatistics) ||
+            model.surveyStatistics.length === 0) {
+            return null;
+        }
+
+        var labels = model.surveyStatistics.map(function (stat) {
+            return stat.optionName;
+        });
+
+        var counts = model.surveyStatistics.map(function (stat) {
+            return stat.count;
+        });
+
+        var colours = model.surveyStatistics.map(function () {
+            return $paramount.getRandomColor();
+        });
+
+        return {
+            labels: labels,
+            datasets: [{
+                data: counts,
+                backgroundColor: colours
+            }]
+        }
     }
 
 })(jQuery, ko, $paramount);

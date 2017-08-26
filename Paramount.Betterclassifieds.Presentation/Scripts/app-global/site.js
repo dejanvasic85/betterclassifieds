@@ -34,9 +34,19 @@
         return moment(date).format($paramount.jsToDisplayDateFormat);
     }
 
-    $paramount.isUtcDateBeforeNow = function(utcDate) {
+    $paramount.isUtcDateBeforeNow = function (utcDate) {
         return moment.utc(utcDate).local().isBefore(moment());
     }
+
+    $paramount.getRandomColor = function () {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
 
     /*
      * Constants

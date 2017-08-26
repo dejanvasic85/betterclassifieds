@@ -11,7 +11,6 @@
     function EventListing(params) {
 
         var listing = params.listing;
-        console.log('user', params.user);
         this.adId = listing.adId;
         this.eventId = listing.eventId;
         this.eventName = listing.heading;

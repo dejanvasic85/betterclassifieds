@@ -86,9 +86,9 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedAd_Search")]
-		public ISingleResult<BookedAd> BookedAd_Search([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string searchTerm, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string categoryIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string locationIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string areaIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> order, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageIndex, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageSize)
+		public ISingleResult<BookedAd> BookedAd_Search([Parameter(DbType="NVarChar(50)")] string searchTerm, [Parameter(DbType="VarChar(20)")] string categoryIds, [Parameter(DbType="VarChar(20)")] string locationIds, [Parameter(DbType="VarChar(20)")] string areaIds, [Parameter(DbType="Int")] int? order, [Parameter(DbType="Int")] int? pageIndex, [Parameter(DbType="Int")] int? pageSize, [Parameter(DbType = "VarChar(50)")] string username)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), searchTerm, categoryIds, locationIds, areaIds, order, pageIndex, pageSize);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), searchTerm, categoryIds, locationIds, areaIds, order, pageIndex, pageSize, username);
 			return ((ISingleResult<BookedAd>)(result.ReturnValue));
 		}
 		

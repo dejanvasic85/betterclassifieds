@@ -1,0 +1,24 @@
+﻿@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    ViewBag.Title = "Manage my Ads";
+}
+
+@section Scripts
+{
+    <script>
+    $paramount.ui.userAdsUI.init();
+    </script>
+}
+
+<div class="container top-buffer-60">
+    
+    <h2 class="page-header">
+        Manage my ads
+    </h2>
+    
+    <div id="adList">
+        <ad-list params="{maxItems: 100, user: true}"></ad-list>
+    </div>
+</div>

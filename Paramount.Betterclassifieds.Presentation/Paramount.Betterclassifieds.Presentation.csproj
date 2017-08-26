@@ -1114,6 +1114,7 @@
     <Content Include="Views\EventOrganiser\manage-notifications.cshtml" />
     <Content Include="Views\EventPromo\manage-promo-codes.cshtml" />
     <Content Include="Views\Shared\_HeadScripts.cshtml" />
+    <Content Include="Views\UserAds\Index.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

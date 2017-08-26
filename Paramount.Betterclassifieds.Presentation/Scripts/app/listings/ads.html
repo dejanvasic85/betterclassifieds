@@ -1,7 +1,7 @@
 ﻿<div class="listings">
     <div class="row" data-bind="foreach: ads">
         <div class="col-md-4 col-sm-6">
-            <ad-listing params="listing: $data"></ad-listing>
+            <ad-listing params="listing: $data, user: $parent.user"></ad-listing>
         </div>
     </div>
 </div>  

@@ -10,11 +10,11 @@
     function AdListing(params) {
 
         var listing = params.listing;
-        console.log(listing);
         this.adId = listing.adId;
         this.title = listing.title;
         this.shortTitle = listing.shortTitle;
         this.adUrl = listing.adUrl;
+        this.editAdUrl = $p.baseUrl + 'editad/details/' + listing.adId;
         this.category = listing.categoryName;
         this.parentCategory = listing.parentCategoryName;
         this.startDate = $p.dateToDisplay(listing.startDate);
@@ -22,14 +22,20 @@
         this.locationName = listing.locationName;
         this.locationAreaName = listing.locationAreaName;
         this.categoryFontIcon = "fa fa-5x fa fa-" + listing.categoryFontIcon;
-        this.photo = null;
+        this.photo = getPrimaryPhoto(listing, params);
+        this.userEnabled = params.user === true;
+    }
 
-        if (listing.primaryImage) {
-            this.photo = imgService.getImageUrl(listing.primaryImage, {
-                w: params.imgHeight || 500,
-                h: params.imgWidth || 300
-            });
-        }
+    function getPrimaryPhoto(listing, params) {
+
+        if (!listing.primaryImage)
+            return null;
+
+        return imgService.getImageUrl(listing.primaryImage, {
+            w: params.imgHeight || 500,
+            h: params.imgWidth || 300
+        });
+
     }
 
     $p.models.AdListing = AdListing;

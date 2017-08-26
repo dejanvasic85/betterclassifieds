@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.DataService
             _dbContextFactory = dbContextFactory;
         }
 
-        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant, string username = null)
         {
             using (var context = _dbContextFactory.CreateClassifiedSearchContext())
             {
@@ -36,13 +36,14 @@ namespace Paramount.Betterclassifieds.DataService
                     areaList,
                     (int)sortOrder,
                     index,
-                    pageSize).ToList();
+                    pageSize,
+                    username).ToList();
 
                 return this.MapList<BookedAd, AdSearchResult>(results);
             }
         }
 
-        public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant, string username = null)
         {
             return GetAds(searchterm,
                 categoryId.HasValue ? new[] { categoryId.Value } : null,

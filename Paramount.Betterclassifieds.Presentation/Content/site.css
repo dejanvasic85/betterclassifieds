@@ -497,7 +497,7 @@ input[readonly].bs-clock-picker {
   min-height: 385px;
 }
 .listings .col-item.editable {
-  min-height: 515px;
+  min-height: 500px;
 }
 .listings .col-item:hover {
   box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

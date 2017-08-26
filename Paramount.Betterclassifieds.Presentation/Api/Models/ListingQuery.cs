@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         }
         public string SearchTerm { get; set; }
         public int PageSize { get; set; }
-        public string User { get; set; }
+        public bool User { get; set; }
         public IEnumerable<int> CategoryIds { get; set; }
         public int? PageNumber { get; set; }
     }

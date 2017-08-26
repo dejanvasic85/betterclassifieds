@@ -1,4 +1,12 @@
-﻿<div class="col-item">
+﻿<div class="col-item" data-bind="css: {'editable': userEnabled}">
+    
+    <div class="row" data-bind="visible: userEnabled">
+        <div class="col-xs-offset-9 col-xs-3">
+            <a class="btn btn-primary btn-lg btn-circle"
+               data-bind="attr: {'href': editAdUrl}"><i class="fa fa-pencil"></i></a>
+        </div>
+    </div>
+
 
     <a data-bind="attr: {href: adUrl}">
 

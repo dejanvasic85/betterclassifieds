@@ -23,10 +23,12 @@
 
     $p.models.Ads = function (params) {
         var me = this;
+        me.user = params.user;  
         me.ads = ko.observableArray();
 
         var query = new $p.QueryManager()
             .withPageSize(params.pageSize)
+            .withUser(params.user)
             .build();
 
         listingService.search(query).then(function (response) {

@@ -20,8 +20,8 @@
         me.showPayMeButton = ko.observable();
         me.showWithdrawPayment = ko.observable();
         me.pageViews = ko.observable();
-        me.surveyStatChartData = getSurveyStatChartData(editEventViewModel);
         me.newSurveyOption = ko.observable();
+        me.surveyStatChartData = ko.observable(buildSurveyChartData(editEventViewModel));
         me.bindEditEvent(editEventViewModel);
 
         /*
@@ -49,30 +49,34 @@
                 return;
             }
 
-            var valueExists = false;
-
-            _.each(me.surveyStatistics(), function (option) {
-                if (option.optionName().toLowerCase().trim() === newOption.toLowerCase().trim()) {
-                    valueExists = true;
-                }
-            });
-
-            if (valueExists === true) {
+            if (_.includes(editEventViewModel.surveyStatistics, newOption)) {
                 toastr.error('The option ' + newOption + ' already exists');
                 return;
             }
 
             var model = {
                 eventId: me.eventId(),
-                optionName: newOption
+                optionName: newOption,
+                count: 0
             };
 
+            var currentStats = editEventViewModel.surveyStatistics;
+
             adDesignService.addSurveyOption(model).then(function (resp) {
-                me.surveyStatistics.push(new SurveyStatistic({
-                    optionName: newOption.trim(),
-                    count: 0
-                }, editEventViewModel.surveyStaticsTotalAnswers));
+
+                if (resp.errors) {
+                    return;
+                }
+                
+                var updated = {
+                    surveyStatistics: [...currentStats, Object.assign({}, model)]
+                };
+
+                var updatedChartData = buildSurveyChartData(updated);
+                me.surveyStatChartData(updatedChartData);
+
                 me.newSurveyOption(null);
+                toastr.success('Option added successfully');
             });
         }
 
@@ -116,9 +120,9 @@
 
     $paramount.models = $paramount.models || {};
     $paramount.models.EventDashboardModel = EventDashboardModel;
-    
 
-    function getSurveyStatChartData(model) {
+
+    function buildSurveyChartData(model) {
         if (!model.surveyStatistics ||
             !Array.isArray(model.surveyStatistics) ||
             model.surveyStatistics.length === 0) {

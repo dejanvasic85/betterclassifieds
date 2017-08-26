@@ -232,7 +232,7 @@
             var ctx = element.getContext("2d");
             var chartTypeValue = valueAccessor();
             var chartType = ko.unwrap(chartTypeValue);
-            var chartData = allBindings.get('data');
+            var chartData = ko.unwrap(allBindings.get('data'));
 
             var chart = new Chart(ctx, {
                 type: chartType,

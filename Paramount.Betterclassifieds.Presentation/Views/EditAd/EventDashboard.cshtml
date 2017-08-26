@@ -223,20 +223,7 @@
             </div>
         </div>
 
-        @*Close Event*@
-        <div class="col-xs-12">
-            <div class="action-item clearfix">
-                <h3>
-                    <i class="fa fa-ban"></i> Close Event
-                </h3>
-                <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
-                <div class="action-btn">
-                    <button class="btn btn-warning" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close Event</button>
-                    <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
-                </div>
-            </div>
-        </div>
-
+        @*Account Confirmation*@
         <div class="col-xs-12" data-bind="visible: requiresEventOrganiserConfirmation">
             <div class="alert alert-danger">
                 <strong>Account Confirmation Required.</strong> To meet our security standards, as an event organiser, you must confirm your identity.
@@ -244,6 +231,7 @@
             </div>
         </div>
 
+        @*Survey Results*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
@@ -252,11 +240,11 @@
                 <p>Your guests will be presented with a question registering for the event.</p>
             </div>
             <div class="row">
-                
+
                 <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center">
-                    <canvas height="200" width="200" data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
+                    <canvas data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
                 </div>
-              
+
             </div>
 
             <div class="row">
@@ -273,11 +261,28 @@
                 </div>
             </div>
         </div>
+
+        @*Close Event*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    <i class="fa fa-ban"></i> Close Event
+                </h3>
+                <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
+                <div class="action-btn">
+                    <button class="btn btn-warning" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close Event</button>
+                    <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
+                </div>
+            </div>
+        </div>
     </div>
 
+</div>
 
+@*Close event modal confirmation*@
 
-
+@section Modals
+{
     <div id="closeEventDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -297,7 +302,4 @@
             </div>
         </div>
     </div>
-
-</div>
-
-@*Close event modal confirmation*@
+}

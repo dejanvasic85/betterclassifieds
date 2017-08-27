@@ -1,7 +1,8 @@
 ﻿(function ($, ko, $paramount) {
-
+    
     function EventDashboardModel(editEventViewModel, adDesignService) {
         var me = this;
+        me.adId = ko.observable();
         me.eventId = ko.observable();
         me.tickets = ko.observableArray();
         me.totalSoldQty = ko.observable();
@@ -29,17 +30,26 @@
          */
         me.closeEvent = function (element, event) {
             var $btn = $(event.target); // Grab the jQuery element from knockout
-            $btn.button('loading');
+            $btn.loadBtn();
 
             adDesignService.closeEvent(me.eventId())
-                .done(function () {
+                .then(function (res) {
+                    if (res.errors) {
+                        return;
+                    }
+
                     $('#closeEventDialog').modal('hide');
                     me.isClosed(true);
                     me.requestPaymentStatus($paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
-                })
-                .complete(function () {
-                    $btn.button('reset');
                 });
+        }
+
+        me.deleteEvent = function (element, event) {
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+            // This should return a nextUrl property that will automatically navigate away from this page
+            adDesignService.remove(me.adId());
         }
 
         me.addSurveyOption = function () {
@@ -104,6 +114,7 @@
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
 
+        me.adId(editEventViewModel.adId);
         me.eventId(editEventViewModel.eventId);
         me.organiserAbsorbsTransactionFee(editEventViewModel.organiserAbsorbsTransactionFee);
         me.isClosed(editEventViewModel.isClosed);
@@ -142,6 +153,7 @@
         });
 
         return {
+            totalCount: _.sum(counts),
             labels: labels,
             datasets: [{
                 data: counts,

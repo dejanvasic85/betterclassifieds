@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string AdUrl(AdBookingModel ad);
         string EventDashboardUrl(int adId);
         string Image(string documentId, int height = 100, int width = 100);
+        string UserAds();
     }
 
     /// <summary>
@@ -85,6 +86,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public string Image(string documentId, int height = 100, int width = 200)
         {
             return BuildIt(() => _urlHelper.Image(documentId, height, width));
+        }
+
+        public string UserAds()
+        {
+            return BuildIt(() => _urlHelper.UserAds());
         }
 
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)

@@ -58,6 +58,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "index", "home");
         }
 
+        public static UrlBuilder UserAds(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("index", "userads");
+        }
+
         public static UrlBuilder Login(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper).WithAction("login", "account");

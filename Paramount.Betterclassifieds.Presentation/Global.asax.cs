@@ -45,8 +45,8 @@ namespace Paramount.Betterclassifieds.Presentation
 
         protected void Application_End()
         {
-            var logService = DependencyResolver.Current.GetService<ILogService>();
-            logService.Info("Application shutting down");
+            var logService = DependencyResolver.Current?.GetService<ILogService>();
+            logService?.Info("Application shutting down");
         }
 
         protected void Session_Start(object sender, EventArgs e)

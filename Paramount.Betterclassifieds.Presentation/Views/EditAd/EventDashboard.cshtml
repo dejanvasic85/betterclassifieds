@@ -239,7 +239,7 @@
                 </h3>
                 <p>Your guests will be presented with a question registering for the event.</p>
             </div>
-            <div class="row">
+            <div class="row" data-bind="if: surveyStatChartData() !== null">
 
                 <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center">
                     <canvas data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
@@ -285,11 +285,11 @@
                 </h3>
                 <p class="action-info">
                     <strong>Warning:</strong>
-                    Removes the event listing completely from the site. 
+                    Removes the event listing completely from the site.
                     You will no longer be able to view or manage.
                 </p>
                 <div class="action-btn">
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteEventDialog">Delete Event</button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDialog">Delete Event</button>
                 </div>
             </div>
         </div>
@@ -316,6 +316,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary js-load" data-bind="click: closeEvent">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong><i class="fa fa-warning"></i> Danger: </strong>
+                        This will completely remove the event from this website.
+                        To recover, you will need to contact our support team.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary js-load" data-bind="click: deleteEvent">Yes, delete event!</button>
                 </div>
             </div>
         </div>

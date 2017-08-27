@@ -1,5 +1,7 @@
 ﻿using Paramount.Betterclassifieds.Business.Booking;
 using System.Web.Mvc;
+using System.Web.UI;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -7,10 +9,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class UserAdsController : ApplicationController
     {
         private readonly IBookingManager _bookingManager;
+        private readonly IUrl _url;
 
-        public UserAdsController(IBookingManager bookingManager)
+        public UserAdsController(IBookingManager bookingManager, IUrl url)
         {
             _bookingManager = bookingManager;
+            _url = url;
         }
 
         //
@@ -29,7 +33,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             _bookingManager.CancelAd(adId);
 
-            return Json(true);
+            return Json(new
+            {
+                NextUrl = _url.UserAds()
+            });
         }
     }
 }

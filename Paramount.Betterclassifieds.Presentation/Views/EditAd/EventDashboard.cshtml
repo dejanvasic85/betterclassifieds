@@ -191,14 +191,15 @@
 
             </div>
         </div>
-
+        
+        @*Notifications*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
                     <i class="fa fa-envelope-o"></i> Notifications
                 </h3>
                 <p class="action-info">
-                    Manage your notifications for this event.
+                    Manage your automatic email notifications for this event.
                 </p>
                 <div class="action-btn">
                     <a id="lnkManageNotifications" class="btn btn-primary js-load" href="@Url.EventNotifications(Model.EventId)">
@@ -237,14 +238,24 @@
                 <h3>
                     <i class="fa fa-clipboard"></i> Survey Results
                 </h3>
-                <p>Your guests will be presented with a question registering for the event.</p>
+                <p>Your guests will be asked how they heard about the event if you provide options here.</p>
             </div>
-            <div class="row" data-bind="if: surveyStatChartData() !== null">
+            <div class="row">
 
-                <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center">
+                <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center" data-bind="if: surveyStatChartData() !== null && surveyStatChartData().totalCount > 0">
                     <canvas data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
                 </div>
 
+                <div class="col-xs-12" data-bind="if: surveyStatChartData() === null || surveyStatChartData().totalCount <= 0">
+                    <p>Current options:</p>
+                    <ul data-bind="foreach: surveyStatChartData().labels">
+                        <li data-bind="text: $data"></li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        Once we have some data, we'll display a nice graph for you.
+                    </div>
+                </div>
             </div>
 
             <div class="row">

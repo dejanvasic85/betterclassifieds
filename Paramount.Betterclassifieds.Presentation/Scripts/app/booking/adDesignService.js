@@ -111,7 +111,7 @@
         $.extend(me.model, data);
         return $paramount.httpPost(me.baseUrl + 'remove-guest', me.model);
     }
-  
+
     AdDesignService.prototype.getCurrentEventDetails = function () {
         var url = me.baseUrl + 'GetEventDetails';
 
@@ -153,15 +153,21 @@
         return $paramount.httpPost(url, $.extend(me.model, data));
     }
 
-    AdDesignService.prototype.updateEventGuestSettings = function(model) {
+    AdDesignService.prototype.updateEventGuestSettings = function (model) {
         var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + model.eventId + '/guest-settings';
         return $paramount.httpPost(url, model);
     }
 
-    AdDesignService.prototype.addSurveyOption = function(model) {
+    AdDesignService.prototype.addSurveyOption = function (model) {
         var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + model.eventId + '/survey-option';
         return $paramount.httpPost(url, model);
     }
+
+    AdDesignService.prototype.remove = function (adId) {
+        var url = $paramount.baseUrl + 'userAds/cancel?adId=' + adId;
+        return $paramount.httpPost(url, model);
+    }
+
 
     // Exports
     $paramount.AdDesignService = AdDesignService;

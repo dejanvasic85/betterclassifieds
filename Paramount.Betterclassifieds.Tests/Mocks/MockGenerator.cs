@@ -233,6 +233,34 @@ namespace Paramount.Betterclassifieds.Tests
 		}
 	}
 
+	internal partial class EnquiryMockBuilder : MockBuilder<EnquiryMockBuilder, Enquiry>
+	{	
+		public EnquiryMockBuilder WithEnquiryId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EnquiryId = val);
+		}
+		public EnquiryMockBuilder WithFullName(String val)
+		{ 
+			return WithBuildStep(p => p.FullName = val);
+		}
+		public EnquiryMockBuilder WithEmail(String val)
+		{ 
+			return WithBuildStep(p => p.Email = val);
+		}
+		public EnquiryMockBuilder WithEnquiryText(String val)
+		{ 
+			return WithBuildStep(p => p.EnquiryText = val);
+		}
+		public EnquiryMockBuilder WithCreatedDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.CreatedDate = val);
+		}
+		public EnquiryMockBuilder WithActive(Boolean val)
+		{ 
+			return WithBuildStep(p => p.Active = val);
+		}
+	}
+
 	internal partial class ApplicationUserMockBuilder : MockBuilder<ApplicationUserMockBuilder, ApplicationUser>
 	{	
 		public ApplicationUserMockBuilder WithUsername(String val)

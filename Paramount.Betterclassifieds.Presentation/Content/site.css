@@ -494,7 +494,7 @@ input[readonly].bs-clock-picker {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: 1px solid #eee;
   margin-top: 20px;
-  min-height: 385px;
+  min-height: 400px;
 }
 .listings .col-item.editable {
   min-height: 500px;

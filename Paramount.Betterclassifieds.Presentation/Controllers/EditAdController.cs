@@ -151,8 +151,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var status = _eventManager.GetEventPaymentRequestStatus(eventDetails.EventId);
             var applicationUser = _userManager.GetCurrentUser();
             var eventUrl = _url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType);
+            var enquiryCount = _bookingManager.GetEnquiries(id).Count();
 
-            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
+            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, enquiryCount, adDetails.Heading,
+                eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList()));
 
@@ -276,7 +278,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult DownloadGuestListPdf(int id, int eventId)
         {
             var viewModel = GetEventGuestList(id, eventId);
-            
+
             var html = _templatingService.Generate(viewModel, "~/Views/Templates/EventGuestList.cshtml");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
             return File(pdf, ContentType.Pdf, $"{viewModel.EventName} - Guest List.pdf");
@@ -704,6 +706,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        [HttpGet, ActionName("manage-enquiries")]
+
+        public ActionResult ManageEnquiries(int id)
+        {
+            var enquiries = _bookingManager.GetEnquiries(id)
+                .Where(e => e.Active)
+                .OrderByDescending(e => e.CreatedDate);
+
+            var vm = new ManageEnquiriesViewModel
+            {
+                AdId = id,
+                Enquiries = enquiries.Select(e => new AdEnquiryViewModel(id, e)).ToList()
+            };
+
+            return View(vm);
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

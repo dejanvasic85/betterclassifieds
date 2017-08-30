@@ -354,6 +354,7 @@
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="Services\EventBookingManager.cs" />
     <Compile Include="ViewModels\Events\EventPromoViewModel.cs" />
+    <Compile Include="ViewModels\Events\ManageEnquiriesViewModel.cs" />
     <Compile Include="ViewModels\Events\ManageOrganisersViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
@@ -1115,6 +1116,7 @@
     <Content Include="Views\EventPromo\manage-promo-codes.cshtml" />
     <Content Include="Views\Shared\_HeadScripts.cshtml" />
     <Content Include="Views\UserAds\Index.TheMusic.cshtml" />
+    <Content Include="Views\EditAd\manage-enquiries.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

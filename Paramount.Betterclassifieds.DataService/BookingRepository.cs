@@ -206,6 +206,20 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public IEnumerable<Enquiry> GetEnquiries(int adId)
+        {
+            using (var context = _dbContextFactory.CreateClassifiedContext())
+            {
+                var enquiries = context.AdBookings.Single(b => b.AdBookingId == adId)
+                    .Ad
+                    .AdDesigns.Single(d => d.AdTypeId == AdTypeCode.OnlineCodeId)
+                    .OnlineAds.Single()
+                    .OnlineAdEnquiries.ToList();
+
+                return this.MapList<OnlineAdEnquiry, Enquiry>(enquiries);
+            }
+        }
+
         public int AddBookingExtension(AdBookingExtensionModel extension)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())

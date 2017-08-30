@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         AdBookingModel GetBooking(int id);
         AdBookingModel GetBookingForOnlineAdId(int onlineAdId);
         IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax);
+        IEnumerable<Enquiry> GetEnquiries(int id);
 
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);

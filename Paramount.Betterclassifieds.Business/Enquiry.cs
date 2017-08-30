@@ -17,11 +17,11 @@ namespace Paramount.Betterclassifieds.Business
             Active = active;
         }
 
-        public int EnquiryId { get; private set; }
-        public string FullName { get; private set; }
-        public string Email { get; private set; }
-        public string EnquiryText { get; private set; }
-        public DateTime CreatedDate { get; private set; }
-        public bool Active { get; private set; }
+        public int EnquiryId { get; set; }
+        public string FullName { get; set; }        
+        public string Email { get; set; }
+        public string EnquiryText { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public bool Active { get; set; }
     }
 }

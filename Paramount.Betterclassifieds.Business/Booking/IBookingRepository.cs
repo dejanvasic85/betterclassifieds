@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
         OnlineAdModel GetOnlineAd(int adId);
+        IEnumerable<Enquiry> GetEnquiries(int adId);
 
         // Add
         int AddBookingExtension(AdBookingExtensionModel extension);

@@ -1,0 +1,72 @@
+﻿@model ManageEnquiriesViewModel
+
+@{
+    ViewBag.Title = "Manage enquiries for event";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            var data = @Html.Raw(Model.ToJsonString());
+            var vm = {
+                enquiries: $paramount.ko.bindArray(data.enquiries, en => {
+                    return new $paramount.models.UserEnquiry(en);
+                })
+            }
+            var element = document.getElementById('manageEnquiries');
+            ko.applyBindings(vm, element);
+        });
+    </script>
+}
+
+<div class="container top-buffer-60" id="manageEnquiries">
+    <h2 class="page-header">
+        Manage Enquiries
+    </h2>   
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6  col-md-3 col-md-offset-9">
+            <a href="@Url.EventDashboard(Model.AdId)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i>
+                Back
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="top-buffer-20">
+        
+        @if (Model.Enquiries.Count == 0)
+        {
+            <div class="alert alert-info">There are no messages to show at the moment.</div>
+        }
+        else
+        {
+            <div data-bind="foreach: enquiries">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading" data-bind="text: fullName"></h4>
+                        
+                        <p class="list-group-item-text">
+                            <div data-bind="text: email"></div>
+                            <div data-bind="text: createdDate"></div>
+                            <div data-bind="text: enquiryText"></div>
+                            <div>
+                                <a data-bind="attr : {'href': mailtoLink }"
+                                   class="btn btn-default">
+                                    <i class="fa fa-envelope-o"></i> Email
+                                </a>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+</div>

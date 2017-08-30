@@ -323,5 +323,12 @@ namespace Paramount
                 .WithAction("manage-notifications", "EventOrganiser")
                 .WithRouteValues(new { eventId });
         }
+
+        public static UrlBuilder ManageEnquiries(this UrlHelper urlHelper, int adId)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("manage-enquiries", "EditAd")
+                .WithRouteValues(new { id = adId });
+        }
     }
 }

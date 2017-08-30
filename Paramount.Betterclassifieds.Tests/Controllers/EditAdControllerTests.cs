@@ -48,6 +48,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventOrganiserFeesTotalFeesAmount(10)
                 .WithTotalTicketSalesAmount(100).Build();
 
+            var enquiries = new EnquiryMockBuilder().WithActive(true)
+                .WithCreatedDate(DateTime.Now.AddDays(-1))
+                .WithEmail("foo@bar.com")
+                .WithEnquiryId(1)
+                .WithFullName("Foo Bar")
+                .WithEnquiryText("Hello world")
+                .Build();
+
             _url.SetupWithVerification(call => call.AdUrl(
                 It.IsAny<string>(),
                 It.IsAny<int>(),
@@ -62,6 +70,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.GetEventPaymentRequestStatus(It.Is<int>(p => p == eventId)), EventPaymentRequestStatus.Complete);
 
             _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), new ApplicationUserMockBuilder().Default().Build());
+            _bookingManagerMock.SetupWithVerification(call => call.GetEnquiries(It.Is<int>(id => id == adId)), new[] { enquiries });
 
             // Act 
             var result = BuildController().EventDashboard(adId);
@@ -81,6 +90,33 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
             Assert.That(viewModel.IsClosed, Is.True);
             Assert.That(viewModel.EventName, Is.Not.Null);
+            Assert.That(viewModel.EnquiryCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ManageEnquiries_Returns_View()
+        {
+            var adId = 123;
+            var enquiry = new EnquiryMockBuilder().WithActive(true)
+                .WithCreatedDate(DateTime.Now.AddDays(-1))
+                .WithEmail("foo@bar.com")
+                .WithEnquiryId(1)
+                .WithFullName("Foo Bar")
+                .WithEnquiryText("Hello world")
+                .Build();
+
+
+            _bookingManagerMock.SetupWithVerification(call => call.GetEnquiries(It.Is<int>(i => i == adId)),
+                new[] {enquiry});
+
+            var controller = BuildController();
+            
+            var result = controller.ManageEnquiries(adId);
+
+            result.IsTypeOf<ViewResult>();
+            var vm = result.ViewResultModelIsTypeOf<ManageEnquiriesViewModel>();
+            vm.AdId.IsEqualTo(adId);
+            vm.Enquiries.Count.IsEqualTo(1);
         }
 
         [Test]

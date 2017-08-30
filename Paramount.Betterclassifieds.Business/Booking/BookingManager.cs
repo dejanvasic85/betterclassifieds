@@ -66,6 +66,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return ads;
         }
 
+        public IEnumerable<Enquiry> GetEnquiries(int id)
+        {
+            return _bookingRepository.GetEnquiries(id);
+        }
+
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
         {
             var adBooking = _bookingRepository.GetBooking(extensionModel.AdBookingId);

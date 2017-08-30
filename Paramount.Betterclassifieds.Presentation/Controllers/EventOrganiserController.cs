@@ -138,4 +138,5 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventOrganiser, EventOrganiserViewModel>().ReverseMap();
         }
     }
+
 }

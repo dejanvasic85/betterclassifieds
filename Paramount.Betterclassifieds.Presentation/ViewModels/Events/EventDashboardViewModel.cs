@@ -11,11 +11,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventDashboardViewModel()
         { }
 
-        public EventDashboardViewModel(int adId, int pageViews, string eventName, EventModel eventModel, EventPaymentSummary paymentSummary, EventPaymentRequestStatus status, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
+        public EventDashboardViewModel(int adId, int pageViews,
+            int enquiryCount, string eventName, EventModel eventModel, 
+            EventPaymentSummary paymentSummary, 
+            EventPaymentRequestStatus status, List<EventTicketViewModel> tickets, 
+            List<EventGuestListViewModel> guests)
         {
             EventName = eventName;
             AdId = adId;
             PageViews = pageViews;
+            EnquiryCount = enquiryCount;
             EventId = eventModel.EventId.GetValueOrDefault();
             Tickets = tickets;
             Guests = guests;
@@ -47,6 +52,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 SurveyStatistics = SurveyStatisticsViewFactory.CreateStatisticsForEvent(eventModel, eventModel.EventBookings);
             }
         }
+
+        public int EnquiryCount { get; set; }
 
         public bool? OrganiserAbsorbsTransactionFee { get; set; }
 

@@ -1,11 +1,25 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class AdEnquiryViewModel
     {
+        public AdEnquiryViewModel()
+        {
+            
+        }
+
+        public AdEnquiryViewModel(int adId, Enquiry enquiry)
+        {
+            Id = enquiry.EnquiryId;
+            AdId = adId;
+            FullName = enquiry.FullName;
+            Email = enquiry.Email;
+            CreatedDate = enquiry.CreatedDate.ToDisplayDateFormat();
+            Question = enquiry.EnquiryText;
+        }
+
         [Required]
         public int AdId { get; set; }
         
@@ -28,6 +42,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public string AdTitle { get; set; }
         public string AdUrl { get; set; }
-        
+        public int? Id { get; set; }
     }
 }

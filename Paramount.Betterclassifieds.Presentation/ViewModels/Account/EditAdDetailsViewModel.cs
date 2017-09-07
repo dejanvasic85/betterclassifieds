@@ -24,7 +24,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             StartDate = adBooking.StartDate;
             IsFutureScheduledAd = adBooking.StartDate >= DateTime.Today;
             OnlineAdImages = onlineAd.Images.Select(a => a.DocumentId).ToList();
+            Enquiries = adBooking.Enquiries.Select(e => new AdEnquiryViewModel(id, e)).ToList();
         }
+
+        public List<AdEnquiryViewModel> Enquiries { get; set; }
 
         #region Online Ad Details
 

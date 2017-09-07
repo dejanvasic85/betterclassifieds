@@ -159,7 +159,7 @@
                         <div class="bs-callout bs-callout-info">
                             <h4>Online Schedule</h4>
                             @if (Model.IsFutureScheduledAd)
-            {
+                            {
                                 <p>
                                     You may bring your ad forward or schedule it for later if it has not started...
                                     It will be available for @Model.ConfigDurationDays days from the date you select below.
@@ -214,9 +214,9 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdText)
                         @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
-        {
-            {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
-        })
+                {
+                    {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
+                })
                         <span class="help-block">
                             <strong>Puchased Words @Model.LineWordsPurchased.</strong>
                             Current Word Count: <span data-bind="text: wordCount"></span>.
@@ -285,6 +285,79 @@
                 </div>
 
             </div>
+
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bs-callout bs-callout-info">
+                            <h4>Delete Ad</h4>
+                            <p>
+                                This will remove it from the public's view and your
+                                management. The only way to recover is to contact support.
+                            </p>
+                            <p class="text-right">
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#deleteDialog">Delete</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bs-callout bs-callout-info">
+                            <h4>Online Enquiries</h4>
+                            <p>
+                                When your viewers need help they fill out enquiry form that will
+                                show up below:
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        @if (Model.Enquiries.Count == 0)
+                        {
+                            <div class="alert alert-info">
+                                There are no messages to display
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="list-group">
+                                @foreach (var enquiry in Model.Enquiries)
+                                {
+                                    <div class="list-group-item">
+                                        <h4 class="list-group-item-heading">
+                                            @enquiry.FullName
+                                        </h4>
+
+                                        <p class="list-group-item-text">
+                                            <div>
+                                                @enquiry.Email
+                                            </div>
+                                            <div>
+                                                @enquiry.CreatedDate
+                                            </div>
+                                            <div>
+                                                @enquiry.Question
+                                            </div>
+                                            <div>
+                                                <a href="mailto:@enquiry.Email"
+                                                   class="btn btn-default">
+                                                    <i class="fa fa-envelope-o"></i> Email
+                                                </a>
+                                            </div>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
         </div>
 
     </form>
@@ -292,6 +365,42 @@
 </div>
 
 
+@helper Alert(string messsage, string type, bool dismissable = true)
+{
+    <div class="alert alert-@type @(dismissable ? Html.Raw("alert-dismissable") : Html.Raw(""))">
+
+        @if (dismissable)
+        {
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+        }
+        @messsage
+    </div>
+}
+
+@section Modals{
+
+    <div id="deleteDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong><i class="fa fa-warning"></i> Danger: </strong>
+                        Your ad will no longer be visible in your account.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary js-load" data-bind="click: deleteAd">Yes, delete!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -311,7 +420,8 @@
                 onlineImages: @Html.Raw(Model.OnlineAdImages.ToJsonString()),
                 maxImages : @Model.MaxOnlineImages,
                 lineAd : lineAdJson,
-                updateRates : false
+                updateRates: false,
+                adId: @Model.Id
             };
 
             var designAdModel = new $models.DesignAd(designOptions);
@@ -319,18 +429,4 @@
 
         })(jQuery, $paramount, $paramount.models);
     </script>
-}
-
-@helper Alert(string messsage, string type, bool dismissable = true)
-{
-    <div class="alert alert-@type @(dismissable ? Html.Raw("alert-dismissable") : Html.Raw(""))">
-
-        @if (dismissable)
-        {
-            <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-            </button>
-        }
-        @messsage
-    </div>
 }

@@ -13,6 +13,11 @@
 
         var self = this;
 
+        self.adId = options.adId;
+        self.deleteAd = function () {
+            adService.remove(self.adId);
+        }
+
         // Online Images
         self.adImages = ko.observableArray(onlineImages);
         self.getImageUrl = function (id) {
@@ -64,7 +69,7 @@
             self.removePrintImage = function () {
                 self.lineAdImageId("");
             }
-            self.lineAdImgUrl = ko.computed(function() {
+            self.lineAdImgUrl = ko.computed(function () {
                 if (self.lineAdImageId() === 'undefined' || self.lineAdImageId() === '') {
                     return null;
                 }
@@ -83,7 +88,7 @@
             self.onlineItemPrices = ko.observableArray([]);
             self.calculate = ko.computed(function () {
                 var factors = {}
-                
+
                 if (lineAd != null) {
                     factors.lineAdText = self.lineAdText();
                     factors.lineAdHeader = self.lineAdHeader();

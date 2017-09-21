@@ -62,11 +62,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetByAdId(viewModel.Id);
+            
             if (adBooking.CategoryAdType.HasValue())
             {
                 return RedirectToAction("NotFound", "Error");
             }
-
+            
             viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
@@ -78,6 +79,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ViewBag.Invalid = true;
                 return View(viewModel);
             }
+
+            var enquiries = _bookingManager.GetEnquiries(viewModel.Id).Select(e => new AdEnquiryViewModel(viewModel.Id, e)).ToList();
+            viewModel.Enquiries = enquiries;
 
             // Convert to online ad
             var onlineAd = this.Map<EditAdDetailsViewModel, OnlineAdModel>(viewModel);

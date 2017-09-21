@@ -258,9 +258,9 @@
                 </h3>
                 <p>Your guests will be asked how they heard about the event if you provide options here.</p>
             </div>
-            <div class="row">
+            <div class="row" data-bind="if: surveyStatChartData">
 
-                <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center" data-bind="if: surveyStatChartData() !== null && surveyStatChartData().totalCount > 0">
+                <div class="col-xs-12 col-sm-offset-4 col-sm-4 text-center" data-bind="visible: surveyStatChartData().totalCount > 0">
                     <canvas data-bind="chart: 'pie', data: surveyStatChartData"></canvas>
                 </div>
 

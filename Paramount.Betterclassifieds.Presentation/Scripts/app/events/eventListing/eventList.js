@@ -6,12 +6,13 @@
         var me = this;
         me.events = ko.observableArray();
         me.userEnabled = params.user && params.user === true;
+        me.loading = ko.observable(true);
 
         var query = new $p.EventQuery()
             .withMax(params.maxItems)
             .withUser(params.user)
             .build();
-
+        
         eventService.searchEvents(query).then(function (response) {
             if (response.errors) {
                 return;
@@ -20,10 +21,12 @@
             if (!Array.isArray(response)) {
                 throw new Error("The response does not contain an array of events.");
             }
-
+            
             _.each(response, function (item) {
                 me.events.push(item);
             });
+
+            me.loading(false);
         });
     };
 

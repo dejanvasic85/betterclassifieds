@@ -21,7 +21,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public UserAdsPage EditAd(int adId)
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"[data-adid='{adId}']")));
+            var element = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"[data-adid='{adId}'] .btn-circle")));
+
             element.ClickOnElement();
             return this;
         }
@@ -29,8 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public UserAdsPage EditFirstAdWithTitle(string title)
         {
             GetAdElements()
-                .First(el => el.FindElement(By.ClassName("media-heading")).Text == title)
-                .FindElement(By.CssSelector("[data-adid]"))
+                .First(el => el.FindElement(By.CssSelector("[data-title]")).Text == title)
                 .ClickOnElement();
 
             return this;
@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
                 .Select(adElement => new AdTestData
                 {
                     AdId = int.Parse(adElement.FindElement(By.CssSelector("[data-adid]")).GetAttribute("data-adid")),
-                    Title = adElement.FindElement(By.ClassName("media-heading")).Text
+                    Title = adElement.FindElement(By.CssSelector("[data-title]")).Text
                 });
         }
 

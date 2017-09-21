@@ -1,7 +1,22 @@
 ﻿<div class="listings">
+    
+    <!-- ko if: events().length <= 0 && loading() === false -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info">
+                It appears to be very empty here... Maybe create a listing first!
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+
+    <!-- ko if: events().length > 0 -->
     <div class="row" data-bind="foreach: events">
         <div class="col-md-4 col-sm-6">
             <event-listing params="listing: $data, user: $parent.userEnabled"></event-listing>
         </div>
     </div>
+    <!-- /ko -->
+
 </div>  

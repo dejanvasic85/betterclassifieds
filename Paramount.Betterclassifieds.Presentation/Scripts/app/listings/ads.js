@@ -4,6 +4,7 @@
         var me = this;
         me.baseUrl = baseUrl;
 
+
         me.search = function (query) {
             var url = this.baseUrl + 'api/listings/search';
             
@@ -25,6 +26,7 @@
         var me = this;
         me.user = params.user;  
         me.ads = ko.observableArray();
+        me.loading = ko.observable(true);
 
         var query = new $p.QueryManager()
             .withPageSize(params.pageSize)
@@ -43,6 +45,8 @@
             _.each(response, function (item) {
                 me.ads.push(item);
             });
+
+            me.loading(false);
         });
     };
 

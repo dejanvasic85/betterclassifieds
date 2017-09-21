@@ -1,7 +1,20 @@
 ﻿<div class="listings">
+    
+    <!-- ko if: ads().length <= 0 && loading() === false -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info">
+                It appears to be very empty here... Maybe create a listing first!
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: ads().length > 0 -->
     <div class="row" data-bind="foreach: ads">
         <div class="col-md-4 col-sm-6">
             <ad-listing params="listing: $data, user: $parent.user"></ad-listing>
         </div>
     </div>
+    <!-- /ko -->
 </div>  

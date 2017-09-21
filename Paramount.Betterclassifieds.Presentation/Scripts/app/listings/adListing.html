@@ -1,4 +1,4 @@
-﻿<div class="col-item" data-bind="css: {'editable': userEnabled}">
+﻿<div class="col-item" data-bind="css: {'editable': userEnabled}, attr: {'data-adid': adId}">
     
     <div class="row" data-bind="visible: userEnabled">
         <div class="col-xs-offset-9 col-xs-3">
@@ -22,7 +22,7 @@
 
         <div class="info">
 
-            <h4 data-bind="text: shortTitle"></h4>
+            <h4 data-bind="text: shortTitle, attr: {'data-title': shortTitle}"></h4>
 
             <div class="info-item">
                 <div class="label label-category">

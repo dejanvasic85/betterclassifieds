@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using BoDi;
 using NUnit.Framework;
@@ -70,7 +69,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             if (!Directory.Exists(screenShotDir))
                 Directory.CreateDirectory(screenShotDir);
 
-            screenshot.SaveAsFile($"{screenShotDir}\\{TestContext.CurrentContext.Test.Name}.jpg", ImageFormat.Jpeg);
+            screenshot.SaveAsFile($"{screenShotDir}\\{TestContext.CurrentContext.Test.Name}.jpg", ScreenshotImageFormat.Jpeg);
             File.WriteAllText($"{screenShotDir}\\{TestContext.CurrentContext.Test.Name}.html", _webDriver.PageSource);
         }
 

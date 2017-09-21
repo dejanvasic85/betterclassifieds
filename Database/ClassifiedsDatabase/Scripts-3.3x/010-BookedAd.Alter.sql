@@ -1,4 +1,4 @@
-USE [Classifieds]
+
 GO
 
 /****** Object: SqlProcedure [dbo].[BookedAd_Search] Script Date: 25/08/2017 8:23:11 AM ******/

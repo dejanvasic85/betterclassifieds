@@ -122,10 +122,15 @@
 
                 _.each(seatingResponse.tickets, function (t) {
                     var remainingPercentage = parseInt((t.remainingQuantity / t.availableQuantity) * 100);
-
+                    var isSoldOut = t.remainingQuantity <= 0;
+                    var ticketNameAndPrice = isSoldOut === true
+                        ? "SOLD OUT"
+                        : t.ticketName + ' ' + $p.formatCurrency(t.price) + ' - ' + remainingPercentage + '% left';
+                        
+                    
                     me.tickets.push({
-                        ticketNameAndPrice: t.ticketName + ' ' + $p.formatCurrency(t.price) + ' - ' + remainingPercentage + '% left',
-                        soldOut: t.remainingQuantity <= 0,
+                        ticketNameAndPrice: ticketNameAndPrice,
+                        soldOut: isSoldOut,
                         style: { 'background-color': t.colourCode }
                     });
                 });

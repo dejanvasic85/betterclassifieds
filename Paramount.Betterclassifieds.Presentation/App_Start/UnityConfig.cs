@@ -53,11 +53,12 @@
                 .RegisterType<IBookCartRepository, BookCartDocumentRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
-                .RegisterType<ICategoryAdFactory, CategoryFactory>()
+                .RegisterType<ICategoryAdFactory, CategoryAdFactory>()
 
                 // Events
                 .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), CategoryAdType.Event)
                 .RegisterType(typeof(ICategoryAdAuthoriser), typeof(EventAccess), CategoryAdType.Event)
+                .RegisterType(typeof(ICategoryAdUrlService), typeof(EventAdUrlService), CategoryAdType.Event)
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
                 .RegisterType<IEventSeatingService, EventSeatingService>()

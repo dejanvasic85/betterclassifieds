@@ -14,7 +14,7 @@
         this.title = listing.title;
         this.shortTitle = listing.shortTitle;
         this.adUrl = listing.adUrl;
-        this.editAdUrl = $p.baseUrl + 'editad/details/' + listing.adId;
+        this.editAdUrl = listing.editAdUrl;
         this.category = listing.categoryName;
         this.parentCategory = listing.parentCategoryName;
         this.startDate = $p.dateToDisplay(listing.startDate);

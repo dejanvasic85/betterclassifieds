@@ -155,6 +155,9 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                             .With(d => d.AdGraphics)
                             .With(gr => new AdImage(gr.DocumentID)));
 
+                        booking.LocationName = context.Locations.Single(l => l.LocationId == onlineAd.LocationId).Title;
+                        booking.LocationAreaName = context.LocationAreas.Single(l => l.LocationAreaId == onlineAd.LocationAreaId).Title;
+
                         booking.Ads.Add(onlineAd);
 
                         // Ad Enquiry

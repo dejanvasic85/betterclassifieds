@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string EventDashboardUrl(int adId);
         string Image(string documentId, int height = 100, int width = 100);
         string UserAds();
+        string EditAdUrl(int adId);
     }
 
     /// <summary>
@@ -27,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     public class UrlService : IUrl
     {
         private readonly UrlHelper _urlHelper;
+
 
         public bool IsAbsoluteUrlTurnedOn { get; private set; }
 
@@ -49,7 +51,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         {
             return BuildIt(_urlHelper.Home);
         }
-        
+
         public string EventUrl(string titleSlug, int id)
         {
             return BuildIt(() => _urlHelper.AdUrl(titleSlug, id, CategoryAdType.Event));
@@ -93,6 +95,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return BuildIt(() => _urlHelper.UserAds());
         }
 
+        public string EditAdUrl(int adId)
+        {
+            return BuildIt(() => _urlHelper.EditAd(adId));
+        }
+
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)
         {
             var url = urlBuilderFunc();
@@ -104,5 +111,6 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             return url;
         }
+
     }
 }

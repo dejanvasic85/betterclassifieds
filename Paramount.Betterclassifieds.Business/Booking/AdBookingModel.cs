@@ -58,5 +58,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public string CategoryFontIcon { get; set; }
         public string CategoryName { get; set; }
         public string ParentCategoryName { get; set; }
+        public string LocationName { get; set; }
+        public string LocationAreaName { get; set; }
     }
 }

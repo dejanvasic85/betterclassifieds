@@ -20,8 +20,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             var ticketSelector = By.CssSelector( "[data-ticket-name='" + ticketType + "'] td");
 
-            var element = _webDriver.FindElements(ticketSelector)
-                .Last(el => el.Displayed)
+            var displayWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
+            var col = displayWait.Until(ExpectedConditions.ElementIsVisible(ticketSelector));
+
+            var element = col
                 .FindElement(By.TagName("select"));
 
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));

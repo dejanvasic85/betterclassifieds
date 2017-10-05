@@ -18,10 +18,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             _webDriver = webDriver;
         }
 
+        struct Locator
+        {
+            public static By EditAdButton = By.ClassName("btn-circle");
+        }
+
         public UserAdsPage EditAd(int adId)
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"[data-adid='{adId}'] .btn-circle")));
+            var element = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector($"[data-adid='{adId}'] .btn-circle")));
 
             element.ClickOnElement();
             return this;
@@ -31,7 +36,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
             GetAdElements()
                 .First(el => el.FindElement(By.CssSelector("[data-title]")).Text == title)
-                .ClickOnElement();
+                .FindElement(Locator.EditAdButton)
+                .Click();
 
             return this;
         }
@@ -48,7 +54,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         private IEnumerable<IWebElement> GetAdElements()
         {
-            return _webDriver.FindElements(By.ClassName("listing-results"));
+            return _webDriver.FindElements(By.ClassName("listings"));
         }
 
     }

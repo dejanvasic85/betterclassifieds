@@ -6,11 +6,11 @@ using Paramount.Betterclassifieds.DataService.Classifieds;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
-    public class CategoryFactory : ICategoryAdFactory
+    public class CategoryAdFactory : ICategoryAdFactory
     {
         private readonly IUnityContainer _unityContainer;
 
-        public CategoryFactory(IUnityContainer unityContainer)
+        public CategoryAdFactory(IUnityContainer unityContainer)
         {
             _unityContainer = unityContainer;
         }
@@ -27,9 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             return _unityContainer.Resolve<ICategoryAdRepository<ICategoryAd>>(bookingCart.CategoryAdType);
         }
-
         
-
         public ICategoryAdAuthoriser CreateAuthoriser(string name)
         {
             return _unityContainer.Resolve<ICategoryAdAuthoriser>(name);
@@ -37,7 +35,12 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public IEnumerable<ICategoryAdAuthoriser> CreateAuthorisers()
         {
-            return _unityContainer.ResolveAll <ICategoryAdAuthoriser>();
+            return _unityContainer.ResolveAll<ICategoryAdAuthoriser>();
+        }
+
+        public ICategoryAdUrlService CreateUrlService(string categoryAdType)
+        {
+            return _unityContainer.Resolve<ICategoryAdUrlService>(categoryAdType);
         }
     }
 }

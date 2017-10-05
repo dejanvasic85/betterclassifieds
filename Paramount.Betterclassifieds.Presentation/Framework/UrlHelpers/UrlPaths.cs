@@ -154,7 +154,7 @@ namespace Paramount
 
         public static UrlBuilder EditAd(this UrlHelper urlHelper, int adId)
         {
-            return new UrlBuilder(urlHelper, "details", "editAd");
+            return new UrlBuilder(urlHelper, "details", "editAd", new { id = adId });
         }
 
         public static UrlBuilder EventPaymentRequest(this UrlHelper urlHelper, int adId, int eventId)

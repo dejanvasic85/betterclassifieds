@@ -18,18 +18,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public TicketSelectionComponent SelectTickets(int numberOfTickets, string ticketType)
         {
-            var ticketSelector = By.CssSelector( "[data-ticket-name='" + ticketType + "'] td");
-
+            var ticketSelector = By.CssSelector( "[data-ticket-option='" + ticketType + "']");
             var displayWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            var col = displayWait.Until(ExpectedConditions.ElementIsVisible(ticketSelector));
+            var selectElement = displayWait.Until(driver =>
+            {
+                var select = driver.FindElements(ticketSelector)
+                    .FirstOrDefault(item => item.Displayed);
 
-            var element = col
-                .FindElement(By.TagName("select"));
+                if (select != null)
+                {
+                    return select;
+                }
 
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(element));
-
-            element
+                return null;
+            });
+            
+            selectElement
                 .ToSelectElement()
                 .WithSelectedOptionValue(numberOfTickets.ToString());
 

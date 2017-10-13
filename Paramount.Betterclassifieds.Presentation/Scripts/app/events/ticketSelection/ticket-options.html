@@ -16,7 +16,7 @@
             <td>
                 <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
                 <div class="form-group" data-bind="visible: isAvailable">
-                    <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                    <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value', attr: { 'data-ticket-option' : ticketName }"></select>
                 </div>
             </td>
         </tr>

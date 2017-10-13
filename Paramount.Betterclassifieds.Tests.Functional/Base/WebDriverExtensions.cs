@@ -86,5 +86,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         {
             return driver.WaitForToastrMessage().Text;
         }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using BoDi;
 using NUnit.Framework;
@@ -6,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
@@ -79,15 +81,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             switch (browserName)
             {
                 case "chrome":
-                    //var chromeOptions = new ChromeOptions();
-                    //chromeOptions.AddArgument("test-type");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
-                    //var firefoxBinary = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
-                    //var firefoxProfile = new FirefoxProfile();
-                    //driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
-                    driver = new FirefoxDriver();
+                    var profile = new FirefoxProfile();
+                    //profile.AcceptUntrustedCertificates = true;
+                    //profile.AssumeUntrustedCertificateIssuer = true;
+                    var options = new FirefoxOptions();
+                    //options.AddAdditionalCapability("acceptSslCerts", true, true);
+                    options.AddAdditionalCapability("acceptInsecureCerts", true, true);
+
+                    driver = new FirefoxDriver(options);
                     break;
                 case "ie":
                     driver = new InternetExplorerDriver();

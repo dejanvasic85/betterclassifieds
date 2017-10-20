@@ -24,6 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         private Mock<IEventGuestService> _mockEventGuestService;
         private Mock<IEventSeatingService> _mockEventSeatingService;
         private Mock<IUrl> _mockUrl;
+        private Mock<ICategoryAdFactory> _categoryAdFactory;
 
         [SetUp]
         public void SetupDependencies()
@@ -34,6 +35,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockEventGuestService = CreateMockOf<IEventGuestService>();
             _mockEventSeatingService = CreateMockOf<IEventSeatingService>();
             _mockUrl = CreateMockOf<IUrl>();
+            _categoryAdFactory = CreateMockOf<ICategoryAdFactory>();
 
             _mockUrl.Setup(call => call.WithAbsoluteUrl()).Returns(_mockUrl.Object);
         }

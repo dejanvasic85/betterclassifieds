@@ -2,7 +2,6 @@
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.DataService.Classifieds;
 
 namespace Paramount.Betterclassifieds.Presentation
 {

@@ -5,6 +5,7 @@ using System.Web.Http;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.Presentation.Api.Models;
 using Paramount.Betterclassifieds.Presentation.Services;
 
@@ -19,9 +20,11 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly IEventGuestService _eventGuestService;
         private readonly IEventSeatingService _eventSeatingService;
         private readonly EventContractFactory _eventContractFactory;
+        private readonly ICategoryAdFactory _categoryAdFactory;
 
-
-        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, EventContractFactory eventContractFactory)
+        public EventApiController(IEventManager eventManager, ISearchService searchService, 
+            IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, 
+            EventContractFactory eventContractFactory, ICategoryAdFactory categoryAdFactory)
         {
             _eventManager = eventManager;
             _searchService = searchService;
@@ -29,6 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             _eventGuestService = eventGuestService;
             _eventSeatingService = eventSeatingService;
             _eventContractFactory = eventContractFactory;
+            _categoryAdFactory = categoryAdFactory;
         }
 
         [Route("")]
@@ -46,23 +50,30 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         {
             var results = _searchService.GetEvents();
 
+            if (query.User)
+            {
+                var currentUser = _userManager.GetCurrentUser();
+
+                if (currentUser == null)
+                {
+                    throw new UnauthorizedAccessException("There is no current user for this request");
+                }
+
+                var categoryAdAuthoriser = _categoryAdFactory.CreateAuthoriser(CategoryAdType.Event);
+                var filteredOnlineAdsForUser = categoryAdAuthoriser.GetOnlineAdsForUser(currentUser.Username);
+
+                results = results.Where(r => filteredOnlineAdsForUser.Any(o => o == r.AdSearchResult.OnlineAdId));
+            }
+
             if (query.PageSize.HasValue)
             {
                 results = results.Take(query.PageSize.Value);
             }
 
-            if (query.User)
-            {
-                var currentUser = _userManager.GetCurrentUser();
-                if (currentUser == null)
-                {
-                    throw new UnauthorizedAccessException("There is no current user for this request");
-                }
-                results = results.Where(r => r.AdSearchResult.Username.Equals(currentUser.Username));
-            }
+
 
             var contracts = results
-                .Select(_eventContractFactory.FromModel);                
+                .Select(_eventContractFactory.FromModel);
 
             return Ok(contracts);
         }
@@ -79,12 +90,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api
 
             if (onlineAdModel.HasNotStarted() && !isCurrentUserTheOwner)
                 return NotFound();
-            
+
             var ticketData = new EventSearchResultTicketDataFactory().CreateFromEventModel(eventDetails);
 
             var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address, ticketData);
             var contract = _eventContractFactory.FromModel(searchResult);
-            return Ok(contract);    
+            return Ok(contract);
         }
 
         [Route("{id:int}/groups")]

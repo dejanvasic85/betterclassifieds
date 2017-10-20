@@ -1,16 +1,20 @@
-﻿(function($p) {
+﻿(function ($p) {
 
-    $p.EventQuery = function() {
+    $p.EventQuery = function () {
         var me = this;
         me.query = {};
 
         return {
             withMax: function (max) {
-                me.query.pageSize = max;
+                if (max) {
+                    me.query.pageSize = max;
+                }
                 return this;
             },
             withUser: function (user) {
-                me.query.user = user;
+                if (user) {
+                    me.query.user = user;
+                }
                 return this;
             },
             build: function () {

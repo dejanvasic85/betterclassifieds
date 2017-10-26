@@ -44,6 +44,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public IEnumerable<AdTestData> GetAvailableAdsForCurrentUser()
         {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("[data-adid]")));
+
             return GetAdElements()
                 .Select(adElement => new AdTestData
                 {
@@ -56,6 +59,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
             return _webDriver.FindElements(By.ClassName("listings"));
         }
-
     }
 }

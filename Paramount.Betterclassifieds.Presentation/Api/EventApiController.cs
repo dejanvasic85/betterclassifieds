@@ -22,8 +22,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly EventContractFactory _eventContractFactory;
         private readonly ICategoryAdFactory _categoryAdFactory;
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService, 
-            IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService, 
+        public EventApiController(IEventManager eventManager, ISearchService searchService,
+            IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService,
             EventContractFactory eventContractFactory, ICategoryAdFactory categoryAdFactory)
         {
             _eventManager = eventManager;

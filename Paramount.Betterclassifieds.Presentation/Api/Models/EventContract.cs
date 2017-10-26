@@ -64,6 +64,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
         public bool HasTickets { get; set; }
         public bool AreAllTicketsFree { get; set; }
         public string EventShortName { get; set; }
+        public string EditAdUrl { get; internal set; }
     }
 
     public class EventContractFactory : IMappingBehaviour
@@ -89,6 +90,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models
             
             contract.EventUrl = _url.EventUrl(eventSearchResult.AdSearchResult.HeadingSlug,
                 eventSearchResult.AdSearchResult.AdId);
+
+            contract.EditAdUrl = _url.EventDashboardUrl(eventSearchResult.AdSearchResult.AdId);
 
             return contract;
         }

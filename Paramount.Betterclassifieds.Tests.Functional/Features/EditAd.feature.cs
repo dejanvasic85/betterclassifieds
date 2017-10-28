@@ -83,12 +83,10 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I have an online ad titled \"Ad for editing\" in parent category \"Selenium Parent\" " +
                     "and sub category \"Selenium Child\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.When("I navigate to relative url \"UserAds\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I navigate to edit online ad \"editAd/details/{adId}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.And("I select to edit the newly placed ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
  testRunner.And("I update the title to \"Ad has been updated\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 13
  testRunner.Then("I should see a success message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

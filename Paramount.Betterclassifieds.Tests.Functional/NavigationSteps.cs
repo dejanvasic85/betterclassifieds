@@ -1,24 +1,35 @@
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
     [Binding]
-    public class NavigationSteps
+    internal class NavigationSteps
     {
         private readonly PageBrowser _pageBrowser;
+        private readonly ContextData<AdBookingContext> _adBookingContext;
 
-        public NavigationSteps(PageBrowser pageBrowser)
+        internal NavigationSteps(PageBrowser pageBrowser, ContextData<AdBookingContext> adBookingContext)
         {
             _pageBrowser = pageBrowser;
+            _adBookingContext = adBookingContext;
         }
 
         [When(@"I navigate to relative url ""(.*)""")]
         public void WhenINavigateToRelativeUrl(string relativeUrl)
         {
             _pageBrowser.NavigateTo(relativeUrl);
+        }
+
+        [When(@"I navigate to edit online ad ""(.*)""")]
+        public void WhenINavigateToEditAd(string relativeUrlWithAdId)
+        {
+            var currentAdId = _adBookingContext.Get().AdBookingId;
+            var url = relativeUrlWithAdId.Replace("{adId}", currentAdId.ToString());
+            _pageBrowser.NavigateTo(url);
         }
 
         [Then(@"I should see a code confirmation page")]

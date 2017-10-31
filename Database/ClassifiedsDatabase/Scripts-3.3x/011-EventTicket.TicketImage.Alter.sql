@@ -1,0 +1,2 @@
+ALTER TABLE EventTicket
+ADD TicketImage VARCHAR(20) NULL

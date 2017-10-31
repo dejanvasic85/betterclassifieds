@@ -31,5 +31,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string BrandUrl { get; set; }
         public string SeatNumber { get; set; }
         public string OrganiserName { get; set; }
+        public string TicketImage { get; set; }
     }
 }

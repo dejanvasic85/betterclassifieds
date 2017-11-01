@@ -12,6 +12,7 @@ using Paramount.Betterclassifieds.Presentation.Api;
 using Paramount.Betterclassifieds.Presentation.Api.Models;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Tests.Mocks;
+using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Tests.Api
 {
@@ -25,6 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         private Mock<IEventSeatingService> _mockEventSeatingService;
         private Mock<IUrl> _mockUrl;
         private Mock<ICategoryAdFactory> _categoryAdFactory;
+        private Mock<IBookingManager> _bookingManager;
 
         [SetUp]
         public void SetupDependencies()
@@ -36,6 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             _mockEventSeatingService = CreateMockOf<IEventSeatingService>();
             _mockUrl = CreateMockOf<IUrl>();
             _categoryAdFactory = CreateMockOf<ICategoryAdFactory>();
+            _bookingManager = CreateMockOf<IBookingManager>();
 
             _mockUrl.Setup(call => call.WithAbsoluteUrl()).Returns(_mockUrl.Object);
         }

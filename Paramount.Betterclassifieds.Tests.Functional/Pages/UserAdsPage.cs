@@ -44,20 +44,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public IEnumerable<AdTestData> GetAvailableAdsForCurrentUser()
         {
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("[data-adid]")));
+            return GetAdElements().Select(GetAdDetails);
+        }
 
-            return GetAdElements()
-                .Select(adElement => new AdTestData
-                {
-                    AdId = int.Parse(adElement.FindElement(By.CssSelector("[data-adid]")).GetAttribute("data-adid")),
-                    Title = adElement.FindElement(By.CssSelector("[data-title]")).Text
-                });
+        private AdTestData GetAdDetails(IWebElement adContainerElement)
+        {
+            return new AdTestData
+            {
+                AdId = int.Parse(adContainerElement.GetAttribute("data-adid")),
+                Title = adContainerElement.FindElement(By.CssSelector("[data-title]")).Text
+            };
         }
 
         private IEnumerable<IWebElement> GetAdElements()
         {
-            return _webDriver.FindElements(By.ClassName("listings"));
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
+            var listingContainer = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("listings")));
+
+            return listingContainer.FindElements(By.ClassName("col-item"));
         }
     }
 }

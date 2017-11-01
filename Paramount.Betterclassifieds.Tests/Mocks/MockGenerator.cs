@@ -527,6 +527,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.ParentCategoryName = val);
 		}
+		public AdBookingModelMockBuilder WithLocationName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationName = val);
+		}
+		public AdBookingModelMockBuilder WithLocationAreaName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationAreaName = val);
+		}
 	}
 
 	internal partial class EventModelMockBuilder : MockBuilder<EventModelMockBuilder, EventModel>

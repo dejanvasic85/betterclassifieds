@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
@@ -21,10 +22,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         private readonly IEventSeatingService _eventSeatingService;
         private readonly EventContractFactory _eventContractFactory;
         private readonly ICategoryAdFactory _categoryAdFactory;
+        private readonly IBookingManager _bookingManager;
 
         public EventApiController(IEventManager eventManager, ISearchService searchService,
             IUserManager userManager, IEventGuestService eventGuestService, IEventSeatingService eventSeatingService,
-            EventContractFactory eventContractFactory, ICategoryAdFactory categoryAdFactory)
+            EventContractFactory eventContractFactory, ICategoryAdFactory categoryAdFactory,
+            IBookingManager bookingManager)
         {
             _eventManager = eventManager;
             _searchService = searchService;
@@ -33,6 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             _eventSeatingService = eventSeatingService;
             _eventContractFactory = eventContractFactory;
             _categoryAdFactory = categoryAdFactory;
+            _bookingManager = bookingManager;
         }
 
         [Route("")]
@@ -58,11 +62,11 @@ namespace Paramount.Betterclassifieds.Presentation.Api
                 {
                     throw new UnauthorizedAccessException("There is no current user for this request");
                 }
-
-                var categoryAdAuthoriser = _categoryAdFactory.CreateAuthoriser(CategoryAdType.Event);
-                var filteredOnlineAdsForUser = categoryAdAuthoriser.GetOnlineAdsForUser(currentUser.Username);
-
-                results = results.Where(r => filteredOnlineAdsForUser.Any(o => o == r.AdSearchResult.OnlineAdId));
+                
+                var userAds = _bookingManager.GetBookingsForUser(currentUser.Username, query.PageSize.Value);
+                
+                results = results
+                    .Where(r => userAds.Any(o => r.AdSearchResult.OnlineAdId == o.OnlineAd.OnlineAdId));
             }
 
             if (query.PageSize.HasValue)

@@ -17,14 +17,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
     public class EventAccessTests : TestContext<EventAccess>
     {
         private Mock<IEventRepository> _eventRepository;
-        private Mock<IBookingManager> _bookingManager;
+        private Mock<IBookingRepository> _bookingRepository;
         private Mock<ISearchService> _searchService;
 
         [SetUp]
         public void SetupDependencies()
         {
             _eventRepository = CreateMockOf<IEventRepository>();
-            _bookingManager = CreateMockOf<IBookingManager>();
+            _bookingRepository = CreateMockOf<IBookingRepository>();
             _searchService = CreateMockOf<ISearchService>();
         }
 

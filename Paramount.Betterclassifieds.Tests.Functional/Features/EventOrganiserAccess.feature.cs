@@ -20,6 +20,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Multiple event organiser access")]
+    [NUnit.Framework.CategoryAttribute("Events")]
+    [NUnit.Framework.CategoryAttribute("EventOrganisers")]
     public partial class MultipleEventOrganiserAccessFeature
     {
         
@@ -33,7 +35,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Multiple event organiser access", "In order to manage an event more efficiently\r\nAs an event organiser\r\nI want the a" +
-                    "bility to provide access to other organisers for the same event", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "bility to provide access to other organisers for the same event", ProgrammingLanguage.CSharp, new string[] {
+                        "Events",
+                        "EventOrganisers"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,35 +70,60 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Viewing and opening event management")]
-        [NUnit.Framework.CategoryAttribute("Events")]
-        public virtual void ViewingAndOpeningEventManagement()
+        [NUnit.Framework.DescriptionAttribute("Event Admin Organiser Viewing and opening event management")]
+        public virtual void EventAdminOrganiserViewingAndOpeningEventManagement()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewing and opening event management", new string[] {
-                        "Events"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Event Admin Organiser Viewing and opening event management", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("a registered user \"eventOrganiser\" with password \"password\" and email \"email@org." +
                     "com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
+ testRunner.And("I am logged in as \"eventOrganiser\" with password \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.And("an event ad titled \"Event with a single admin organiser\" exists for user \"eventOr" +
+                    "ganiser\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
+ testRunner.When("I view the user ads page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+ testRunner.Then("I should see the ad \"Event with a single admin...\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+ testRunner.When("selecting to manage the ad \"Event with a single admin...\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+ testRunner.Then("the event dashboard for \"Event with a single admin organiser\" should display", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Event Organiser Viewing and opening event management")]
+        public virtual void EventOrganiserViewingAndOpeningEventManagement()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Event Organiser Viewing and opening event management", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.Given("a registered user \"eventOrganiser\" with password \"password\" and email \"email@org." +
+                    "com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
  testRunner.And("a registered user \"eventAssistant\" with password \"password123\" and email \"assista" +
                     "nt@org.com\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
+#line 19
  testRunner.And("I am logged in as \"eventAssistant\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
+#line 20
  testRunner.And("an event ad titled \"Event with multiple organisers\" exists for user \"eventOrganis" +
                     "er\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
+#line 21
  testRunner.And("event titled \"Event with multiple organisers\" is assigned to organiser \"eventAssi" +
                     "stant\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 22
  testRunner.When("I view the user ads page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 23
  testRunner.Then("I should see the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 24
  testRunner.When("selecting to manage the ad \"Event with multiple organisers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 25
  testRunner.Then("the event dashboard for \"Event with multiple organisers\" should display", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

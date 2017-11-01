@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
@@ -26,6 +23,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _browser.GoTo<UserAdsPage>();
         }
 
+        [When(@"selecting to manage the ad ""(.*)""")]
+        public void WhenSelectingToManageTheAd(string title)
+        {
+            var userAdsPage = _browser.Init<UserAdsPage>();
+            userAdsPage.EditFirstAdWithTitle(title);
+        }
+
         [Then(@"I should see the ad ""(.*)""")]
         public void ThenIShouldSeeTheAd(string title)
         {
@@ -34,11 +38,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(currentAdsForUser.Any(a => a.Title == title), Is.True);
         }
 
-        [When(@"selecting to manage the ad ""(.*)""")]
-        public void WhenSelectingToManageTheAd(string title)
-        {
-            var userAdsPage = _browser.Init<UserAdsPage>();
-            userAdsPage.EditFirstAdWithTitle(title);
-        }
     }
 }

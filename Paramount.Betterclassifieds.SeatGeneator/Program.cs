@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Events;
 
-namespace SeatGen
+namespace Paramount.Betterclassifieds.SeatGen
 {
     class Program
     {
@@ -15,14 +15,18 @@ namespace SeatGen
             try
             {
                 Console.WriteLine("Seat Generator");
-
+                
                 Console.Write("What is the event id? ");
                 var eventIdRes = Console.ReadLine();
                 var eventId = int.Parse(eventIdRes);
 
-                Console.WriteLine("Looking up the tickets");
-
                 var eventRepository = new EventRepository(new DbContextFactory());
+
+                var generator = new Generator(eventId, eventRepository);
+                generator.Start();
+
+                return; 
+
                 var eventDetails = eventRepository.GetEventDetails(eventId);
 
                 var vipTicket = GetTicketAndUpdateColour(eventRepository, eventDetails, "VIP", "#bfd7ff");
@@ -45,6 +49,7 @@ namespace SeatGen
                 Console.WriteLine(exception);
             }
         }
+        
 
         static EventTicket GetTicketAndUpdateColour(IEventRepository eventRepository, EventModel eventModel, string name, string colourCode)
         {

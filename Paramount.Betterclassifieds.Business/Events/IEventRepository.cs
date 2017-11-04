@@ -58,5 +58,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventOrganiser(EventOrganiser eventOrganiser);
         void UpdateEventSeat(EventSeat eventSeat);
         void UpdateEventPromoCode(EventPromoCode promo);
+
+        void DeleteEventTicket(int eventId, string ticketName);
+        void DeleteEventSeat(EventSeat seat);
     }
 }

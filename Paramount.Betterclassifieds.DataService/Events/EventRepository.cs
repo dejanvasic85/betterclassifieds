@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Monads;
 using System.Threading.Tasks;
@@ -298,7 +299,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 return context.EventOrganisers.Where(o => o.EventId == eventId).ToList();
             }
         }
-            
+
         public IEnumerable<EventSeat> GetEventSeats(int eventId, int? eventTicketId = null, string seatNumber = "", string orderRequestId = "")
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -635,6 +636,32 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void DeleteEventTicket(int eventId, string ticketName)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                var ticket = context.EventTickets.SingleOrDefault(e => e.EventId == eventId && e.TicketName.Equals(ticketName, StringComparison.OrdinalIgnoreCase));
+                if (ticket == null)
+                {
+                    Debug.Write($"The ticket {ticketName} for event Id {eventId} does not exist and cannot be deleted");
+                    return;
+                }
+
+                context.EventTickets.Remove(ticket);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteEventSeat(EventSeat seat)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventSeats.Attach(seat);
+                context.EventSeats.Remove(seat);
+                context.SaveChanges();
+            }
+        }
+        
         /// <summary>
         /// Supports the dynamic category ad types for the ad booking system. See <see cref="Business.Booking.BookingManager"/>
         /// </summary>

@@ -35,7 +35,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 BrandName = brandName,
                 BrandUrl = brandUrl,
                 SeatNumber = ticket.SeatNumber,
-                OrganiserName = adDetails.ContactName
+                OrganiserName = adDetails.ContactName,
+                TicketImage = ticket.TicketImage
             };
         }
     }

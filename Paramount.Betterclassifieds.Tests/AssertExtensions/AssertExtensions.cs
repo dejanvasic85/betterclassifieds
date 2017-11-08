@@ -67,6 +67,7 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.AreNotEqual(expected, target, message, parameters);
             return target;
         }
+
         #endregion
 
         #region IsTrue

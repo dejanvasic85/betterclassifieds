@@ -37,6 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public Guid? TicketDocumentId { get; set; }
         public bool IsPublic { get; set; }
         public string SeatNumber { get; set; }
+        public string TicketImage { get; set; }
 
         public override string ToString()
         {

@@ -4,7 +4,17 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public class TicketFeeCalculator
+    public interface ITicketFeeCalculator
+    {
+        TicketPrice GetTotalTicketPrice(decimal originalTicketPrice, bool includeFee);
+        TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, bool includeFee);
+        TicketPrice GetTotalTicketPrice(IEnumerable<ITicketPriceInfo> data, EventPromoCode eventPromoCode, bool includeFee);
+        TicketPrice GetTotalTicketPrice(EventTicket ticket, bool includeFee);
+        TicketPrice GetTotalTicketPrice(decimal originalTicketPrice, EventPromoCode eventPromoCode, bool includeFee);
+        decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTransactions);
+    }
+
+    public class TicketFeeCalculator : ITicketFeeCalculator
     {
         private readonly IClientConfig _clientConfig;
 

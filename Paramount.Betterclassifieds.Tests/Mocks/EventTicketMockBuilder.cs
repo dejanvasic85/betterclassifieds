@@ -11,6 +11,7 @@
                 .WithAvailableQuantity(100)
                 .WithRemainingQuantity(100)
                 .WithTicketName("MockTicket")
+                .WithTicketImage("http://blah.com/img/123")
                 ;
         }
 

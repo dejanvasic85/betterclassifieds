@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventTicketPrintViewModel
     {

@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithTotalPrice(20.50M)
                 .WithGuestEmail("foo@bar.com")
                 .WithGuestFullName("Foo Bar")
+                .WithTicketImage("http://image.png")
                 .Build();
 
             var mockBrandName = "mock-brand";   
@@ -50,6 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.GuestEmail.IsEqualTo("foo@bar.com");
             result.GuestFullName.IsEqualTo("Foo Bar");
             result.OrganiserName.IsEqualTo("Organiser 123");
+            result.TicketImage.IsEqualTo("http://image.png");
         }
     }
 }

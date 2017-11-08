@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void CreateFromExisting_Clones_AndReturnsNew()
+        public void CreateFromReservation_AndReturnsNew()
         {
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockEventPromo = new EventPromoCodeMockBuilder().Build();

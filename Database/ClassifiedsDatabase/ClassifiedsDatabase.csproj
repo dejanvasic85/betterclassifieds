@@ -76,6 +76,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.3x\012-EventBookingTicket.TicketImage.sql" />
     <EmbeddedResource Include="Scripts-3.3x\011-EventTicket.TicketImage.Alter.sql" />
     <EmbeddedResource Include="Scripts-3.3x\010-BookedAd.Alter.sql" />
     <EmbeddedResource Include="Scripts-3.3x\009-BookedEvents.Alter.UtcDates.sql" />

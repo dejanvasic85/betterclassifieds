@@ -1,0 +1,16 @@
+﻿<div>
+    <span data-bind="text: id"></span>
+    <div data-bind="upload: id">
+        <span class="btn btn-success fileinput-button pull-right">
+            <i class="fa fa-upload"></i>
+            <span>Upload Photo</span>
+            <input type="file" name="files[]" multiple>
+        </span>
+
+        <div class="progress progress-striped active">
+            <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                <span>Uploading...</span>
+            </div>
+        </div>
+    </div>
+</div>

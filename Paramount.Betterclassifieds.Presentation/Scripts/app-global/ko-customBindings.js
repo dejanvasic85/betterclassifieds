@@ -241,4 +241,31 @@
         }
     }
 
+
+    /*
+    *
+    */
+    var imageService = new $paramount.ImageService();
+
+    ko.bindingHandlers.upload = {
+        init: function (element, valueAccessor) {
+            var $rootElement = $(element);
+            var $uploadElement = $rootElement.find('input[type=file]');
+            var $progressElement = $rootElement.find('.progress-bar');
+
+            $paramount.upload({
+                url: imageService.uploadCropImageUrl(),
+                element: $uploadElement,
+                progressBar: $progressElement,
+                complete: function (documentId) {
+                    var value = valueAccessor();
+                    value(documentId);
+                },
+                error: function (errorMsg) {
+                    console.log('error', errorMsg);
+                }
+            });
+        }
+    }
+
 })(ko, jQuery);

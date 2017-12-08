@@ -18,6 +18,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string ColourCode { get; set; }
 
+        public string TicketImage { get; set; }
+
         public EventTicketFieldViewModel[] EventTicketFields { get; set; }
         public bool IsActive { get; set; }
 

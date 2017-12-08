@@ -107,10 +107,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             _bookingManagerMock.SetupWithVerification(call => call.GetEnquiries(It.Is<int>(i => i == adId)),
-                new[] {enquiry});
+                new[] { enquiry });
 
             var controller = BuildController();
-            
+
             var result = controller.ManageEnquiries(adId);
 
             result.IsTypeOf<ViewResult>();
@@ -553,7 +553,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     IsActive = true,
                     SoldQty = 10,
                     TicketName = "Foo bar",
-                    TicketImageId = "image-123"
+                    TicketImage = "image-123"
                 }
             };
 
@@ -563,7 +563,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<decimal>(price => price == 10),
                 It.Is<int>(remaining => remaining == 10),
                 It.Is<string>(colour => colour == "#black"),
-                It.Is<string>(imgId => imgId  == "image-123"),
+                It.Is<string>(imgId => imgId == "image-123"),
                 It.Is<bool>(active => active == true),
                 It.IsAny<IEnumerable<EventTicketField>>()));
 
@@ -606,6 +606,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 Price = 10,
                 TicketName = "Ticket-123",
                 IsActive = true,
+                TicketImage = "image-123",
                 EventTicketFields = new[]
                 {
                     new EventTicketFieldViewModel
@@ -625,6 +626,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<decimal>(price => price == 10),
                 It.Is<int>(available => available == 100),
                 It.Is<string>(colour => colour == "#blue"),
+                It.Is<string>(img => img == "image-123"),
                 It.Is<bool>(active => active == true),
                 It.IsAny<IEnumerable<EventTicketField>>()),
                 result: mockEventTicket);

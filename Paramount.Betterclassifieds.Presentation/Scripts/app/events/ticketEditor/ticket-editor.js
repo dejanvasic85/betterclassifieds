@@ -24,7 +24,7 @@
             me.ticketHasPurchases = ko.observable(false);
             me.guestsAffected = ko.observable(0);
             me.guestsNotified = ko.observable(0);
-            me.ticketImageId = ko.observable();
+            me.ticketImage = ko.observable();
             me.onSave = params.onSave;
 
 
@@ -42,7 +42,7 @@
                 me.colourCode(ticketDetails.colourCode);
                 me.ticketHasPurchases(ticketDetails.soldQty > 0);
                 me.soldQty(ticketDetails.soldQty);
-                me.ticketImageId(ticketDetails.ticketImage);
+                me.ticketImage(ticketDetails.ticketImage);
 
                 _.each(ticketDetails.eventTicketFields, function (field) {
                     me.eventTicketFields.push(new $p.models.DynamicFieldDefinition(me, field));
@@ -84,7 +84,7 @@
             }
 
             me.removeImage = function (imageId) {
-                me.ticketImageId(null);
+                me.ticketImage(null);
             }
 
             function save(model, event, options) {

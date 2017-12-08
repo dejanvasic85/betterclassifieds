@@ -236,7 +236,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventManager.UpdateEventTicket(ticketId, vm.TicketName,
-                vm.Price, vm.RemainingQuantity, vm.ColourCode, vm.TicketImageId, vm.IsActive,
+                vm.Price, vm.RemainingQuantity, vm.ColourCode, vm.TicketImage, vm.IsActive,
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
             return Json(viewModel.EventTicket);
@@ -267,7 +267,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
-                vm.ColourCode,
+                vm.ColourCode, 
+                vm.TicketImage,
                 vm.IsActive,
                 vm.EventTicketFields?.Select(f => new EventTicketField
                 {
@@ -747,8 +748,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
             configuration.CreateMap<EventGroup, EventGroupViewModel>();
             EventGroupViewModelFactory.GetMapping(configuration);
-            configuration.CreateMap<EventTicket, EventTicketViewModel>()
-                .ForMember(member => member.TicketImageId, options => options.MapFrom(src => src.TicketImage));
+            configuration.CreateMap<EventTicket, EventTicketViewModel>();
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

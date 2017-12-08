@@ -390,11 +390,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void CreateEventTicket_CallsRepository_AfterFactory()
         {
             _eventRepositoryMock.SetupWithVerification(call => call.CreateEventTicket(It.IsAny<EventTicket>()));
+
             BuildTargetObject().CreateEventTicket(eventId: 10,
                 ticketName: "Adult",
                 price: 100,
                 availableQty: 50,
-                colourCode: "#blue",
+                colourCode: "#blue", 
+                ticketImage: "image-123",
                 isActive: true,
                 fields: null);
         }
@@ -406,7 +408,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 ticketName: "Adult",
                 price: 100,
                 availableQty: 50,
-                colourCode: "#blue",
+                colourCode: "#blue", 
+                ticketImage: "image-123",
                 isActive: true,
                 fields: null));
         }
@@ -1046,7 +1049,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 price: 9, 
                 remainingQuantity: 45, 
                 colourCode: "#white", 
-                ticketImageId: "image-321", 
+                ticketImage: "image-321", 
                 isActive: true, 
                 fields: new List<EventTicketField>());
 

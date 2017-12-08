@@ -326,7 +326,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, string colourCode, bool isActive, IEnumerable<EventTicketField> fields)
+        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, string colourCode, string ticketImageId, bool isActive, IEnumerable<EventTicketField> fields)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId);
             var nameChanged = eventTicket.TicketName != ticketName;
@@ -334,6 +334,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventTicket.Price = price;
             eventTicket.IsActive = isActive;
             eventTicket.ColourCode = colourCode;
+            eventTicket.TicketImage = ticketImageId;
 
             if (eventTicket.RemainingQuantity != remainingQuantity)
             {

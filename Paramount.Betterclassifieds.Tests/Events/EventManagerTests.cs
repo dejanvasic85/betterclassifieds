@@ -1030,6 +1030,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithRemainingQuantity(50)
                 .WithAvailableQuantity(100)
                 .WithColourCode("#black")
+                .WithTicketImage("image-123")
                 .Build();
 
             var newTicketName = "new ticket name";
@@ -1045,6 +1046,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 price: 9, 
                 remainingQuantity: 45, 
                 colourCode: "#white", 
+                ticketImageId: "image-321", 
                 isActive: true, 
                 fields: new List<EventTicketField>());
 
@@ -1054,6 +1056,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockOriginalTicket.Price.IsEqualTo(9);
             mockOriginalTicket.IsActive.IsTrue();
             mockOriginalTicket.ColourCode.IsEqualTo("#white");
+            mockOriginalTicket.TicketImage.IsEqualTo("image-321");
         }
 
         [Test]

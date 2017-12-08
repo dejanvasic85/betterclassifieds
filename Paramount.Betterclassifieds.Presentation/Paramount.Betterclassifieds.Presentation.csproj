@@ -632,6 +632,8 @@
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.js" />
     <Content Include="Scripts\app\booking\eventTicketingSetup.model.js" />
     <Content Include="Scripts\app\booking\eventTicketDefinition.model.js" />
+    <Content Include="Scripts\app\imageViewer\imageViewer.html" />
+    <Content Include="Scripts\app\imageViewer\imageViewer.js" />
     <Content Include="Scripts\app\listings\ads.html" />
     <Content Include="Scripts\app\listings\ads.js" />
     <Content Include="Scripts\app\listings\adListing.html" />

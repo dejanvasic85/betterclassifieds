@@ -1,0 +1,11 @@
+﻿<div class="photo text-center">
+    <i class="fa fa-picture-o fa-5x" data-bind="visible: hasPhoto() === false"></i>
+    <div class="thumbnail" data-bind="visible: hasPhoto">
+        <img data-bind="visible: hasPhoto, attr: {src: imageUrl }" />
+        <div class="caption">
+            <a class="btn btn-warning btn-remove" title="Remove" data-bind="click: remove">
+                <span class="glyphicon glyphicon-trash"></span> Remove
+            </a>
+        </div>
+    </div>
+</div>

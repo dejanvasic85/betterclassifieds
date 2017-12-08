@@ -1,7 +1,5 @@
 ﻿(function (ko, $p) {
-
-    var imageService = new $p.ImageService();
-
+    
     ko.components.register('upload', {
         viewModel: function (params) {
 

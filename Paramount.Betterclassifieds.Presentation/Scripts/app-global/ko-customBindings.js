@@ -251,10 +251,10 @@
         init: function (element, valueAccessor) {
             var $rootElement = $(element);
             var $uploadElement = $rootElement.find('input[type=file]');
-            var $progressElement = $rootElement.find('.progress-bar');
-
+            var $progressElement = $rootElement.find('.upload-progress');
+            
             $paramount.upload({
-                url: imageService.uploadCropImageUrl(),
+                url: imageService.getUploadOnlineImageUrl(),
                 element: $uploadElement,
                 progressBar: $progressElement,
                 complete: function (documentId) {
@@ -262,7 +262,7 @@
                     value(documentId);
                 },
                 error: function (errorMsg) {
-                    console.log('error', errorMsg);
+                    console.error('error', errorMsg);
                 }
             });
         }

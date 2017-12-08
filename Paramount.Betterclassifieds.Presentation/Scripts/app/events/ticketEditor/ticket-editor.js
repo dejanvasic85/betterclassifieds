@@ -26,7 +26,8 @@
             me.guestsNotified = ko.observable(0);
             me.ticketImageId = ko.observable();
             me.onSave = params.onSave;
-            
+
+
             var ticketDetails = params.ticketDetails;
 
             if (ticketDetails) {
@@ -80,6 +81,10 @@
             me.saveAndSendNotifications = function (model, event) {
                 resendGuestNotifications = true;
                 save(model, event);
+            }
+
+            me.removeImage = function (imageId) {
+                me.ticketImageId(null);
             }
 
             function save(model, event, options) {

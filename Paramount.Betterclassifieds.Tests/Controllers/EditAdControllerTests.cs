@@ -552,7 +552,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     RemainingQuantity = 10,
                     IsActive = true,
                     SoldQty = 10,
-                    TicketName = "Foo bar"
+                    TicketName = "Foo bar",
+                    TicketImageId = "image-123"
                 }
             };
 
@@ -562,6 +563,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<decimal>(price => price == 10),
                 It.Is<int>(remaining => remaining == 10),
                 It.Is<string>(colour => colour == "#black"),
+                It.Is<string>(imgId => imgId  == "image-123"),
                 It.Is<bool>(active => active == true),
                 It.IsAny<IEnumerable<EventTicketField>>()));
 

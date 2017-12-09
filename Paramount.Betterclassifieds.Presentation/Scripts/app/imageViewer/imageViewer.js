@@ -11,7 +11,7 @@
 
             this.imageUrl = ko.computed(function() {
                 if ($p.notNullOrUndefined(params.id())) {
-                    return imageService.getImageUrl(params.id());
+                    return imageService.getImageUrl(params.id(), { h: params.height, w: params.width});
                 }
                 return '';
             });

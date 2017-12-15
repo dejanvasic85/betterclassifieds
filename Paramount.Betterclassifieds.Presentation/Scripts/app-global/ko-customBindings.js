@@ -154,7 +154,7 @@
             ko.utils.registerEventHandler(element, "dp.change", function (event) {
                 var value = valueAccessor();
                 if (ko.isObservable(value)) {
-                    if (event.date != null && !(event.date instanceof Date)) {
+                    if (event.date !== null && !(event.date instanceof Date)) {
                         value(event.date.toDate());
                     } else {
                         value(event.date);

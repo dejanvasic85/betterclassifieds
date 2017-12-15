@@ -110,5 +110,14 @@
 
         public bool EnableCreditCardPayments => GetValueFromDatabase<bool>("Events.EnableCreditCardPayments", false);
         public string EmailFromAddress => GetValueFromDatabase<string>("Email.FromAddress");
+
+        public ImageDimensions TicketImageDimensions
+        {
+            get
+            {
+                // Hard coded just for the moment
+                return new ImageDimensions(300, 853);
+            }
+        }
     }
 }

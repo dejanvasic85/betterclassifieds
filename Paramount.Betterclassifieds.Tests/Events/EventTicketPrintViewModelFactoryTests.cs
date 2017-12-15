@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Moq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
+using System;
 
 namespace Paramount.Betterclassifieds.Tests.Events
 {
@@ -10,6 +13,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void Create_ReturnsNewViewModel()
         {
+            var mockUrlService = new Mock<IUrl>();
+            var mockClientConfig = new Mock<IClientConfig>();
+
             var mockAd = new AdSearchResultMockBuilder().Default()
                 .WithHeading("Great Event that will ensure you get your money's worth")
                 .WithContactPhone("4444 9999")
@@ -28,15 +34,20 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithTotalPrice(20.50M)
                 .WithGuestEmail("foo@bar.com")
                 .WithGuestFullName("Foo Bar")
-                .WithTicketImage("http://image.png")
+                .WithTicketImage("123")
                 .Build();
 
-            var mockBrandName = "mock-brand";   
+            var mockBrandName = "mock-brand";
             var mockBrandUrl = "http://mock-brand.com";
 
+            mockUrlService.Setup(call => call.Image(
+                    It.Is<string>(id => id == mockBookingTicket.TicketImage),
+                    It.IsAny<ImageDimensions>()))
+                .Returns("http://mock-image.png");
+
             // act
-            var result = new EventTicketPrintViewModelFactory().Create(
-                mockAd, mockEvent, mockBookingTicket, mockBrandName, mockBrandUrl, groupsForEvent: null);
+            var result = new EventTicketPrintViewModelFactory(mockUrlService.Object, mockClientConfig.Object)
+                .Create(mockAd, mockEvent, mockBookingTicket, mockBrandName, mockBrandUrl, groupsForEvent: null);
 
             // assert
             result.TicketName.IsEqualTo("Gold");
@@ -51,7 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             result.GuestEmail.IsEqualTo("foo@bar.com");
             result.GuestFullName.IsEqualTo("Foo Bar");
             result.OrganiserName.IsEqualTo("Organiser 123");
-            result.TicketImage.IsEqualTo("http://image.png");
+            result.TicketImage.IsEqualTo("http://mock-image.png");
         }
     }
 }

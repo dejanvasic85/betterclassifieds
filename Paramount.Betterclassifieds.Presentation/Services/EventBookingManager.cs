@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         private readonly IEventManager _eventManager;
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
+        private readonly IUrl _url;
         private IMailService _mailService;
         private ITemplatingService _templateService;
         private EventBookedViewModel _eventBookedViewModel;
@@ -43,13 +44,15 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             ISearchService searchService,
             IClientConfig clientConfig,
             IEventManager eventManager,
-            IUserManager userManager)
+            IUserManager userManager,
+            IUrl url)
         {
             _httpContextBase = httpContextBase;
             _searchService = searchService;
             _clientConfig = clientConfig;
             _eventManager = eventManager;
             _userManager = userManager;
+            _url = url;
         }
 
 
@@ -176,7 +179,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket)
         {
-            var viewModelFactory = new EventTicketPrintViewModelFactory();
+            var viewModelFactory = new EventTicketPrintViewModelFactory(_url, _clientConfig);
             return viewModelFactory.Create(Ad.Value, 
                 EventDetails.Value, 
                 ticket, 

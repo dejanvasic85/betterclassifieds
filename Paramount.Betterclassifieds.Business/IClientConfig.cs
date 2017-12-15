@@ -24,11 +24,12 @@
         string ClientName { get; }
         int EventTicketReservationExpiryMinutes { get; }
         int EventMaxTicketsPerBooking { get; }
-        decimal EventTicketFeePercentage { get; }        
+        decimal EventTicketFeePercentage { get; }
         decimal EventTicketFeeCents { get; }
         bool IsPrintEnabled { get; }
         bool EnablePayPalPayments { get; }
         bool EnableCreditCardPayments { get; }
         string EmailFromAddress { get; }
+        ImageDimensions TicketImageDimensions { get; }
     }
 }

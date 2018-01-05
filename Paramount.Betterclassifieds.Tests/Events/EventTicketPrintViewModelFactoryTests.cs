@@ -40,6 +40,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockBrandName = "mock-brand";
             var mockBrandUrl = "http://mock-brand.com";
 
+            mockUrlService.Setup(call => call.WithAbsoluteUrl()).Returns(mockUrlService.Object);
+
             mockUrlService.Setup(call => call.Image(
                     It.Is<string>(id => id == mockBookingTicket.TicketImage),
                     It.IsAny<ImageDimensions>()))

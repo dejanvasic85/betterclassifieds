@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             var image = _url.DefaultTicketAdImage();
             if (ticket.TicketImage.HasValue())
             {
-                image = _url.Image(ticket.TicketImage, _clientConfig.TicketImageDimensions);
+                image = _url.WithAbsoluteUrl().Image(ticket.TicketImage, _clientConfig.TicketImageDimensions);
             }
             
             return new EventTicketPrintViewModel

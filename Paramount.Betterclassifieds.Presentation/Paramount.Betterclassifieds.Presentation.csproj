@@ -632,6 +632,8 @@
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.js" />
     <Content Include="Scripts\app\booking\eventTicketingSetup.model.js" />
     <Content Include="Scripts\app\booking\eventTicketDefinition.model.js" />
+    <Content Include="Scripts\app\imageViewer\imageViewer.html" />
+    <Content Include="Scripts\app\imageViewer\imageViewer.js" />
     <Content Include="Scripts\app\listings\ads.html" />
     <Content Include="Scripts\app\listings\ads.js" />
     <Content Include="Scripts\app\listings\adListing.html" />
@@ -705,6 +707,8 @@
     <Content Include="Scripts\app\progress-bar\progress-bar.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
+    <Content Include="Scripts\app\upload\upload.html" />
+    <Content Include="Scripts\app\upload\upload.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkAdNotifier.model.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />

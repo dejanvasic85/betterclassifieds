@@ -18,8 +18,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         string AdUrl(AdBookingModel ad);
         string EventDashboardUrl(int adId);
         string Image(string documentId, int height = 100, int width = 100);
+        string Image(string documentId, ImageDimensions dimensions);
         string UserAds();
         string EditAdUrl(int adId);
+        string DefaultTicketAdImage();
     }
 
     /// <summary>
@@ -27,13 +29,15 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     /// </summary>
     public class UrlService : IUrl
     {
+        private readonly IApplicationConfig _applicationConfig;
         private readonly UrlHelper _urlHelper;
 
 
         public bool IsAbsoluteUrlTurnedOn { get; private set; }
 
-        public UrlService(HttpContextBase httpContext)
+        public UrlService(HttpContextBase httpContext, IApplicationConfig applicationConfig)
         {
+            _applicationConfig = applicationConfig;
             _urlHelper = new UrlHelper(httpContext.Request.RequestContext);
         }
 
@@ -90,6 +94,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return BuildIt(() => _urlHelper.Image(documentId, height, width));
         }
 
+        public string Image(string documentId, ImageDimensions dimensions)
+        {
+            return Image(documentId, dimensions.Height, dimensions.Width);
+        }
+
         public string UserAds()
         {
             return BuildIt(() => _urlHelper.UserAds());
@@ -98,6 +107,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public string EditAdUrl(int adId)
         {
             return BuildIt(() => _urlHelper.EditAd(adId));
+        }
+
+        public string DefaultTicketAdImage()
+        {
+            return _urlHelper.ContentForBrand("/img/ticket-ad.png");
         }
 
         public UrlBuilder BuildIt(Func<UrlBuilder> urlBuilderFunc)

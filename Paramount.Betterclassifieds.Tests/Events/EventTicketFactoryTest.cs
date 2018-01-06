@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Events
@@ -11,7 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void Create_ReturnsNew_EventTicket()
         {
             var factory = new EventTicketFactory();
-            var result = factory.Create(10, 1, "Adult", 100, "#blue", isActive: true);
+            var result = factory.Create(10, 1, "Adult", 100, "#blue", isActive: true,ticketImage: "image-123");
 
             Assert.That(result, Is.TypeOf<EventTicket>());
             Assert.That(result.EventId, Is.EqualTo(1));
@@ -25,6 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.EventBookingTickets, Is.Not.Null);
             Assert.That(result.EventBookingTickets.Count, Is.EqualTo(0));
             Assert.That(result.ColourCode, Is.EqualTo("#blue"));
+            Assert.That(result.TicketImage, Is.EqualTo("image-123"));
 
         }
     }

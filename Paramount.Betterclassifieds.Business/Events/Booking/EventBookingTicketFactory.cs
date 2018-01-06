@@ -8,9 +8,9 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         private readonly IEventRepository _eventRepository;
         private readonly IDateService _dateService;
-        private readonly TicketFeeCalculator _ticketFeeCalculator;
+        private readonly ITicketFeeCalculator _ticketFeeCalculator;
 
-        public EventBookingTicketFactory(IEventRepository eventRepository, IDateService dateService, TicketFeeCalculator ticketFeeCalculator)
+        public EventBookingTicketFactory(IEventRepository eventRepository, IDateService dateService, ITicketFeeCalculator ticketFeeCalculator)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -45,6 +45,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     EventGroupId = reservation.EventGroupId,
                     IsPublic = reservation.IsPublic,
                     SeatNumber = reservation.SeatNumber,
+                    TicketImage = eventTicket.TicketImage,
                     TicketFieldValues = reservation?.TicketFields?
                         .Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue })
                         .ToList()

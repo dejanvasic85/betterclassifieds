@@ -62,12 +62,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetByAdId(viewModel.Id);
-            
+
             if (adBooking.CategoryAdType.HasValue())
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            
+
             viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
@@ -236,7 +236,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventManager.UpdateEventTicket(ticketId, vm.TicketName,
-                vm.Price, vm.RemainingQuantity, vm.ColourCode, vm.IsActive,
+                vm.Price, vm.RemainingQuantity, vm.ColourCode, vm.TicketImage, vm.IsActive,
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
             return Json(viewModel.EventTicket);
@@ -267,7 +267,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
-                vm.ColourCode,
+                vm.ColourCode, 
+                vm.TicketImage,
                 vm.IsActive,
                 vm.EventTicketFields?.Select(f => new EventTicketField
                 {
@@ -757,7 +758,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>()
                 .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()));
 
-            configuration.CreateMap<EventTicket, EventTicketViewModel>().ReverseMap();
+            configuration.CreateMap<EventTicket, EventTicketViewModel>().ReverseMap()
+                ;
             configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>().ReverseMap();
         }
 

@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         {
             this.EventTicketFields = new List<EventTicketFieldViewModel>();
         }
+
         public int? EventTicketId { get; set; }
         [Required]
         public int? EventId { get; set; }
@@ -20,6 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int SoldQty { get; set; }
         public bool IsActive { get; set; }
         public string ColourCode { get; set; }
+        public string TicketImage { get; set; }
 
         public List<EventTicketFieldViewModel> EventTicketFields { get; set; }
 

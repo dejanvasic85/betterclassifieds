@@ -1,13 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventTicketPrintViewModelFactory
     {
+        private readonly IUrl _url;
+        private readonly IClientConfig _clientConfig;
+
+        public EventTicketPrintViewModelFactory(IUrl url, IClientConfig clientConfig)
+        {
+            _url = url;
+            _clientConfig = clientConfig;
+        }
+
         public EventTicketPrintViewModel Create(
             AdSearchResult adDetails,
             EventModel eventDetails,
@@ -18,6 +29,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         {
             var group = groupsForEvent?.SingleOrDefault(g => g.EventGroupId == ticket.EventGroupId);
 
+            var image = _url.DefaultTicketAdImage();
+            if (ticket.TicketImage.HasValue())
+            {
+                image = _url.WithAbsoluteUrl().Image(ticket.TicketImage, _clientConfig.TicketImageDimensions);
+            }
+            
             return new EventTicketPrintViewModel
             {
                 TicketName = ticket.TicketName,
@@ -35,7 +52,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 BrandName = brandName,
                 BrandUrl = brandUrl,
                 SeatNumber = ticket.SeatNumber,
-                OrganiserName = adDetails.ContactName
+                OrganiserName = adDetails.ContactName,
+                TicketImage = image
             };
         }
     }

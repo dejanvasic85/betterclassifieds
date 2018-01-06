@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             ToTable("EventTicket");
             HasKey(prop => prop.EventTicketId);
             Property(prop => prop.Price).HasPrecision(19, 4);
+            Property(prop => prop.TicketImage).HasMaxLength(50).IsOptional();
         }
     }
 }

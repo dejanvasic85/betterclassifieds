@@ -727,6 +727,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventSeats = val);
 		}
+		public EventTicketMockBuilder WithTicketImage(String val)
+		{ 
+			return WithBuildStep(p => p.TicketImage = val);
+		}
 	}
 
 	internal partial class EventBookingTicketMockBuilder : MockBuilder<EventBookingTicketMockBuilder, EventBookingTicket>
@@ -834,6 +838,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingTicketMockBuilder WithSeatNumber(String val)
 		{ 
 			return WithBuildStep(p => p.SeatNumber = val);
+		}
+		public EventBookingTicketMockBuilder WithTicketImage(String val)
+		{ 
+			return WithBuildStep(p => p.TicketImage = val);
 		}
 	}
 

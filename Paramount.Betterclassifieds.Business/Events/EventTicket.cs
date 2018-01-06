@@ -26,5 +26,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IList<EventBookingTicket> EventBookingTickets { get; set; }
         public IList<EventTicketField> EventTicketFields { get; set; }
         public IList<EventSeat> EventSeats { get; set; }
+
+        /// <summary>
+        /// Printed at the bottom of the ticket
+        /// </summary>
+        public string TicketImage { get; set; } 
     }
 }

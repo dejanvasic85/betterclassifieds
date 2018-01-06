@@ -154,7 +154,7 @@
             ko.utils.registerEventHandler(element, "dp.change", function (event) {
                 var value = valueAccessor();
                 if (ko.isObservable(value)) {
-                    if (event.date != null && !(event.date instanceof Date)) {
+                    if (event.date !== null && !(event.date instanceof Date)) {
                         value(event.date.toDate());
                     } else {
                         value(event.date);
@@ -237,6 +237,33 @@
             var chart = new Chart(ctx, {
                 type: chartType,
                 data: chartData
+            });
+        }
+    }
+
+
+    /*
+    *
+    */
+    var imageService = new $paramount.ImageService();
+
+    ko.bindingHandlers.upload = {
+        init: function (element, valueAccessor) {
+            var $rootElement = $(element);
+            var $uploadElement = $rootElement.find('input[type=file]');
+            var $progressElement = $rootElement.find('.upload-progress');
+            
+            $paramount.upload({
+                url: imageService.getUploadOnlineImageUrl(),
+                element: $uploadElement,
+                progressBar: $progressElement,
+                complete: function (documentId) {
+                    var value = valueAccessor();
+                    value(documentId);
+                },
+                error: function (errorMsg) {
+                    console.error('error', errorMsg);
+                }
             });
         }
     }

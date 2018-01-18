@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             public static By StripeSubmit => By.CssSelector("button[type=submit]");
             public static By StripeEnterDetailsManuallyLink => By.ClassName("CodeNotReceived-actionMessage");
         }
-        
+
         public MakeTicketPaymentPage PayWithPayPal()
         {
             _webDriver.JsClick(By.Id("payWithPayPal"));
@@ -47,10 +47,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             _webDriver.SwitchTo().Frame("stripe_checkout_app");
 
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementIsVisible(Locator.StripeEmail));
+            var emailElement = wait.Until(ExpectedConditions.ElementIsVisible(Locator.StripeEmail));
+            emailElement.FillText("hello@world.com");
 
-            _webDriver.FindElement(Locator.StripeEmail).FillText("hello@world.com");
-            _webDriver.JsClick(Locator.StripeEnterDetailsManuallyLink);
+            if (_webDriver.IsElementPresentBy(Locator.StripeEnterDetailsManuallyLink))
+            {
+                _webDriver.JsClick(Locator.StripeEnterDetailsManuallyLink);
+            }
+
+            
             _webDriver.FindElement(Locator.StripeCardNumber).FillText("4242424242424242");
             _webDriver.FindElement(Locator.StripeMonthExpiry).FillText("1020");
             _webDriver.FindElement(Locator.StripeCVC).FillText("111");
